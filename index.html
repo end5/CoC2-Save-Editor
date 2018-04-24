@@ -1,0 +1,450 @@
+<head>
+    <style>
+        body {
+            background-color: #222;
+            font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            color: #fff;
+        }
+
+        input {
+            resize: none;
+            background-color: #375a7f;
+            color: #fff;
+            border: 0px;
+            font-family: inherit;
+            padding-left: 2px;
+        }
+
+        select {
+            background-color: #375a7f;
+            color: #fff;
+            border: 0px;
+            width: 10%;
+        }
+
+        .tabs {
+            height: 8%;
+        }
+
+        .tab {
+            width: 16% !important;
+            text-align: center !important;
+        }
+
+        .tabcontent {
+            display: none;
+            background-color: #28415b;
+            padding: 5px;
+            transition: 0.4s;
+            height: 90%;
+            overflow-y: auto;
+        }
+
+        .accordion {
+            background-color: #375a7f;
+            color: #fff;
+            cursor: pointer;
+            padding: 5px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+        }
+
+        .active,
+        .accordion:hover {
+            background-color: #28415b;
+        }
+
+        .panel {
+            display: none;
+            margin-left: 10px;
+            padding: 2px 2px;
+        }
+
+        .charContainer {
+            display: flex;
+        }
+
+        .charList {
+            display: grid;
+            height: 100%;
+            width: 10%;
+        }
+
+        .charDesc {
+            display: block;
+            width: 90%;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .charDescEntry {
+            display: flex;
+            width: auto !important;
+        }
+
+        .charDescTitle {
+            width: 20%;
+        }
+
+        .flagsEntry {
+            display: flex;
+            width: auto !important;
+        }
+
+        .flagsTitle {
+            width: 20%;
+        }
+
+        .flagsInput {
+            width: 10%;
+            text-align: right;
+        }
+    </style>
+    <script>
+        var globals = {
+            Class: ["None", "Warrior", "Thief", "White Mage", "Black Mage"],
+            Background: ["None", "Noble", "Minstrel", "Soldier", "Arcanist", "Barbarian", "Scholar", "Slumrat", "Acolyte", "Hunter", "Courtesan"],
+            Affinity: ["Strength", "Toughness", "Agility", "Cunning", "Willpower", "Presence"],
+            Power: ["None", "At Will", "Recharge", "Encounter", "Ultimate"],
+            PowerTag: ["Weapon", "Melee", "Ranged", "Thrown", "Spell", "Stance", "Summon", "Healing", "Ally", "Omni", "Performance", "Tease"],
+            Perk: ["None", "Class", "Story", "Sex"],
+            Item: ["None", "Weapon", "Armor Set", "Head", "Neck", "Shoulders", "Hands", "Waist", "Feet", "Ring", "Top Garb", "Botttom Garb", "Shield"],
+            ItemTag: ["Two Hand", "Heavy", "Light", "Bladed", "Thrown", "Ranged", "Melee", "Implement", "Catalyst", "Shield", "Skimpy", "Skin Tight", "Metal", "Leather", "Cloth", "Warded", "Calming", "Exp Chest", "Exp Crotch", "Exp Ass", "Conceal"],
+            Damage: ["Raw", "Penetrating", "Crushing", "Holy", "Blight", "Acid", "Fire", "Frost", "Storm", "Tease", "Drug", "Pheromone", "Fatigue", "Mental"],
+            Attack: ["None", "Physical", "Magical", "Mental", "Sexual"],
+            // None = -1
+            BodyType: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan", "Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"],
+            BodyTag: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "StingerTipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped"],
+            // None = -1
+            FluidType: ["None", "Unspecified", "Girlcum", "Cum", "Honey", "Milk", "Chocolate Milk", "Strawberry Milk"],
+            // None = -1
+            SkinType: ["None", "Unspecified", "Latex", "Plant", "Bark", "Fur", "Feathers", "Skin", "Scales", "Chitin", "Goo"],
+            // None = -1
+            NippleType: ["None", "Unspecified", "Fuckable", "Flat", "Inverted", "Lipples", "Tentacled", "Dick", "Normal"],
+            // None = -1
+            HairType: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"]
+        };
+        function tabs(evt, tabClassName, contentClassName, target) {
+            if (contentClassName) {
+                var tabcontent = document.getElementsByClassName(contentClassName);
+                for (var i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+            }
+            if (tabClassName) {
+                var tabEls = document.getElementsByClassName(tabClassName);
+                for (var i = 0; i < tabEls.length; i++) {
+                    tabEls[i].className = tabEls[i].className.replace(" active", "");
+                }
+            }
+            if (target) {
+                target.style.display = "block";
+            }
+            evt.currentTarget.className += " active";
+        }
+
+        var file;
+        var fileReader;
+        function handleFiles(files) {
+            file = files[0];
+            fileReader = new FileReader();
+            fileReader.readAsBinaryString(file);
+            fileReader.addEventListener("loadend", () => {
+                var obj = JSON.parse(fileReader.result)
+                window.obj = obj;
+                generateCharList(obj, document.getElementById("charcontent"));
+                generateFlags(obj, document.getElementById("flagcontent"));
+                generateRaw(obj, document.getElementById("rawcontent"));
+            });
+        }
+
+        function load() {
+            document.getElementById("load").click();
+        }
+
+        function reload() {
+            if (file) {
+                fileReader.readAsBinaryString(file);
+            }
+        }
+
+        function save() {
+            if (fileReader) {
+                var link = document.getElementById("saveLink");
+                link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(window.obj));
+                link.download = file.name;
+                link.click();
+            }
+            else {
+                alert("No Save File Loaded");
+            }
+        }
+
+        function createTextInput(initialValue, className, changeFunc) {
+            var textAreaEl = document.createElement("input");
+            textAreaEl.type = "text";
+            textAreaEl.className = className;
+            textAreaEl.value = initialValue;
+            textAreaEl.addEventListener("change", changeFunc);
+            return textAreaEl;
+        }
+
+        function createCheckBox(initialValue, className, changeFunc) {
+            var checkBoxEl = document.createElement("input");
+            checkBoxEl.className = className;
+            checkBoxEl.checked = initialValue === "true";
+            checkBoxEl.type = "checkbox";
+            checkBoxEl.addEventListener("change", changeFunc);
+            return checkBoxEl;
+        }
+
+        function createAccordButton() {
+            var accordButton = document.createElement("button");
+            accordButton.className = "accordion";
+            accordButton.addEventListener("click", function () {
+                this.classList.toggle("active");
+            });
+            return accordButton;
+        }
+
+        function generateCharList(obj, el) {
+            var container = document.createElement("div");
+            el.appendChild(container);
+            container.className = "charContainer";
+            var charList = document.createElement("div");
+            container.appendChild(charList);
+            charList.className = "charList";
+            var charDesc = document.createElement("div");
+            container.appendChild(charDesc);
+            charDesc.className = "charDesc";
+            Object.keys(obj.chars).forEach((key) => {
+                var charListEntry = createAccordButton();
+                charList.appendChild(charListEntry);
+                charListEntry.innerText = key;
+                charListEntry.className += " charListEntry"
+                charListEntry.addEventListener("click", function (evt) { tabs(evt, "charListEntry") });
+                charListEntry.addEventListener("click", function () {
+                    while (charDesc.lastElementChild) {
+                        charDesc.removeChild(charDesc.lastElementChild);
+                    }
+                    generateCharDesc(obj.chars[key], charDesc);
+                });
+            });
+        }
+
+        function labelWrapper(key) {
+            var entry = document.createElement("div");
+            entry.className = "accordion charDescEntry";
+            var title = document.createElement("div");
+            title.className = "charDescTitle";
+            title.textContent = key;
+            entry.appendChild(title);
+            return entry;
+        }
+
+        function createField(name, initialValue, changeFunc) {
+            var div = labelWrapper(name);
+            var input = createTextInput(initialValue, "", changeFunc);
+            div.appendChild(input);
+            return div;
+        }
+
+        function createBoolField(name, initialValue, changeFunc) {
+            var div = labelWrapper(name);
+            var input = createCheckBox(initialValue, "", changeFunc);
+            div.appendChild(input);
+            return div;
+        }
+
+        function createStatField(name, initialRaw, initialMod, changeFuncRaw, changeFuncMod) {
+            var div = labelWrapper(name);
+            // var raw = createField("Raw: ", initialRaw, changeFuncRaw);
+            // var mod = createField("Mod: ", initialMod, changeFuncMod);
+            var rawLabel = labelWrapper("Raw: ");
+            var modLabel = labelWrapper("Mod: ");
+            var raw = createTextInput(initialRaw, "", changeFuncRaw);
+            var mod = createTextInput(initialMod, "", changeFuncMod);
+            // div.appendChild(rawLabel);
+            div.appendChild(raw);
+            // div.appendChild(modLabel);
+            div.appendChild(mod);
+            return div;
+        }
+
+        function createSelectMenu(name, initialValue, options, changeFunc, startsNegOne = false) {
+            var div = labelWrapper(name);
+            var selector = document.createElement("select");
+            options.forEach((value, index) => {
+                var option = document.createElement("option");
+                option.value = index;
+                option.innerText = value;
+                if (initialValue + (startsNegOne ? 1 : 0) === index || initialValue === value)
+                    option.selected = "selected";
+                selector.appendChild(option);
+            });
+            div.appendChild(selector);
+            return div;
+        }
+
+        function setNumberCallback(obj, key) {
+            return (el) => { obj[key] = +el.srcElement.value; el.srcElement.value = obj[key]; }
+        }
+
+        function setStringCallback(obj, key) {
+            return (el) => { obj[key] = el.srcElement.value; el.srcElement.value = obj[key]; }
+        }
+
+        function setBooleanCallback(obj, key) {
+            return (el) => obj[key] = el.srcElement.checked;
+        }
+
+        function generateCharDesc(char, charDesc) {
+            charDesc.appendChild(createField("Name: ", char.name, setStringCallback(char, "name")));
+            charDesc.appendChild(createSelectMenu("Class: ", char.class, globals.Class, setStringCallback(char, "class")));
+            charDesc.appendChild(createSelectMenu("Background: ", char.background, globals.Background, setStringCallback(char, "background")));
+            charDesc.appendChild(createField("Level: ", char.level, setNumberCallback(char, "level")));
+            charDesc.appendChild(createField("Exp: ", char.exp, setNumberCallback(char, "exp")));
+            charDesc.appendChild(createField("Original Race: ", char.originalRace, setStringCallback(char, "originalRace")));
+            charDesc.appendChild(createField("Femininity: ", char.femininity, setNumberCallback(char, "femininity")));
+            charDesc.appendChild(createField("Tallness: ", char.tallness, setNumberCallback(char, "tallness")));
+            charDesc.appendChild(createField("Tone: ", char.tone, setNumberCallback(char, "tone")));
+            charDesc.appendChild(createField("Thickness: ", char.thickness, setNumberCallback(char, "thickness")));
+            charDesc.appendChild(createStatField("Hip Rating: ", char.hipRatingRaw, char.hipRatingMod, setNumberCallback(char, "hipRatingRaw"), setNumberCallback(char, "hipRatingMod")));
+            charDesc.appendChild(createStatField("Butt Rating: ", char.buttRatingRaw, char.buttRatingMod, setNumberCallback(char, "buttRatingRaw"), setNumberCallback(char, "buttRatingMod")));
+            charDesc.appendChild(createStatField("Belly Rating: ", char.bellyRatingRaw, char.bellyRatingMod, setNumberCallback(char, "bellyRatingRaw"), setNumberCallback(char, "bellyRatingMod")));
+            charDesc.appendChild(createField("Hair Color: ", char.hairColor, setStringCallback(char, "hairColor")));
+            charDesc.appendChild(createField("Skin Color: ", char.skinColor, setStringCallback(char, "skinColor")));
+            charDesc.appendChild(createField("Fur Color: ", char.furColor, setStringCallback(char, "furColor")));
+            charDesc.appendChild(createField("Scale Color: ", char.scaleColor, setStringCallback(char, "scaleColor")));
+            charDesc.appendChild(createField("Lip Color: ", char.lipColor, setStringCallback(char, "lipColor")));
+            charDesc.appendChild(createField("Hair Length: ", char.hairLength, setNumberCallback(char, "hairLength")));
+            charDesc.appendChild(createField("Hair Style: ", char.hairStyle, setStringCallback(char, "hairStyle")));
+            charDesc.appendChild(createSelectMenu("Hair Type: ", char.hairType, globals.HairType, setStringCallback(char, "hairType"), true));
+            charDesc.appendChild(createField("Horns: ", char.horns, setNumberCallback(char, "horns")));
+            charDesc.appendChild(createSelectMenu("Horn Type: ", char.hornType, globals.BodyType, setStringCallback(char, "hornType"), true));
+            charDesc.appendChild(createField("Horn Length: ", char.hornLength, setNumberCallback(char, "hornLength")));
+            charDesc.appendChild(createSelectMenu("Wing Type: ", char.wingType, globals.BodyType, setStringCallback(char, "wingType"), true));
+            charDesc.appendChild(createField("Wing Count: ", char.wingCount, setNumberCallback(char, "wingCount")));
+            charDesc.appendChild(createSelectMenu("Skin Type: ", char.skinType, globals.SkinType, setStringCallback(char, "skinType"), true));
+            charDesc.appendChild(createSelectMenu("Tail Type: ", char.tailType, globals.BodyType, setStringCallback(char, "tailType"), true));
+            charDesc.appendChild(createField("Tail Count: ", char.numTails, setNumberCallback(char, "numTails")));
+            charDesc.appendChild(createSelectMenu("Arm Type: ", char.armType, globals.BodyType, setStringCallback(char, "armType"), true));
+            charDesc.appendChild(createSelectMenu("Leg Type: ", char.legType, globals.BodyType, setStringCallback(char, "legType"), true));
+            charDesc.appendChild(createField("Leg Count: ", char.legCount, setNumberCallback(char, "legCount")));
+            charDesc.appendChild(createSelectMenu("Tongue Type: ", char.tongueType, globals.BodyType, setStringCallback(char, "tongueType"), true));
+            charDesc.appendChild(createSelectMenu("Face Type: ", char.faceType, globals.BodyType, setStringCallback(char, "faceType"), true));
+            charDesc.appendChild(createSelectMenu("Ear Type: ", char.earType, globals.BodyType, setStringCallback(char, "earType"), true));
+            charDesc.appendChild(createField("Ear Count: ", char.earCount, setNumberCallback(char, "earCount")));
+            charDesc.appendChild(createField("Ear Length: ", char.earLength, setNumberCallback(char, "earLength")));
+            charDesc.appendChild(createSelectMenu("Eye Type: ", char.eyeType, globals.BodyType, setStringCallback(char, "eyeType"), true));
+            charDesc.appendChild(createField("Eye Color: ", char.eyeColor, setStringCallback(char, "eyeColor")));
+            charDesc.appendChild(createBoolField("Virgin: ", char.isVirgin, setBooleanCallback(char, "isVirgin")));
+            charDesc.appendChild(createBoolField("Vaginal Virgin: ", char.vaginalVirgin, setBooleanCallback(char, "vaginalVirgin")));
+            charDesc.appendChild(createBoolField("Cock Virgin: ", char.cockVirgin, setBooleanCallback(char, "cockVirgin")));
+            charDesc.appendChild(createBoolField("Anal Virgin: ", char.analVirgin, setBooleanCallback(char, "analVirgin")));
+            charDesc.appendChild(createStatField("Preg Speed: ", char.pregnancySpeedRaw, char.pregnancySpeedMod, setNumberCallback(char, "pregnancySpeedRaw"), setNumberCallback(char, "pregnancySpeedMod")));
+            // charDesc.appendChild(createField("Breast Rows: ", char.breastRows, setNumberCallback(char, "breastRows")));
+            charDesc.appendChild(createField("Nipple Color: ", char.nippleColor, setStringCallback(char, "nippleColor")));
+            charDesc.appendChild(createField("Nipples Per Breast: ", char.nipplesPerBreast, setNumberCallback(char, "nipplesPerBreast")));
+            charDesc.appendChild(createField("Nipple Length Ratio: ", char.nippleLengthRatio, setNumberCallback(char, "nippleLengthRatio")));
+            charDesc.appendChild(createField("Nipple Width Ratio: ", char.nippleWidthRatio, setNumberCallback(char, "nippleWidthRatio")));
+            charDesc.appendChild(createSelectMenu("Milk Type: ", char.milkType, globals.FluidType, setNumberCallback(char, "milkType"), true));
+            charDesc.appendChild(createField("Milk Multiplier: ", char.milkMultiplier, setNumberCallback(char, "milkMultiplier")));
+            charDesc.appendChild(createField("Milk Storage Multiplier: ", char.milkStorageMultiplier, setNumberCallback(char, "milkStorageMultiplier")));
+            charDesc.appendChild(createField("Milk Fullness: ", char.milkFullness, setNumberCallback(char, "milkFullness")));
+            charDesc.appendChild(createField("Milk Rate: ", char.milkRate, setNumberCallback(char, "milkRate")));
+            charDesc.appendChild(createField("Balls: ", char.balls, setNumberCallback(char, "balls")));
+            charDesc.appendChild(createField("Ball Efficiency: ", char.ballEfficiency, setNumberCallback(char, "ballEfficiency")));
+            charDesc.appendChild(createStatField("Ball Size: ", char.ballSizeRaw, char.ballSizeMod, setNumberCallback(char, "ballSizeRaw"), setNumberCallback(char, "ballSizeMod")));
+            charDesc.appendChild(createField("Ball Fullness: ", char.ballFullness, setNumberCallback(char, "ballFullness")));
+            // charDesc.appendChild(createField("Cocks: ", char.cocks, setNumberCallback(char, "cocks")));
+            charDesc.appendChild(createStatField("Feracity: ", char.feracityRaw, char.feracityMod, setNumberCallback(char, "feracityRaw"), setNumberCallback(char, "feracityMod")));
+            charDesc.appendChild(createField("Clit Length: ", char.clitLength, setNumberCallback(char, "clitLength")));
+            charDesc.appendChild(createSelectMenu("Girl Cum Type: ", char.girlCumType, globals.FluidType, setNumberCallback(char, "girlCumType"), true));
+            charDesc.appendChild(createSelectMenu("Cum Type: ", char.cumType, globals.FluidType, setNumberCallback(char, "cumType"), true));
+            charDesc.appendChild(createStatField("Cum Multiplier: ", char.cumMultiplierRaw, char.cumMultiplierMod, setNumberCallback(char, "cumMultiplierRaw"), setNumberCallback(char, "cumMultiplierMod")));
+            charDesc.appendChild(createField("Title: ", char.title, setStringCallback(char, "title")));
+        }
+
+        function generateFlags(obj, el) {
+            Object.keys(obj.flags).forEach((key, index) => {
+                var entry = document.createElement("div");
+                entry.className = "accordion flagsEntry";
+                el.appendChild(entry);
+                var title = document.createElement("div");
+                title.className = "flagsTitle";
+                title.textContent = key;
+                entry.appendChild(title);
+                entry.appendChild(createTextInput(obj.flags[key], "flagsInput", (el) => { obj.flags[key] = +el.srcElement.value; el.srcElement.value = obj.flags[key]; }));
+            });
+        }
+
+        function generateRaw(obj, startEl) {
+            Object.keys(obj).forEach((key, index) => {
+                var accordButton = createAccordButton();
+                startEl.appendChild(accordButton);
+                accordButton.innerText = key;
+                accordButton.addEventListener("click", function () {
+                    var panel = this.nextElementSibling;
+                    panel.style.display = panel.style.display === "none" || panel.style.display === "" ? "block" : "none";
+                });
+                var panel = document.createElement("div");
+                startEl.appendChild(panel);
+                panel.className = "panel";
+
+                if (obj[key] === null) {
+                    panel.appendChild(createTextInput(obj[key], "rawTextArea", (el) => obj[key] = el.srcElement.value));
+                }
+                else if (typeof obj[key] === "undefined") {
+                    panel.appendChild(createTextInput(obj[key], "rawTextArea", (el) => obj[key] = el.srcElement.value));
+                }
+                else if (typeof obj[key] === "string") {
+                    panel.appendChild(createTextInput(obj[key], "rawTextArea", (el) => obj[key] = el.srcElement.value));
+                }
+                else if (typeof obj[key] === "number") {
+                    panel.appendChild(createTextInput(obj[key], "rawTextArea", (el) => { obj[key] = +el.srcElement.value; el.srcElement.value = obj[key]; }));
+                }
+                else if (typeof obj[key] === "boolean") {
+                    panel.appendChild(createCheckBox(obj[key], "rawCheckBox", (el) => obj[key] = el.srcElement.checked));
+                }
+                else if (typeof obj[key] === "array") {
+                    panel.appendChild(createTextInput(obj[key], "rawTextArea", (el) => obj[key] = el.srcElement.value));
+                }
+                else if (typeof obj[key] === "object") {
+                    generateRaw(obj[key], panel);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="tabs">
+        <button class="mainTab tab accordion" onclick="tabs(event, 'mainTab', 'mainTabContent', charcontent)">
+            <h3>Characters</h3>
+        </button>
+        <button class="mainTab tab accordion" onclick="tabs(event, 'mainTab', 'mainTabContent', flagcontent)">
+            <h3>Flags</h3>
+        </button>
+        <button class="mainTab tab accordion" onclick="tabs(event, 'mainTab', 'mainTabContent', rawcontent)">
+            <h3>Raw</h3>
+        </button>
+        <button class="tab accordion" onclick="load()">
+            <h3>Load</h3>
+            <input class="tab accordion" type="file" id="load" style="display: none" onchange="handleFiles(this.files)">
+        </button>
+        <button class="tab accordion" onclick="reload()">
+            <h3>Reload</h3>
+        </button>
+        <button class="tab accordion" onclick="save()">
+            <h3>Save</h3>
+            <a id="saveLink"></a>
+        </button>
+    </div>
+    <div class="mainTabContent tabcontent" id="charcontent"></div>
+    <div class="mainTabContent tabcontent" id="flagcontent"></div>
+    <div class="mainTabContent tabcontent" id="rawcontent"></div>
+</body>
