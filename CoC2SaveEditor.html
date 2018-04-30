@@ -133,6 +133,8 @@
             Shields: ["None", "HoplonShield", "TowerShield", "WickerShield"],
         };
 
+        var negativeGlobals = [globals.BodyType, globals.FluidType, globals.SkinType, globals.NippleType, globals.HairType];
+
         var charMap = {
             "name": { title: "Name", type: "string" },
             "class": { title: "Class", type: "number", options: globals.Class },
@@ -223,7 +225,7 @@
             "hands": { title: "Hands", type: "string", options: globals.ItemHands },
             "waist": { title: "Waist", type: "string", options: globals.ItemWaist },
             "feet": { title: "Feet", type: "string", options: globals.ItemFeet },
-            "rings": { title: "Rings", type: "string", options: globals.ItemHands },
+            "rings": { title: "Rings", type: "string", options: globals.Rings },
             "topGarment": { title: "Top Garment", type: "string", options: globals.TopGarb },
             "bottomGarment": { title: "Bottom Garment", type: "string", options: globals.BottomGarb },
             // "inventory": [],
@@ -291,21 +293,21 @@
             //         "fullnessRaw": 0
             //     }
             // ],
-            // "nippleColor": "pink",
-            // "nipplesPerBreast": 1,
-            // "nippleLengthRatio": 1,
-            // "nippleWidthRatio": 1,
-            // "milkType": 4,
-            // "milkMultiplier": 0,
-            // "milkStorageMultiplier": 1,
-            // "milkFullness": 0,
-            // "milkRate": 10,
-            // "balls": 0,
-            // "ballTags": [],
-            // "ballEfficiency": 3,
-            // "ballSizeRaw": 2,
-            // "ballSizeMod": 0,
-            // "ballFullness": 50,
+            "nippleColor": { title: "Nipple Color", type: "string" },
+            "nipplesPerBreast": { title: "Nipples Per Breast", type: "number" },
+            "nippleLengthRatio": { title: "Nipple Length Ratio", type: "number" },
+            "nippleWidthRatio": { title: "Nipple Width Ratio", type: "number" },
+            "milkType": { title: "Milk Type", type: "number", options: globals.FluidType },
+            "milkMultiplier": { title: "Milk Multiplier", type: "number" },
+            "milkStorageMultiplier": { title: "Milk Storage Multiplier", type: "number" },
+            "milkFullness": { title: "Milk Fullness", type: "number" },
+            "milkRate": { title: "Milk Rate", type: "number" },
+            "balls": { title: "Balls", type: "number" },
+            "ballTags": { title: "Ball Tags", type: "number", options: globals.BodyTag },
+            "ballEfficiency": { title: "Ball Efficiency", type: "number" },
+            "ballSizeRaw": { title: "Ball Size Raw", type: "number" },
+            "ballSizeMod": { title: "Ball Size Mod", type: "number" },
+            "ballFullness": { title: "Ball Fullness", type: "number" },
             // "cocks": [
             //     {
             //         "type": 3,
@@ -324,8 +326,8 @@
             //         "color": "pink"
             //     }
             // ],
-            // "feracityRaw": 2,
-            // "feracityMod": 0,
+            "feracityRaw": { title: "Feracity Raw", type: "number" },
+            "feracityMod": { title: "Feracity Mod", type: "number" },
             // "vagina": {
             //     "type": 1,
             //     "hymen": false,
@@ -339,11 +341,26 @@
             //     "stretchCounter": 0,
             //     "tags": []
             // },
-            // "clitLength": 0.5,
-            // "girlCumType": 1,
-            // "cumType": 2,
-            // "cumMultiplierRaw": 1,
-            // "cumMultiplierMod": 0,
+            // "vagina": {
+            //     title: "Vagina",
+            //     type: "object",
+            //     "type": { title: "Type", type: "number", options: globals.BodyType },
+            //     "hymen": { title: "Hymen", type: "boolean" },
+            //     "clits": { title: "Clits", type: "number" },
+            //     "color": { title: "Color", type: "string" },
+            //     "wetnessRaw": { title: "Wetness Raw", type: "number" },
+            //     "wetnessMod": { title: "Wetness Mod", type: "number" },
+            //     "loosenessRaw": { title: "Looseness Raw", type: "number" },
+            //     "loosenessMod": { title: "Looseness Mod", type: "number" },
+            //     "bonusCapacity": { title: "Bonus Capacity", type: "number" },
+            //     "stretchCounter": { title: "Stretch Counter", type: "number" },
+            //     "tags": { title: "tags", type: "number", options: globals.BodyTag },
+            // },
+            "clitLength": { title: "Clit Length", type: "number" },
+            "girlCumType": { title: "Girl Cum Type", type: "number", options: globals.FluidType },
+            "cumType": { title: "Cum Type", type: "number", options: globals.FluidType },
+            "cumMultiplierRaw": { title: "Cum Multiplier Raw", type: "number" },
+            "cumMultiplierMod": { title: "Cum Multiplier Mod", type: "number" },
             // "ass": {
             //     "type": 1,
             //     "hymen": false,
@@ -357,7 +374,7 @@
             //     "stretchCounter": 0,
             //     "tags": []
             // },
-            // "title": "Adventurer",
+            "title": { title: "Title", type: "string" },
             // "wyldMark": -1,
             // "drinks": [],
             // "customImage": null,
@@ -504,11 +521,11 @@
 
         var file;
         var fileReader;
-        function handleFiles(files) {
-            file = files[0];
+        function handleFiles(event) {
+            file = event.srcElement.files[0];
             fileReader = new FileReader();
             fileReader.readAsBinaryString(file);
-            fileReader.addEventListener("loadend", () => {
+            fileReader.addEventListener("loadend", function () {
                 var obj = JSON.parse(fileReader.result);
                 loadObj(obj);
             });
@@ -575,12 +592,16 @@
             return (el) => { obj[key] = +el.srcElement.value; }
         }
 
+        function setNegNumberCallback(obj, key) {
+            return (el) => { obj[key] = +el.srcElement.value - 1; }
+        }
+
         function setStringCallback(obj, key) {
             return (el) => { obj[key] = el.srcElement.value; }
         }
 
         function setSelectorStringCallback(obj, key) {
-            return (el) => { obj[key] = el.srcElement[+el.srcElement.value].innerText; }
+            return (el) => { obj[key] = el.srcElement[+el.srcElement.value].innerText === "None" ? null : el.srcElement[+el.srcElement.value].innerText; }
         }
 
         function setBooleanCallback(obj, key) {
@@ -625,14 +646,14 @@
             return div;
         }
 
-        function selectField(name, initialValue, options, changeFunc, startsNegOne = false) {
+        function selectField(name, initialValue, options, changeFunc) {
             var div = fieldLabel(name);
             var selector = document.createElement("select");
             options.forEach((value, index) => {
                 var option = document.createElement("option");
                 option.value = index;
                 option.innerText = value;
-                if (initialValue + (startsNegOne ? 1 : 0) === index || initialValue === value)
+                if (initialValue + (negativeGlobals.filter(v => v === options) ? 1 : 0) === index || initialValue === value)
                     option.selected = "selected";
                 selector.appendChild(option);
             });
@@ -641,46 +662,63 @@
             return div;
         }
 
-        function generateMappedFields(obj, element, map) {
+        function generateMappedFields(obj, element, map, tags, array = false) {
             var tags = {};
             if (map)
                 Object.keys(obj).forEach(function mappedFieldKeys(key) {
-                    if (map[key]) {
+                    var mapInfo = array ? map : map[key];
+                    if (mapInfo) {
                         var parentElement = element;
-                        if (map[key].tag) {
-                            if (!tags[map[key].tag]) {
+                        if (mapInfo.tag && !array) {
+                            if (!tags[mapInfo.tag]) {
                                 var panel = createPanel();
-                                tags[map[key].tag] = panel;
-                                const accordButton = objectField(map[key].tag, panel);
+                                tags[mapInfo.tag] = panel;
+                                const accordButton = objectField(mapInfo.tag, panel);
                                 element.appendChild(accordButton);
                                 element.appendChild(panel);
                             }
-                            parentElement = tags[map[key].tag];
+                            parentElement = tags[mapInfo.tag];
                         }
-                        switch (map[key].type) {
-                            case "string": {
-                                if (map[key].options)
-                                    parentElement.appendChild(selectField(map[key].title + ": ", obj[key], map[key].options, setSelectorStringCallback(obj, key)));
-                                else
-                                    parentElement.appendChild(stringField(map[key].title + ": ", obj[key], setStringCallback(obj, key)));
-                                break;
-                            }
-                            case "number": {
-                                if (map[key].options)
-                                    parentElement.appendChild(selectField(map[key].title + ": ", obj[key], map[key].options, setNumberCallback(obj, key)));
-                                else
-                                    parentElement.appendChild(stringField(map[key].title + ": ", obj[key], setNumberCallback(obj, key)));
-                                break;
-                            }
-                            case "boolean": {
-                                parentElement.appendChild(booleanField(map[key].title + ": ", obj[key], setBooleanCallback(obj, key)));
-                                break;
-                            }
-                            case "object": {
-                                var panel = createPanel();
-                                parentElement.appendChild(objectField(map[key].title + ": ", panel));
-                                parentElement.appendChild(panel);
-                                generateFields(obj[key], panel, map[key]);
+
+                        var label = (array ? key : mapInfo.title) + ": ";
+
+                        if (typeof obj[key] === "object" && obj[key] !== null && mapInfo.type !== "object") {
+                            var panel = createPanel();
+                            parentElement.appendChild(objectField(label, panel));
+                            parentElement.appendChild(panel);
+                            generateMappedFields(obj[key], panel, mapInfo, tags, true);
+                        }
+                        else {
+                            switch (mapInfo.type) {
+                                case "string": {
+                                    if (mapInfo.options)
+                                        parentElement.appendChild(selectField(label, obj[key], mapInfo.options, setSelectorStringCallback(obj, key)));
+                                    else
+                                        parentElement.appendChild(stringField(label, obj[key], setStringCallback(obj, key)));
+                                    break;
+                                }
+                                case "number": {
+                                    if (mapInfo.options) {
+                                        if (negativeGlobals.filter(v => v === mapInfo.options))
+                                            parentElement.appendChild(selectField(label, obj[key], mapInfo.options, setNegNumberCallback(obj, key)));
+                                        else
+                                            parentElement.appendChild(selectField(label, obj[key], mapInfo.options, setNumberCallback(obj, key)));
+                                    }
+                                    else
+                                        parentElement.appendChild(stringField(label, obj[key], setNumberCallback(obj, key)));
+                                    break;
+                                }
+                                case "boolean": {
+                                    parentElement.appendChild(booleanField(label, obj[key], setBooleanCallback(obj, key)));
+                                    break;
+                                }
+                                case "object": {
+                                    var panel = createPanel();
+                                    parentElement.appendChild(objectField(label, panel));
+                                    parentElement.appendChild(panel);
+                                    generateMappedFields(obj[key], panel, mapInfo, tags, false);
+                                    break;
+                                }
                             }
                         }
                     }
