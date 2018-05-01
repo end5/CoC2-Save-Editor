@@ -136,248 +136,219 @@
         var negativeGlobals = [globals.BodyType, globals.FluidType, globals.SkinType, globals.NippleType, globals.HairType];
 
         var charMap = {
-            "name": { title: "Name", type: "string" },
-            "class": { title: "Class", type: "number", options: globals.Class },
-            "background": { title: "Background", type: "number", options: globals.Background },
-            "level": { title: "Level", type: "number" },
-            "exp": { title: "Exp", type: "number" },
-            "hitPoints": { title: "HP", type: "number", tag: "Stats" },
-            "hitPointsMaxMod": { title: "HP Max Modifier", type: "number", tag: "Stats" },
-            "resolvePoints": { title: "Resolve Points", type: "number", tag: "Stats" },
-            "resolveMaxMod": { title: "Resolve Points Max Modifier", type: "number", tag: "Stats" },
-            "threatMod": { title: "Threat Modifier", type: "number", tag: "Stats" },
-            "strengthAlloc": { title: "Strength", type: "number", tag: "Stats" },
-            "strengthMod": { title: "Strength Modifier", type: "number", tag: "Stats" },
-            "toughnessAlloc": { title: "Toughness", type: "number", tag: "Stats" },
-            "toughnessMod": { title: "Toughness Modifier", type: "number", tag: "Stats" },
-            "agilityAlloc": { title: "Agility", type: "number", tag: "Stats" },
-            "agilityMod": { title: "Agility Modifier", type: "number", tag: "Stats" },
-            "cunningAlloc": { title: "Cunning", type: "number", tag: "Stats" },
-            "cunningMod": { title: "Cunning Modifier", type: "number", tag: "Stats" },
-            "willpowerAlloc": { title: "Willpower", type: "number", tag: "Stats" },
-            "willpowerMod": { title: "Willpower Modifier", type: "number", tag: "Stats" },
-            "presenceAlloc": { title: "Presence", type: "number", tag: "Stats" },
-            "presenceMod": { title: "Presence Modifier", type: "number", tag: "Stats" },
-            "libidoMod": { title: "Libido Modifier", type: "number", tag: "Stats" },
-            "corruptionMod": { title: "Corruption Modifier", type: "number", tag: "Stats" },
-            "penetratingResist": { title: "Penetrating", type: "number", tag: "Resistance" },
-            "crushingResist": { title: "Crushing", type: "number", tag: "Resistance" },
-            "holyResist": { title: "Holy", type: "number", tag: "Resistance" },
-            "blightResist": { title: "Blight", type: "number", tag: "Resistance" },
-            "acidResist": { title: "Acid", type: "number", tag: "Resistance" },
-            "fireResist": { title: "Fire", type: "number", tag: "Resistance" },
-            "frostResist": { title: "Frost", type: "number", tag: "Resistance" },
-            "stormResist": { title: "Storm", type: "number", tag: "Resistance" },
-            "raceAffinities": { title: "Race", type: "number", options: globals.Affinity, tag: "Affinities" },
-            "classAffinities": { title: "Class", type: "number", options: globals.Affinity, tag: "Affinities" },
-            "backgroundAffinities": { title: "Background", type: "number", options: globals.Affinity, tag: "Affinities" },
-            // "perks": [
-            //     {
-            //         "name": "Starting Attribute Bonuses",
-            //         "desc": "Permanent bonuses based on starting race, class, and background",
-            //         "tag": 2,
-            //         "values": [
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             3
-            //         ]
-            //     },
-            //     {
-            //         "name": "Breeder",
-            //         "desc": "",
-            //         "tag": 3,
-            //         "values": []
-            //     },
-            //     {
-            //         "name": "Stylish!",
-            //         "desc": "Any piece of Light armor you wear automatically gains the Skimpy tag, if it didn't have it already. While you're wearing Light armor, you gain a bonus to Sexiness equal to your Charmer level.",
-            //         "tag": 1,
-            //         "values": []
-            //     }
-            // ],
-            // "powers": [
-            //     "NormalAttack",
-            //     "BolsteringDance",
-            //     "Allure",
-            //     "WarSong"
-            // ],
-            // "equippedPowers": [
-            //     "BolsteringDance",
-            //     "Allure",
-            //     null,
-            //     "WarSong",
-            //     null
-            // ],
+            "name": { label: "Name", type: "string" },
+            "class": { label: "Class", type: "number", options: globals.Class },
+            "background": { label: "Background", type: "number", options: globals.Background },
+            "level": { label: "Level", type: "number" },
+            "exp": { label: "Exp", type: "number" },
+            "hitPoints": { label: "HP", type: "number", groupTag: "Stats" },
+            "hitPointsMaxMod": { label: "HP Max Mod", type: "number", groupTag: "Stats" },
+            "resolvePoints": { label: "Resolve Points", type: "number", groupTag: "Stats" },
+            "resolveMaxMod": { label: "Resolve Points Max Mod", type: "number", groupTag: "Stats" },
+            "threatMod": { label: "Threat Mod", type: "number", groupTag: "Stats" },
+            "strengthAlloc": { label: "Strength", type: "number", groupTag: "Stats" },
+            "strengthMod": { label: "Strength Mod", type: "number", groupTag: "Stats" },
+            "toughnessAlloc": { label: "Toughness", type: "number", groupTag: "Stats" },
+            "toughnessMod": { label: "Toughness Mod", type: "number", groupTag: "Stats" },
+            "agilityAlloc": { label: "Agility", type: "number", groupTag: "Stats" },
+            "agilityMod": { label: "Agility Mod", type: "number", groupTag: "Stats" },
+            "cunningAlloc": { label: "Cunning", type: "number", groupTag: "Stats" },
+            "cunningMod": { label: "Cunning Mod", type: "number", groupTag: "Stats" },
+            "willpowerAlloc": { label: "Willpower", type: "number", groupTag: "Stats" },
+            "willpowerMod": { label: "Willpower Mod", type: "number", groupTag: "Stats" },
+            "presenceAlloc": { label: "Presence", type: "number", groupTag: "Stats" },
+            "presenceMod": { label: "Presence Mod", type: "number", groupTag: "Stats" },
+            "libidoMod": { label: "Libido Mod", type: "number", groupTag: "Stats" },
+            "corruptionMod": { label: "Corruption Mod", type: "number", groupTag: "Stats" },
+            "penetratingResist": { label: "Penetrating", type: "number", groupTag: "Resistance" },
+            "crushingResist": { label: "Crushing", type: "number", groupTag: "Resistance" },
+            "holyResist": { label: "Holy", type: "number", groupTag: "Resistance" },
+            "blightResist": { label: "Blight", type: "number", groupTag: "Resistance" },
+            "acidResist": { label: "Acid", type: "number", groupTag: "Resistance" },
+            "fireResist": { label: "Fire", type: "number", groupTag: "Resistance" },
+            "frostResist": { label: "Frost", type: "number", groupTag: "Resistance" },
+            "stormResist": { label: "Storm", type: "number", groupTag: "Resistance" },
+            "raceAffinities": { label: "Race", type: "object", arrayMap: { type: "number", options: globals.Affinity }, groupTag: "Affinities" },
+            "classAffinities": { label: "Class", type: "object", arrayMap: { type: "number", options: globals.Affinity }, groupTag: "Affinities" },
+            "backgroundAffinities": { label: "Background", type: "object", arrayMap: { type: "number", options: globals.Affinity }, groupTag: "Affinities" },
+            "perks": {
+                label: "Perks",
+                type: "object",
+                groupTag: "Effects",
+                arrayMap: {
+                    "name": { label: "Name", type: "string" },
+                    "desc": { label: "Desc", type: "string" },
+                    "tag": { label: "Tag", type: "number" },
+                    "values": { label: "Values", type: "object", arrayMap: { type: "number" } }
+                }
+            },
+            "powers": { label: "Powers", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
+            "equippedPowers": { label: "Equipped Powers", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
             // "stance": "",
-            // "combatEffects": [],
-            // "statusEffects": [],
+            "combatEffects": { label: "Combat", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
+            "statusEffects": { label: "Status", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
             // "boon": null,
-            "credits": { title: "Credits", type: "number" },
-            "weaponPrimary": { title: "Primary Weapon", type: "string", options: globals.Weapons },
-            "weaponSecondary": { title: "Secondary Weapon", type: "string", options: globals.Weapons },
-            "head": { title: "Head", type: "string", options: globals.ItemHead },
-            "neck": { title: "Neck", type: "string", options: globals.ItemNeck },
-            "shoulders": { title: "Shoulders", type: "string", options: globals.ItemShoulders },
-            "armorSet": { title: "Armor Set", type: "string", options: globals.ArmorSet },
-            "hands": { title: "Hands", type: "string", options: globals.ItemHands },
-            "waist": { title: "Waist", type: "string", options: globals.ItemWaist },
-            "feet": { title: "Feet", type: "string", options: globals.ItemFeet },
-            "rings": { title: "Rings", type: "string", options: globals.Rings },
-            "topGarment": { title: "Top Garment", type: "string", options: globals.TopGarb },
-            "bottomGarment": { title: "Bottom Garment", type: "string", options: globals.BottomGarb },
-            // "inventory": [],
-            // "keyItems": [],
-            "originalRace": { title: "Original Race", type: "string" },
-            "femininity": { title: "Feminitity", type: "number" },
-            "tallness": { title: "Tallness", type: "number" },
-            "tone": { title: "Tone", type: "number" },
-            "thickness": { title: "Thickness", type: "number" },
-            "hipRatingRaw": { title: "Hip Rating Raw", type: "number" },
-            "hipRatingMod": { title: "Hip Rating Mod", type: "number" },
-            "buttRatingRaw": { title: "Butt Rating Raw", type: "number" },
-            "buttRatingMod": { title: "Butt Rating Mod", type: "number" },
-            "bellyRatingRaw": { title: "Belly Rating Raw", type: "number" },
-            "bellyRatingMod": { title: "Belly Rating Mod", type: "number" },
-            "lipMod": { title: "Lip Mod", type: "number" },
-            "hairColor": { title: "Hair Color", type: "string" },
-            "skinColor": { title: "Skin Color", type: "string" },
-            "furColor": { title: "Fur Color", type: "string" },
-            "scaleColor": { title: "Scale Color", type: "string" },
-            "lipColor": { title: "Lip Color", type: "string" },
-            "hairLength": { title: "Hair Length", type: "number" },
-            "hairStyle": { title: "Hair Style", type: "string" },
-            "hairType": { title: "Hair Type", type: "number", options: globals.HairType },
-            "horns": { title: "Horn Count", type: "number" },
-            "hornType": { title: "Horn Type", type: "number", options: globals.BodyType },
-            "hornLength": { title: "Horn Length", type: "number" },
-            "wingType": { title: "Wing Type", type: "number", options: globals.BodyType },
-            "wingCount": { title: "Wing Count", type: "number" },
-            "skinType": { title: "Skin Type", type: "number", options: globals.SkinType },
-            "skinTags": { title: "Skin Tags", type: "number", options: globals.BodyTag },
-            "tailType": { title: "Tail Type", type: "number", options: globals.BodyType },
-            "numTails": { title: "Tail Count", type: "number" },
-            "tailTags": { title: "Tail Tags", type: "number", options: globals.BodyTag },
-            "armType": { title: "Arm Type", type: "number", options: globals.BodyType },
-            "armTags": { title: "Arm Tags", type: "number", options: globals.BodyTag },
-            "legCount": { title: "Leg Count", type: "number" },
-            "legType": { title: "Leg Type", type: "number", options: globals.BodyType },
-            "legTags": { title: "Leg Tags", type: "number", options: globals.BodyTag },
-            "tongueType": { title: "Tongue Type", type: "number", options: globals.BodyType },
-            "tongueTags": { title: "Tongue Tags", type: "number", options: globals.BodyTag },
-            "faceType": { title: "Face Type", type: "number", options: globals.BodyType },
-            "faceTags": { title: "Face Tags", type: "number", options: globals.BodyTag },
-            "earType": { title: "Ear Type", type: "number", options: globals.BodyType },
-            "earTags": { title: "Ear Tags", type: "number", options: globals.BodyTag },
-            "earLength": { title: "Ear Count", type: "number" },
-            "eyeType": { title: "Eye Type", type: "number", options: globals.BodyType },
-            "eyeTags": { title: "Eye Tags", type: "number", options: globals.BodyTag },
-            "eyeColor": { title: "Eye Color", type: "string" },
-            "exhibRaw": { title: "Exhibition Raw", type: "number" },
-            "isVirgin": { title: "Virgin", type: "boolean" },
-            "vaginalVirgin": { title: "Vaginal Virgin", type: "boolean" },
-            "cockVirgin": { title: "Cock Virgin", type: "boolean" },
-            "analVirgin": { title: "Anal Virgin", type: "boolean" },
-            "pregnancySpeedRaw": { title: "Pregnancy Speed Raw", type: "number" },
-            "pregnancySpeedMod": { title: "Pregnancy Speed Mod", type: "number" },
-            // "breastRows": [
-            //     {
-            //         "breasts": 2,
-            //         "type": 7,
-            //         "tags": [],
-            //         "sizeRaw": 5,
-            //         "sizeMod": 0,
-            //         "lactationBonusMod": 0,
-            //         "fullnessRaw": 0
-            //     }
-            // ],
-            "nippleColor": { title: "Nipple Color", type: "string" },
-            "nipplesPerBreast": { title: "Nipples Per Breast", type: "number" },
-            "nippleLengthRatio": { title: "Nipple Length Ratio", type: "number" },
-            "nippleWidthRatio": { title: "Nipple Width Ratio", type: "number" },
-            "milkType": { title: "Milk Type", type: "number", options: globals.FluidType },
-            "milkMultiplier": { title: "Milk Multiplier", type: "number" },
-            "milkStorageMultiplier": { title: "Milk Storage Multiplier", type: "number" },
-            "milkFullness": { title: "Milk Fullness", type: "number" },
-            "milkRate": { title: "Milk Rate", type: "number" },
-            "balls": { title: "Balls", type: "number" },
-            "ballTags": { title: "Ball Tags", type: "number", options: globals.BodyTag },
-            "ballEfficiency": { title: "Ball Efficiency", type: "number" },
-            "ballSizeRaw": { title: "Ball Size Raw", type: "number" },
-            "ballSizeMod": { title: "Ball Size Mod", type: "number" },
-            "ballFullness": { title: "Ball Fullness", type: "number" },
-            // "cocks": [
-            //     {
-            //         "type": 3,
-            //         "virgin": true,
-            //         "tags": [
-            //             1,
-            //             3
-            //         ],
-            //         "lengthRaw": 8,
-            //         "lengthMod": 0,
-            //         "thicknessRatioRaw": 1,
-            //         "thicknessRatioMod": 0,
-            //         "flaccidRatio": 0.4,
-            //         "knotRatio": 1.5,
-            //         "pierced": 0,
-            //         "color": "pink"
-            //     }
-            // ],
-            "feracityRaw": { title: "Feracity Raw", type: "number" },
-            "feracityMod": { title: "Feracity Mod", type: "number" },
-            // "vagina": {
-            //     "type": 1,
-            //     "hymen": false,
-            //     "clits": 1,
-            //     "color": "pink",
-            //     "wetnessRaw": 1,
-            //     "wetnessMod": 0,
-            //     "loosenessRaw": 1,
-            //     "loosenessMod": 0,
-            //     "bonusCapacity": 0,
-            //     "stretchCounter": 0,
-            //     "tags": []
-            // },
-            // "vagina": {
-            //     title: "Vagina",
-            //     type: "object",
-            //     "type": { title: "Type", type: "number", options: globals.BodyType },
-            //     "hymen": { title: "Hymen", type: "boolean" },
-            //     "clits": { title: "Clits", type: "number" },
-            //     "color": { title: "Color", type: "string" },
-            //     "wetnessRaw": { title: "Wetness Raw", type: "number" },
-            //     "wetnessMod": { title: "Wetness Mod", type: "number" },
-            //     "loosenessRaw": { title: "Looseness Raw", type: "number" },
-            //     "loosenessMod": { title: "Looseness Mod", type: "number" },
-            //     "bonusCapacity": { title: "Bonus Capacity", type: "number" },
-            //     "stretchCounter": { title: "Stretch Counter", type: "number" },
-            //     "tags": { title: "tags", type: "number", options: globals.BodyTag },
-            // },
-            "clitLength": { title: "Clit Length", type: "number" },
-            "girlCumType": { title: "Girl Cum Type", type: "number", options: globals.FluidType },
-            "cumType": { title: "Cum Type", type: "number", options: globals.FluidType },
-            "cumMultiplierRaw": { title: "Cum Multiplier Raw", type: "number" },
-            "cumMultiplierMod": { title: "Cum Multiplier Mod", type: "number" },
-            // "ass": {
-            //     "type": 1,
-            //     "hymen": false,
-            //     "clits": 0,
-            //     "color": "pink",
-            //     "wetnessRaw": 0,
-            //     "wetnessMod": 0,
-            //     "loosenessRaw": 1,
-            //     "loosenessMod": 0,
-            //     "bonusCapacity": 0,
-            //     "stretchCounter": 0,
-            //     "tags": []
-            // },
-            "title": { title: "Title", type: "string" },
+            "credits": { label: "Credits", type: "number" },
+            "weaponPrimary": { label: "Primary Weapon", type: "string", options: globals.Weapons, groupTag: "Equipment" },
+            "weaponSecondary": { label: "Secondary Weapon", type: "string", options: globals.Weapons, groupTag: "Equipment" },
+            "head": { label: "Head", type: "string", options: globals.ItemHead, groupTag: "Equipment" },
+            "neck": { label: "Neck", type: "string", options: globals.ItemNeck, groupTag: "Equipment" },
+            "shoulders": { label: "Shoulders", type: "string", options: globals.ItemShoulders, groupTag: "Equipment" },
+            "armorSet": { label: "Armor Set", type: "string", options: globals.ArmorSet, groupTag: "Equipment" },
+            "hands": { label: "Hands", type: "string", options: globals.ItemHands, groupTag: "Equipment" },
+            "waist": { label: "Waist", type: "string", options: globals.ItemWaist, groupTag: "Equipment" },
+            "feet": { label: "Feet", type: "string", options: globals.ItemFeet, groupTag: "Equipment" },
+            "rings": { label: "Rings", type: "object", arrayMap: { type: "string", options: globals.Rings }, groupTag: "Equipment" },
+            "topGarment": { label: "Top Garment", type: "string", options: globals.TopGarb, groupTag: "Equipment" },
+            "bottomGarment": { label: "Bottom Garment", type: "string", options: globals.BottomGarb, groupTag: "Equipment" },
+            "inventory": { label: "Inventory", type: "object", arrayMap: { type: "string" } },
+            "keyItems": { label: "Key Items", type: "object", arrayMap: { type: "string" } },
+            "originalRace": { label: "Original Race", type: "string", groupTag: "Appearance" },
+            "femininity": { label: "Feminitity", type: "number", groupTag: "Appearance" },
+            "tallness": { label: "Tallness", type: "number", groupTag: "Appearance" },
+            "tone": { label: "Tone", type: "number", groupTag: "Appearance" },
+            "thickness": { label: "Thickness", type: "number", groupTag: "Appearance" },
+            "hipRatingRaw": { label: "Hip Rating Raw", type: "number", groupTag: "Appearance" },
+            "hipRatingMod": { label: "Hip Rating Mod", type: "number", groupTag: "Appearance" },
+            "buttRatingRaw": { label: "Butt Rating Raw", type: "number", groupTag: "Appearance" },
+            "buttRatingMod": { label: "Butt Rating Mod", type: "number", groupTag: "Appearance" },
+            "bellyRatingRaw": { label: "Belly Rating Raw", type: "number", groupTag: "Appearance" },
+            "bellyRatingMod": { label: "Belly Rating Mod", type: "number", groupTag: "Appearance" },
+            "lipMod": { label: "Lip Mod", type: "number", groupTag: "Appearance" },
+            "hairColor": { label: "Hair Color", type: "string", groupTag: "Appearance" },
+            "skinColor": { label: "Skin Color", type: "string", groupTag: "Appearance" },
+            "furColor": { label: "Fur Color", type: "string", groupTag: "Appearance" },
+            "scaleColor": { label: "Scale Color", type: "string", groupTag: "Appearance" },
+            "lipColor": { label: "Lip Color", type: "string", groupTag: "Appearance" },
+            "hairLength": { label: "Hair Length", type: "number", groupTag: "Appearance" },
+            "hairStyle": { label: "Hair Style", type: "string", groupTag: "Appearance" },
+            "hairType": { label: "Hair Type", type: "number", options: globals.HairType, groupTag: "Appearance" },
+            "horns": { label: "Horn Count", type: "number", groupTag: "Appearance" },
+            "hornType": { label: "Horn Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "hornLength": { label: "Horn Length", type: "number", groupTag: "Appearance" },
+            "wingType": { label: "Wing Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "wingCount": { label: "Wing Count", type: "number", groupTag: "Appearance" },
+            "skinType": { label: "Skin Type", type: "number", options: globals.SkinType, groupTag: "Appearance" },
+            "skinTags": { label: "Skin Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "tailType": { label: "Tail Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "numTails": { label: "Tail Count", type: "number", groupTag: "Appearance" },
+            "tailTags": { label: "Tail Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "armType": { label: "Arm Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "armTags": { label: "Arm Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "legCount": { label: "Leg Count", type: "number", groupTag: "Appearance" },
+            "legType": { label: "Leg Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "legTags": { label: "Leg Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "tongueType": { label: "Tongue Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "tongueTags": { label: "Tongue Tags", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "faceType": { label: "Face Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "faceTags": { label: "Face Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "earType": { label: "Ear Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "earTags": { label: "Ear Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "earLength": { label: "Ear Count", type: "number", groupTag: "Appearance" },
+            "eyeType": { label: "Eye Type", type: "number", options: globals.BodyType, groupTag: "Appearance" },
+            "eyeTags": { label: "Eye Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance" },
+            "eyeColor": { label: "Eye Color", type: "string", groupTag: "Appearance" },
+            "exhibRaw": { label: "Exhibition Raw", type: "number" },
+            "isVirgin": { label: "Virgin", type: "boolean", groupTag: "Sex Organs" },
+            "vaginalVirgin": { label: "Vaginal Virgin", type: "boolean", groupTag: "Sex Organs" },
+            "cockVirgin": { label: "Cock Virgin", type: "boolean", groupTag: "Sex Organs" },
+            "analVirgin": { label: "Anal Virgin", type: "boolean", groupTag: "Sex Organs" },
+            "pregnancySpeedRaw": { label: "Pregnancy Speed Raw", type: "number", groupTag: "Sex Organs" },
+            "pregnancySpeedMod": { label: "Pregnancy Speed Mod", type: "number", groupTag: "Sex Organs" },
+            "breastRows": {
+                label: "Breast Rows",
+                type: "object",
+                groupTag: "Breasts",
+                arrayMap: {
+                    "breasts": { label: "Count", type: "number" },
+                    "type": { label: "Type", type: "number", options: globals.BodyType },
+                    "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                    "sizeRaw": { label: "Size Raw", type: "number" },
+                    "sizeMod": { label: "Size Mod", type: "number" },
+                    "lactationBonusMod": { label: "Lacation Bonus Mod", type: "number" },
+                    "fullnessRaw": { label: "Fullness Raw", type: "number" },
+                }
+            },
+            "nippleColor": { label: "Nipple Color", type: "string", groupTag: "Breasts" },
+            "nipplesPerBreast": { label: "Nipples Per Breast", type: "number", groupTag: "Breasts" },
+            "nippleLengthRatio": { label: "Nipple Length Ratio", type: "number", groupTag: "Breasts" },
+            "nippleWidthRatio": { label: "Nipple Width Ratio", type: "number", groupTag: "Breasts" },
+            "milkType": { label: "Milk Type", type: "number", options: globals.FluidType, groupTag: "Breasts" },
+            "milkMultiplier": { label: "Milk Multiplier", type: "number", groupTag: "Breasts" },
+            "milkStorageMultiplier": { label: "Milk Storage Multiplier", type: "number", groupTag: "Breasts" },
+            "milkFullness": { label: "Milk Fullness", type: "number", groupTag: "Breasts" },
+            "milkRate": { label: "Milk Rate", type: "number", groupTag: "Breasts" },
+            "balls": { label: "Balls", type: "number", groupTag: "Sex Organs" },
+            "ballTags": { label: "Ball Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Sex Organs" },
+            "ballEfficiency": { label: "Ball Efficiency", type: "number", groupTag: "Sex Organs" },
+            "ballSizeRaw": { label: "Ball Size Raw", type: "number", groupTag: "Sex Organs" },
+            "ballSizeMod": { label: "Ball Size Mod", type: "number", groupTag: "Sex Organs" },
+            "ballFullness": { label: "Ball Fullness", type: "number", groupTag: "Sex Organs" },
+            "cocks": {
+                label: "Cocks",
+                type: "object",
+                groupTag: "Sex Organs",
+                arrayMap: {
+                    "type": { label: "Type", type: "number", options: globals.BodyType },
+                    "virgin": { label: "Virgin", type: "boolean" },
+                    "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                    "lengthRaw": { label: "Length Raw", type: "number" },
+                    "lengthMod": { label: "Length Mod", type: "number" },
+                    "thicknessRatioRaw": { label: "Thickness Ratio Raw", type: "number" },
+                    "thicknessRatioMod": { label: "Thickness Ratio Mod", type: "number" },
+                    "flaccidRatio": { label: "Flaccid Ratio", type: "number" },
+                    "knotRatio": { label: "Knot Ratio", type: "number" },
+                    "pierced": { label: "Pierced", type: "number" },
+                    "color": { label: "Color", type: "string" },
+                }
+            },
+            "feracityRaw": { label: "Feracity Raw", type: "number", groupTag: "Stats" },
+            "feracityMod": { label: "Feracity Mod", type: "number", groupTag: "Stats" },
+            "vagina": {
+                label: "Vagina",
+                type: "object",
+                groupTag: "Sex Organs",
+                arrayMap: {
+                    "type": { label: "Type", type: "number", options: globals.BodyType },
+                    "hymen": { label: "Hymen", type: "boolean" },
+                    "clits": { label: "Clits", type: "number" },
+                    "color": { label: "Color", type: "string" },
+                    "wetnessRaw": { label: "Wetness Raw", type: "number" },
+                    "wetnessMod": { label: "Wetness Mod", type: "number" },
+                    "loosenessRaw": { label: "Looseness Raw", type: "number" },
+                    "loosenessMod": { label: "Looseness Mod", type: "number" },
+                    "bonusCapacity": { label: "Bonus Capacity", type: "number" },
+                    "stretchCounter": { label: "Stretch Counter", type: "number" },
+                    "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                }
+            },
+            "clitLength": { label: "Clit Length", type: "number", groupTag: "Sex Organs" },
+            "girlCumType": { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Sex Organs" },
+            "cumType": { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Sex Organs" },
+            "cumMultiplierRaw": { label: "Cum Multiplier Raw", type: "number", groupTag: "Sex Organs" },
+            "cumMultiplierMod": { label: "Cum Multiplier Mod", type: "number", groupTag: "Sex Organs" },
+            "ass": {
+                label: "Butt",
+                type: "object",
+                groupTag: "Sex Organs",
+                arrayMap: {
+                    "type": { label: "Type", type: "number", options: globals.BodyType },
+                    "hymen": { label: "Hymen", type: "boolean" },
+                    "clits": { label: "Clits", type: "number" },
+                    "color": { label: "Color", type: "string" },
+                    "wetnessRaw": { label: "Wetness Raw", type: "number" },
+                    "wetnessMod": { label: "Wetness Mod", type: "number" },
+                    "loosenessRaw": { label: "Looseness Raw", type: "number" },
+                    "loosenessMod": { label: "Looseness Mod", type: "number" },
+                    "bonusCapacity": { label: "Bonus Capacity", type: "number" },
+                    "stretchCounter": { label: "Stretch Counter", type: "number" },
+                    "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                }
+            },
+            "title": { label: "Title", type: "string" },
             // "wyldMark": -1,
             // "drinks": [],
-            // "customImage": null,
+            "customImage": { label: "Custom Image", type: "string" },
             // "pendingLoot": []
         };
 
@@ -653,7 +624,7 @@
                 var option = document.createElement("option");
                 option.value = index;
                 option.innerText = value;
-                if (initialValue + (negativeGlobals.filter(v => v === options) ? 1 : 0) === index || initialValue === value)
+                if (initialValue + (negativeGlobals.filter(v => v === options).length > 0 ? 1 : 0) === index || initialValue === value)
                     option.selected = "selected";
                 selector.appendChild(option);
             });
@@ -662,67 +633,75 @@
             return div;
         }
 
-        function generateMappedFields(obj, element, map, tags, array = false) {
-            var tags = {};
-            if (map)
-                Object.keys(obj).forEach(function mappedFieldKeys(key) {
-                    var mapInfo = array ? map : map[key];
-                    if (mapInfo) {
-                        var parentElement = element;
-                        if (mapInfo.tag && !array) {
-                            if (!tags[mapInfo.tag]) {
-                                var panel = createPanel();
-                                tags[mapInfo.tag] = panel;
-                                const accordButton = objectField(mapInfo.tag, panel);
-                                element.appendChild(accordButton);
-                                element.appendChild(panel);
-                            }
-                            parentElement = tags[mapInfo.tag];
-                        }
-
-                        var label = (array ? key : mapInfo.title) + ": ";
-
-                        if (typeof obj[key] === "object" && obj[key] !== null && mapInfo.type !== "object") {
-                            var panel = createPanel();
-                            parentElement.appendChild(objectField(label, panel));
-                            parentElement.appendChild(panel);
-                            generateMappedFields(obj[key], panel, mapInfo, tags, true);
-                        }
-                        else {
-                            switch (mapInfo.type) {
-                                case "string": {
-                                    if (mapInfo.options)
-                                        parentElement.appendChild(selectField(label, obj[key], mapInfo.options, setSelectorStringCallback(obj, key)));
-                                    else
-                                        parentElement.appendChild(stringField(label, obj[key], setStringCallback(obj, key)));
-                                    break;
-                                }
-                                case "number": {
-                                    if (mapInfo.options) {
-                                        if (negativeGlobals.filter(v => v === mapInfo.options))
-                                            parentElement.appendChild(selectField(label, obj[key], mapInfo.options, setNegNumberCallback(obj, key)));
-                                        else
-                                            parentElement.appendChild(selectField(label, obj[key], mapInfo.options, setNumberCallback(obj, key)));
-                                    }
-                                    else
-                                        parentElement.appendChild(stringField(label, obj[key], setNumberCallback(obj, key)));
-                                    break;
-                                }
-                                case "boolean": {
-                                    parentElement.appendChild(booleanField(label, obj[key], setBooleanCallback(obj, key)));
-                                    break;
-                                }
-                                case "object": {
-                                    var panel = createPanel();
-                                    parentElement.appendChild(objectField(label, panel));
-                                    parentElement.appendChild(panel);
-                                    generateMappedFields(obj[key], panel, mapInfo, tags, false);
-                                    break;
-                                }
-                            }
-                        }
-                    }
+        function generateMappedFields(obj, element, map) {
+            var queue = [];
+            Object.keys(obj).reverse().forEach(function keyQueue(value) {
+                queue.push({
+                    obj: obj,
+                    key: value,
+                    element: element,
+                    map: map
                 });
+            });
+            var tags = {};
+            var info, label, objInfo, mapInfo, parentElement, typeValue;
+            while (queue.length > 0) {
+                info = queue.pop();
+                objValue = info.obj[info.key];
+                mapValue = info.isArray ? info.map : info.map[info.key];
+                parentElement = info.element;
+                if (mapValue) {
+                    label = (info.isArray && !isNaN(info.key)) ? info.key : mapValue.label;
+                    if (mapValue.groupTag) {
+                        if (!tags[mapValue.groupTag]) {
+                            var panel = createPanel();
+                            parentElement.appendChild(objectField(mapValue.groupTag, panel));
+                            parentElement.appendChild(panel);
+                            tags[mapValue.groupTag] = panel;
+                        }
+                        parentElement = tags[mapValue.groupTag];
+                    }
+
+                    typeValue = typeof objValue;
+                    if (objValue === null)
+                        typeValue = mapValue.type;
+
+                    if (typeValue === "object") {
+                        var panel = createPanel();
+                        parentElement.appendChild(objectField(label, panel));
+                        parentElement.appendChild(panel);
+                        if (objValue)
+                            Object.keys(objValue).reverse().forEach(function arrayKeys(value) {
+                                queue.push({
+                                    obj: objValue,
+                                    key: value,
+                                    element: panel,
+                                    map: mapValue.arrayMap,
+                                    isArray: true
+                                });
+                            });
+                    }
+                    if (typeValue === "string") {
+                        if (mapValue.options)
+                            parentElement.appendChild(selectField(label, objValue, mapValue.options, setSelectorStringCallback(info.obj, info.key)));
+                        else
+                            parentElement.appendChild(stringField(label, objValue, setStringCallback(info.obj, info.key)));
+                    }
+                    else if (typeValue === "number") {
+                        if (mapValue.options) {
+                            if (negativeGlobals.filter(v => v === mapValue.options).length > 0)
+                                parentElement.appendChild(selectField(label, objValue, mapValue.options, setNegNumberCallback(info.obj, info.key)));
+                            else
+                                parentElement.appendChild(selectField(label, objValue, mapValue.options, setNumberCallback(info.obj, info.key)));
+                        }
+                        else
+                            parentElement.appendChild(stringField(label, objValue, setNumberCallback(info.obj, info.key)));
+                    }
+                    else if (typeValue === "boolean") {
+                        parentElement.appendChild(booleanField(label, objValue, setBooleanCallback(info.obj, info.key)));
+                    }
+                }
+            }
         }
 
         function generateFields(obj, element) {
@@ -738,10 +717,6 @@
                     }
                     case "boolean": {
                         element.appendChild(booleanField(key + ": ", obj[key], setBooleanCallback(obj, key)));
-                        break;
-                    }
-                    case "array": {
-                        element.appendChild(stringField(key + ": ", obj[key], setStringCallback(obj, key)));
                         break;
                     }
                     case "object": {
