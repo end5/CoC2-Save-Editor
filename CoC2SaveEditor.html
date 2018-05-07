@@ -27,6 +27,29 @@
             font-size: inherit;
         }
 
+        button.fieldTitle {
+            width: 100%;
+        }
+
+        .multioption {
+            display: inline-flex !important;
+            position: relative;
+        }
+
+        .multioption.selected {
+            background-color: #00bc8c;
+        }
+
+        .multioption .fieldTitle {
+            width: auto;
+        }
+
+        .multioption input[type=checkbox] {
+            opacity: 0;
+            position: absolute;
+            cursor: inherit;
+        }
+
         .tabs {
             height: 8%;
         }
@@ -92,8 +115,18 @@
             width: auto !important;
         }
 
+        .fieldEntry fieldset {
+            margin: unset;
+            border: unset;
+            padding: unset;
+            width: 80%;
+        }
+
         .fieldTitle {
             width: 20%;
+            font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            color: #fff;
+            font-size: 1em;
         }
     </style>
     <script>
@@ -110,7 +143,7 @@
             Attack: ["None", "Physical", "Magical", "Mental", "Sexual"],
             // None = -1
             BodyType: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan", "Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"],
-            BodyTag: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "StingerTipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped"],
+            BodyTag: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "Stinger Tipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped"],
             // None = -1
             FluidType: ["None", "Unspecified", "Girlcum", "Cum", "Honey", "Milk", "Chocolate Milk", "Strawberry Milk"],
             // None = -1
@@ -229,24 +262,31 @@
             "wingType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Wings" },
             "wingCount": { label: "Count", type: "number", groupTag: "Appearance.Wings" },
             "skinType": { label: "Type", type: "number", options: globals.SkinType, groupTag: "Appearance.Skin" },
-            "skinTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Skin" },
+            "skinTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Skin" },
+            // "skinTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Skin" },
             "tailType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Tails" },
             "numTails": { label: "Count", type: "number", groupTag: "Appearance.Tails" },
-            "tailTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Tails" },
+            "tailTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Tails" },
+            // "tailTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Tails" },
             "armType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Arms" },
-            "armTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Arms" },
+            "armTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Arms" },
+            // "armTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Arms" },
             "legCount": { label: "Count", type: "number", groupTag: "Appearance.Legs" },
             "legType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Legs" },
-            "legTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Legs" },
+            "legTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Legs" },
+            // "legTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Legs" },
             "tongueType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Tongue" },
             "tongueTags": { label: "Tags", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Tongue" },
             "faceType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Face" },
-            "faceTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Face" },
+            "faceTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Face" },
+            // "faceTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Face" },
             "earType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Ears" },
-            "earTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Ears" },
+            "earTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Ears" },
+            // "earTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Ears" },
             "earLength": { label: "Count", type: "number", groupTag: "Appearance.Ears" },
             "eyeType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Eyes" },
-            "eyeTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Eyes" },
+            "eyeTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Eyes" },
+            // "eyeTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Eyes" },
             "eyeColor": { label: "Color", type: "string", groupTag: "Appearance.Eyes" },
             "exhibRaw": { label: "Exhibition Raw", type: "number", groupTag: "Stats" },
             "isVirgin": { label: "Virgin", type: "boolean", groupTag: "Virginity" },
@@ -262,7 +302,8 @@
                 arrayMap: {
                     "breasts": { label: "Count", type: "number" },
                     "type": { label: "Type", type: "number", options: globals.BodyType },
-                    "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                    "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
+                    // "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
                     "sizeRaw": { label: "Size Raw", type: "number" },
                     "sizeMod": { label: "Size Mod", type: "number" },
                     "lactationBonusMod": { label: "Lacation Bonus Mod", type: "number" },
@@ -279,7 +320,8 @@
             "milkFullness": { label: "Fullness", type: "number", groupTag: "Breasts.Milk" },
             "milkRate": { label: "Rate", type: "number", groupTag: "Breasts.Milk" },
             "balls": { label: "Count", type: "number", groupTag: "Balls" },
-            "ballTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Balls" },
+            "ballTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Balls" },
+            // "ballTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Balls" },
             "ballEfficiency": { label: "Efficiency", type: "number", groupTag: "Balls" },
             "ballSizeRaw": { label: "Size Raw", type: "number", groupTag: "Balls" },
             "ballSizeMod": { label: "Size Mod", type: "number", groupTag: "Balls" },
@@ -290,7 +332,8 @@
                 arrayMap: {
                     "type": { label: "Type", type: "number", options: globals.BodyType },
                     "virgin": { label: "Virgin", type: "boolean" },
-                    "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                    "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
+                    // "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
                     "lengthRaw": { label: "Length Raw", type: "number" },
                     "lengthMod": { label: "Length Mod", type: "number" },
                     "thicknessRatioRaw": { label: "Thickness Ratio Raw", type: "number" },
@@ -316,7 +359,8 @@
                 "loosenessMod": { label: "Looseness Mod", type: "number" },
                 "bonusCapacity": { label: "Bonus Capacity", type: "number" },
                 "stretchCounter": { label: "Stretch Counter", type: "number" },
-                "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
+                // "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
             },
             "clitLength": { label: "Clit Length", type: "number", groupTag: "Vagina" },
             "girlCumType": { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Cum" },
@@ -336,7 +380,8 @@
                 "loosenessMod": { label: "Looseness Mod", type: "number" },
                 "bonusCapacity": { label: "Bonus Capacity", type: "number" },
                 "stretchCounter": { label: "Stretch Counter", type: "number" },
-                "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
+                // "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
             },
             "title": { label: "Title", type: "string" },
             // "wyldMark": -1,
@@ -344,6 +389,52 @@
             "customImage": { label: "Custom Image", type: "string" },
             // "pendingLoot": []
         };
+
+        function createCock() {
+            return {
+                type: GLOBALS.BODY_TYPE_UNSPECIFIED,
+                virgin: !0,
+                tags: [],
+                lengthRaw: 5,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: .4,
+                knotRatio: 1,
+                pierced: 0,
+                color: "pink"
+            };
+        }
+
+        function createVagina() {
+            return {
+                type: GLOBALS.BODY_TYPE_HUMAN,
+                hymen: t,
+                clits: t ? 1 : 0,
+                color: "pink",
+                wetnessRaw: t ? 1 : 0,
+                wetnessMod: 0,
+                loosenessRaw: 1,
+                loosenessMod: 0,
+                bonusCapacity: 0,
+                stretchCounter: 0,
+                tags: []
+            };
+        }
+
+        function createBreastRow() {
+            return {
+                breasts: 2,
+                type: GLOBALS.NIPPLE_TYPE_NORMAL,
+                tags: [],
+                sizeRaw: 0,
+                sizeMod: 0,
+                lactationBonusMod: 0,
+                fullnessRaw: 0
+            };
+        }
+
+
 
         //
         // Create Elements
@@ -354,7 +445,8 @@
             textAreaEl.type = "text";
             textAreaEl.className = className;
             textAreaEl.value = initialValue;
-            textAreaEl.addEventListener("change", changeFunc);
+            if (changeFunc)
+                textAreaEl.addEventListener("change", changeFunc);
             return textAreaEl;
         }
 
@@ -363,7 +455,8 @@
             checkBoxEl.className = className;
             checkBoxEl.checked = initialValue === "true";
             checkBoxEl.type = "checkbox";
-            checkBoxEl.addEventListener("change", changeFunc);
+            if (changeFunc)
+                checkBoxEl.addEventListener("change", changeFunc);
             return checkBoxEl;
         }
 
@@ -553,35 +646,59 @@
         //
 
         function setNumberCallback(obj, key) {
-            return (el) => { obj[key] = +el.srcElement.value; }
+            return (evnt) => { obj[key] = +evnt.srcElement.value; }
         }
 
         function setNegNumberCallback(obj, key) {
-            return (el) => { obj[key] = +el.srcElement.value - 1; }
+            return (evnt) => { obj[key] = +evnt.srcElement.value - 1; }
         }
 
         function setStringCallback(obj, key) {
-            return (el) => { obj[key] = el.srcElement.value; }
+            return (evnt) => { obj[key] = evnt.srcElement.value; }
         }
 
         function setSelectorStringCallback(obj, key) {
-            return (el) => { obj[key] = el.srcElement[+el.srcElement.value].innerText === "None" ? null : el.srcElement[+el.srcElement.value].innerText; }
+            return (evnt) => { obj[key] = evnt.srcElement[+evnt.srcElement.value].innerText === "None" ? null : evnt.srcElement[+evnt.srcElement.value].innerText; }
         }
 
         function setBooleanCallback(obj, key) {
-            return (el) => obj[key] = el.srcElement.checked;
+            return (evnt) => obj[key] = evnt.srcElement.checked;
+        }
+
+        function setMultiOptionCallback(obj, key) {
+            return (evnt) => {
+                var fieldset = evnt.path.find(function findFieldSet(value) { if (value.type === "fieldset") return value; });
+                var list = fieldset.getElementsByTagName("input");
+                var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked);
+                console.log(evnt);
+                list.forEach(el => console.log(el.value + " " + el.name + " " + el.checked));
+                obj[key] = list.map(el => +el.value);
+            };
         }
 
         //
         // Fields
         //
 
-        function fieldLabel(key) {
-            var entry = document.createElement("div");
-            entry.className = "accordion fieldEntry";
+        function fieldTitle(key) {
             var title = document.createElement("div");
             title.className = "fieldTitle";
             title.textContent = key;
+            return title;
+        }
+
+        function fieldLabelNoInteract(key) {
+            var entry = document.createElement("div");
+            entry.className = "accordion fieldEntry";
+            var title = fieldTitle(key);
+            entry.appendChild(title);
+            return entry;
+        }
+
+        function fieldLabel(key) {
+            var entry = document.createElement("label");
+            entry.className = "accordion fieldEntry";
+            var title = fieldTitle(key);
             entry.appendChild(title);
             return entry;
         }
@@ -589,6 +706,7 @@
         function objectField(text, panel) {
             var accordButton = createAccordButton("", panel);
             var closed = "+ ", open = "- ";
+            accordButton.className += " fieldTitle";
             accordButton.innerText = closed + text;
             accordButton.addEventListener("click", function nameChanger() {
                 this.innerText = this.innerText.startsWith(closed) ? this.innerText.replace(closed, open) : this.innerText.replace(open, closed);
@@ -623,6 +741,27 @@
             });
             selector.addEventListener("change", changeFunc);
             div.appendChild(selector);
+            return div;
+        }
+
+        function multiOptionField(name, obj, key, options, changeFunc) {
+            var div = fieldLabelNoInteract(name);
+            var fieldSetEl = document.createElement("fieldset");
+            fieldSetEl.addEventListener("click", setMultiOptionCallback(obj, key));
+            options.forEach((option, index) => {
+                var selected = obj[key].reduce((prev, curr) => prev = prev || (option === curr), false);
+                var label = fieldLabel(option);
+                label.className += " multioption";
+                var checkbox = createCheckBox(selected, "superhide", function callback() {
+                    this.parentElement.classList.toggle("selected");
+                });
+                checkbox.value = options.indexOf(option);
+                checkbox.name = option;
+                label.appendChild(checkbox);
+                fieldSetEl.appendChild(label);
+            });
+            fieldSetEl.addEventListener("change", changeFunc);
+            div.appendChild(fieldSetEl);
             return div;
         }
 
@@ -665,19 +804,24 @@
                         typeValue = mapValue.type;
 
                     if (typeValue === "object") {
-                        var panel = createPanel();
-                        parentElement.appendChild(objectField(label, panel));
-                        parentElement.appendChild(panel);
-                        if (objValue)
-                            Object.keys(objValue).reverse().forEach(function arrayKeys(value) {
-                                queue.push({
-                                    obj: objValue,
-                                    key: value,
-                                    element: panel,
-                                    map: mapValue,
-                                    isArray: mapValue.arrayMap ? true : false
+                        if (mapValue.type === "multioption" && mapValue.options) {
+                            parentElement.appendChild(multiOptionField(label, info.obj, info.key, mapValue.options));
+                        }
+                        else {
+                            var panel = createPanel();
+                            parentElement.appendChild(objectField(label, panel));
+                            parentElement.appendChild(panel);
+                            if (objValue)
+                                Object.keys(objValue).reverse().forEach(function arrayKeys(value) {
+                                    queue.push({
+                                        obj: objValue,
+                                        key: value,
+                                        element: panel,
+                                        map: mapValue,
+                                        isArray: mapValue.arrayMap ? true : false
+                                    });
                                 });
-                            });
+                        }
                     }
                     else if (typeValue === "string") {
                         if (mapValue.options)
