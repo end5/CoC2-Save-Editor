@@ -128,6 +128,15 @@
             color: #fff;
             font-size: 1em;
         }
+
+        .addRemoveButtons {
+            display: flex;
+        }
+
+        .addRemoveButton {
+            width: 1em;
+            text-align: center;
+        }
     </style>
     <script>
         var globals = {
@@ -211,15 +220,41 @@
                 arrayMap: {
                     "name": { label: "Name", type: "string" },
                     "desc": { label: "Desc", type: "string" },
-                    "tag": { label: "Tag", type: "number" },
+                    "tag": { label: "Tag", type: "number", options: globals.Perk },
                     "values": { label: "Values", type: "object", arrayMap: { type: "number" } }
+                },
+                addRemoveOptions: {
+                    addFunc: createPerk
                 }
             },
             "powers": { label: "Powers", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
             "equippedPowers": { label: "Equipped Powers", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
             // "stance": "",
-            "combatEffects": { label: "Combat", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
-            "statusEffects": { label: "Status", type: "object", arrayMap: { type: "string" }, groupTag: "Effects" },
+            "combatEffects": {
+                label: "Combat",
+                type: "object",
+                arrayMap: {
+                    "name": { label: "Name", type: "string" },
+                    "short": { label: "Short", type: "string" },
+                    "desc": { label: "Desc", type: "string" },
+                    "duration": { label: "Duration", type: "number" },
+                    "values": { label: "Values", type: "object", arrayMap: { type: "number" } }
+                },
+                addRemoveOptions: { addFunc: createCombatEffect },
+                groupTag: "Effects"
+            },
+            "statusEffects": {
+                label: "Status",
+                type: "object",
+                arrayMap: {
+                    "name": { label: "Name", type: "string" },
+                    "desc": { label: "Desc", type: "string" },
+                    "duration": { label: "Duration", type: "number" },
+                    "values": { label: "Values", type: "object", arrayMap: { type: "number" } }
+                },
+                addRemoveOptions: { addFunc: createStatusEffect },
+                groupTag: "Effects"
+            },
             // "boon": null,
             "credits": { label: "Credits", type: "number" },
             "weaponPrimary": { label: "Primary Weapon", type: "string", options: globals.Weapons, groupTag: "Equipment" },
@@ -247,12 +282,12 @@
             "buttRatingMod": { label: "Rating Mod", type: "number", groupTag: "Appearance.Butt" },
             "bellyRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Appearance.Belly" },
             "bellyRatingMod": { label: "Rating Mod", type: "number", groupTag: "Appearance.Belly" },
-            "lipMod": { label: "Lip Mod", type: "number", groupTag: "Appearance" },
-            "hairColor": { label: "Hair Color", type: "string", groupTag: "Appearance.Hair" },
+            "lipMod": { label: "Mod", type: "number", groupTag: "Appearance.Lips" },
+            "hairColor": { label: "Color", type: "string", groupTag: "Appearance.Hair" },
             "skinColor": { label: "Skin Color", type: "string", groupTag: "Appearance.Skin" },
             "furColor": { label: "Fur Color", type: "string", groupTag: "Appearance.Skin" },
             "scaleColor": { label: "Scale Color", type: "string", groupTag: "Appearance.Skin" },
-            "lipColor": { label: "Lip Color", type: "string", groupTag: "Appearance" },
+            "lipColor": { label: "Color", type: "string", groupTag: "Appearance.Lips" },
             "hairLength": { label: "Length", type: "number", groupTag: "Appearance.Hair" },
             "hairStyle": { label: "Style", type: "string", groupTag: "Appearance.Hair" },
             "hairType": { label: "Type", type: "number", options: globals.HairType, groupTag: "Appearance.Hair" },
@@ -290,11 +325,11 @@
             "eyeColor": { label: "Color", type: "string", groupTag: "Appearance.Eyes" },
             "exhibRaw": { label: "Exhibition Raw", type: "number", groupTag: "Stats" },
             "isVirgin": { label: "Virgin", type: "boolean", groupTag: "Virginity" },
-            "vaginalVirgin": { label: "Vaginal Virgin", type: "boolean", groupTag: "Virginity" },
-            "cockVirgin": { label: "Cock Virgin", type: "boolean", groupTag: "Virginity" },
-            "analVirgin": { label: "Anal Virgin", type: "boolean", groupTag: "Virginity" },
-            "pregnancySpeedRaw": { label: "Pregnancy Speed Raw", type: "number", groupTag: "Pregnancy" },
-            "pregnancySpeedMod": { label: "Pregnancy Speed Mod", type: "number", groupTag: "Pregnancy" },
+            "vaginalVirgin": { label: "Vaginal", type: "boolean", groupTag: "Virginity" },
+            "cockVirgin": { label: "Cock", type: "boolean", groupTag: "Virginity" },
+            "analVirgin": { label: "Anal", type: "boolean", groupTag: "Virginity" },
+            "pregnancySpeedRaw": { label: "Speed Raw", type: "number", groupTag: "Pregnancy" },
+            "pregnancySpeedMod": { label: "Speed Mod", type: "number", groupTag: "Pregnancy" },
             "breastRows": {
                 label: "Row",
                 type: "object",
@@ -308,6 +343,10 @@
                     "sizeMod": { label: "Size Mod", type: "number" },
                     "lactationBonusMod": { label: "Lacation Bonus Mod", type: "number" },
                     "fullnessRaw": { label: "Fullness Raw", type: "number" },
+                },
+                addRemoveOptions: {
+                    min: 1,
+                    addFunc: createBreastRow
                 }
             },
             "nippleColor": { label: "Color", type: "string", groupTag: "Breasts.Nipples" },
@@ -342,6 +381,9 @@
                     "knotRatio": { label: "Knot Ratio", type: "number" },
                     "pierced": { label: "Pierced", type: "number" },
                     "color": { label: "Color", type: "string" },
+                },
+                addRemoveOptions: {
+                    addFunc: createCock
                 }
             },
             "feracityRaw": { label: "Feracity Raw", type: "number", groupTag: "Stats" },
@@ -361,8 +403,12 @@
                 "stretchCounter": { label: "Stretch Counter", type: "number" },
                 "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
                 // "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
+                addRemoveOptions: {
+                    max: 1,
+                    addFunc: createVagina
+                }
             },
-            "clitLength": { label: "Clit Length", type: "number", groupTag: "Vagina" },
+            "clitLength": { label: "Length", type: "number", groupTag: "Clit" },
             "girlCumType": { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Cum" },
             "cumType": { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Cum" },
             "cumMultiplierRaw": { label: "Cum Multiplier Raw", type: "number", groupTag: "Cum" },
@@ -390,10 +436,14 @@
             // "pendingLoot": []
         };
 
+        //
+        // Default create functions
+        //
+
         function createCock() {
             return {
-                type: GLOBALS.BODY_TYPE_UNSPECIFIED,
-                virgin: !0,
+                type: 0,
+                virgin: true,
                 tags: [],
                 lengthRaw: 5,
                 lengthMod: 0,
@@ -408,11 +458,11 @@
 
         function createVagina() {
             return {
-                type: GLOBALS.BODY_TYPE_HUMAN,
-                hymen: t,
-                clits: t ? 1 : 0,
+                type: 0,
+                hymen: true,
+                clits: 1,
                 color: "pink",
-                wetnessRaw: t ? 1 : 0,
+                wetnessRaw: 1,
                 wetnessMod: 0,
                 loosenessRaw: 1,
                 loosenessMod: 0,
@@ -425,7 +475,7 @@
         function createBreastRow() {
             return {
                 breasts: 2,
-                type: GLOBALS.NIPPLE_TYPE_NORMAL,
+                type: 0,
                 tags: [],
                 sizeRaw: 0,
                 sizeMod: 0,
@@ -434,7 +484,33 @@
             };
         }
 
+        function createPerk() {
+            return {
+                name: "Not A Perk",
+                desc: "Not A Perk",
+                tag: 0,
+                values: [0, 0, 0, 0, 0]
+            }
+        }
 
+        function createCombatEffect() {
+            return {
+                name: "Not A CombatEffect",
+                short: "Not A CombatEffect",
+                desc: "Not A CombatEffect",
+                duration: 10000,
+                values: [0, 0, 0, 0, 0]
+            }
+        }
+
+        function createStatusEffect() {
+            return {
+                name: "Not A StatusEffect",
+                desc: "Not A StatusEffect",
+                duration: 10000,
+                values: [0, 0, 0, 0, 0]
+            }
+        }
 
         //
         // Create Elements
@@ -705,7 +781,7 @@
 
         function objectField(text, panel) {
             var accordButton = createAccordButton("", panel);
-            var closed = "+ ", open = "- ";
+            var closed = "⬥ ", open = "⬦ ";
             accordButton.className += " fieldTitle";
             accordButton.innerText = closed + text;
             accordButton.addEventListener("click", function nameChanger() {
@@ -765,7 +841,133 @@
             return div;
         }
 
-        function generateMappedFields(obj, element, map) {
+        function processInfo(tags, info) {
+            var objValue = info.obj[info.key];
+            var mapValue = info.map[info.key] ? info.map[info.key] : info.map.arrayMap;
+            var parentElement = info.element;
+            if (mapValue) {
+                var label = mapValue.label ? mapValue.label : info.key;
+                if (mapValue.groupTag) {
+                    mapValue.groupTag.split(".").reduce(function (parentTag, curTag) {
+                        if (!parentTag[curTag]) {
+                            var panel = createPanel();
+                            parentElement.appendChild(objectField(curTag, panel));
+                            parentElement.appendChild(panel);
+                            parentTag[curTag] = panel;
+                        }
+                        parentElement = parentTag[curTag];
+                        return parentTag[curTag];
+                    }, tags);
+                }
+
+                var typeValue = typeof objValue;
+                if (objValue === null)
+                    typeValue = mapValue.type;
+
+                if (typeValue === "object") {
+                    if (mapValue.type === "multioption" && mapValue.options) {
+                        parentElement.appendChild(multiOptionField(label, info.obj, info.key, mapValue.options));
+                    }
+                    else {
+                        var panel = createPanel();
+
+                        if (mapValue.addRemoveOptions) {
+                            var addRemoveButtons = document.createElement("div");
+                            addRemoveButtons.className = "addRemoveButtons";
+                            var add = document.createElement("div");
+                            add.innerText = "+";
+                            add.className = "addRemoveButton accordion";
+                            var remove = document.createElement("div");
+                            remove.innerText = "–";
+                            remove.className = "addRemoveButton accordion";
+                            addRemoveButtons.appendChild(add);
+                            addRemoveButtons.appendChild(remove);
+                            panel.appendChild(addRemoveButtons);
+
+                            add.addEventListener("click", function arrayAddCallback(tags, parent, obj, key, map) {
+                                return () => {
+                                    if (obj[key] === null) {
+                                        obj[key] = map.addRemoveOptions.addFunc();
+                                        generateMappedFields(obj[key], parent, map, tags);
+                                    }
+                                    else {
+                                        if (!map.addRemoveOptions.max || (map.addRemoveOptions.max && obj[key].length < map.addRemoveOptions.max)) {
+                                            obj[key].push(map.addRemoveOptions.addFunc());
+                                            var queue = processInfo(tags, {
+                                                obj: obj[key],
+                                                key: obj[key].length - 1,
+                                                element: parent,
+                                                map: map,
+                                            });
+                                            while (queue.length > 0) {
+                                                var results = processInfo(tags, queue.pop());
+                                                if (results)
+                                                    queue = queue.concat(results);
+                                            }
+                                        }
+                                    }
+                                }
+                            }(tags, panel, info.obj, info.key, mapValue));
+
+                            remove.addEventListener("click", function arrayRemoveCallback(parent, obj, key, map) {
+                                return () => {
+                                    if (obj[key]) {
+                                        if (obj[key].length) {
+                                            if (obj[key].length > (map.addRemoveOptions.min ? map.addRemoveOptions.min : 0)) {
+                                                parent.removeChild(parent.lastChild);
+                                                parent.removeChild(parent.lastChild);
+                                                obj[key].pop();
+                                            }
+                                        }
+                                        else {
+                                            while (parent.lastChild !== parent.firstChild) {
+                                                parent.removeChild(parent.lastChild);
+                                                obj[key] = null;
+                                            }
+                                        }
+                                    }
+                                }
+                            }(panel, info.obj, info.key, mapValue));
+                        }
+
+                        parentElement.appendChild(objectField(label, panel, objValue, mapValue));
+                        parentElement.appendChild(panel);
+
+                        if (objValue)
+                            return Object.keys(objValue).reverse().map(function arrayKeys(value) {
+                                return {
+                                    obj: objValue,
+                                    key: value,
+                                    element: panel,
+                                    map: mapValue,
+                                };
+                            });
+
+                    }
+                }
+                else if (typeValue === "string") {
+                    if (mapValue.options)
+                        parentElement.appendChild(selectField(label, objValue, mapValue.options, setSelectorStringCallback(info.obj, info.key)));
+                    else
+                        parentElement.appendChild(stringField(label, objValue, setStringCallback(info.obj, info.key)));
+                }
+                else if (typeValue === "number") {
+                    if (mapValue.options) {
+                        if (negativeGlobals.filter(v => v === mapValue.options).length > 0)
+                            parentElement.appendChild(selectField(label, objValue, mapValue.options, setNegNumberCallback(info.obj, info.key)));
+                        else
+                            parentElement.appendChild(selectField(label, objValue, mapValue.options, setNumberCallback(info.obj, info.key)));
+                    }
+                    else
+                        parentElement.appendChild(stringField(label, objValue, setNumberCallback(info.obj, info.key)));
+                }
+                else if (typeValue === "boolean") {
+                    parentElement.appendChild(booleanField(label, objValue, setBooleanCallback(info.obj, info.key)));
+                }
+            }
+        }
+
+        function generateMappedFields(obj, element, map, tags) {
             if (!map)
                 return;
             var queue = [];
@@ -777,72 +979,11 @@
                     map: map,
                 });
             });
-            var tags = {};
-            var info, label, objInfo, mapInfo, parentElement, typeValue, groupTagsArray;
+            var tags = tags ? tags : {};
             while (queue.length > 0) {
-                info = queue.pop();
-                objValue = info.obj[info.key];
-                mapValue = info.map[info.key] ? info.map[info.key] : info.map.arrayMap;
-                parentElement = info.element;
-                if (mapValue) {
-                    label = mapValue.label ? mapValue.label : info.key;
-                    if (mapValue.groupTag) {
-                        groupTagsArray = mapValue.groupTag.split(".").reduce(function (parentTag, curTag) {
-                            if (!parentTag[curTag]) {
-                                var panel = createPanel();
-                                parentElement.appendChild(objectField(curTag, panel));
-                                parentElement.appendChild(panel);
-                                parentTag[curTag] = panel;
-                            }
-                            parentElement = parentTag[curTag];
-                            return parentTag[curTag];
-                        }, tags);
-                    }
-
-                    typeValue = typeof objValue;
-                    if (objValue === null)
-                        typeValue = mapValue.type;
-
-                    if (typeValue === "object") {
-                        if (mapValue.type === "multioption" && mapValue.options) {
-                            parentElement.appendChild(multiOptionField(label, info.obj, info.key, mapValue.options));
-                        }
-                        else {
-                            var panel = createPanel();
-                            parentElement.appendChild(objectField(label, panel));
-                            parentElement.appendChild(panel);
-                            if (objValue)
-                                Object.keys(objValue).reverse().forEach(function arrayKeys(value) {
-                                    queue.push({
-                                        obj: objValue,
-                                        key: value,
-                                        element: panel,
-                                        map: mapValue,
-                                        isArray: mapValue.arrayMap ? true : false
-                                    });
-                                });
-                        }
-                    }
-                    else if (typeValue === "string") {
-                        if (mapValue.options)
-                            parentElement.appendChild(selectField(label, objValue, mapValue.options, setSelectorStringCallback(info.obj, info.key)));
-                        else
-                            parentElement.appendChild(stringField(label, objValue, setStringCallback(info.obj, info.key)));
-                    }
-                    else if (typeValue === "number") {
-                        if (mapValue.options) {
-                            if (negativeGlobals.filter(v => v === mapValue.options).length > 0)
-                                parentElement.appendChild(selectField(label, objValue, mapValue.options, setNegNumberCallback(info.obj, info.key)));
-                            else
-                                parentElement.appendChild(selectField(label, objValue, mapValue.options, setNumberCallback(info.obj, info.key)));
-                        }
-                        else
-                            parentElement.appendChild(stringField(label, objValue, setNumberCallback(info.obj, info.key)));
-                    }
-                    else if (typeValue === "boolean") {
-                        parentElement.appendChild(booleanField(label, objValue, setBooleanCallback(info.obj, info.key)));
-                    }
-                }
+                var results = processInfo(tags, queue.pop());
+                if (results)
+                    queue = queue.concat(results);
             }
         }
 
@@ -850,22 +991,22 @@
             Object.keys(obj).forEach(function fieldKeys(key) {
                 switch (typeof obj[key]) {
                     case "string": {
-                        element.appendChild(stringField(key + ": ", obj[key], setStringCallback(obj, key)));
+                        element.appendChild(stringField(key, obj[key], setStringCallback(obj, key)));
                         break;
                     }
                     case "number": {
-                        element.appendChild(stringField(key + ": ", obj[key], setNumberCallback(obj, key)));
+                        element.appendChild(stringField(key, obj[key], setNumberCallback(obj, key)));
                         break;
                     }
                     case "boolean": {
-                        element.appendChild(booleanField(key + ": ", obj[key], setBooleanCallback(obj, key)));
+                        element.appendChild(booleanField(key, obj[key], setBooleanCallback(obj, key)));
                         break;
                     }
                     case "object": {
                         if (obj[key] === null)
                             break;
                         var panel = createPanel();
-                        element.appendChild(objectField(key + ": ", panel));
+                        element.appendChild(objectField(key, panel));
                         element.appendChild(panel);
                         generateFields(obj[key], panel);
                     }
