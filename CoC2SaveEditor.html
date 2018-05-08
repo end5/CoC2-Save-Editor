@@ -147,11 +147,11 @@
             PowerTag: ["Weapon", "Melee", "Ranged", "Thrown", "Spell", "Stance", "Summon", "Healing", "Ally", "Omni", "Performance", "Tease"],
             Perk: ["None", "Class", "Story", "Sex"],
             Item: ["None", "Weapon", "Armor Set", "Head", "Neck", "Shoulders", "Hands", "Waist", "Feet", "Ring", "Top Garb", "Botttom Garb", "Shield"],
-            ItemTag: ["Two Hand", "Heavy", "Light", "Bladed", "Thrown", "Ranged", "Melee", "Implement", "Catalyst", "Shield", "Skimpy", "Skin Tight", "Metal", "Leather", "Cloth", "Warded", "Calming", "Exp Chest", "Exp Crotch", "Exp Ass", "Conceal"],
-            Damage: ["Raw", "Penetrating", "Crushing", "Holy", "Blight", "Acid", "Fire", "Frost", "Storm", "Tease", "Drug", "Pheromone", "Fatigue", "Mental"],
+            ItemTag: ["Two Hand", "Heavy", "Light", "Bladed", "Thrown", "Ranged", "Melee", "Implement/Catalyst", "Shield", "Skimpy", "Skin Tight", "Metal", "Leather", "Cloth", "Warded", "Calming", "Exp Chest", "Exp Crotch", "Exp Ass", "Conceal"],
+            Damage: ["Raw", "Penetrating", "Crushing", "Holy", "Blight", "Acid", "Fire", "Frost", "Storm", "Tease", "Drug", "Pheromone", "Fatigue/Mental"],
             Attack: ["None", "Physical", "Magical", "Mental", "Sexual"],
             // None = -1
-            BodyType: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan", "Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"],
+            BodyType: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan/Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"],
             BodyTag: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "Stinger Tipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped"],
             // None = -1
             FluidType: ["None", "Unspecified", "Girlcum", "Cum", "Honey", "Milk", "Chocolate Milk", "Strawberry Milk"],
@@ -163,15 +163,15 @@
             HairType: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"],
             Weapons: ["None", "CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling"],
             ArmorSet: ["None", "ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb"],
-            ItemHead: ["None",],
+            ItemHead: ["None"],
             ItemNeck: ["None", "WardAmulet"],
             ItemShoulders: ["None", "FlameCape", "PriestessCloak"],
             ItemHands: ["None", "Gauntlets", "ArmGuards", "SilverBracelets"],
             ItemWaist: ["None", "PotionBelt"],
             ItemFeet: ["None", "CaitsKneeBoots", "LeatherBoots", "IronGreaves"],
             Rings: ["None", "WizardRing"],
-            TopGarb: ["None",],
-            BottomGarb: ["None",],
+            TopGarb: ["None"],
+            BottomGarb: ["None"],
             Shields: ["None", "HoplonShield", "TowerShield", "WickerShield"],
         };
 
@@ -311,7 +311,8 @@
             "legTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Legs" },
             // "legTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Legs" },
             "tongueType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Tongue" },
-            "tongueTags": { label: "Tags", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Tongue" },
+            "tongueTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Tongue" },
+            // "tongueTags": { label: "Tags", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Tongue" },
             "faceType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Face" },
             "faceTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Face" },
             // "faceTags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag }, groupTag: "Appearance.Face" },
@@ -336,7 +337,7 @@
                 groupTag: "Breasts",
                 arrayMap: {
                     "breasts": { label: "Count", type: "number" },
-                    "type": { label: "Type", type: "number", options: globals.BodyType },
+                    "type": { label: "Type", type: "number", options: globals.NippleType },
                     "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
                     // "tags": { label: "Tags", type: "object", arrayMap: { type: "number", options: globals.BodyTag } },
                     "sizeRaw": { label: "Size Raw", type: "number" },
@@ -526,10 +527,10 @@
             return textAreaEl;
         }
 
-        function createCheckBox(initialValue, className, changeFunc) {
+        function createCheckBox(checked, className, changeFunc) {
             var checkBoxEl = document.createElement("input");
             checkBoxEl.className = className;
-            checkBoxEl.checked = initialValue === "true";
+            checkBoxEl.checked = checked;
             checkBoxEl.type = "checkbox";
             if (changeFunc)
                 checkBoxEl.addEventListener("change", changeFunc);
@@ -682,18 +683,15 @@
             content.id = "mainContent";
             document.body.appendChild(content);
 
-            var charTab = createAccordButton("", content, onClickCharTab, true);
-            charTab.innerText = "Characters";
+            var charTab = createAccordButton("Characters", content, onClickCharTab, true);
             charTab.className += " tab";
             tabs.appendChild(charTab);
 
-            var flagTab = createAccordButton("", content, onClickFlagTab, true);
-            flagTab.innerText = "Flags";
+            var flagTab = createAccordButton("Flags", content, onClickFlagTab, true);
             flagTab.className += " tab";
             tabs.appendChild(flagTab);
 
-            var rawTab = createAccordButton("", content, onClickRawTab, true);
-            rawTab.innerText = "Raw";
+            var rawTab = createAccordButton("Raw", content, onClickRawTab, true);
             rawTab.className += " tab";
             tabs.appendChild(rawTab);
 
@@ -702,16 +700,14 @@
             input.type = "file";
             input.style.display = "none";
             input.addEventListener("change", handleFiles);
-            var loadTab = createAccordButton("", input, onClickLoadTab, true);
-            loadTab.innerText = "Load";
+            var loadTab = createAccordButton("Load", input, onClickLoadTab, true);
             loadTab.className += " tab";
             loadTab.appendChild(input);
             tabs.appendChild(loadTab);
 
             var saveLink = document.createElement("a");
             saveLink.id = "saveLink";
-            var saveTab = createAccordButton("", saveLink, onClickSaveTab, true);
-            saveTab.innerText = "Save";
+            var saveTab = createAccordButton("Save", saveLink, onClickSaveTab, true);
             saveTab.className += " tab";
             saveTab.appendChild(saveLink);
             tabs.appendChild(saveTab);
@@ -825,9 +821,9 @@
             var fieldSetEl = document.createElement("fieldset");
             fieldSetEl.addEventListener("click", setMultiOptionCallback(obj, key));
             options.forEach((option, index) => {
-                var selected = obj[key].reduce((prev, curr) => prev = prev || (option === curr), false);
+                var selected = obj[key].reduce((prev, curr) => prev = prev || (index === curr), false);
                 var label = fieldLabel(option);
-                label.className += " multioption";
+                label.className += " multioption" + (selected ? " selected" : "");
                 var checkbox = createCheckBox(selected, "superhide", function callback() {
                     this.parentElement.classList.toggle("selected");
                 });
