@@ -35,8 +35,8 @@
             text-align: center;
             margin: auto;
         }
-        
-        .disclaimer > .accordion {
+
+        .disclaimer>.accordion {
             width: auto;
         }
 
@@ -743,13 +743,29 @@
         var file;
         var fileReader;
         function handleFiles(event) {
+            if (!files || files.length === 0) {
+                alert("Error in file loading");
+            }
             file = event.srcElement.files[0];
             fileReader = new FileReader();
-            fileReader.readAsBinaryString(file);
+            fileReader.readAsText(file);
             fileReader.addEventListener("loadend", function () {
-                var obj = JSON.parse(fileReader.result);
-                loadObj(obj);
-                alert("Load Complete");
+                var obj;
+                try {
+                    obj = JSON.parse(fileReader.result);
+                }
+                catch (e) {
+                    console.error(e);
+                    alert("Error parsing file");
+                }
+                if (obj) {
+                    loadObj(obj);
+                    alert("Load Complete");
+                }
+            });
+            fileReader.addEventListener("error", function (evnt) {
+                console.log(evnt);
+                alert("Error in file loading");
             });
         }
 
