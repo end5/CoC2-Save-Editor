@@ -31,6 +31,15 @@
             width: 100%;
         }
 
+        .disclaimer {
+            text-align: center;
+            margin: auto;
+        }
+        
+        .disclaimer > .accordion {
+            width: auto;
+        }
+
         .multioption {
             display: inline-flex !important;
             position: relative;
@@ -864,43 +873,59 @@
         //
 
         document.addEventListener("DOMContentLoaded", () => {
-            var tabs = document.createElement("div");
-            tabs.className = "tabs";
-            document.body.appendChild(tabs);
+            var disclaimer = document.createElement("div");
+            disclaimer.className = "disclaimer";
+            disclaimer.innerHTML = "<h2>CoC2 Save Editor V8</h2><h4>For use with versions of CoC2 0.0.11+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p>";
+            document.body.appendChild(disclaimer);
 
-            var content = document.createElement("div");
-            content.className = "mainTabContent tabcontent";
-            content.id = "mainContent";
-            document.body.appendChild(content);
+            var ok = document.createElement("button");
+            ok.innerText = "Accept";
+            ok.className = "accordion";
+            disclaimer.appendChild(ok);
 
-            var charTab = createAccordButton("Characters", content, onClickCharTab, true);
-            charTab.className += " tab";
-            tabs.appendChild(charTab);
+            ok.addEventListener("click", () => {
+                while (document.body.lastChild) {
+                    document.body.removeChild(document.body.lastChild);
+                }
 
-            var flagTab = createAccordButton("Flags", content, onClickFlagTab, true);
-            flagTab.className += " tab";
-            tabs.appendChild(flagTab);
+                var tabs = document.createElement("div");
+                tabs.className = "tabs";
+                document.body.appendChild(tabs);
 
-            var rawTab = createAccordButton("Raw", content, onClickRawTab, true);
-            rawTab.className += " tab";
-            tabs.appendChild(rawTab);
+                var content = document.createElement("div");
+                content.className = "mainTabContent tabcontent";
+                content.id = "mainContent";
+                document.body.appendChild(content);
 
-            var input = document.createElement("input");
-            input.id = "load";
-            input.type = "file";
-            input.style.display = "none";
-            input.addEventListener("change", handleFiles);
-            var loadTab = createAccordButton("Load", input, onClickLoadTab, true);
-            loadTab.className += " tab";
-            loadTab.appendChild(input);
-            tabs.appendChild(loadTab);
+                var charTab = createAccordButton("Characters", content, onClickCharTab, true);
+                charTab.className += " tab";
+                tabs.appendChild(charTab);
 
-            var saveLink = document.createElement("a");
-            saveLink.id = "saveLink";
-            var saveTab = createAccordButton("Save", saveLink, onClickSaveTab, true);
-            saveTab.className += " tab";
-            saveTab.appendChild(saveLink);
-            tabs.appendChild(saveTab);
+                var flagTab = createAccordButton("Flags", content, onClickFlagTab, true);
+                flagTab.className += " tab";
+                tabs.appendChild(flagTab);
+
+                var rawTab = createAccordButton("Raw", content, onClickRawTab, true);
+                rawTab.className += " tab";
+                tabs.appendChild(rawTab);
+
+                var input = document.createElement("input");
+                input.id = "load";
+                input.type = "file";
+                input.style.display = "none";
+                input.addEventListener("change", handleFiles);
+                var loadTab = createAccordButton("Load", input, onClickLoadTab, true);
+                loadTab.className += " tab";
+                loadTab.appendChild(input);
+                tabs.appendChild(loadTab);
+
+                var saveLink = document.createElement("a");
+                saveLink.id = "saveLink";
+                var saveTab = createAccordButton("Save", saveLink, onClickSaveTab, true);
+                saveTab.className += " tab";
+                saveTab.appendChild(saveLink);
+                tabs.appendChild(saveTab);
+            });
         });
 
         //
