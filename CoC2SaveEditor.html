@@ -148,6 +148,9 @@
         }
     </style>
     <script>
+        var editorVersion = "9";
+        var gameVersion = "0.0.11";
+
         var globals = {
             Class: { list: ["None", "Warrior", "Thief", "White Mage", "Black Mage", "Charmer"] },
             Background: { list: ["None", "Noble", "Minstrel", "Soldier", "Arcanist", "Barbarian", "Scholar", "Slumrat", "Acolyte", "Hunter", "Courtesan"] },
@@ -743,7 +746,7 @@
         var file;
         var fileReader;
         function handleFiles(event) {
-            if (!files || files.length === 0) {
+            if (!event.srcElement.files || event.srcElement.files.length === 0) {
                 alert("Error in file loading");
             }
             file = event.srcElement.files[0];
@@ -765,7 +768,7 @@
             });
             fileReader.addEventListener("error", function (evnt) {
                 console.log(evnt);
-                alert("Error in file loading");
+                alert("Error reading file");
             });
         }
 
@@ -891,7 +894,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             var disclaimer = document.createElement("div");
             disclaimer.className = "disclaimer";
-            disclaimer.innerHTML = "<h2>CoC2 Save Editor V8</h2><h4>For use with versions of CoC2 0.0.11+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p>";
+            disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + "+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p>";
             document.body.appendChild(disclaimer);
 
             var ok = document.createElement("button");
