@@ -311,9 +311,9 @@
                     return (evnt) => {
                         var fieldset = evnt.currentTarget;
                         var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked).map(el => el.name);
-                        if (list.length > 5 && evnt.srcElement.type === "checkbox" && !evnt.srcElement.parentElement.classList.contains("selected")) {
-                            evnt.srcElement.parentElement.classList.add("selected");
-                            evnt.srcElement.checked = false;
+                        if (list.length > 5 && evnt.target.type === "checkbox" && !evnt.target.parentElement.classList.contains("selected")) {
+                            evnt.target.parentElement.classList.add("selected");
+                            evnt.target.checked = false;
                         }
                         else {
                             obj[key] = list;
@@ -968,19 +968,19 @@
         //
 
         function setNumberCallback(obj, key, modFunc) {
-            return (evnt) => { obj[key] = modFunc ? modFunc(evnt.srcElement.value) : +evnt.srcElement.value; }
+            return (evnt) => { obj[key] = modFunc ? modFunc(evnt.target.value) : +evnt.target.value; }
         }
 
         function setStringCallback(obj, key) {
-            return (evnt) => { obj[key] = evnt.srcElement.value; }
+            return (evnt) => { obj[key] = evnt.target.value; }
         }
 
         function setSelectorStringCallback(obj, key) {
-            return (evnt) => { obj[key] = evnt.srcElement[+evnt.srcElement.value].innerText === "None" ? null : evnt.srcElement[+evnt.srcElement.value].innerText; }
+            return (evnt) => { obj[key] = evnt.target[+evnt.target.value].innerText === "None" ? null : evnt.target[+evnt.target.value].innerText; }
         }
 
         function setBooleanCallback(obj, key) {
-            return (evnt) => obj[key] = evnt.srcElement.checked;
+            return (evnt) => obj[key] = evnt.target.checked;
         }
 
         function setMultiOptionCallback(obj, key, canSelectFunc) {
