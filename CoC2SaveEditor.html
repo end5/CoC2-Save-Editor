@@ -1066,7 +1066,7 @@
             var options = mapValue.options
             fieldSetEl.addEventListener("click", mapValue.customCallback ? mapValue.customCallback(obj, key) : setMultiOptionCallback(obj, key));
             options.list.forEach((option, index) => {
-                var selected = obj[key].reduce((prev, curr) => prev = prev || (index === curr), false);
+                var selected = obj[key].reduce((prev, curr) => prev = prev || (option === curr) || (index === curr), false);
                 var label = fieldLabel(option);
                 label.className += " multioption" + (selected ? " selected" : "");
                 var checkbox = createCheckBox(selected, "superhide", function callback() {
