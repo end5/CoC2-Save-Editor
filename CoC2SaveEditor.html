@@ -1,9 +1,14 @@
+<!DOCTYPE html>
+
 <head>
+    <meta charset="UTF-8">
     <style>
         body {
             background-color: #222;
             font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             color: #fff;
+            margin: 0px;
+            height: 100vh;
         }
 
         input {
@@ -60,7 +65,7 @@
         }
 
         .tabs {
-            height: 8%;
+            height: 45px;
         }
 
         .tab {
@@ -74,8 +79,7 @@
             display: none;
             background-color: #28415b;
             padding: 5px;
-            transition: 0.4s;
-            height: 90%;
+            height: calc(100% - 45px - 10px);
             overflow-y: auto;
         }
 
@@ -98,24 +102,22 @@
 
         .panel {
             display: none;
-            margin-left: 10px;
-            padding: 2px 2px;
+            padding: 2px 5px;
         }
 
         .charContainer {
             display: flex;
+            height: 100%;
         }
 
         .charList {
             display: grid;
-            height: 100%;
-            width: 10%;
+            width: 100px;
         }
 
         .charDesc {
             display: block;
-            width: 90%;
-            height: 100%;
+            width: calc(100% - 100px);
             overflow-y: auto;
         }
 
@@ -148,7 +150,7 @@
         }
     </style>
     <script>
-        var editorVersion = "10";
+        var editorVersion = "11";
         var gameVersion = "0.0.12";
 
         var globals = {
@@ -730,7 +732,11 @@
 
         function onClickSaveTab(panel) {
             if (fileReader) {
-                panel.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(saveObj()));
+                var blob = new Blob([JSON.stringify(saveObj())], { type: 'text/json' });
+                if (!!window.StyleMedia) // IE Edge
+                    window.navigator.msSaveBlob(blob, file.name);
+                else
+                    panel.href = window.URL.createObjectURL(blob);
                 panel.download = file.name;
                 panel.click();
             }
@@ -746,10 +752,10 @@
         var file;
         var fileReader;
         function handleFiles(event) {
-            if (!event.srcElement.files || event.srcElement.files.length === 0) {
+            if (!event.target.files || event.target.files.length === 0) {
                 alert("Error in file loading");
             }
-            file = event.srcElement.files[0];
+            file = event.target.files[0];
             fileReader = new FileReader();
             fileReader.readAsText(file);
             fileReader.addEventListener("loadend", function () {
@@ -815,6 +821,16 @@
             window.editObj = JSON.parse(JSON.stringify(obj));
             unpackSave(window.editObj);
             window.dupObj = JSON.parse(JSON.stringify(window.editObj));
+
+            // autoload pc char desc
+            var tabs = Array.from(document.getElementsByClassName("tab"));
+            if (tabs.length > 0) {
+                tabs.filter(el => el.textContent === "Characters")[0].click();
+                var chars = Array.from(document.getElementsByClassName("charListEntry"));
+                if (chars.length > 0) {
+                    chars.filter(el => el.textContent === "pc")[0].click();
+                }
+            }
         }
 
         function isObj(obj) {
@@ -1250,3 +1266,5 @@
 
 <body>
 </body>
+
+</html>
