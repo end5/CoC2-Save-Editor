@@ -150,8 +150,8 @@
         }
     </style>
     <script>
-        var editorVersion = "11";
-        var gameVersion = "0.0.12";
+        var editorVersion = "12";
+        var gameVersion = "0.0.15";
 
         var globals = {
             Class: { list: ["None", "Warrior", "Thief", "White Mage", "Black Mage", "Charmer"] },
@@ -164,7 +164,7 @@
             // AnyCock = -1, NormalTits = -16
             Pref: { toSave: n => -(n + 1), fromSave: n => -(n + 1), list: ["Any Cock", "No Cock", "Small Cock", "Big Cock", "Multi Cock", "Any Tits", "No Tits", "Small Tits", "Big Tits", "Vagina", "No Vagina", "Milk", "No Milk", "Big Ass", "Small Ass", "Normal Cock", "Normal Tits"] },
             Perk: { list: ["None", "Class", "Story", "Sex"] },
-            Item: { list: ["None", "Weapon", "Armor Set", "Head", "Neck", "Shoulders", "Hands", "Waist", "Feet", "Ring", "Top Garb", "Botttom Garb", "Shield", "TF", "Misc"] },
+            Item: { list: ["None", "Primary", "Armor Set", "Head", "Neck", "Shoulders", "Hands", "Waist", "Feet", "Ring", "Top Garb", "Botttom Garb", "Offhand", "TF", "Misc", "Consumable", "Set"] },
             ItemTag: { list: ["Two Hand", "Heavy", "Light", "Bladed", "Thrown", "Ranged", "Melee", "Implement/Catalyst", "Shield", "Skimpy", "Skin Tight", "Metal", "Leather", "Cloth", "Warded", "Calming", "Exp Chest", "Exp Crotch", "Exp Ass", "Conceal", "Unsellable", "Undroppable"] },
             Damage: { list: ["Raw", "Penetrating", "Crushing", "Holy", "Blight", "Acid", "Fire", "Frost", "Storm", "Tease", "Drug", "Pheromone", "Fatigue", "Mind"] },
             Attack: { list: ["None", "Physical", "Magical", "Mental", "Sexual"] },
@@ -189,10 +189,12 @@
             ItemFeet: { list: ["None", "CaitsKneeBoots", "LeatherBoots", "IronGreaves"] },
             Rings: { list: ["None", "WizardRing"] },
             TopGarb: { list: ["None"] },
-            BottomGarb: { list: ["None"] },
+            BottomGarb: { list: ["None", "PlainUnderwear"] },
             Shields: { list: ["None", "HoplonShield", "TowerShield", "WickerShield"] },
             TFs: { list: [] },
             Misc: { list: ["CampSupplies"] },
+            Consumable: { list: [] },
+            Set: { list: ["PassionGarb"] },
             Powers: { list: ["AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "GuardedStance", "SpiritVeil", "BolsteringDance", "HarpySong", "Heal", "GroupHeal", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "Warcry", "ThunderStrike", "ButtStomp", "AerialDrop", "PussyTailTease", "HarpyButtTease", "CharmSpell", "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "SummonFlameSpirit", "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "ShadowStrike", "MarkForDeath"] },
             Perks: { list: ["TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "StartingAttributeBonuses", "Flying", "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm"] },
             Items: { list: [] }
@@ -211,7 +213,8 @@
             globals.BottomGarb.list,
             globals.Shields.list,
             globals.TFs.list,
-            globals.Misc.list
+            globals.Misc.list,
+            globals.Set.list
         ).filter(v => v !== "None");
 
         /*
@@ -371,7 +374,8 @@
             "hands": { label: "Hands", type: "string", options: globals.ItemHands, groupTag: "Equipment" },
             "waist": { label: "Waist", type: "string", options: globals.ItemWaist, groupTag: "Equipment" },
             "feet": { label: "Feet", type: "string", options: globals.ItemFeet, groupTag: "Equipment" },
-            "rings": { label: "Rings", type: "array", groupTag: "Equipment", properties: { type: "string", options: globals.Rings }, min: 2, max: 2 },
+            "ring1": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Equipment" },
+            "ring2": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Equipment" },
             "topGarment": { label: "Top Garment", type: "string", options: globals.TopGarb, groupTag: "Equipment" },
             "bottomGarment": { label: "Bottom Garment", type: "string", options: globals.BottomGarb, groupTag: "Equipment" },
             "inventory": { label: "Inventory", type: "array", properties: { type: "string", options: globals.Items } },
