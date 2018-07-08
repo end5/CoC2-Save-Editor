@@ -150,8 +150,8 @@
         }
     </style>
     <script>
-        var editorVersion = "12";
-        var gameVersion = "0.0.15";
+        var editorVersion = "13";
+        var gameVersion = "0.0.17";
 
         var globals = {
             Class: { list: ["None", "Warrior", "Thief", "White Mage", "Black Mage", "Charmer"] },
@@ -160,7 +160,7 @@
             Comp: { toSave: n => n - 1, fromSave: n => n + 1, list: ["Slutty", "Aggresive", "Reserved", "Playful", "Chaste"] },
             Affinity: { list: ["Strength", "Toughness", "Agility", "Cunning", "Willpower", "Presence"] },
             Power: { list: ["None", "At Will", "Recharge", "Encounter", "Ultimate"] },
-            PowerTag: { list: ["Weapon", "Melee", "Ranged", "Thrown", "Spell", "Stance", "Summon", "Healing", "Ally", "Omni", "Performance", "Tease", "Tease Ass", "Tease Crotch", "Tease Chest"] },
+            PowerTag: { list: ["Weapon", "Melee", "Ranged", "Thrown", "Spell", "Stance", "Summon", "Healing", "Ally", "Omni", "Performance", "Tease", "Tease Ass", "Tease Crotch", "Tease Chest", "Catalyzable"] },
             // AnyCock = -1, NormalTits = -16
             Pref: { toSave: n => -(n + 1), fromSave: n => -(n + 1), list: ["Any Cock", "No Cock", "Small Cock", "Big Cock", "Multi Cock", "Any Tits", "No Tits", "Small Tits", "Big Tits", "Vagina", "No Vagina", "Milk", "No Milk", "Big Ass", "Small Ass", "Normal Cock", "Normal Tits"] },
             Perk: { list: ["None", "Class", "Story", "Sex"] },
@@ -179,7 +179,7 @@
             NippleType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Fuckable", "Flat", "Inverted", "Lipples", "Tentacled", "Dick", "Normal"] },
             // None = -1
             HairType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"] },
-            Weapons: { list: ["None", "CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling"] },
+            Weapons: { list: ["CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace"] },
             ArmorSet: { list: ["None", "ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb"] },
             ItemHead: { list: ["None"] },
             ItemNeck: { list: ["None", "WardAmulet"] },
@@ -190,15 +190,22 @@
             Rings: { list: ["None", "WizardRing"] },
             TopGarb: { list: ["None"] },
             BottomGarb: { list: ["None", "PlainUnderwear"] },
-            Shields: { list: ["None", "HoplonShield", "TowerShield", "WickerShield"] },
+            Shields: { list: ["HoplonShield", "TowerShield", "WickerShield"] },
+            Totems: { list: ["LynxTotem"] },
             TFs: { list: [] },
             Misc: { list: ["CampSupplies"] },
             Consumable: { list: [] },
             Set: { list: ["PassionGarb"] },
             Powers: { list: ["AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "GuardedStance", "SpiritVeil", "BolsteringDance", "HarpySong", "Heal", "GroupHeal", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "Warcry", "ThunderStrike", "ButtStomp", "AerialDrop", "PussyTailTease", "HarpyButtTease", "CharmSpell", "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "SummonFlameSpirit", "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "ShadowStrike", "MarkForDeath"] },
             Perks: { list: ["TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "StartingAttributeBonuses", "Flying", "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm"] },
-            Items: { list: [] }
+            WeaponPrimary: { list: [] },
+            WeaponSecondary: { list: [] },
+            Items: { list: [] },
+            EquipSlots: ["weaponPrimary", "weaponSecondary", "head", "neck", "shoulders", "armorSet", "topGarment", "bottomGarment", "waist", "hands", "feet", "ring1", "ring2"]
+
         };
+        globals.WeaponPrimary.list = ["None"].concat(globals.Weapons.list);
+        globals.WeaponSecondary.list = ["None"].concat(globals.Shields.list, globals.Totems.list);
         globals.Items.list = [].concat(
             globals.Weapons.list,
             globals.ArmorSet.list,
@@ -212,6 +219,7 @@
             globals.TopGarb.list,
             globals.BottomGarb.list,
             globals.Shields.list,
+            globals.Totems.list,
             globals.TFs.list,
             globals.Misc.list,
             globals.Set.list
@@ -365,8 +373,8 @@
             "likes": { label: "Likes", type: "multioption", options: globals.Pref },
             "dislikes": { label: "Disikes", type: "multioption", options: globals.Pref },
             "credits": { label: "Credits", type: "number" },
-            "weaponPrimary": { label: "Primary Weapon", type: "string", options: globals.Weapons, groupTag: "Equipment" },
-            "weaponSecondary": { label: "Secondary Weapon", type: "string", options: globals.Weapons, groupTag: "Equipment" },
+            "weaponPrimary": { label: "Primary Weapon", type: "string", options: globals.WeaponPrimary, groupTag: "Equipment" },
+            "weaponSecondary": { label: "Secondary Weapon", type: "string", options: globals.WeaponSecondary, groupTag: "Equipment" },
             "head": { label: "Head", type: "string", options: globals.ItemHead, groupTag: "Equipment" },
             "neck": { label: "Neck", type: "string", options: globals.ItemNeck, groupTag: "Equipment" },
             "shoulders": { label: "Shoulders", type: "string", options: globals.ItemShoulders, groupTag: "Equipment" },
