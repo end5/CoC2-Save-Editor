@@ -150,8 +150,8 @@
         }
     </style>
     <script>
-        var editorVersion = "13";
-        var gameVersion = "0.0.17";
+        var editorVersion = "14";
+        var gameVersion = "0.0.18";
 
         var globals = {
             Class: { list: ["None", "Warrior", "Thief", "White Mage", "Black Mage", "Charmer"] },
@@ -160,7 +160,7 @@
             Comp: { toSave: n => n - 1, fromSave: n => n + 1, list: ["Slutty", "Aggresive", "Reserved", "Playful", "Chaste"] },
             Affinity: { list: ["Strength", "Toughness", "Agility", "Cunning", "Willpower", "Presence"] },
             Power: { list: ["None", "At Will", "Recharge", "Encounter", "Ultimate"] },
-            PowerTag: { list: ["Weapon", "Melee", "Ranged", "Thrown", "Spell", "Stance", "Summon", "Healing", "Ally", "Omni", "Performance", "Tease", "Tease Ass", "Tease Crotch", "Tease Chest", "Catalyzable"] },
+            PowerTag: { list: ["Weapon", "Melee", "Ranged", "Thrown", "Spell", "Stance", "Summon", "Healing", "Ally", "Omni", "Performance", "Tease", "Tease Ass", "Tease Crotch", "Tease Chest", "Catalyzable", "Dualwield", "Twohand"] },
             // AnyCock = -1, NormalTits = -16
             Pref: { toSave: n => -(n + 1), fromSave: n => -(n + 1), list: ["Any Cock", "No Cock", "Small Cock", "Big Cock", "Multi Cock", "Any Tits", "No Tits", "Small Tits", "Big Tits", "Vagina", "No Vagina", "Milk", "No Milk", "Big Ass", "Small Ass", "Normal Cock", "Normal Tits"] },
             Perk: { list: ["None", "Class", "Story", "Sex"] },
@@ -170,7 +170,7 @@
             Attack: { list: ["None", "Physical", "Magical", "Mental", "Sexual"] },
             // None = -1
             BodyType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan/Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"] },
-            BodyTag: { list: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "Stinger Tipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped", "Spiked"] },
+            BodyTag: { list: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "Stinger Tipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped", "Spiked", "Magicock"] },
             // None = -1
             FluidType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Girlcum", "Cum", "Honey", "Milk", "Chocolate Milk", "Strawberry Milk"] },
             // None = -1
@@ -179,8 +179,8 @@
             NippleType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Fuckable", "Flat", "Inverted", "Lipples", "Tentacled", "Dick", "Normal"] },
             // None = -1
             HairType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"] },
-            Weapons: { list: ["CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace"] },
-            ArmorSet: { list: ["None", "ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb"] },
+            Weapons: { list: ["CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace","Mastbreaker"] },
+            ArmorSet: { list: ["None", "ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb", "AronasWarhides", "LoinclothAndGuards", "MailBikini"] },
             ItemHead: { list: ["None"] },
             ItemNeck: { list: ["None", "WardAmulet"] },
             ItemShoulders: { list: ["None", "FlameCape", "PriestessCloak"] },
@@ -196,8 +196,8 @@
             Misc: { list: ["CampSupplies"] },
             Consumable: { list: [] },
             Set: { list: ["PassionGarb"] },
-            Powers: { list: ["AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "GuardedStance", "SpiritVeil", "BolsteringDance", "HarpySong", "Heal", "GroupHeal", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "Warcry", "ThunderStrike", "ButtStomp", "AerialDrop", "PussyTailTease", "HarpyButtTease", "CharmSpell", "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "SummonFlameSpirit", "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "ShadowStrike", "MarkForDeath"] },
-            Perks: { list: ["TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "StartingAttributeBonuses", "Flying", "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm"] },
+            Powers: { list: ["AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "ChainmailJiggle", "GuardedStance", "SpiritVeil", "BolsteringDance", "Frenzy", "HarpySong", "Heal", "GroupHeal", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "Warcry", "ThunderStrike", "ButtStomp", "AerialDrop", "PussyTailTease", "HarpyButtTease", "CharmSpell", "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "SummonFlameSpirit", "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "ShadowStrike", "MarkForDeath", "PrimeTarget", "GiantsReach", "Execute"] },
+            Perks: { list: ["TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "Warpaint", "StartingAttributeBonuses", "Flying", "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm"] },
             WeaponPrimary: { list: [] },
             WeaponSecondary: { list: [] },
             Items: { list: [] },
