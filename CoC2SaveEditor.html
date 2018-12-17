@@ -150,24 +150,30 @@
         }
     </style>
     <script>
-        var editorVersion = "14";
-        var gameVersion = "0.0.18";
+
+        // Command for serializing default chars
+        // JSON.stringify(Object.entries(window.CHAR_CLASSES).filter(char=>["PlayerCharacter", "Arona", "Berwyn", "Brint", "Cait", "Kiyoko", "Etheryn"].some(n=>n===char[0])).reduce((obj, char)=>{obj[char[0]]=(new char[1]()).serialize();return obj},{}));
+
+        var charDefaults = {
+            "pc":{"name":"Unnamed","cName":"","soloCombatPrefix":"","taxa":1,"class":0,"background":0,"isPlural":false,"partyLeader":true,"level":1,"exp":0,"canGainExp":false,"compTags":[],"actionPoints":1,"hitPoints":100,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":0,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[],"classAffinities":[],"backgroundAffinities":[],"perks":[],"powers":[],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[],"dislikes":[],"boon":null,"credits":0,"weaponPrimary":{"key":"Fist","args":[1]},"weaponSecondary":null,"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"ComfortableClothes","args":[1]},"hands":null,"waist":null,"feet":{"key":"LeatherBoots","args":[1]},"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":{"key":"PlainUnderwear","args":[1]},"inventory":[],"keyItems":[],"set":null,"originalRace":"human","femininity":50,"tallness":66,"tone":50,"thickness":50,"hipRatingRaw":0,"hipRatingMod":0,"buttRatingRaw":0,"buttRatingMod":0,"bellyRatingRaw":0,"bellyRatingMod":0,"lipMod":0,"hairColor":"brown","skinColor":"","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":7,"tags":[],"sizeRaw":0,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2,"title":"Adventurer","wyldMark":-1,"drinks":[],"customImage":null,"pendingLoot":[],"sensed":[],"storage":[],"maxStorage":200},
+            "arona":{"name":"Arona","cName":"","soloCombatPrefix":"","taxa":1,"class":1,"background":5,"genderPref":1,"isPlural":false,"partyLeader":true,"level":3,"exp":150,"canGainExp":true,"compTags":[2],"actionPoints":1,"hitPoints":200,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":2,"strengthMod":0,"toughnessAlloc":2,"toughnessMod":1,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":1,"cunningMod":2,"willpowerAlloc":1,"willpowerMod":1,"presenceAlloc":0,"presenceMod":0,"libidoMod":10,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[1,0,4],"classAffinities":[1,0,2],"backgroundAffinities":[0,1,5],"perks":[{"key":"WarPaint","values":[]},{"key":"StartingAttributeBonuses","values":[0,3,0,0,0,0]}],"powers":[{"key":"NormalAttack"},{"key":"NormalAttack"},{"key":"GuardedStance"},{"key":"AmazonStrike"},{"key":"Cleave"},{"key":"PrimeTarget"}],"equippedPowers":[{"key":"GuardedStance"},{"key":"AmazonStrike"},{"key":"Cleave"},{"key":"PrimeTarget"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-9,-4],"dislikes":[-8,-3],"boon":null,"credits":60,"weaponPrimary":{"key":"Mastbreaker","args":[1]},"weaponSecondary":{"key":"HoplonShield","args":[1]},"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"AronasWarhides","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"orc","femininity":70,"tallness":94,"tone":80,"thickness":30,"hipRatingRaw":12,"hipRatingMod":0,"buttRatingRaw":8,"buttRatingMod":0,"bellyRatingRaw":8,"bellyRatingMod":0,"lipMod":0,"hairColor":"black","skinColor":"green","furColor":"brown","scaleColor":"","lipColor":"black","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":2,"faceTags":[27],"earType":5,"earTags":[3],"earLength":1,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":true,"cockVirgin":false,"analVirgin":false,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":7,"tags":[],"sizeRaw":5,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"black","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":12,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1,"pierced":0,"color":"green"}],"feracityRaw":1,"feracityMod":0,"vagina":{"type":1,"hymen":true,"clits":1,"color":"black","wetnessRaw":1,"wetnessMod":0,"loosenessRaw":1.5,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
+            "berwyn":{"name":"Summoner","cName":"","soloCombatPrefix":"the ","taxa":1,"class":4,"background":6,"genderPref":0,"isPlural":false,"partyLeader":false,"level":2,"exp":150,"canGainExp":true,"compTags":[4],"actionPoints":1,"hitPoints":130,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":0,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":1,"cunningMod":1,"willpowerAlloc":1,"willpowerMod":1,"presenceAlloc":1,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,1,3],"classAffinities":[4,3,5],"backgroundAffinities":[3,4,5],"perks":[{"key":"StartingAttributeBonuses","values":[1,0,0,1,1,0]}],"powers":[{"key":"NormalAttack"},{"key":"FireBolt"},{"key":"CharmSpell"},{"key":"Heal"},{"key":"SummonStoneElemental"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-10,-17,-9],"dislikes":[-4,-8],"boon":null,"credits":100,"weaponPrimary":{"key":"Quarterstaff","args":[1]},"weaponSecondary":null,"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"ApprenticeRobes","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"lupine","femininity":70,"tallness":66,"tone":30,"thickness":5,"hipRatingRaw":10,"hipRatingMod":0,"buttRatingRaw":10,"buttRatingMod":0,"bellyRatingRaw":2,"bellyRatingMod":0,"lipMod":0,"hairColor":"white","skinColor":"brown","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":true,"cockVirgin":false,"analVirgin":false,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":7,"tags":[],"sizeRaw":0,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
+            "brint":{"name":"Brint","cName":"","soloCombatPrefix":"","taxa":2,"class":1,"background":3,"genderPref":0,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":true,"compTags":[2],"actionPoints":1,"hitPoints":110,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":2,"toughnessAlloc":0,"toughnessMod":1,"agilityAlloc":0,"agilityMod":1,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":15,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":-75,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":-75,"fatigueResist":0,"mindResist":0,"raceAffinities":[1,0,2],"classAffinities":[1,0,2],"backgroundAffinities":[0,1,2],"perks":[{"key":"StartingAttributeBonuses","values":[2,1,0,0,0,0]},{"key":"RendingStrike","values":[]}],"powers":[{"key":"NormalAttack"},{"key":"GiantsReach"},{"key":"Cleave"},{"key":"Frenzy"}],"equippedPowers":[{"key":"GiantsReach"},{"key":"Cleave"},null,{"key":"Frenzy"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-10,-17,-9],"dislikes":[-1,-7],"boon":null,"credits":0,"weaponPrimary":{"key":"Poleaxe","args":[1]},"weaponSecondary":{"key":"Mace","args":[1]},"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"LoinclothAndGuards","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":{"key":"LoinSet","args":[1]},"originalRace":"minotaur","femininity":5,"tallness":102,"tone":80,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"dark brown","skinColor":"brown","furColor":"brown","scaleColor":"","lipColor":"black","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":4,"skinTags":[],"tailType":22,"numTails":1,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":22,"legTags":[26,34,37],"tongueType":22,"tongueTags":[],"faceType":22,"faceTags":[24],"earType":22,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":true,"cockVirgin":false,"analVirgin":false,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":7,"tags":[],"sizeRaw":0,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":30,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":6,"virgin":true,"tags":[4,38],"lengthRaw":24,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1,"pierced":0,"color":"brown"}],"feracityRaw":1,"feracityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":4.5,"cumMultiplierMod":0,"ass":{"type":6,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":1},
+            "cait":{"name":"Cait","cName":"","soloCombatPrefix":"","taxa":1,"class":3,"background":10,"genderPref":1,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":true,"compTags":[4],"actionPoints":1,"hitPoints":105,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":1,"agilityAlloc":0,"agilityMod":1,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":2,"presenceAlloc":0,"presenceMod":0,"libidoMod":15,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[2,3,5],"classAffinities":[4,1,5],"backgroundAffinities":[5,3,2],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]},{"key":"HealersHands","values":[]}],"powers":[{"key":"NormalAttack"},{"key":"NormalAttack"},{"key":"SpiritVeil"},{"key":"Heal"},{"key":"WhiteFire"}],"equippedPowers":[{"key":"Heal"},{"key":"WhiteFire"},null,{"key":"SpiritVeil"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-16,-17,-9],"dislikes":[-4,-8],"boon":null,"credits":0,"weaponPrimary":{"key":"CaitsStaff","args":[1]},"weaponSecondary":null,"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":{"key":"PriestessCloak","args":[1]},"armorSet":{"key":"PassionPriestessGarb","args":[1]},"hands":{"key":"SilverBracelets","args":[1]},"waist":{"key":"PotionBelt","args":[1]},"feet":{"key":"CaitsKneeBoots","args":[1]},"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":{"key":"PassionSet","args":[1]},"originalRace":"catfolk","femininity":85,"tallness":66,"tone":40,"thickness":30,"hipRatingRaw":12,"hipRatingMod":0,"buttRatingRaw":12,"buttRatingMod":0,"bellyRatingRaw":7,"bellyRatingMod":0,"lipMod":0,"hairColor":"pink","skinColor":"fair","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":4,"numTails":1,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":false,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":7,"tags":[],"sizeRaw":6,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"vagina":{"type":1,"hymen":false,"clits":1,"color":"pink","wetnessRaw":1,"wetnessMod":0,"loosenessRaw":1.5,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":1},
+            "kiyoko":{"name":"Kiyoko","cName":"","soloCombatPrefix":"","taxa":1,"class":4,"background":4,"genderPref":1,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":true,"compTags":[4],"actionPoints":1,"hitPoints":105,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":1,"agilityAlloc":0,"agilityMod":1,"cunningAlloc":0,"cunningMod":1,"willpowerAlloc":0,"willpowerMod":1,"presenceAlloc":0,"presenceMod":0,"libidoMod":15,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[4,3,5],"backgroundAffinities":[4,3,2],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,0,0,2,0]}],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-16,-17,-9],"dislikes":[-4,-8],"boon":null,"credits":0,"weaponPrimary":{"key":"Fist","args":[1]},"weaponSecondary":null,"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"kitsune","femininity":90,"tallness":66,"tone":25,"thickness":15,"hipRatingRaw":3,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"orange","skinColor":"pale","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"green","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":false,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":7,"tags":[],"sizeRaw":1,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"vagina":{"type":1,"hymen":false,"clits":1,"color":"pink","wetnessRaw":1,"wetnessMod":0,"loosenessRaw":1.5,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
+            "etheryn":{"name":"Etheryn","cName":"","soloCombatPrefix":"","taxa":1,"class":2,"background":2,"genderPref":1,"isPlural":false,"partyLeader":false,"level":3,"exp":0,"canGainExp":true,"compTags":[3],"actionPoints":1,"hitPoints":170,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":1,"toughnessAlloc":0,"toughnessMod":2,"agilityAlloc":2,"agilityMod":0,"cunningAlloc":2,"cunningMod":0,"willpowerAlloc":2,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":8,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[2,3,0],"backgroundAffinities":[5,2,4],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]}],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-3,-16,-15,-6],"dislikes":[-14,-4],"boon":null,"credits":0,"weaponPrimary":{"key":"Fist","args":[1]},"weaponSecondary":null,"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"pale elf","femininity":65,"tallness":67,"tone":10,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"blonde","skinColor":"white","furColor":"brown","scaleColor":"","lipColor":"pink","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[11],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[28],"earType":5,"earTags":[3],"earLength":4,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":3,"tags":[],"sizeRaw":1,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":4,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1,"pierced":0,"color":"pale"}],"feracityRaw":1,"feracityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2}
+        };
+
+        var editorVersion = "15";
+        var gameVersion = "0.1.0";
 
         var globals = {
+            Taxon: { toSave: n => n + 1, fromSave: n => n - 1, list: ["Humanoid", "Beast", "Demon", "Plant", "Ethereal", "Undead", "Construct", "Fey"] },
             Class: { list: ["None", "Warrior", "Thief", "White Mage", "Black Mage", "Charmer"] },
             Background: { list: ["None", "Noble", "Minstrel", "Soldier", "Arcanist", "Barbarian", "Scholar", "Slumrat", "Acolyte", "Hunter", "Courtesan"] },
             // Slutty = 1
-            Comp: { toSave: n => n - 1, fromSave: n => n + 1, list: ["Slutty", "Aggresive", "Reserved", "Playful", "Chaste"] },
             Affinity: { list: ["Strength", "Toughness", "Agility", "Cunning", "Willpower", "Presence"] },
-            Power: { list: ["None", "At Will", "Recharge", "Encounter", "Ultimate"] },
-            PowerTag: { list: ["Weapon", "Melee", "Ranged", "Thrown", "Spell", "Stance", "Summon", "Healing", "Ally", "Omni", "Performance", "Tease", "Tease Ass", "Tease Crotch", "Tease Chest", "Catalyzable", "Dualwield", "Twohand"] },
-            // AnyCock = -1, NormalTits = -16
-            Pref: { toSave: n => -(n + 1), fromSave: n => -(n + 1), list: ["Any Cock", "No Cock", "Small Cock", "Big Cock", "Multi Cock", "Any Tits", "No Tits", "Small Tits", "Big Tits", "Vagina", "No Vagina", "Milk", "No Milk", "Big Ass", "Small Ass", "Normal Cock", "Normal Tits"] },
-            Perk: { list: ["None", "Class", "Story", "Sex"] },
-            Item: { list: ["None", "Primary", "Armor Set", "Head", "Neck", "Shoulders", "Hands", "Waist", "Feet", "Ring", "Top Garb", "Botttom Garb", "Offhand", "TF", "Misc", "Consumable", "Set"] },
-            ItemTag: { list: ["Two Hand", "Heavy", "Light", "Bladed", "Thrown", "Ranged", "Melee", "Implement/Catalyst", "Shield", "Skimpy", "Skin Tight", "Metal", "Leather", "Cloth", "Warded", "Calming", "Exp Chest", "Exp Crotch", "Exp Ass", "Conceal", "Unsellable", "Undroppable"] },
-            Damage: { list: ["Raw", "Penetrating", "Crushing", "Holy", "Blight", "Acid", "Fire", "Frost", "Storm", "Tease", "Drug", "Pheromone", "Fatigue", "Mind"] },
-            Attack: { list: ["None", "Physical", "Magical", "Mental", "Sexual"] },
+            TFType: { list: ["Raw", "Body", "Limbs", "Face", "Head", "Tail", "Cock", "Milk", "Balls", "Breasts", "Butt", "Pussy", "Cum", "Feracity"] },
             // None = -1
             BodyType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan/Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"] },
             BodyTag: { list: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "Stinger Tipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped", "Spiked", "Magicock"] },
@@ -179,10 +185,10 @@
             NippleType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Fuckable", "Flat", "Inverted", "Lipples", "Tentacled", "Dick", "Normal"] },
             // None = -1
             HairType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"] },
-            Weapons: { list: ["CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace","Mastbreaker"] },
+            Weapons: { list: ["CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace", "Mastbreaker", "BeastKiller"] },
             ArmorSet: { list: ["None", "ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb", "AronasWarhides", "LoinclothAndGuards", "MailBikini"] },
             ItemHead: { list: ["None"] },
-            ItemNeck: { list: ["None", "WardAmulet"] },
+            ItemNeck: { list: ["None", "WardAmulet", "AmuletOfTransference", "AmuletOfUnion",] },
             ItemShoulders: { list: ["None", "FlameCape", "PriestessCloak"] },
             ItemHands: { list: ["None", "Gauntlets", "ArmGuards", "SilverBracelets"] },
             ItemWaist: { list: ["None", "PotionBelt"] },
@@ -192,15 +198,32 @@
             BottomGarb: { list: ["None", "PlainUnderwear"] },
             Shields: { list: ["HoplonShield", "TowerShield", "WickerShield"] },
             Totems: { list: ["LynxTotem"] },
-            TFs: { list: [] },
-            Misc: { list: ["CampSupplies"] },
+            TFs: { list: ["Wolfsboon", "FoxBerry", "CatsTongueBerry", "RootOfMan"] },
+            Misc: { list: ["CampSupplies", "EffigySeed"] },
             Consumable: { list: [] },
-            Set: { list: ["PassionGarb"] },
-            Powers: { list: ["AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "ChainmailJiggle", "GuardedStance", "SpiritVeil", "BolsteringDance", "Frenzy", "HarpySong", "Heal", "GroupHeal", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "Warcry", "ThunderStrike", "ButtStomp", "AerialDrop", "PussyTailTease", "HarpyButtTease", "CharmSpell", "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "SummonFlameSpirit", "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "ShadowStrike", "MarkForDeath", "PrimeTarget", "GiantsReach", "Execute"] },
-            Perks: { list: ["TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "Warpaint", "StartingAttributeBonuses", "Flying", "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm"] },
+            Set: { list: ["PassionGarb", "LoinSet"] },
+            Boon: { list: ["VelunsBlessing", "HoneyMead", "SpicedWine", "RyeBeer", "AppleCider", "MonasteryWine", "LoversDry"] },
+            StatusEffect: { list: ["AnallyFilled", "OrallyFilled", "VaginallyFilled", "Armorer", "SharpenBlades", "PrayerOfWarding", "ArcaneAttunement", "FocusingPerformance", "WarPaint", "EyeOfTheStorm", "Enervation", "AphrodisiacCovered"] },
+            CombatEffect: { list: ["Prone", "Bleeding", "Sundered", "Obscured", "Staggered", "Burning", "Terrified", "Poisoned", "Frigid", "Stunned", "EnArousedervation", "Disarmed", "Blinded", "Blessed", "SpiritVeil", "Resistance", "WeaponBuff", "FeatherDance", "WarlordsCry", "TaintedBulwark", "FirstStrike", "Restrained"] },
+            Powers: {
+                list: [
+                    "AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "ChainmailJiggle", "BreastPlate", "CumSpray",
+                    "GuardedStance", "SpiritVeil", "BolsteringDance", "Flight", "Frenzy", "AuraOfDesire", "PipersSong", "VineRestaints", "HarpySong", "Pollination", "Heal", "GroupHeal", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "Warcry",
+                    "ButtStomp", "AerialDrop", "Quake", "Rush", "Grapple",
+                    "PussyTailTease", "HarpyButtTease", "EffigyBoobTease", "CharmSpell", "EarthFist", "TentacleSlap", "BellyDance", "DickWobble", "ImpDirtyTrick",
+                    "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "FireBolt", "PollenSpray",
+                    "SummonFlameSpirit", "SummonStoneElemental", "SummonEffigy",
+                    "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "ThunderStrike", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "MarkForDeath", "PrimeTarget", "GiantsReach", "Execute", "LustyTentacles", "Envenom", "TrickShot", "Shatterstrike"]
+            },
+            Perks: {
+                list: [
+                    "TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "Warpaint", "RendingStrike", "EyeOfTheStorm", "StartingAttributeBonuses", "Leftovers",
+                    "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm"
+                ]
+            },
             WeaponPrimary: { list: [] },
             WeaponSecondary: { list: [] },
-            Items: { list: [] },
+            Items: { list: ["FoxBerry", "Wolfsboon"] },
             EquipSlots: ["weaponPrimary", "weaponSecondary", "head", "neck", "shoulders", "armorSet", "topGarment", "bottomGarment", "waist", "hands", "feet", "ring1", "ring2"]
 
         };
@@ -245,35 +268,43 @@
             string
             boolean
             number
-                default - The default value if it doesn't exist
         */
 
         var charMap = {
+            // Info
             "name": { label: "Name", type: "string" },
+            "title": { label: "Title", type: "string" },
+            "taxa": { label: "Taxon", type: "number", options: globals.Taxon },
             "class": { label: "Class", type: "number", options: globals.Class },
             "background": { label: "Background", type: "number", options: globals.Background },
             "genderPref": { label: "Gender Pref", type: "number" },
             "level": { label: "Level", type: "number" },
             "exp": { label: "Exp", type: "number" },
-            "hitPoints": { label: "HP", type: "number", groupTag: "Stats", default: 100 },
+            "orgasms": { label: "Orgasms", type: "number" },
+            "lastOrgasm": { label: "Last Orgasm", type: "number" },
+            // Stats
+            "hitPoints": { label: "HP", type: "number", groupTag: "Stats" },
             "hitPointsMaxMod": { label: "HP Max Mod", type: "number", groupTag: "Stats" },
             "resolvePoints": { label: "Resolve Points", type: "number", groupTag: "Stats" },
             "resolveMaxMod": { label: "Resolve Points Max Mod", type: "number", groupTag: "Stats" },
-            "threatMod": { label: "Threat Mod", type: "number", groupTag: "Stats", default: 10 },
-            "strengthAlloc": { label: "Strength", type: "number", groupTag: "Stats" },
+            "threatMod": { label: "Threat Mod", type: "number", groupTag: "Stats" },
+            "strengthAlloc": { label: "Strength Level", type: "number", groupTag: "Stats" },
             "strengthMod": { label: "Strength Mod", type: "number", groupTag: "Stats" },
-            "toughnessAlloc": { label: "Toughness", type: "number", groupTag: "Stats" },
+            "toughnessAlloc": { label: "Toughness Level", type: "number", groupTag: "Stats" },
             "toughnessMod": { label: "Toughness Mod", type: "number", groupTag: "Stats" },
-            "agilityAlloc": { label: "Agility", type: "number", groupTag: "Stats" },
+            "agilityAlloc": { label: "Agility Level", type: "number", groupTag: "Stats" },
             "agilityMod": { label: "Agility Mod", type: "number", groupTag: "Stats" },
-            "cunningAlloc": { label: "Cunning", type: "number", groupTag: "Stats" },
+            "cunningAlloc": { label: "Cunning Level", type: "number", groupTag: "Stats" },
             "cunningMod": { label: "Cunning Mod", type: "number", groupTag: "Stats" },
-            "willpowerAlloc": { label: "Willpower", type: "number", groupTag: "Stats" },
+            "willpowerAlloc": { label: "Willpower Level", type: "number", groupTag: "Stats" },
             "willpowerMod": { label: "Willpower Mod", type: "number", groupTag: "Stats" },
-            "presenceAlloc": { label: "Presence", type: "number", groupTag: "Stats" },
+            "presenceAlloc": { label: "Presence Level", type: "number", groupTag: "Stats" },
             "presenceMod": { label: "Presence Mod", type: "number", groupTag: "Stats" },
             "libidoMod": { label: "Libido Mod", type: "number", groupTag: "Stats" },
             "corruptionMod": { label: "Corruption Mod", type: "number", groupTag: "Stats" },
+            "exhibRaw": { label: "Exhibition Raw", type: "number", groupTag: "Stats" },
+            "feracityRaw": { label: "Feracity Raw", type: "number", groupTag: "Stats" },
+            "feracityMod": { label: "Feracity Mod", type: "number", groupTag: "Stats" },
             "penetratingResist": { label: "Penetrating", type: "number", groupTag: "Stats.Resistance" },
             "crushingResist": { label: "Crushing", type: "number", groupTag: "Stats.Resistance" },
             "holyResist": { label: "Holy", type: "number", groupTag: "Stats.Resistance" },
@@ -287,9 +318,10 @@
             "pheromoneResist": { label: "Pheromone", type: "number", groupTag: "Stats.Resistance" },
             "fatigueResist": { label: "Fatigue", type: "number", groupTag: "Stats.Resistance" },
             "mindResist": { label: "Mind", type: "number", groupTag: "Stats.Resistance" },
-            "raceAffinities": { label: "Race", type: "multioption", options: globals.Affinity, groupTag: "Affinities" },
-            "classAffinities": { label: "Class", type: "multioption", options: globals.Affinity, groupTag: "Affinities" },
-            "backgroundAffinities": { label: "Background", type: "multioption", options: globals.Affinity, groupTag: "Affinities" },
+            "raceAffinities": { label: "Race", type: "multioption", options: globals.Affinity, groupTag: "Stats.Affinities" },
+            "classAffinities": { label: "Class", type: "multioption", options: globals.Affinity, groupTag: "Stats.Affinities" },
+            "backgroundAffinities": { label: "Background", type: "multioption", options: globals.Affinity, groupTag: "Stats.Affinities" },
+            // Effects
             "perks": {
                 label: "Perks",
                 type: "array",
@@ -299,9 +331,51 @@
                     create: createPerk,
                     canBeNull: false,
                     properties: {
-                        "key": { label: "Key", type: "string" },
+                        "key": { label: "Key", type: "string", options: globals.Perks },
                         "values": { label: "Values", type: "array", properties: { type: "number" }, min: 6 }
                     }
+                }
+            },
+            "statusEffects": {
+                label: "Status",
+                type: "array",
+                groupTag: "Effects",
+                properties: {
+                    type: "object",
+                    create: createEffect,
+                    canBeNull: false,
+                    properties: {
+                        "name": { label: "Name", type: "string", options: globals.StatusEffect },
+                        "duration": { label: "Duration", type: "number" },
+                        "values": { label: "Values", type: "array", properties: { type: "number" } }
+                    }
+                }
+            },
+            "combatEffects": {
+                label: "Combat",
+                type: "array",
+                groupTag: "Effects",
+                properties: {
+                    type: "object",
+                    create: createEffect,
+                    canBeNull: false,
+                    properties: {
+                        "name": { label: "Name", type: "string", options: globals.CombatEffect },
+                        "duration": { label: "Duration", type: "number" },
+                        "values": { label: "Values", type: "array", properties: { type: "number" } }
+                    }
+                }
+            },
+            "boon": {
+                label: "Boon",
+                type: "object",
+                groupTag: "Effects",
+                canBeNull: true,
+                create: createEffect,
+                properties: {
+                    "name": { label: "Name", type: "string", options: globals.Boon },
+                    "duration": { label: "Duration", type: "number" },
+                    "values": { label: "Values", type: "array", properties: { type: "number" } }
                 }
             },
             "powers": {
@@ -337,115 +411,82 @@
                     }
                 }
             },
-            "combatEffects": {
-                label: "Combat",
-                type: "array",
-                groupTag: "Effects",
-                properties: {
-                    type: "object",
-                    create: createCombatEffect,
-                    canBeNull: false,
-                    properties: {
-                        "name": { label: "Name", type: "string" },
-                        "short": { label: "Short", type: "string" },
-                        "desc": { label: "Desc", type: "string" },
-                        "duration": { label: "Duration", type: "number" },
-                        "values": { label: "Values", type: "array", properties: { type: "number" } }
-                    }
-                }
+            // Inventory
+            "credits": { label: "Credits", type: "number", groupTag: "Inventory" },
+            "weaponPrimary": { label: "Primary Weapon", type: "string", options: globals.WeaponPrimary, groupTag: "Inventory.Equipment" },
+            "weaponSecondary": { label: "Secondary Weapon", type: "string", options: globals.WeaponSecondary, groupTag: "Inventory.Equipment" },
+            "head": { label: "Head", type: "string", options: globals.ItemHead, groupTag: "Inventory.Equipment" },
+            "neck": { label: "Neck", type: "string", options: globals.ItemNeck, groupTag: "Inventory.Equipment" },
+            "shoulders": { label: "Shoulders", type: "string", options: globals.ItemShoulders, groupTag: "Inventory.Equipment" },
+            "armorSet": { label: "Armor Set", type: "string", options: globals.ArmorSet, groupTag: "Inventory.Equipment" },
+            "hands": { label: "Hands", type: "string", options: globals.ItemHands, groupTag: "Inventory.Equipment" },
+            "waist": { label: "Waist", type: "string", options: globals.ItemWaist, groupTag: "Inventory.Equipment" },
+            "feet": { label: "Feet", type: "string", options: globals.ItemFeet, groupTag: "Inventory.Equipment" },
+            "ring1": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Inventory.Equipment" },
+            "ring2": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Inventory.Equipment" },
+            "topGarment": { label: "Top Garment", type: "string", options: globals.TopGarb, groupTag: "Inventory.Equipment" },
+            "bottomGarment": { label: "Bottom Garment", type: "string", options: globals.BottomGarb, groupTag: "Inventory.Equipment" },
+            "inventory": { label: "Items", type: "array", groupTag: "Inventory", properties: { type: "string", options: globals.Items } },
+            "reagents": {
+                label: "Reagents",
+                type: "object",
+                groupTag: "Inventory",
+                canBeNull: false,
+                create: createReagents,
+                properties: (() => {
+                    var obj = {};
+                    for (var index = 0; index < globals.TFType.list.length; index++)
+                        obj[index] = { label: globals.TFType.list[index], type: "number" };
+                    return obj;
+                })()
             },
-            "statusEffects": {
-                label: "Status",
-                type: "array",
-                groupTag: "Effects",
-                properties: {
-                    type: "object",
-                    create: createStatusEffect,
-                    canBeNull: false,
-                    properties: {
-                        "name": { label: "Name", type: "string" },
-                        "desc": { label: "Desc", type: "string" },
-                        "duration": { label: "Duration", type: "number" },
-                        "values": { label: "Values", type: "array", properties: { type: "number" } }
-                    }
-                }
-            },
-            "likes": { label: "Likes", type: "multioption", options: globals.Pref },
-            "dislikes": { label: "Disikes", type: "multioption", options: globals.Pref },
-            "credits": { label: "Credits", type: "number" },
-            "weaponPrimary": { label: "Primary Weapon", type: "string", options: globals.WeaponPrimary, groupTag: "Equipment" },
-            "weaponSecondary": { label: "Secondary Weapon", type: "string", options: globals.WeaponSecondary, groupTag: "Equipment" },
-            "head": { label: "Head", type: "string", options: globals.ItemHead, groupTag: "Equipment" },
-            "neck": { label: "Neck", type: "string", options: globals.ItemNeck, groupTag: "Equipment" },
-            "shoulders": { label: "Shoulders", type: "string", options: globals.ItemShoulders, groupTag: "Equipment" },
-            "armorSet": { label: "Armor Set", type: "string", options: globals.ArmorSet, groupTag: "Equipment" },
-            "hands": { label: "Hands", type: "string", options: globals.ItemHands, groupTag: "Equipment" },
-            "waist": { label: "Waist", type: "string", options: globals.ItemWaist, groupTag: "Equipment" },
-            "feet": { label: "Feet", type: "string", options: globals.ItemFeet, groupTag: "Equipment" },
-            "ring1": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Equipment" },
-            "ring2": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Equipment" },
-            "topGarment": { label: "Top Garment", type: "string", options: globals.TopGarb, groupTag: "Equipment" },
-            "bottomGarment": { label: "Bottom Garment", type: "string", options: globals.BottomGarb, groupTag: "Equipment" },
-            "inventory": { label: "Inventory", type: "array", properties: { type: "string", options: globals.Items } },
-            "keyItems": { label: "Key Items", type: "array", properties: { type: "string" } },
-            "originalRace": { label: "Original Race", type: "string", groupTag: "Appearance" },
-            "femininity": { label: "Feminitity", type: "number", groupTag: "Appearance" },
-            "tallness": { label: "Tallness", type: "number", groupTag: "Appearance" },
-            "tone": { label: "Tone", type: "number", groupTag: "Appearance" },
-            "thickness": { label: "Thickness", type: "number", groupTag: "Appearance" },
-            "hipRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Appearance.Hips" },
-            "hipRatingMod": { label: "Rating Mod", type: "number", groupTag: "Appearance.Hips" },
-            "buttRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Appearance.Butt" },
-            "buttRatingMod": { label: "Rating Mod", type: "number", groupTag: "Appearance.Butt" },
-            "bellyRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Appearance.Belly" },
-            "bellyRatingMod": { label: "Rating Mod", type: "number", groupTag: "Appearance.Belly" },
-            "lipMod": { label: "Mod", type: "number", groupTag: "Appearance.Lips" },
-            "hairColor": { label: "Color", type: "string", groupTag: "Appearance.Hair" },
-            "skinColor": { label: "Skin Color", type: "string", groupTag: "Appearance.Skin" },
-            "furColor": { label: "Fur Color", type: "string", groupTag: "Appearance.Skin" },
-            "scaleColor": { label: "Scale Color", type: "string", groupTag: "Appearance.Skin" },
-            "lipColor": { label: "Color", type: "string", groupTag: "Appearance.Lips" },
-            "hairLength": { label: "Length", type: "number", groupTag: "Appearance.Hair" },
-            "hairStyle": { label: "Style", type: "string", groupTag: "Appearance.Hair" },
-            "hairType": { label: "Type", type: "number", options: globals.HairType, groupTag: "Appearance.Hair" },
-            "horns": { label: "Count", type: "number", groupTag: "Appearance.Horns" },
-            "hornType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Horns" },
-            "hornLength": { label: "Length", type: "number", groupTag: "Appearance.Horns" },
-            "wingType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Wings" },
-            "wingCount": { label: "Count", type: "number", groupTag: "Appearance.Wings" },
-            "skinType": { label: "Type", type: "number", options: globals.SkinType, groupTag: "Appearance.Skin" },
-            "skinTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Skin" },
-            "tailType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Tails" },
-            "numTails": { label: "Count", type: "number", groupTag: "Appearance.Tails" },
-            "tailTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Tails" },
-            "armType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Arms" },
-            "armTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Arms" },
-            "legCount": { label: "Count", type: "number", groupTag: "Appearance.Legs" },
-            "legType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Legs" },
-            "legTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Legs" },
-            "tongueType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Tongue" },
-            "tongueTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Tongue" },
-            "faceType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Face" },
-            "faceTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Face" },
-            "earType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Ears" },
-            "earTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Ears" },
-            "earLength": { label: "Count", type: "number", groupTag: "Appearance.Ears" },
-            "eyeType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Appearance.Eyes" },
-            "eyeTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Appearance.Eyes" },
-            "eyeColor": { label: "Color", type: "string", groupTag: "Appearance.Eyes" },
-            "orgasms": { label: "Orgasms", type: "number" },
-            "lastOrgasm": { label: "Last Orgasm", type: "number" },
-            "exhibRaw": { label: "Exhibition Raw", type: "number", groupTag: "Stats" },
-            "isVirgin": { label: "Virgin", type: "boolean", groupTag: "Virginity" },
-            "vaginalVirgin": { label: "Vaginal", type: "boolean", groupTag: "Virginity" },
-            "cockVirgin": { label: "Cock", type: "boolean", groupTag: "Virginity" },
-            "analVirgin": { label: "Anal", type: "boolean", groupTag: "Virginity" },
-            "pregnancySpeedRaw": { label: "Speed Raw", type: "number", groupTag: "Pregnancy" },
-            "pregnancySpeedMod": { label: "Speed Mod", type: "number", groupTag: "Pregnancy" },
+            "keyItems": { label: "Key Items", type: "array", groupTag: "Inventory", properties: { type: "string" } },
+            // Body
+            "originalRace": { label: "Original Race", type: "string", groupTag: "Body" },
+            "femininity": { label: "Feminitity", type: "number", groupTag: "Body" },
+            "tallness": { label: "Tallness", type: "number", groupTag: "Body" },
+            "tone": { label: "Tone", type: "number", groupTag: "Body" },
+            "thickness": { label: "Thickness", type: "number", groupTag: "Body" },
+            "skinType": { label: "Type", type: "number", options: globals.SkinType, groupTag: "Body.Skin" },
+            "skinTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Skin" },
+            "skinColor": { label: "Skin Color", type: "string", groupTag: "Body.Skin" },
+            "furColor": { label: "Fur Color", type: "string", groupTag: "Body.Skin" },
+            "scaleColor": { label: "Scale Color", type: "string", groupTag: "Body.Skin" },
+            "isVirgin": { label: "Virgin", type: "boolean", groupTag: "Body.Virginity" },
+            "vaginalVirgin": { label: "Vaginal", type: "boolean", groupTag: "Body.Virginity" },
+            "cockVirgin": { label: "Cock", type: "boolean", groupTag: "Body.Virginity" },
+            "analVirgin": { label: "Anal", type: "boolean", groupTag: "Body.Virginity" },
+            "pregnancySpeedRaw": { label: "Speed Raw", type: "number", groupTag: "Body.Pregnancy" },
+            "pregnancySpeedMod": { label: "Speed Mod", type: "number", groupTag: "Body.Pregnancy" },
+            // Head
+            "horns": { label: "Count", type: "number", groupTag: "Body.Head.Horns" },
+            "hornType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Horns" },
+            "hornLength": { label: "Length", type: "number", groupTag: "Body.Head.Horns" },
+            "hairColor": { label: "Color", type: "string", groupTag: "Body.Head.Hair" },
+            "hairLength": { label: "Length", type: "number", groupTag: "Body.Head.Hair" },
+            "hairStyle": { label: "Style", type: "string", groupTag: "Body.Head.Hair" },
+            "hairType": { label: "Type", type: "number", options: globals.HairType, groupTag: "Body.Head.Hair" },
+            "earType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Ears" },
+            "earTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Ears" },
+            "earLength": { label: "Count", type: "number", groupTag: "Body.Head.Ears" },
+            "faceType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Face" },
+            "faceTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Face" },
+            "eyeType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Eyes" },
+            "eyeTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Eyes" },
+            "eyeColor": { label: "Color", type: "string", groupTag: "Body.Head.Eyes" },
+            "lipMod": { label: "Mod", type: "number", groupTag: "Body.Head.Lips" },
+            "lipColor": { label: "Color", type: "string", groupTag: "Body.Head.Lips" },
+            "tongueType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Tongue" },
+            "tongueTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Tongue" },
+            // Torso
+            "wingType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Wings" },
+            "wingCount": { label: "Count", type: "number", groupTag: "Body.Wings" },
+            "armType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Arms" },
+            "armTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Arms" },
             "breastRows": {
                 label: "Row",
                 type: "array",
-                groupTag: "Breasts",
+                groupTag: "Body.Breasts",
                 min: 1,
                 properties: {
                     type: "object",
@@ -462,24 +503,57 @@
                     }
                 }
             },
-            "nippleColor": { label: "Color", type: "string", groupTag: "Breasts.Nipples" },
-            "nipplesPerBreast": { label: "Per Breast", type: "number", groupTag: "Breasts.Nipples" },
-            "nippleLengthRatio": { label: "Length Ratio", type: "number", groupTag: "Breasts.Nipples" },
-            "nippleWidthRatio": { label: "Width Ratio", type: "number", groupTag: "Breasts.Nipples" },
-            "milkType": { label: "Type", type: "number", options: globals.FluidType, groupTag: "Breasts.Milk" },
-            "milkMultiplier": { label: "Multiplier", type: "number", groupTag: "Breasts.Milk" },
-            "milkStorageMultiplier": { label: "Storage Multiplier", type: "number", groupTag: "Breasts.Milk" },
-            "milkFullness": { label: "Fullness", type: "number", groupTag: "Breasts.Milk" },
-            "milkRate": { label: "Rate", type: "number", groupTag: "Breasts.Milk" },
-            "balls": { label: "Count", type: "number", groupTag: "Balls" },
-            "ballTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Balls" },
-            "ballEfficiency": { label: "Efficiency", type: "number", groupTag: "Balls" },
-            "ballSizeRaw": { label: "Size Raw", type: "number", groupTag: "Balls" },
-            "ballSizeMod": { label: "Size Mod", type: "number", groupTag: "Balls" },
-            "ballFullness": { label: "Fullness", type: "number", groupTag: "Balls" },
+            "nippleColor": { label: "Color", type: "string", groupTag: "Body.Breasts.Nipples" },
+            "nipplesPerBreast": { label: "Per Breast", type: "number", groupTag: "Body.Breasts.Nipples" },
+            "nippleLengthRatio": { label: "Length Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
+            "nippleWidthRatio": { label: "Width Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
+            "milkType": { label: "Type", type: "number", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
+            "milkMultiplier": { label: "Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
+            "milkStorageMultiplier": { label: "Storage Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
+            "milkFullness": { label: "Fullness", type: "number", groupTag: "Body.Breasts.Milk" },
+            "milkRate": { label: "Rate", type: "number", groupTag: "Body.Breasts.Milk" },
+            "bellyRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Body.Belly" },
+            "bellyRatingMod": { label: "Rating Mod", type: "number", groupTag: "Body.Belly" },
+            // Lower Torso
+            "hipRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Body.Hips" },
+            "hipRatingMod": { label: "Rating Mod", type: "number", groupTag: "Body.Hips" },
+            "tailType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Tails" },
+            "numTails": { label: "Count", type: "number", groupTag: "Body.Tails" },
+            "tailTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Tails" },
+            "buttRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Body.Butt" },
+            "buttRatingMod": { label: "Rating Mod", type: "number", groupTag: "Body.Butt" },
+            "ass": {
+                label: "Butt",
+                type: "object",
+                groupTag: "Body.Butt",
+                canBeNull: false,
+                create: createVagina,
+                properties: {
+                    "type": { label: "Type", type: "number", options: globals.BodyType },
+                    "hymen": { label: "Hymen", type: "boolean" },
+                    "clits": { label: "Clits", type: "number" },
+                    "color": { label: "Color", type: "string" },
+                    "wetnessRaw": { label: "Wetness Raw", type: "number" },
+                    "wetnessMod": { label: "Wetness Mod", type: "number" },
+                    "loosenessRaw": { label: "Looseness Raw", type: "number" },
+                    "loosenessMod": { label: "Looseness Mod", type: "number" },
+                    "bonusCapacity": { label: "Bonus Capacity", type: "number" },
+                    "stretchCounter": { label: "Stretch Counter", type: "number" },
+                    "tags": { label: "Tags", type: "multioption", options: globals.BodyTag }
+                }
+            },
+            "legType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Legs" },
+            "legTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Legs" },
+            "legCount": { label: "Count", type: "number", groupTag: "Body.Legs" },
+            // Genitals
+            "girlCumType": { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+            "cumType": { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+            "cumMultiplierRaw": { label: "Cum Multiplier Raw", type: "number", groupTag: "Body.Genitals.Cum" },
+            "cumMultiplierMod": { label: "Cum Multiplier Mod", type: "number", groupTag: "Body.Genitals.Cum" },
             "cocks": {
                 label: "Cocks",
                 type: "array",
+                groupTag: "Body.Genitals",
                 properties: {
                     type: "object",
                     canBeNull: false,
@@ -499,11 +573,17 @@
                     }
                 }
             },
-            "feracityRaw": { label: "Feracity Raw", type: "number", groupTag: "Stats" },
-            "feracityMod": { label: "Feracity Mod", type: "number", groupTag: "Stats" },
+            "balls": { label: "Count", type: "number", groupTag: "Body.Genitals.Balls" },
+            "ballTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Genitals.Balls" },
+            "ballEfficiency": { label: "Efficiency", type: "number", groupTag: "Body.Genitals.Balls" },
+            "ballSizeRaw": { label: "Size Raw", type: "number", groupTag: "Body.Genitals.Balls" },
+            "ballSizeMod": { label: "Size Mod", type: "number", groupTag: "Body.Genitals.Balls" },
+            "ballFullness": { label: "Fullness", type: "number", groupTag: "Body.Genitals.Balls" },
+            "clitLength": { label: "Length", type: "number", groupTag: "Body.Genitals.Clit" },
             "vagina": {
                 label: "Vagina",
                 type: "object",
+                groupTag: "Body.Genitals",
                 canBeNull: true,
                 create: createVagina,
                 properties: {
@@ -520,31 +600,6 @@
                     "tags": { label: "Tags", type: "multioption", options: globals.BodyTag }
                 }
             },
-            "clitLength": { label: "Length", type: "number", groupTag: "Clit" },
-            "girlCumType": { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Cum" },
-            "cumType": { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Cum" },
-            "cumMultiplierRaw": { label: "Cum Multiplier Raw", type: "number", groupTag: "Cum" },
-            "cumMultiplierMod": { label: "Cum Multiplier Mod", type: "number", groupTag: "Cum" },
-            "ass": {
-                label: "Butt",
-                type: "object",
-                canBeNull: false,
-                create: createVagina,
-                properties: {
-                    "type": { label: "Type", type: "number", options: globals.BodyType },
-                    "hymen": { label: "Hymen", type: "boolean" },
-                    "clits": { label: "Clits", type: "number" },
-                    "color": { label: "Color", type: "string" },
-                    "wetnessRaw": { label: "Wetness Raw", type: "number" },
-                    "wetnessMod": { label: "Wetness Mod", type: "number" },
-                    "loosenessRaw": { label: "Looseness Raw", type: "number" },
-                    "loosenessMod": { label: "Looseness Mod", type: "number" },
-                    "bonusCapacity": { label: "Bonus Capacity", type: "number" },
-                    "stretchCounter": { label: "Stretch Counter", type: "number" },
-                    "tags": { label: "Tags", type: "multioption", options: globals.BodyTag }
-                }
-            },
-            "title": { label: "Title", type: "string" },
         };
 
         //
@@ -602,23 +657,19 @@
             }
         }
 
-        function createCombatEffect() {
+        function createEffect() {
             return {
-                name: "Not A CombatEffect",
-                short: "Not A CombatEffect",
-                desc: "Not A CombatEffect",
-                duration: 10000,
+                name: "Not A Effect",
+                duration: 0,
                 values: [0, 0, 0, 0, 0]
             }
         }
 
-        function createStatusEffect() {
-            return {
-                name: "Not A StatusEffect",
-                desc: "Not A StatusEffect",
-                duration: 0,
-                values: [0, 0, 0, 0, 0]
-            }
+        function createReagents() {
+            var obj = {};
+            for (var index = 0; index < globals.TFType.list.length; index++)
+                obj[index] = 0;
+            return obj;
         }
 
         //
@@ -693,7 +744,7 @@
             var charDesc = document.createElement("div");
             container.appendChild(charDesc);
             charDesc.className = "charDesc";
-            Object.keys(obj.chars).forEach(function charKeys(key) {
+            Object.keys(obj.chars).filter(key => charDefaults[key]).forEach(function charKeys(key) {
                 var charListEntry = createAccordButton(key, charDesc, function onClickCharDesc(panel) {
                     clearElement(panel);
                     var charKey = key;
@@ -802,33 +853,12 @@
             if (mapValue.type === "boolean") return false;
         }
 
-        function applyMap(obj, map) {
-            var queue = Object.keys(map).map(k => ({ obj: obj, key: k, map: map }));
-            var key, obj, map;
-
-            while (queue.length > 0) {
-                var info = queue.pop();
-                obj = info.obj;
-                key = info.key;
-                map = info.map;
-                if (map[key]) {
-                    map = map[key];
-                }
-                if (!obj[key]) {
-                    obj[key] = generateValue(map);
-                }
-                if (map.type === "array" && map.min)
-                    while (obj[key].length < map.min)
-                        obj[key].push(generateValue(map.properties));
-                if ((map.type === "object" || map.type === "array") && obj[key]) {
-                    Object.keys(obj[key]).forEach(v => queue.push({ obj: obj[key], key: v, map: map.properties }));
-                }
-            }
-        }
-
         function unpackSave(obj) {
             Object.keys(obj.chars).forEach(charKey => {
-                applyMap(obj.chars[charKey], charMap);
+                if (charDefaults[charKey]) {
+                    obj.chars[charKey] = Object.assign(JSON.parse(JSON.stringify(charDefaults[charKey])), obj.chars[charKey]);
+                }
+                // applyMap(obj.chars[charKey], charMap);
             });
         }
 
