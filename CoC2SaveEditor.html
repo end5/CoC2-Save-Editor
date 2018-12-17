@@ -1168,9 +1168,9 @@
                 label = map.label;
             }
 
-            if (!obj[key]) {
-                obj[key] = generateValue(map);
-            }
+            // if (obj[key] == null) {
+            //     obj[key] = generateValue(map);
+            // }
 
             if (map.groupTag) {
                 map.groupTag.split(".").reduce(function (parentTag, curTag) {
