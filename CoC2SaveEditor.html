@@ -164,7 +164,7 @@
             "etheryn":{"name":"Etheryn","cName":"","soloCombatPrefix":"","taxa":1,"class":2,"background":2,"genderPref":1,"isPlural":false,"partyLeader":false,"level":3,"exp":0,"canGainExp":true,"compTags":[3],"actionPoints":1,"hitPoints":170,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":1,"toughnessAlloc":0,"toughnessMod":2,"agilityAlloc":2,"agilityMod":0,"cunningAlloc":2,"cunningMod":0,"willpowerAlloc":2,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":8,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[2,3,0],"backgroundAffinities":[5,2,4],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]}],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-3,-16,-15,-6],"dislikes":[-14,-4],"boon":null,"credits":0,"weaponPrimary":{"key":"Fist","args":[1]},"weaponSecondary":null,"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"pale elf","femininity":65,"tallness":67,"tone":10,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"blonde","skinColor":"white","furColor":"brown","scaleColor":"","lipColor":"pink","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[11],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[28],"earType":5,"earTags":[3],"earLength":4,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":3,"tags":[],"sizeRaw":1,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":4,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1,"pierced":0,"color":"pale"}],"feracityRaw":1,"feracityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2}
         };
 
-        var editorVersion = "15";
+        var editorVersion = "16";
         var gameVersion = "0.1.0";
 
         var globals = {
@@ -252,7 +252,7 @@
             all
                 label - The display name of the variable
                 desc - A description of the variable
-                type - Varialbe type (boolean, number, string, array, object, multioption)
+                type - Variable type (boolean, number, string, array, object, multioption)
                 options - List of names or numbers that the variable can be
                 groupTag - The display group the variable is part of
             array
@@ -413,20 +413,148 @@
             },
             // Inventory
             "credits": { label: "Credits", type: "number", groupTag: "Inventory" },
-            "weaponPrimary": { label: "Primary Weapon", type: "string", options: globals.WeaponPrimary, groupTag: "Inventory.Equipment" },
-            "weaponSecondary": { label: "Secondary Weapon", type: "string", options: globals.WeaponSecondary, groupTag: "Inventory.Equipment" },
-            "head": { label: "Head", type: "string", options: globals.ItemHead, groupTag: "Inventory.Equipment" },
-            "neck": { label: "Neck", type: "string", options: globals.ItemNeck, groupTag: "Inventory.Equipment" },
-            "shoulders": { label: "Shoulders", type: "string", options: globals.ItemShoulders, groupTag: "Inventory.Equipment" },
-            "armorSet": { label: "Armor Set", type: "string", options: globals.ArmorSet, groupTag: "Inventory.Equipment" },
-            "hands": { label: "Hands", type: "string", options: globals.ItemHands, groupTag: "Inventory.Equipment" },
-            "waist": { label: "Waist", type: "string", options: globals.ItemWaist, groupTag: "Inventory.Equipment" },
-            "feet": { label: "Feet", type: "string", options: globals.ItemFeet, groupTag: "Inventory.Equipment" },
-            "ring1": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Inventory.Equipment" },
-            "ring2": { label: "Rings", type: "string", options: globals.Rings, groupTag: "Inventory.Equipment" },
-            "topGarment": { label: "Top Garment", type: "string", options: globals.TopGarb, groupTag: "Inventory.Equipment" },
-            "bottomGarment": { label: "Bottom Garment", type: "string", options: globals.BottomGarb, groupTag: "Inventory.Equipment" },
-            "inventory": { label: "Items", type: "array", groupTag: "Inventory", properties: { type: "string", options: globals.Items } },
+            "weaponPrimary": {
+                label: "Primary Weapon",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.WeaponPrimary }
+                }
+            },
+            "weaponSecondary": {
+                label: "Secondary Weapon",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.WeaponSecondary }
+                }
+            },
+            "head": {
+                label: "Head",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.ItemHead }
+                }
+            },
+            "neck": {
+                label: "Neck",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.ItemNeck }
+                }
+            },
+            "shoulders": {
+                label: "Shoulders",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.ItemShoulders }
+                }
+            },
+            "armorSet": {
+                label: "Armor Set",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.ArmorSet }
+                }
+            },
+            "hands": {
+                label: "Hands",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.ItemHands }
+                }
+            },
+            "waist": {
+                label: "Waist",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.ItemWaist }
+                }
+            },
+            "feet": {
+                label: "Feet",
+                type: "object", 
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.ItemFeet }
+                }
+            },
+            "ring1": {
+                label: "Ring 1",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.Rings }
+                }
+            },
+            "ring2": {
+                label: "Ring 2",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.Rings }
+                }
+            },
+            "topGarment": {
+                label: "Top Garment",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.TopGarb }
+                }
+            },
+            "bottomGarment": {
+                label: "Bottom Garment",
+                type: "object",
+                groupTag: "Inventory.Equipment",
+                canBeNull: true,
+                create: createItem,
+                properties: {
+                    "key": { label: "Key", type: "string", options: globals.BottomGarb }
+                }
+            },
+            "inventory": {
+                label: "Items",
+                type: "array",
+                groupTag: "Inventory",
+                properties: {
+                    type: "object",
+                    create: createItem,
+                    properties: {
+                        "key": { label: "Key", type: "string", options: globals.Items }
+                    }
+                }
+            },
             "reagents": {
                 label: "Reagents",
                 type: "object",
@@ -440,7 +568,18 @@
                     return obj;
                 })()
             },
-            "keyItems": { label: "Key Items", type: "array", groupTag: "Inventory", properties: { type: "string" } },
+            "keyItems": {
+                label: "Key Items",
+                type: "array",
+                groupTag: "Inventory",
+                properties: {
+                    type: "object",
+                    create: createItem,
+                    properties: {
+                        "key": { label: "Key", type: "string" }
+                    }
+                }
+            },
             // Body
             "originalRace": { label: "Original Race", type: "string", groupTag: "Body" },
             "femininity": { label: "Feminitity", type: "number", groupTag: "Body" },
@@ -648,6 +787,12 @@
                 lactationBonusMod: 0,
                 fullnessRaw: 0
             };
+        }
+
+        function createItem() {
+            return {
+                key: "Not an item"
+            }
         }
 
         function createPerk() {
@@ -1168,10 +1313,6 @@
                 label = map.label;
             }
 
-            // if (obj[key] == null) {
-            //     obj[key] = generateValue(map);
-            // }
-
             if (map.groupTag) {
                 map.groupTag.split(".").reduce(function (parentTag, curTag) {
                     if (!parentTag[curTag]) {
@@ -1196,7 +1337,8 @@
                             function objectAddCallback(tags, parent, obj, key, map) {
                                 return () => {
                                     if (obj[key] === null) {
-                                        obj[key] = map.create ? map.create() : {};
+                                        
+                                        obj[key] = generateValue(map);
                                         generateMappedFields(tags, Object.keys(map.properties).reverse().map((mapKey) => generateInfo(obj[key], mapKey, parent, map.properties)));
                                     }
                                 }
@@ -1212,6 +1354,9 @@
                                 }
                             }(panel, obj, key, map)
                         );
+                    }
+                    else {
+                        obj[key] = generateValue(map);
                     }
                 }
 
