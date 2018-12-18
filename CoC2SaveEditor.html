@@ -118,6 +118,20 @@
         .charDesc {
             display: block;
             width: calc(100% - 100px);
+            height: inherit;
+            overflow-y: hidden;
+        }
+
+        .topTagButtons {
+            display: flex;
+        }
+
+        .topTagButton {
+            text-align: center;
+        }
+
+        .topTagPanels {
+            height: inherit;
             overflow-y: auto;
         }
 
@@ -164,7 +178,7 @@
             "etheryn":{"name":"Etheryn","cName":"","soloCombatPrefix":"","taxa":1,"class":2,"background":2,"genderPref":1,"isPlural":false,"partyLeader":false,"level":3,"exp":0,"canGainExp":true,"compTags":[3],"actionPoints":1,"hitPoints":170,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":1,"toughnessAlloc":0,"toughnessMod":2,"agilityAlloc":2,"agilityMod":0,"cunningAlloc":2,"cunningMod":0,"willpowerAlloc":2,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":8,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[2,3,0],"backgroundAffinities":[5,2,4],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]}],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-3,-16,-15,-6],"dislikes":[-14,-4],"boon":null,"credits":0,"weaponPrimary":{"key":"Fist","args":[1]},"weaponSecondary":null,"backupFist":{"_name":"fist","_short":"Fist","_description":"Ideal for taking care of arguments and needy holes alike.","isPlural":false,"stackLimit":1,"stack":1,"type":1,"tags":[2,6],"value":1,"evasion":0,"accuracy":10,"spellpower":0,"crit":0,"armorPen":0,"damage":{"attackType":1,"damage":[{"type":2,"amount":5}]}},"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"pale elf","femininity":65,"tallness":67,"tone":10,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"blonde","skinColor":"white","furColor":"brown","scaleColor":"","lipColor":"pink","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[11],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[28],"earType":5,"earTags":[3],"earLength":4,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"type":3,"tags":[],"sizeRaw":1,"sizeMod":0,"lactationBonusMod":0,"fullnessRaw":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleLengthRatio":1,"nippleWidthRatio":1,"milkType":4,"milkMultiplier":0,"milkStorageMultiplier":1,"milkFullness":0,"milkRate":10,"balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":4,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1,"pierced":0,"color":"pale"}],"feracityRaw":1,"feracityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"color":"pink","wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[]},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2}
         };
 
-        var editorVersion = "16";
+        var editorVersion = "17";
         var gameVersion = "0.1.0";
 
         var globals = {
@@ -186,16 +200,16 @@
             // None = -1
             HairType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"] },
             Weapons: { list: ["CaitsStaff", "Fist", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace", "Mastbreaker", "BeastKiller"] },
-            ArmorSet: { list: ["None", "ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb", "AronasWarhides", "LoinclothAndGuards", "MailBikini"] },
-            ItemHead: { list: ["None"] },
-            ItemNeck: { list: ["None", "WardAmulet", "AmuletOfTransference", "AmuletOfUnion",] },
-            ItemShoulders: { list: ["None", "FlameCape", "PriestessCloak"] },
-            ItemHands: { list: ["None", "Gauntlets", "ArmGuards", "SilverBracelets"] },
-            ItemWaist: { list: ["None", "PotionBelt"] },
-            ItemFeet: { list: ["None", "CaitsKneeBoots", "LeatherBoots", "IronGreaves"] },
-            Rings: { list: ["None", "WizardRing"] },
-            TopGarb: { list: ["None"] },
-            BottomGarb: { list: ["None", "PlainUnderwear"] },
+            ArmorSet: { list: ["ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb", "AronasWarhides", "LoinclothAndGuards", "MailBikini"] },
+            ItemHead: { list: [] },
+            ItemNeck: { list: ["WardAmulet", "AmuletOfTransference", "AmuletOfUnion",] },
+            ItemShoulders: { list: ["FlameCape", "PriestessCloak"] },
+            ItemHands: { list: ["Gauntlets", "ArmGuards", "SilverBracelets"] },
+            ItemWaist: { list: ["PotionBelt"] },
+            ItemFeet: { list: ["CaitsKneeBoots", "LeatherBoots", "IronGreaves"] },
+            Rings: { list: ["WizardRing"] },
+            TopGarb: { list: [] },
+            BottomGarb: { list: ["PlainUnderwear"] },
             Shields: { list: ["HoplonShield", "TowerShield", "WickerShield"] },
             Totems: { list: ["LynxTotem"] },
             TFs: { list: ["Wolfsboon", "FoxBerry", "CatsTongueBerry", "RootOfMan"] },
@@ -227,8 +241,8 @@
             EquipSlots: ["weaponPrimary", "weaponSecondary", "head", "neck", "shoulders", "armorSet", "topGarment", "bottomGarment", "waist", "hands", "feet", "ring1", "ring2"]
 
         };
-        globals.WeaponPrimary.list = ["None"].concat(globals.Weapons.list);
-        globals.WeaponSecondary.list = ["None"].concat(globals.Shields.list, globals.Totems.list);
+        globals.WeaponPrimary.list = globals.Weapons.list;
+        globals.WeaponSecondary.list = globals.Shields.list, globals.Totems.list;
         globals.Items.list = [].concat(
             globals.Weapons.list,
             globals.ArmorSet.list,
@@ -246,7 +260,7 @@
             globals.TFs.list,
             globals.Misc.list,
             globals.Set.list
-        ).filter(v => v !== "None");
+        ).filter(v => v != null);
 
         /*
             all
@@ -264,7 +278,6 @@
             object
                 properties - The properties of the object
                 canBeNull - Can the value be null
-                create - Function to create a new value
             string
             boolean
             number
@@ -272,16 +285,16 @@
 
         var charMap = {
             // Info
-            "name": { label: "Name", type: "string" },
-            "title": { label: "Title", type: "string" },
-            "taxa": { label: "Taxon", type: "number", options: globals.Taxon },
-            "class": { label: "Class", type: "number", options: globals.Class },
-            "background": { label: "Background", type: "number", options: globals.Background },
-            "genderPref": { label: "Gender Pref", type: "number" },
-            "level": { label: "Level", type: "number" },
-            "exp": { label: "Exp", type: "number" },
-            "orgasms": { label: "Orgasms", type: "number" },
-            "lastOrgasm": { label: "Last Orgasm", type: "number" },
+            "name": { label: "Name", type: "string", groupTag: "Info" },
+            "title": { label: "Title", type: "string", groupTag: "Info" },
+            "taxa": { label: "Taxon", type: "number", options: globals.Taxon, groupTag: "Info" },
+            "class": { label: "Class", type: "number", options: globals.Class, groupTag: "Info" },
+            "background": { label: "Background", type: "number", options: globals.Background, groupTag: "Info" },
+            "genderPref": { label: "Gender Pref", type: "number", groupTag: "Info" },
+            "level": { label: "Level", type: "number", groupTag: "Info" },
+            "exp": { label: "Exp", type: "number", groupTag: "Info" },
+            "orgasms": { label: "Orgasms", type: "number", groupTag: "Info" },
+            "lastOrgasm": { label: "Last Orgasm", type: "number", groupTag: "Info" },
             // Stats
             "hitPoints": { label: "HP", type: "number", groupTag: "Stats" },
             "hitPointsMaxMod": { label: "HP Max Mod", type: "number", groupTag: "Stats" },
@@ -328,7 +341,6 @@
                 groupTag: "Effects",
                 properties: {
                     type: "object",
-                    create: createPerk,
                     canBeNull: false,
                     properties: {
                         "key": { label: "Key", type: "string", options: globals.Perks },
@@ -342,10 +354,9 @@
                 groupTag: "Effects",
                 properties: {
                     type: "object",
-                    create: createEffect,
                     canBeNull: false,
                     properties: {
-                        "name": { label: "Name", type: "string", options: globals.StatusEffect },
+                        "key": { label: "Key", type: "string", options: globals.StatusEffect },
                         "duration": { label: "Duration", type: "number" },
                         "values": { label: "Values", type: "array", properties: { type: "number" } }
                     }
@@ -357,10 +368,9 @@
                 groupTag: "Effects",
                 properties: {
                     type: "object",
-                    create: createEffect,
                     canBeNull: false,
                     properties: {
-                        "name": { label: "Name", type: "string", options: globals.CombatEffect },
+                        "key": { label: "Key", type: "string", options: globals.CombatEffect },
                         "duration": { label: "Duration", type: "number" },
                         "values": { label: "Values", type: "array", properties: { type: "number" } }
                     }
@@ -371,9 +381,8 @@
                 type: "object",
                 groupTag: "Effects",
                 canBeNull: true,
-                create: createEffect,
                 properties: {
-                    "name": { label: "Name", type: "string", options: globals.Boon },
+                    "key": { label: "Key", type: "string", options: globals.Boon },
                     "duration": { label: "Duration", type: "number" },
                     "values": { label: "Values", type: "array", properties: { type: "number" } }
                 }
@@ -386,7 +395,7 @@
                 customCallback: (obj, key) => {
                     return (evnt) => {
                         var fieldset = evnt.currentTarget;
-                        var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked).map(el => el.name);
+                        var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked).map(el => ({ "key": el.name }));
                         obj[key] = list;
                     }
                 }
@@ -399,7 +408,7 @@
                 customCallback: (obj, key) => {
                     return (evnt) => {
                         var fieldset = evnt.currentTarget;
-                        var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked).map(el => el.name);
+                        var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked).map(el => ({ "key": el.name }));
                         if (list.length > 5 && evnt.target.type === "checkbox" && !evnt.target.parentElement.classList.contains("selected")) {
                             evnt.target.parentElement.classList.add("selected");
                             evnt.target.checked = false;
@@ -418,7 +427,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.WeaponPrimary }
                 }
@@ -428,7 +436,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.WeaponSecondary }
                 }
@@ -438,7 +445,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.ItemHead }
                 }
@@ -448,7 +454,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.ItemNeck }
                 }
@@ -458,7 +463,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.ItemShoulders }
                 }
@@ -468,7 +472,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.ArmorSet }
                 }
@@ -478,7 +481,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.ItemHands }
                 }
@@ -488,7 +490,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.ItemWaist }
                 }
@@ -498,7 +499,6 @@
                 type: "object", 
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.ItemFeet }
                 }
@@ -508,7 +508,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.Rings }
                 }
@@ -518,7 +517,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.Rings }
                 }
@@ -528,7 +526,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.TopGarb }
                 }
@@ -538,7 +535,6 @@
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
-                create: createItem,
                 properties: {
                     "key": { label: "Key", type: "string", options: globals.BottomGarb }
                 }
@@ -549,7 +545,6 @@
                 groupTag: "Inventory",
                 properties: {
                     type: "object",
-                    create: createItem,
                     properties: {
                         "key": { label: "Key", type: "string", options: globals.Items }
                     }
@@ -560,7 +555,6 @@
                 type: "object",
                 groupTag: "Inventory",
                 canBeNull: false,
-                create: createReagents,
                 properties: (() => {
                     var obj = {};
                     for (var index = 0; index < globals.TFType.list.length; index++)
@@ -574,7 +568,6 @@
                 groupTag: "Inventory",
                 properties: {
                     type: "object",
-                    create: createItem,
                     properties: {
                         "key": { label: "Key", type: "string" }
                     }
@@ -630,7 +623,6 @@
                 properties: {
                     type: "object",
                     canBeNull: false,
-                    create: createBreastRow,
                     properties: {
                         "breasts": { label: "Count", type: "number" },
                         "type": { label: "Type", type: "number", options: globals.NippleType },
@@ -666,7 +658,6 @@
                 type: "object",
                 groupTag: "Body.Butt",
                 canBeNull: false,
-                create: createVagina,
                 properties: {
                     "type": { label: "Type", type: "number", options: globals.BodyType },
                     "hymen": { label: "Hymen", type: "boolean" },
@@ -696,7 +687,6 @@
                 properties: {
                     type: "object",
                     canBeNull: false,
-                    create: createCock,
                     properties: {
                         "type": { label: "Type", type: "number", options: globals.BodyType },
                         "virgin": { label: "Virgin", type: "boolean" },
@@ -724,7 +714,6 @@
                 type: "object",
                 groupTag: "Body.Genitals",
                 canBeNull: true,
-                create: createVagina,
                 properties: {
                     "type": { label: "Type", type: "number", options: globals.BodyType },
                     "hymen": { label: "Hymen", type: "boolean" },
@@ -740,82 +729,6 @@
                 }
             },
         };
-
-        //
-        // Default create functions
-        //
-
-        function createCock() {
-            return {
-                type: 0,
-                virgin: true,
-                tags: [],
-                lengthRaw: 5,
-                lengthMod: 0,
-                thicknessRatioRaw: 1,
-                thicknessRatioMod: 0,
-                flaccidRatio: .4,
-                knotRatio: 1,
-                pierced: 0,
-                color: "pink"
-            };
-        }
-
-        function createVagina() {
-            return {
-                type: 0,
-                hymen: true,
-                clits: 1,
-                color: "pink",
-                wetnessRaw: 1,
-                wetnessMod: 0,
-                loosenessRaw: 1,
-                loosenessMod: 0,
-                bonusCapacity: 0,
-                stretchCounter: 0,
-                tags: []
-            };
-        }
-
-        function createBreastRow() {
-            return {
-                breasts: 2,
-                type: 0,
-                tags: [],
-                sizeRaw: 0,
-                sizeMod: 0,
-                lactationBonusMod: 0,
-                fullnessRaw: 0
-            };
-        }
-
-        function createItem() {
-            return {
-                key: "Not an item"
-            }
-        }
-
-        function createPerk() {
-            return {
-                key: "Not A Perk",
-                values: [0, 0, 0, 0, 0]
-            }
-        }
-
-        function createEffect() {
-            return {
-                name: "Not A Effect",
-                duration: 0,
-                values: [0, 0, 0, 0, 0]
-            }
-        }
-
-        function createReagents() {
-            var obj = {};
-            for (var index = 0; index < globals.TFType.list.length; index++)
-                obj[index] = 0;
-            return obj;
-        }
 
         //
         // Create Elements
@@ -901,12 +814,49 @@
                         alert("Character " + charKey + " not found");
                     else {
                         panel.style.display = "block";
-                        generateMappedFields({}, Object.keys(charMap).reverse().map((key) => generateInfo(window.editObj.chars[charKey], key, panel, charMap)));
+                        var topTagButtons = document.createElement("div");
+                        charDesc.appendChild(topTagButtons);
+                        topTagButtons.className = "topTagButtons";
+                        var topTagPanels = document.createElement("div");
+                        charDesc.appendChild(topTagPanels);
+                        topTagPanels.className = "topTagPanels";
+                        var tags = {};
+                        var starterTags = ["Info", "Stats", "Effects", "Inventory", "Body"];
+                        var panel;
+                        var button;
+                        for (var index = 0; index < starterTags.length; index++) {
+                            panel = createTopTagPanel(topTagPanels);
+                            button = createTopTagButton(starterTags[index], panel, topTagButtons);
+                            tags[starterTags[index]] = { panel: panel, button: button };
+                        }
+                        generateMappedFields(tags, Object.keys(charMap).reverse().map((key) => generateInfo(window.editObj.chars[charKey], key, panel, charMap)));
                     }
                 }, true);
                 charListEntry.className += " charListEntry";
                 charList.appendChild(charListEntry);
             });
+        }
+
+        function createTopTagPanel(parent) {
+            var panel = createPanel();
+            panel.className += " topTagPanel";
+            parent.appendChild(panel);
+            return panel;
+        }
+
+        function createTopTagButton(label, panel, parent) {
+            var button = createAccordButton(label, panel, function topTagClick() {
+                var otherPanels = panel.parentElement.getElementsByClassName(panel.className);
+                var otherPanel;
+                for (var i = 0; i < otherPanels.length; i++) {
+                    otherPanel = otherPanels[i];
+                    otherPanel.style.display = "none";
+                }
+                panel.style.display = "block";
+            }, true);
+            button.className += " topTagButton";
+            parent.appendChild(button);
+            return button;
         }
 
         function onClickCharTab(panel) {
@@ -990,20 +940,11 @@
             });
         }
 
-        function generateValue(mapValue) {
-            if (mapValue.type === "object") return mapValue.create ? mapValue.create() : (mapValue.canBeNull ? null : {});
-            if (mapValue.type === "multioption" || mapValue.type === "array") return [];
-            if (mapValue.type === "number") return 0;
-            if (mapValue.type === "string") return "";
-            if (mapValue.type === "boolean") return false;
-        }
-
         function unpackSave(obj) {
             Object.keys(obj.chars).forEach(charKey => {
                 if (charDefaults[charKey]) {
                     obj.chars[charKey] = Object.assign(JSON.parse(JSON.stringify(charDefaults[charKey])), obj.chars[charKey]);
                 }
-                // applyMap(obj.chars[charKey], charMap);
             });
         }
 
@@ -1020,6 +961,9 @@
                 var chars = Array.from(document.getElementsByClassName("charListEntry"));
                 if (chars.length > 0) {
                     chars.filter(el => el.textContent === "pc")[0].click();
+                    var topTabs = Array.from(document.getElementsByClassName("topTagButton"));
+                    if (topTabs.length > 0)
+                        topTabs.filter(el => el.textContent === "Info")[0].click();
                 }
             }
         }
@@ -1101,7 +1045,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             var disclaimer = document.createElement("div");
             disclaimer.className = "disclaimer";
-            disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + "+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p>";
+            disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + "+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p><p>Saves edited with v16 or earlier will not work.</p>";
             document.body.appendChild(disclaimer);
 
             var ok = document.createElement("button");
@@ -1298,118 +1242,151 @@
             }
         }
 
+        function generateValue(map, value, canBeNull) {
+            if (map.type === "object") {
+                if (typeof value !== "object" || value == null) value = {};
+                return Object.keys(map.properties).reduce((obj, key) => {
+                    obj[key] = generateValue(map.properties[key], value[key]);
+                    return obj;
+                }, {});
+            }
+            if (map.type === "multioption" || map.type === "array") {
+                if (!Array.isArray(value)) value = [];
+                return value.map(entry => generateValue(map.properties, entry));
+            }
+            if (map.type === "number") return typeof value === "number" ? value : 0;
+            if (map.type === "string") return typeof value === "string" ? value : "";
+            if (map.type === "boolean") return !!value;
+        }
+
         function processInfo(tags, info) {
             var obj = info.obj;
             var key = info.key;
-            var map = info.map;
+            var mapEntry = info.map[key];
             var parentElement = info.element;
             var label = key;
 
-            if (map[key]) {
-                map = map[key];
+            if (!mapEntry) {
+                mapEntry = info.map;
             }
 
-            if (map.label) {
-                label = map.label;
+            if (mapEntry.label) {
+                label = mapEntry.label;
             }
 
-            if (map.groupTag) {
-                map.groupTag.split(".").reduce(function (parentTag, curTag) {
-                    if (!parentTag[curTag]) {
+            if (!obj[key] && !mapEntry.canBeNull) {
+                obj[key] = generateValue(mapEntry, obj[key]);
+            }
+
+            // tag = { panel, button }
+            if (mapEntry.groupTag) {
+                mapEntry.groupTag.split(".").reduce(function (parentTag, curTag) {
+                    if (!parentTag[curTag]) parentTag[curTag] = { panel: null, button: null };
+                    if (!parentTag[curTag].panel) {
                         var panel = createPanel();
-                        parentElement.appendChild(objectField(curTag, panel));
+                        var button = objectField(curTag, panel);
+                        parentElement.appendChild(button);
                         parentElement.appendChild(panel);
-                        parentTag[curTag] = panel;
+                        parentTag[curTag].button = button;
+                        parentTag[curTag].panel = panel;
                     }
-                    parentElement = parentTag[curTag];
-                    return parentTag[curTag];
+                    parentElement = parentTag[curTag].panel;
+                    return parentTag[curTag].panel;
                 }, tags);
             }
 
-            if (map.type === "multioption" && map.options) {
-                parentElement.appendChild(multiOptionField(label, obj, key, map));
+            if (mapEntry.type === "multioption" && mapEntry.options) {
+                parentElement.appendChild(multiOptionField(label, obj, key, mapEntry));
             }
-            else if (map.type === "object" || map.type === "array") {
+            else if (mapEntry.type === "object" || mapEntry.type === "array") {
                 var panel = createPanel();
-                if (map.type === "object") {
-                    if (map.canBeNull) {
-                        generateAddRemoveButtons(panel,
-                            function objectAddCallback(tags, parent, obj, key, map) {
-                                return () => {
-                                    if (obj[key] === null) {
-                                        
-                                        obj[key] = generateValue(map);
-                                        generateMappedFields(tags, Object.keys(map.properties).reverse().map((mapKey) => generateInfo(obj[key], mapKey, parent, map.properties)));
-                                    }
-                                }
-                            }(tags, panel, obj, key, map),
-                            function objectRemoveCallback(parent, obj, key, map) {
-                                return () => {
-                                    if (obj[key]) {
-                                        while (parent.lastChild !== parent.firstChild) {
-                                            parent.removeChild(parent.lastChild);
-                                        }
-                                        obj[key] = null;
-                                    }
-                                }
-                            }(panel, obj, key, map)
-                        );
-                    }
-                    else {
-                        obj[key] = generateValue(map);
-                    }
+                if (mapEntry.type === "object" && mapEntry.canBeNull) {
+                    generateAddRemoveButtons(
+                        panel,
+                        objectAddCallback(tags, panel, obj, key, mapEntry),
+                        objectRemoveCallback(panel, obj, key, mapEntry)
+                    );
                 }
 
-                if (map.type === "array") {
-                    if (map.min)
-                        while (obj[key].length < map.min) {
-                            obj[key].push(generateValue(map.properties));
+                if (mapEntry.type === "array") {
+                    if (mapEntry.min)
+                        while (obj[key].length < mapEntry.min) {
+                            obj[key].push(generateValue(mapEntry.properties, obj[key]));
                         }
 
-                    if (!(map.min && map.max && map.min === map.max)) {
-                        generateAddRemoveButtons(panel,
-                            function arrayAddCallback(tags, parent, obj, key, map) {
-                                return () => {
-                                    if (!map.max || (map.max && obj[key].length < map.max)) {
-                                        generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], obj[key].length, parent, map.properties)));
-                                    }
-                                }
-                            }(tags, panel, obj, key, map),
-                            function arrayRemoveCallback(parent, obj, key, map) {
-                                return () => {
-                                    if (obj[key]) {
-                                        if (obj[key].length > (map.min ? map.min : 0)) {
-                                            parent.removeChild(parent.lastChild);
-                                            if (typeof obj[key].pop() === "object")
-                                                parent.removeChild(parent.lastChild);
-                                        }
-                                    }
-                                }
-                            }(panel, obj, key, map)
+                    if (!(mapEntry.min && mapEntry.max && mapEntry.min === mapEntry.max)) {
+                        generateAddRemoveButtons(
+                            panel,
+                            arrayAddCallback(tags, panel, obj, key, mapEntry),
+                            arrayRemoveCallback(panel, obj, key, mapEntry)
                         );
                     }
                 }
-                parentElement.appendChild(objectField(label, panel, obj[key], map));
+                parentElement.appendChild(objectField(label, panel, obj[key], mapEntry));
                 parentElement.appendChild(panel);
 
                 if (obj[key])
-                    return Object.keys(obj[key]).reverse().map((objKey) => generateInfo(obj[key], objKey, panel, map.properties));
+                    return Object.keys(obj[key]).reverse().map((objKey) => generateInfo(obj[key], objKey, panel, mapEntry.properties));
             }
-            else if (map.type === "string") {
-                if (map.options)
-                    parentElement.appendChild(selectField(label, obj[key], map.options, setSelectorStringCallback(obj, key)));
+            else if (mapEntry.type === "string") {
+                if (mapEntry.options)
+                    parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key)));
                 else
-                    parentElement.appendChild(stringField(label, obj[key], setStringCallback(obj, key)));
+                    parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setStringCallback(obj, key)));
             }
-            else if (map.type === "number") {
-                if (map.options)
-                    parentElement.appendChild(selectField(label, obj[key], map.options, setNumberCallback(obj, key, map.options.toSave)));
+            else if (mapEntry.type === "number") {
+                if (mapEntry.options)
+                    parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setNumberCallback(obj, key, mapEntry.options.toSave)));
                 else
-                    parentElement.appendChild(stringField(label, obj[key], setNumberCallback(obj, key)));
+                    parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setNumberCallback(obj, key)));
             }
-            else if (map.type === "boolean") {
-                parentElement.appendChild(booleanField(label, obj[key], setBooleanCallback(obj, key)));
+            else if (mapEntry.type === "boolean") {
+                parentElement.appendChild(booleanField(label, generateValue(mapEntry, obj[key]), setBooleanCallback(obj, key)));
             }
+        }
+
+        function objectAddCallback(tags, parent, obj, key, map) {
+            return () => {
+                if (obj[key] == null) {
+                    obj[key] = generateValue(map, obj[key]);
+                    generateMappedFields(tags, Object.keys(map.properties).reverse().map((mapKey) =>
+                        generateInfo(obj[key], mapKey, parent, map.properties)
+                    ));
+                }
+            };
+        }
+        function objectRemoveCallback(parent, obj, key) {
+            return () => {
+                if (obj[key]) {
+                    while (parent.lastChild && parent.lastChild !== parent.firstChild) {
+                        parent.removeChild(parent.lastChild);
+                    }
+                    obj[key] = null;
+                }
+            };
+        }
+
+        function arrayAddCallback(tags, parent, obj, key, map) {
+            return () => {
+                if (!map.max || (map.max && obj[key].length < map.max)) {
+                    if (typeof obj[key] === 'object')
+                        generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], Object.keys(obj[key]).length + '', parent, map.properties)));
+                    else
+                        generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], obj[key].length, parent, map.properties)));
+                }
+            };
+        }
+
+        function arrayRemoveCallback(parent, obj, key, map) {
+            return () => {
+                if (obj[key]) {
+                    if (obj[key].length > (map.min ? map.min : 0) && parent.lastChild) {
+                        parent.removeChild(parent.lastChild);
+                        if (typeof obj[key].pop() === "object")
+                            parent.removeChild(parent.lastChild);
+                    }
+                }
+            };
         }
 
         function generateMappedFields(tags, startInfo) {
