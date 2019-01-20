@@ -178,7 +178,7 @@
             "etheryn":{"name":"Etheryn","cName":"","soloCombatPrefix":"","taxa":1,"class":2,"background":2,"genderPref":1,"isPlural":false,"partyLeader":false,"level":3,"exp":0,"canGainExp":true,"compTags":[3],"actionPoints":1,"hitPoints":170,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":1,"toughnessAlloc":0,"toughnessMod":2,"agilityAlloc":2,"agilityMod":0,"cunningAlloc":2,"cunningMod":0,"willpowerAlloc":2,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":8,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[2,3,0],"backgroundAffinities":[5,2,4],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]}],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-3,-16,-15,-6],"dislikes":[-14,-4],"boon":null,"credits":0,"weaponPrimary":{"key":"RustyKnife","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"pale elf","femininity":65,"tallness":67,"tone":10,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"blonde","skinColor":"white","furColor":"brown","scaleColor":"","lipColor":"pink","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[11],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[28],"earType":5,"earTags":[3],"earLength":4,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":1,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":3,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":4,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1.5,"pierced":0,"_color":"pale"}],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2}
         };
 
-        var editorVersion = "18";
+        var editorVersion = "19";
         var gameVersion = "0.1.4";
 
         var globals = {
@@ -327,6 +327,8 @@
             "exhibRaw": { label: "Exhibition Raw", type: "number", groupTag: "Stats" },
             "feracityRaw": { label: "Feracity Raw", type: "number", groupTag: "Stats" },
             "feracityMod": { label: "Feracity Mod", type: "number", groupTag: "Stats" },
+            "fertilityMod": { label: "Fertility Mod", type: "number", groupTag: "Stats" },
+            "virilityMod": { label: "Virility Mod", type: "number", groupTag: "Stats" },
             "penetratingResist": { label: "Penetrating", type: "number", groupTag: "Stats.Resistance" },
             "crushingResist": { label: "Crushing", type: "number", groupTag: "Stats.Resistance" },
             "holyResist": { label: "Holy", type: "number", groupTag: "Stats.Resistance" },
@@ -634,24 +636,22 @@
                     canBeNull: false,
                     properties: {
                         "breasts": { label: "Count", type: "number" },
-                        "type": { label: "Type", type: "number", options: globals.NippleType },
-                        "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
                         "sizeRaw": { label: "Size Raw", type: "number" },
                         "sizeMod": { label: "Size Mod", type: "number" },
-                        "lactationBonusMod": { label: "Lacation Bonus Mod", type: "number" },
-                        "fullnessRaw": { label: "Fullness Raw", type: "number" },
                     }
                 }
             },
             "nippleColor": { label: "Color", type: "string", groupTag: "Body.Breasts.Nipples" },
             "nipplesPerBreast": { label: "Per Breast", type: "number", groupTag: "Body.Breasts.Nipples" },
-            "nippleLengthRatio": { label: "Length Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
+            "nippleSizeRatio": { label: "Size Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
+            "nippleType": { label: "Type", type: "number", options: globals.NippleType, groupTag: "Body.Breasts.Nipples" },
+            "breastTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Breasts" },
             "nippleWidthRatio": { label: "Width Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
             "milkType": { label: "Type", type: "number", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
-            "milkMultiplier": { label: "Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
-            "milkStorageMultiplier": { label: "Storage Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
-            "milkFullness": { label: "Fullness", type: "number", groupTag: "Body.Breasts.Milk" },
-            "milkRate": { label: "Rate", type: "number", groupTag: "Body.Breasts.Milk" },
+            "milkMultiplierRaw": { label: "Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
+            "milkStorageMultiplierRaw": { label: "Storage Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
+            "milkFullnessRaw": { label: "Fullness", type: "number", groupTag: "Body.Breasts.Milk" },
+            "milkRateRaw": { label: "Rate", type: "number", groupTag: "Body.Breasts.Milk" },
             "bellyRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Body.Belly" },
             "bellyRatingMod": { label: "Rating Mod", type: "number", groupTag: "Body.Belly" },
             // Lower Torso
@@ -671,7 +671,7 @@
                     "type": { label: "Type", type: "number", options: globals.BodyType },
                     "hymen": { label: "Hymen", type: "boolean" },
                     "clits": { label: "Clits", type: "number" },
-                    "color": { label: "Color", type: "string" },
+                    "_color": { label: "Color", type: "string" },
                     "wetnessRaw": { label: "Wetness Raw", type: "number" },
                     "wetnessMod": { label: "Wetness Mod", type: "number" },
                     "loosenessRaw": { label: "Looseness Raw", type: "number" },
@@ -707,11 +707,11 @@
                         "flaccidRatio": { label: "Flaccid Ratio", type: "number" },
                         "knotRatio": { label: "Knot Ratio", type: "number" },
                         "pierced": { label: "Pierced", type: "number" },
-                        "color": { label: "Color", type: "string" },
+                        "_color": { label: "Color", type: "string" },
                     }
                 }
             },
-            "balls": { label: "Count", type: "number", groupTag: "Body.Genitals.Balls" },
+            "_balls": { label: "Count", type: "number", groupTag: "Body.Genitals.Balls" },
             "ballTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Genitals.Balls" },
             "ballEfficiency": { label: "Efficiency", type: "number", groupTag: "Body.Genitals.Balls" },
             "ballSizeRaw": { label: "Size Raw", type: "number", groupTag: "Body.Genitals.Balls" },
@@ -727,7 +727,7 @@
                     "type": { label: "Type", type: "number", options: globals.BodyType },
                     "hymen": { label: "Hymen", type: "boolean" },
                     "clits": { label: "Clits", type: "number" },
-                    "color": { label: "Color", type: "string" },
+                    "_color": { label: "Color", type: "string" },
                     "wetnessRaw": { label: "Wetness Raw", type: "number" },
                     "wetnessMod": { label: "Wetness Mod", type: "number" },
                     "loosenessRaw": { label: "Looseness Raw", type: "number" },
@@ -1054,7 +1054,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             var disclaimer = document.createElement("div");
             disclaimer.className = "disclaimer";
-            disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + "+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p><p>Saves edited with v16 or earlier will not work.</p>";
+            disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + "+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p><p>Saves edited with v18 or earlier will not work.</p>";
             document.body.appendChild(disclaimer);
 
             var ok = document.createElement("button");
