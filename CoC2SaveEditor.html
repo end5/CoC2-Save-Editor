@@ -4,154 +4,182 @@
     <meta charset="UTF-8">
     <style>
         body {
-            background-color: #222;
+            display: block;
+            margin: unset;
             font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            color: #fff;
-            margin: 0px;
-            height: 100vh;
-        }
-
-        input {
-            resize: none;
             background-color: #375a7f;
-            color: #fff;
-            border: 0px;
-            font-family: inherit;
-            padding-left: 2px;
-        }
-
-        select {
-            background-color: #375a7f;
-            color: #fff;
-            border: 0px;
-            width: 20%;
+            outline: none;
         }
 
         button {
             font-family: inherit;
             font-size: inherit;
+            outline: none;
         }
 
-        button.fieldTitle {
-            width: 100%;
+        input {
+            background-color: inherit;
+            font-family: inherit;
+        }
+
+        input[type="text"] {
+            border: unset;
+            padding-left: 4px;
+            resize: none;
+            color: #EBEFE7;
+        }
+
+        select {
+            background-color: inherit;
+            color: inherit;
+            border: 0px;
+            width: 20%;
+            font-family: inherit;
         }
 
         .disclaimer {
+            background-color: #375a7f;
             text-align: center;
             margin: auto;
         }
 
-        .disclaimer>.accordion {
-            width: auto;
-        }
 
-        .multioption {
-            display: inline-flex !important;
+        .content {
+            background-color: #375a7f;
+            padding: 5px;
+            overflow-y: auto;
+            overflow-x: auto;
             position: relative;
+            box-sizing: border-box;
+            color: #EBEFE7;
         }
 
-        .multioption.selected {
-            background-color: #00bc8c;
+        .content.inverse {
+            background-color: #28415b;
         }
 
-        .multioption .fieldTitle {
-            width: auto;
+        .tabMenu {
+            height: inherit;
         }
 
-        .multioption input[type=checkbox] {
-            opacity: 0;
-            position: absolute;
-            cursor: inherit;
+        .tabMenu.vertical>.tabs {
+            display: flex;
+            width: 100%;
+            height: 25px;
         }
 
-        .tabs {
-            height: 45px;
-        }
-
-        .tab {
-            width: 20% !important;
-            text-align: center !important;
+        .tabMenu.horizontal {
+            display: flex;
+            width: 100%;
             height: 100%;
-            font-size: 1.5em;
+            box-sizing: border-box;
+            position: inherit;
+        }
+
+        .tabMenu.horizontal>.tabs {
+            display: grid;
+        }
+
+        .tabMenu.horizontal>.tabcontent {
+            height: 100%;
+        }
+
+        .tabbutton {
+            background-color: #28415b;
+            color: #EBEFE7;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            width: inherit;
+        }
+
+        .tabbutton.active {
+            background-color: #375a7f;
+        }
+
+        .tabbutton:hover {
+            background-color: #222;
+        }
+
+        .tabbutton.inverse {
+            background-color: #375a7f;
+        }
+
+        .tabbutton.inverse.active {
+            background-color: #28415b;
+        }
+
+        .tabbutton.inverse:hover {
+            background-color: #2F3027;
         }
 
         .tabcontent {
             display: none;
-            background-color: #28415b;
-            padding: 5px;
-            height: calc(100% - 45px - 10px);
-            overflow-y: auto;
-        }
-
-        .accordion {
-            background-color: #375a7f;
-            color: #fff;
-            cursor: pointer;
-            padding: 5px;
+            height: calc(100% - 25px);
             width: 100%;
-            text-align: left;
-            border: none;
-            outline: none;
-            transition: 0.4s;
         }
 
-        .active,
-        .accordion:hover {
-            background-color: #28415b;
-        }
-
-        .panel {
-            display: none;
-            padding: 2px 5px;
-        }
-
-        .charContainer {
-            display: flex;
-            height: 100%;
-        }
-
-        .charList {
-            display: grid;
-            width: 100px;
-        }
-
-        .charDesc {
+        .tabcontent.active {
             display: block;
-            width: calc(100% - 100px);
-            height: inherit;
-            overflow-y: hidden;
         }
 
-        .topTagButtons {
-            display: flex;
+        #main {
+            height: 100vh;
         }
 
-        .topTagButton {
-            text-align: center;
+        #main>.tabs {
+            height: 45px;
         }
 
-        .topTagPanels {
-            height: inherit;
-            overflow-y: auto;
+        #main>.tabs>.tabbutton {
+            font-size: 1.5em;
         }
 
-        .fieldEntry {
-            display: flex;
-            width: auto !important;
+        #main>.tabcontent {
+            height: calc(100% - 45px);
         }
 
-        .fieldEntry fieldset {
-            margin: unset;
-            border: unset;
-            padding: unset;
-            width: 80%;
+        .active {
+            background-color: #375a7f;
         }
 
         .fieldTitle {
             width: 20%;
-            font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            color: #fff;
-            font-size: 1em;
+            padding: 4px 6px;
+            box-sizing: border-box;
+        }
+
+        button.fieldTitle {
+            width: 100%;
+            color: inherit;
+            background-color: #28415b;
+            border-style: solid;
+            border-color: #28415b;
+            border-width: 5px;
+            padding: 2px 2px;
+            text-align: left;
+        }
+
+        button.fieldTitle.active {
+            border-style: solid solid none solid;
+            border-width: 5px;
+            background-color: #375a7f;
+        }
+
+        .fieldEntry {
+            display: flex;
+        }
+
+        .panel {
+            display: none;
+            padding: 5px 5px;
+        }
+
+        .panel.active {
+            display: block;
+            border-style: none solid solid solid;
+            border-width: 5px;
+            border-color: #28415b;
         }
 
         .addRemoveButtons {
@@ -159,97 +187,235 @@
         }
 
         .addRemoveButton {
-            width: 1em;
+            width: 100%;
             text-align: center;
+            font-size: 1.5em;
+        }
+
+        .multioption {
+            display: inline-flex;
+            position: relative;
+            padding: 0px 5px;
+        }
+
+        .multioption>.fieldTitle {
+            width: inherit;
+        }
+
+        .multioption.selected {
+            background-color: #00bc8c;
+        }
+
+        ul {
+            margin: unset;
+            padding: unset;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        ul>label {
+            flex-grow: 1;
+        }
+
+        .tabcontent button,
+        label,
+        .fieldEntry,
+        .addRemoveButton {
+            background-color: #28415b;
+            cursor: pointer;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        .multioption:hover,
+        .addRemoveButton:hover,
+        .fieldEntry:hover,
+        button.fieldTitle:hover {
+            background-color: #222;
+            border-color: #222;
+        }
+
+        button.fieldTitle.active:hover {
+            background-color: #222;
+            border-color: #28415b;
         }
     </style>
     <script>
 
         // Command for serializing default chars
-        // JSON.stringify(Object.entries(window.CHAR_CLASSES).filter(char=>["PlayerCharacter", "Arona", "Berwyn", "Brint", "Cait", "Kiyoko", "Etheryn"].some(n=>n===char[0])).reduce((obj, char)=>{obj[char[0]]=(new char[1]()).serialize();return obj},{}));
+        // JSON.stringify(Object.entries(window.CHAR_CLASSES).filter(char=>["PlayerCharacter", "Arona", "Berwyn", "Brint", "Cait", "Kiyoko", "Etheryn", "Gwyn", "Kinu"].some(n=>n===char[0])).reduce((obj, char)=>{obj[char[0]]=(new char[1]()).serialize();return obj},{}));
 
         var charDefaults = {
-            "pc":{"name":"Unnamed","cName":"","soloCombatPrefix":"","taxa":1,"class":0,"background":0,"isPlural":false,"partyLeader":true,"level":1,"exp":0,"canGainExp":false,"compTags":[],"actionPoints":1,"hitPoints":100,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":0,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[],"classAffinities":[],"backgroundAffinities":[],"perks":[],"powers":[],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[],"dislikes":[],"boon":null,"credits":0,"weaponPrimary":{"key":"RustyKnife","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"ComfortableClothes","args":[1]},"hands":null,"waist":null,"feet":{"key":"LeatherBoots","args":[1]},"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":{"key":"PlainUnderwear","args":[1]},"inventory":[],"keyItems":[],"set":null,"originalRace":"human","femininity":50,"tallness":66,"tone":50,"thickness":50,"hipRatingRaw":0,"hipRatingMod":0,"buttRatingRaw":0,"buttRatingMod":0,"bellyRatingRaw":0,"bellyRatingMod":0,"lipMod":0,"hairColor":"brown","skinColor":"pale","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":0,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2,"title":"Adventurer","wyldMark":-1,"drinks":[],"customImage":null,"pendingLoot":[],"sensed":[],"storage":[],"maxStorage":200},
+            "pc":{"name":"Unnamed","cName":"","soloCombatPrefix":"","taxa":1,"class":0,"background":0,"isPlural":false,"partyLeader":true,"level":1,"exp":0,"canGainExp":false,"compTags":[],"actionPoints":1,"hitPoints":100,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":0,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[],"classAffinities":[],"backgroundAffinities":[],"perks":[],"powers":[],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[],"dislikes":[],"boon":null,"credits":0,"weaponPrimary":{"key":"RustyKnife","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"ComfortableClothes","args":[1]},"hands":null,"waist":null,"feet":{"key":"LeatherBoots","args":[1]},"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":{"key":"PlainUnderwear","args":[1]},"inventory":[],"keyItems":[],"set":null,"originalRace":"human","femininity":50,"tallness":66,"tone":50,"thickness":50,"hipRatingRaw":0,"hipRatingMod":0,"buttRatingRaw":0,"buttRatingMod":0,"bellyRatingRaw":0,"bellyRatingMod":0,"lipMod":0,"hairColor":"brown","skinColor":"pale","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":0,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2,"title":"Adventurer","wyldMark":-1,"drinks":[],"customImage":null,"pendingLoot":[],"sensed":[],"storage":[],"maxStorage":10},
             "arona":{"name":"Arona","cName":"","soloCombatPrefix":"","taxa":1,"class":1,"background":5,"genderPref":1,"isPlural":false,"partyLeader":true,"level":3,"exp":150,"canGainExp":true,"compTags":[2],"actionPoints":1,"hitPoints":200,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":2,"strengthMod":0,"toughnessAlloc":2,"toughnessMod":1,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":1,"cunningMod":2,"willpowerAlloc":1,"willpowerMod":1,"presenceAlloc":0,"presenceMod":0,"libidoMod":10,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[1,0,4],"classAffinities":[1,0,2],"backgroundAffinities":[0,1,5],"perks":[{"key":"WarPaint","values":[]},{"key":"StartingAttributeBonuses","values":[0,3,0,0,0,0]}],"powers":[{"key":"NormalAttack"},{"key":"GuardedStance"},{"key":"AmazonStrike"},{"key":"Cleave"},{"key":"PrimeTarget"}],"equippedPowers":[{"key":"GuardedStance"},{"key":"AmazonStrike"},{"key":"Cleave"},{"key":"PrimeTarget"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-9,-4],"dislikes":[-8,-3],"boon":null,"credits":60,"weaponPrimary":{"key":"Mastbreaker","args":[1]},"weaponSecondary":{"key":"HoplonShield","args":[1]},"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"AronasWarhides","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"orc","femininity":70,"tallness":94,"tone":80,"thickness":30,"hipRatingRaw":12,"hipRatingMod":0,"buttRatingRaw":8,"buttRatingMod":0,"bellyRatingRaw":8,"bellyRatingMod":0,"lipMod":0,"hairColor":"black","skinColor":"green","furColor":"brown","scaleColor":"","lipColor":"black","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":2,"faceTags":[27],"earType":5,"earTags":[3],"earLength":1,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":true,"cockVirgin":false,"analVirgin":false,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":5,"sizeMod":0}],"nippleColor":"black","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":12,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1.5,"pierced":0,"_color":""}],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":{"type":1,"hymen":true,"clits":1,"wetnessRaw":1,"wetnessMod":0,"loosenessRaw":1.5,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":"black"},"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
-            "berwyn":{"name":"Summoner","cName":"","soloCombatPrefix":"the ","taxa":1,"class":4,"background":6,"genderPref":0,"isPlural":false,"partyLeader":false,"level":2,"exp":150,"canGainExp":true,"compTags":[4],"actionPoints":1,"hitPoints":130,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":0,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":1,"cunningMod":1,"willpowerAlloc":1,"willpowerMod":1,"presenceAlloc":1,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,1,3],"classAffinities":[4,3,5],"backgroundAffinities":[3,4,5],"perks":[{"key":"StartingAttributeBonuses","values":[1,0,0,1,1,0]}],"powers":[{"key":"NormalAttack"},{"key":"FireBolt"},{"key":"CharmSpell"},{"key":"Heal"},{"key":"SummonStoneElemental"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-10,-17,-9],"dislikes":[-4,-8],"boon":null,"credits":100,"weaponPrimary":{"key":"Quarterstaff","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"ApprenticeRobes","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"lupine","femininity":70,"tallness":66,"tone":30,"thickness":5,"hipRatingRaw":10,"hipRatingMod":0,"buttRatingRaw":10,"buttRatingMod":0,"bellyRatingRaw":2,"bellyRatingMod":0,"lipMod":0,"hairColor":"white","skinColor":"brown","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":true,"cockVirgin":false,"analVirgin":false,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":0,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
+            "berwyn":{"name":"Berwyn","cName":"","soloCombatPrefix":"","taxa":1,"class":4,"background":6,"genderPref":0,"isPlural":false,"partyLeader":false,"level":3,"exp":0,"canGainExp":true,"compTags":[4],"actionPoints":1,"hitPoints":170,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":2,"agilityAlloc":0,"agilityMod":1,"cunningAlloc":2,"cunningMod":0,"willpowerAlloc":2,"willpowerMod":1,"presenceAlloc":2,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[4,3,5],"backgroundAffinities":[3,4,5],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,0,1,1,1]},{"key":"ArcaneAttunement","values":[]},{"key":"JourneymanSummoner","values":[]}],"powers":[{"key":"NormalAttack"},{"key":"FireBolt"},{"key":"CharmSpell"},{"key":"GroupHeal"},{"key":"SummonStoneElemental"}],"equippedPowers":[{"key":"FireBolt"},{"key":"CharmSpell"},{"key":"GroupHeal"},{"key":"SummonStoneElemental"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-10,-17,-9],"dislikes":[-4,-8],"boon":null,"credits":0,"weaponPrimary":{"key":"BirchStaff","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"SummonersRobes","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":{"key":"SummonerSet","args":[1]},"originalRace":"half-lupine","femininity":70,"tallness":66,"tone":30,"thickness":5,"hipRatingRaw":10,"hipRatingMod":0,"buttRatingRaw":10,"buttRatingMod":0,"bellyRatingRaw":2,"bellyRatingMod":0,"lipMod":0,"hairColor":"white","skinColor":"brown","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":true,"cockVirgin":false,"analVirgin":false,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":0,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":10,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":0,"virgin":true,"tags":[],"lengthRaw":20,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1.5,"pierced":0,"_color":""}],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":2,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
             "brint":{"name":"Brint","cName":"","soloCombatPrefix":"","taxa":2,"class":1,"background":3,"genderPref":0,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":true,"compTags":[2],"actionPoints":1,"hitPoints":110,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":2,"toughnessAlloc":0,"toughnessMod":1,"agilityAlloc":0,"agilityMod":1,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":15,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":-75,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":-75,"fatigueResist":0,"mindResist":0,"raceAffinities":[1,0,2],"classAffinities":[1,0,2],"backgroundAffinities":[0,1,2],"perks":[{"key":"StartingAttributeBonuses","values":[2,1,0,0,0,0]},{"key":"RendingStrike","values":[]}],"powers":[{"key":"NormalAttack"},{"key":"GiantsReach"},{"key":"Cleave"},{"key":"Frenzy"}],"equippedPowers":[{"key":"GiantsReach"},{"key":"Cleave"},null,{"key":"Frenzy"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-10,-17,-9],"dislikes":[-1,-7],"boon":null,"credits":0,"weaponPrimary":{"key":"Poleaxe","args":[1]},"weaponSecondary":{"key":"Mace","args":[1]},"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"LoinclothAndGuards","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":{"key":"LoinSet","args":[1]},"originalRace":"minotaur","femininity":5,"tallness":102,"tone":80,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"dark brown","skinColor":"brown","furColor":"brown","scaleColor":"","lipColor":"black","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":4,"skinTags":[],"tailType":22,"numTails":1,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":22,"legTags":[26,34,37],"tongueType":22,"tongueTags":[],"faceType":22,"faceTags":[24],"earType":22,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":true,"cockVirgin":false,"analVirgin":false,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":0,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":30,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":6,"virgin":true,"tags":[4,38],"lengthRaw":24,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1.5,"pierced":0,"_color":"brown"}],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":4.5,"cumMultiplierMod":0,"ass":{"type":6,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":1},
             "cait":{"name":"Cait","cName":"","soloCombatPrefix":"","taxa":1,"class":3,"background":10,"genderPref":1,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":true,"compTags":[4],"actionPoints":1,"hitPoints":105,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":1,"agilityAlloc":0,"agilityMod":1,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":2,"presenceAlloc":0,"presenceMod":0,"libidoMod":15,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[2,3,5],"classAffinities":[4,1,5],"backgroundAffinities":[5,3,2],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]},{"key":"HealersHands","values":[]}],"powers":[{"key":"NormalAttack"},{"key":"SpiritVeil"},{"key":"Heal"},{"key":"WhiteFire"}],"equippedPowers":[{"key":"Heal"},{"key":"WhiteFire"},null,{"key":"SpiritVeil"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-16,-17,-9],"dislikes":[-4,-8],"boon":null,"credits":0,"weaponPrimary":{"key":"CaitsStaff","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":{"key":"PriestessCloak","args":[1]},"armorSet":{"key":"PassionPriestessGarb","args":[1]},"hands":{"key":"SilverBracelets","args":[1]},"waist":{"key":"PotionBelt","args":[1]},"feet":{"key":"CaitsKneeBoots","args":[1]},"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":{"key":"PassionSet","args":[1]},"originalRace":"catfolk","femininity":85,"tallness":66,"tone":40,"thickness":30,"hipRatingRaw":12,"hipRatingMod":0,"buttRatingRaw":12,"buttRatingMod":0,"bellyRatingRaw":7,"bellyRatingMod":0,"lipMod":0,"hairColor":"pink","skinColor":"fair","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":4,"numTails":1,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":false,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":6,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":{"type":1,"hymen":false,"clits":1,"wetnessRaw":1,"wetnessMod":0,"loosenessRaw":1.5,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":1},
             "kiyoko":{"name":"Kiyoko","cName":"","soloCombatPrefix":"","taxa":1,"class":4,"background":4,"genderPref":1,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":true,"compTags":[4],"actionPoints":1,"hitPoints":105,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":1,"agilityAlloc":0,"agilityMod":1,"cunningAlloc":0,"cunningMod":1,"willpowerAlloc":0,"willpowerMod":1,"presenceAlloc":0,"presenceMod":0,"libidoMod":15,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[4,3,5],"backgroundAffinities":[4,3,2],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,0,1,2,0]}],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-14,-16,-17,-9],"dislikes":[-4,-8],"boon":null,"credits":0,"weaponPrimary":{"key":"RustyKnife","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"kitsune","femininity":90,"tallness":66,"tone":25,"thickness":15,"hipRatingRaw":3,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"orange","skinColor":"pale","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"green","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":false,"vaginalVirgin":false,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":1,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":{"type":1,"hymen":false,"clits":1,"wetnessRaw":1,"wetnessMod":0,"loosenessRaw":1.5,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
-            "etheryn":{"name":"Etheryn","cName":"","soloCombatPrefix":"","taxa":1,"class":2,"background":2,"genderPref":1,"isPlural":false,"partyLeader":false,"level":3,"exp":0,"canGainExp":true,"compTags":[3],"actionPoints":1,"hitPoints":170,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":1,"toughnessAlloc":0,"toughnessMod":2,"agilityAlloc":2,"agilityMod":0,"cunningAlloc":2,"cunningMod":0,"willpowerAlloc":2,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":8,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[2,3,0],"backgroundAffinities":[5,2,4],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]}],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-3,-16,-15,-6],"dislikes":[-14,-4],"boon":null,"credits":0,"weaponPrimary":{"key":"RustyKnife","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"pale elf","femininity":65,"tallness":67,"tone":10,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"blonde","skinColor":"white","furColor":"brown","scaleColor":"","lipColor":"pink","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[11],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[28],"earType":5,"earTags":[3],"earLength":4,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":1,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":3,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":4,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1.5,"pierced":0,"_color":"pale"}],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2}
+            "etheryn":{"name":"Etheryn","cName":"","soloCombatPrefix":"","taxa":1,"class":2,"background":2,"genderPref":1,"isPlural":false,"partyLeader":false,"level":3,"exp":0,"canGainExp":true,"compTags":[3],"actionPoints":1,"hitPoints":170,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":1,"toughnessAlloc":0,"toughnessMod":2,"agilityAlloc":2,"agilityMod":0,"cunningAlloc":2,"cunningMod":0,"willpowerAlloc":2,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":8,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[0,4,5],"classAffinities":[2,3,0],"backgroundAffinities":[5,2,4],"perks":[{"key":"StartingAttributeBonuses","values":[0,0,1,0,1,1]},{"key":"Chastity","values":[]},{"key":"TwistTheKnife","values":[]},{"key":"RangersQuarry","values":[]}],"powers":[{"key":"FrostArrow"},{"key":"EntropicWinds"},{"key":"GroupHeal"},{"key":"CallFalcon"}],"equippedPowers":[{"key":"FrostArrow"},{"key":"EntropicWinds"},{"key":"GroupHeal"},{"key":"CallFalcon"},null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[-3,-16,-15,-6],"dislikes":[-14,-4],"boon":null,"credits":0,"weaponPrimary":{"key":"HuntingBow","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":{"key":"OutridersLeathers","args":[1]},"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":{"key":"OutriderSet","args":[1]},"originalRace":"pale elf","femininity":65,"tallness":67,"tone":10,"thickness":5,"hipRatingRaw":2,"hipRatingMod":0,"buttRatingRaw":3,"buttRatingMod":0,"bellyRatingRaw":1,"bellyRatingMod":0,"lipMod":0,"hairColor":"blonde","skinColor":"white","furColor":"brown","scaleColor":"","lipColor":"pink","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[11],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[28],"earType":5,"earTags":[3],"earLength":4,"eyeType":1,"eyeTags":[],"eyeColor":"blue","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":1,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":3,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":2,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":4,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"knotRatio":1.5,"pierced":0,"_color":"pale"}],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
+            "gwyn":{"name":"","cName":"","soloCombatPrefix":"","taxa":1,"class":0,"background":0,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":false,"compTags":[],"actionPoints":1,"hitPoints":100,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":0,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[],"classAffinities":[],"backgroundAffinities":[],"perks":[],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[],"dislikes":[],"boon":null,"credits":0,"weaponPrimary":{"key":"RustyKnife","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"human","femininity":50,"tallness":66,"tone":50,"thickness":50,"hipRatingRaw":0,"hipRatingMod":0,"buttRatingRaw":0,"buttRatingMod":0,"bellyRatingRaw":0,"bellyRatingMod":0,"lipMod":0,"hairColor":"brown","skinColor":"pale","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":0,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"fertilityMod":2,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2},
+            "kinu":{"name":"Kinu","cName":"","soloCombatPrefix":"","taxa":1,"class":0,"background":0,"isPlural":false,"partyLeader":false,"level":1,"exp":0,"canGainExp":false,"compTags":[],"actionPoints":1,"hitPoints":100,"hitPointsMaxMod":0,"resolvePoints":100,"resolveMaxMod":0,"threatMod":10,"strengthAlloc":0,"strengthMod":0,"toughnessAlloc":0,"toughnessMod":0,"agilityAlloc":0,"agilityMod":0,"cunningAlloc":0,"cunningMod":0,"willpowerAlloc":0,"willpowerMod":0,"presenceAlloc":0,"presenceMod":0,"libidoMod":0,"corruptionMod":0,"isLustImmune":false,"penetratingResist":0,"crushingResist":0,"holyResist":0,"blightResist":0,"acidResist":0,"fireResist":0,"frostResist":0,"stormResist":0,"teaseResist":0,"drugResist":0,"pheromoneResist":0,"fatigueResist":0,"mindResist":0,"raceAffinities":[],"classAffinities":[],"backgroundAffinities":[],"perks":[],"powers":[{"key":"NormalAttack"}],"equippedPowers":[null,null,null,null,null],"stance":null,"multiTurnAttack":null,"combatEffects":[],"statusEffects":[],"likes":[],"dislikes":[],"boon":null,"credits":0,"weaponPrimary":{"key":"RustyKnife","args":[1]},"weaponSecondary":null,"head":null,"neck":null,"shoulders":null,"armorSet":null,"hands":null,"waist":null,"feet":null,"ring1":null,"ring2":null,"topGarment":null,"bottomGarment":null,"inventory":[],"keyItems":[],"set":null,"originalRace":"human","femininity":50,"tallness":66,"tone":50,"thickness":50,"hipRatingRaw":0,"hipRatingMod":0,"buttRatingRaw":0,"buttRatingMod":0,"bellyRatingRaw":0,"bellyRatingMod":0,"lipMod":0,"hairColor":"brown","skinColor":"pale","furColor":"brown","scaleColor":"","lipColor":"peach","hairLength":2,"hairStyle":"","hairType":1,"horns":0,"hornType":-1,"hornLength":0,"wingType":-1,"wingCount":0,"skinType":6,"skinTags":[],"tailType":-1,"numTails":0,"tailTags":[],"armType":1,"armTags":[],"legCount":2,"legType":1,"legTags":[],"tongueType":1,"tongueTags":[],"faceType":1,"faceTags":[],"earType":1,"earTags":[],"earLength":0,"eyeType":1,"eyeTags":[],"eyeColor":"brown","orgasms":0,"lastOrgasm":0,"lastMilked":0,"exhibRaw":0,"isVirgin":true,"vaginalVirgin":true,"cockVirgin":true,"analVirgin":true,"pregnancySpeedRaw":1,"pregnancySpeedMod":0,"breastRows":[{"breasts":2,"sizeRaw":0,"sizeMod":0}],"nippleColor":"pink","nipplesPerBreast":1,"nippleSizeRatio":1,"nippleType":7,"breastTags":[],"milkType":4,"milkMultiplierRaw":0,"milkStorageMultiplierRaw":1,"milkFullnessRaw":0,"milkRateRaw":10,"_balls":0,"ballTags":[],"ballEfficiency":1,"ballSizeRaw":3,"ballSizeMod":0,"ballFullness":100,"cocks":[],"feracityRaw":1,"feracityMod":0,"fertilityMod":0,"virilityMod":0,"vagina":null,"clitLength":0.5,"girlCumType":1,"cumType":2,"cumMultiplierRaw":1,"cumMultiplierMod":0,"ass":{"type":1,"hymen":false,"clits":0,"wetnessRaw":0,"wetnessMod":0,"loosenessRaw":1,"loosenessMod":0,"bonusCapacity":0,"stretchCounter":0,"tags":[],"_color":""},"reagents":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0},"defaultCockIdx":0,"lastRingSlotEquipped":2,"lastRechargeEquipped":2}
         };
 
-        var editorVersion = "20";
-        var gameVersion = "0.1.4";
+        var editorVersion = "21";
+        var gameVersion = "0.1.9";
+        var lastBreakingVersion = "20";
 
         var globals = {
-            Taxon: { toSave: n => n + 1, fromSave: n => n - 1, list: ["Humanoid", "Beast", "Demon", "Plant", "Ethereal", "Undead", "Construct", "Fey"] },
-            Class: { list: ["None", "Warrior", "Thief", "White Mage", "Black Mage", "Charmer"] },
-            Background: { list: ["None", "Noble", "Minstrel", "Soldier", "Arcanist", "Barbarian", "Scholar", "Slumrat", "Acolyte", "Hunter", "Courtesan"] },
+            Taxon: {
+                toSave: (n) => n + 1,
+                fromSave: (n) => n - 1,
+                list: ["Humanoid", "Beast", "Demon", "Plant", "Ethereal", "Undead", "Construct", "Fey"]
+            },
+            Class: {
+                list: ["None", "Warrior", "Thief", "White Mage", "Black Mage", "Charmer"]
+            },
+            Background: {
+                list: ["None", "Noble", "Minstrel", "Soldier", "Arcanist", "Barbarian", "Scholar", "Slumrat", "Acolyte", "Hunter", "Courtesan"]
+            },
             // Slutty = 1
-            Affinity: { list: ["Strength", "Toughness", "Agility", "Cunning", "Willpower", "Presence"] },
-            TFType: { list: ["Raw", "Body", "Limbs", "Face", "Head", "Tail", "Cock", "Milk", "Balls", "Breasts", "Butt", "Pussy", "Cum", "Feracity"] },
+            Affinity: {
+                list: ["Strength", "Toughness", "Agility", "Cunning", "Willpower", "Presence"]
+            },
+            TFType: {
+                list: ["Raw", "Body", "Limbs", "Face", "Head", "Tail", "Cock", "Milk", "Balls", "Breasts", "Butt", "Pussy", "Cum", "Feracity"]
+            },
             // None = -1
-            BodyType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan/Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"] },
-            BodyTag: { list: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "Stinger Tipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped", "Spiked", "Magicock"] },
+            BodyType: {
+                toSave: (n) => n - 1,
+                fromSave: (n) => n + 1,
+                list: ["None", "Unspecified", "Human", "Orc", "Canine", "Feline", "Sylvan/Elf", "Equine", "Vulpine", "Snake", "Mothrine", "Goat", "Swine", "Shark", "Bee", "Draconic", "Kangaroo", "Anemone", "Avian", "Tentacle", "Demonic", "Frog", "Gooey", "Bovine", "Lupine", "Mouse", "Sheep", "Lapine", "Arachnid", "Succubus", "Dove"]
+            },
+            BodyTag: {
+                list: ["Internal", "Knotted", "Gooey", "Tapered", "Flared", "Blunt", "Prehensile", "Stinger Based", "Stinger Tipped", "Nubby", "Amorphous", "Smooth", "Ribbed", "Foreskinned", "Double Headed", "Thick", "Sticky", "Fluffy", "Lubricated", "Long", "Hollow", "Squishy", "Angular", "Freckled", "Muzzled", "Beak", "Furred", "Tusked", "Refined", "Scaled", "Feathered", "Chitinous", "Aphrodisiac Laced", "Paws", "Digitigrade", "Plantigrade", "Heels", "Hooves", "Sheathed", "Pumped", "Slightly Pumped", "Spiked", "Magicock", "Arctic", "Maned"]
+            },
             // None = -1
-            FluidType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Girlcum", "Cum", "Honey", "Milk", "Chocolate Milk", "Strawberry Milk"] },
+            FluidType: {
+                toSave: (n) => n - 1,
+                fromSave: (n) => n + 1,
+                list: ["None", "Unspecified", "Girlcum", "Cum", "Honey", "Milk", "Chocolate Milk", "Strawberry Milk"]
+            },
             // None = -1
-            SkinType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Latex", "Plant", "Bark", "Fur", "Feathers", "Skin", "Scales", "Chitin", "Goo"] },
+            SkinType: {
+                toSave: (n) => n - 1,
+                fromSave: (n) => n + 1,
+                list: ["None", "Unspecified", "Latex", "Plant", "Bark", "Fur", "Feathers", "Skin", "Scales", "Chitin", "Goo"]
+            },
             // None = -1
-            NippleType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Fuckable", "Flat", "Inverted", "Lipples", "Tentacled", "Dick", "Normal"] },
+            NippleType: {
+                toSave: (n) => n - 1,
+                fromSave: (n) => n + 1,
+                list: ["None", "Unspecified", "Fuckable", "Flat", "Inverted", "Lipples", "Tentacled", "Dick", "Normal"]
+            },
             // None = -1
-            HairType: { toSave: n => n - 1, fromSave: n => n + 1, list: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"] },
-            Weapons: { list: ["CaitsStaff", "Fist", "RustyKnife", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace", "Mastbreaker", "BeastKiller", "SanctifiedGladius"] },
-            ArmorSet: { list: ["ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb", "AronasWarhides", "LoinclothAndGuards", "MailBikini"] },
-            ItemHead: { list: [] },
-            ItemNeck: { list: ["WardAmulet", "AmuletOfTransference", "AmuletOfUnion",] },
-            ItemShoulders: { list: ["FlameCape", "PriestessCloak"] },
-            ItemHands: { list: ["Gauntlets", "ArmGuards", "SilverBracelets"] },
-            ItemWaist: { list: ["PotionBelt"] },
-            ItemFeet: { list: ["CaitsKneeBoots", "LeatherBoots", "IronGreaves"] },
-            Rings: { list: ["WizardRing"] },
-            TopGarb: { list: [] },
-            BottomGarb: { list: ["PlainUnderwear"] },
-            Shields: { list: ["HoplonShield", "TowerShield", "WickerShield"] },
-            Totems: { list: ["LynxTotem"] },
-            TFs: { list: ["Wolfsboon", "FoxBerry", "CatsTongueBerry", "RootOfMan", "PinkEgg", "BlueEgg", "PurpleEgg", "TanEgg", "GoldEgg", "BruteBeet"] },
-            Misc: { list: ["CampSupplies"] },
-            Consumable: { list: ["EffigySeed", "WyvernVenom"] },
-            Set: { list: ["PassionGarb", "LoinSet"] },
-            Boon: { list: ["VelunsBlessing", "HoneyMead", "SpicedWine", "RyeBeer", "AppleCider", "MonasteryWine", "LoversDry"] },
-            StatusEffect: { list: ["AnallyFilled", "OrallyFilled", "VaginallyFilled", "Armorer", "SharpenBlades", "PrayerOfWarding", "ArcaneAttunement", "FocusingPerformance", "WarPaint", "EyeOfTheStorm", "Enervation", "AphrodisiacCovered", "WellFed", "BlueBalled", "VenomHigh", "Fatigued", "Overburdened", "Heat", "Rut", "StudStatuesGift", "MatronStatuesGift"] },
-            CombatEffect: { list: ["Prone", "Bleeding", "Sundered", "Obscured", "Staggered", "Burning", "Terrified", "Poisoned", "Frigid", "Stunned", "EnArousedervation", "Disarmed", "Blinded", "Blessed", "SpiritVeil", "MirrorImage", "Resistance", "WeaponBuff", "FeatherDance", "WarlordsCry", "TaintedBulwark", "FirstStrike", "Focused", "Covered", "Restrained"] },
+            HairType: {
+                toSave: (n) => n - 1,
+                fromSave: (n) => n + 1,
+                list: ["None", "Unspecified", "Hair", "Plant", "Quills", "Feathers", "Goo", "Tentacles", "Transparent"]
+            },
+            Weapons: {
+                list: ["CaitsStaff", "Fist", "RustyKnife", "ShortSword", "CurvedBlade", "Spear", "Pike", "Poleaxe", "Battleaxe", "Francisca", "Javelin", "Quarterstaff", "BladeStaff", "HuntingBow", "WarBow", "Sling", "Mace", "Mastbreaker", "BeastKiller", "SanctifiedGladius", "SpiraledStaff", "SpiraledBlade", "BirchStaff"]
+            },
+            ArmorSet: {
+                list: ["ComfortableClothes", "ScaleArmor", "MailCuirass", "Breastplate", "ApprenticeRobes", "LeatherJerkin", "LeatherCoat", "PassionPriestessGarb", "AronasWarhides", "LoinclothAndGuards", "MailBikini", "SummonersRobes", "OutridersLeathers"]
+            },
+            ItemHead: {
+                list: []
+            },
+            ItemNeck: {
+                list: ["WardAmulet", "AmuletOfTransference", "AmuletOfUnion"]
+            },
+            ItemShoulders: {
+                list: ["FlameCape", "PriestessCloak"]
+            },
+            ItemHands: {
+                list: ["Gauntlets", "ArmGuards", "SilverBracelets"]
+            },
+            ItemWaist: {
+                list: ["PotionBelt"]
+            },
+            ItemFeet: {
+                list: ["CaitsKneeBoots", "LeatherBoots", "IronGreaves"]
+            },
+            Rings: {
+                list: ["WizardRing"]
+            },
+            TopGarb: {
+                list: []
+            },
+            BottomGarb: {
+                list: ["PlainUnderwear"]
+            },
+            Shields: {
+                list: ["HoplonShield", "TowerShield", "WickerShield"]
+            },
+            Totems: {
+                list: ["LynxTotem"]
+            },
+            TFs: {
+                list: ["Wolfsboon", "FoxBerry", "CatsTongueBerry", "RootOfMan", "PinkEgg", "BlueEgg", "PurpleEgg", "TanEgg", "GoldEgg", "BruteBeet", "IceShard", "MinoBloodwine", "BovumSherry"]
+            },
+            Misc: {
+                list: ["CampSupplies", "SilverSphere", "SmallSilverSphere", "LargeSilverSphere", "PristineWood", "MetalParts", "SturdyStone"]
+            },
+            Consumable: {
+                list: ["EffigySeed", "WyvernVenom"]
+            },
+            Set: {
+                list: ["PassionGarb", "LoinSet", "SummonerSet", "OutriderSet"]
+            },
+            KeyItems: {
+                list: ["BlueGemstoneStud", "BerwynsPanties", "AlchemistKit"]
+            },
+            Boon: {
+                list: ["VelunsBlessing", "HoneyMead", "SpicedWine", "RyeBeer", "AppleCider", "MonasteryWine", "LoversDry"]
+            },
+            StatusEffect: {
+                list: ["AnallyFilled", "OrallyFilled", "VaginallyFilled", "Armorer", "SharpenBlades", "PrayerOfWarding", "ArcaneAttunement", "FocusingPerformance", "WarPaint", "EyeOfTheStorm", "Enervation", "AphrodisiacCovered", "WellFed", "BlueBalled", "VenomHigh", "Fatigued", "Overburdened", "Heat", "Rut", "StudStatuesGift", "MatronStatuesGift", "CumCovered", "Drained"]
+            },
+            CombatEffect: {
+                list: ["Prone", "Bleeding", "Sundered", "Obscured", "Staggered", "Burning", "Terrified", "Poisoned", "Frigid", "Stunned", "EnArousedervation", "Disarmed", "Blinded", "Blessed", "SpiritVeil", "Resistance", "WeaponBuff", "FeatherDance", "WarlordsCry", "TaintedBulwark", "FirstStrike", "Restrained"]
+            },
             Powers: {
                 list: [
                     "AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "ChainmailJiggle", "BreastPlate", "CumSpray", "WyvernVenom", "HoneySlather", "AphrodisiacSting",
-                    
+
                     "GuardedStance", "RangersStance", "SpiritVeil", "MirrorImage", "ControlPheromones", "BolsteringDance", "Flight", "Frenzy", "AuraOfDesire", "PipersSong", "VineRestaints", "HarpySong", "Pollination", "Heal", "GroupHeal", "CommandPheromones", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "Warcry",
 
                     "ButtStomp", "AerialDrop", "Quake", "Rush", "Grapple", "Tackle",
-                    
+
                     "PussyTailTease", "HarpyButtTease", "EffigyBoobTease", "CharmSpell", "EarthFist", "TentacleSlap", "BellyDance", "DickWobble", "ImpDirtyTrick",
-                    
-                    "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "FireBolt", "PollenSpray", "Foxfire", "Trick",
 
-                    "SummonFlameSpirit", "SummonStoneElemental", "SummonEffigy", "SummonKiyoko",
+                    "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "SunOfJassira", "FireBolt", "PollenSpray", "Foxfire", "Trick", "Fireball", "DarkThoughts", "Leech", "CarnalHex",
 
-                    "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "ThunderStrike", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "MarkForDeath", "PrimeTarget", "GiantsReach", "Execute", "LustyTentacles", "Envenom", "TrickShot", "Shatterstrike", "WyvernSting", "CrowdControl", "StickAndMove", "SuppressiveFire", "NervesOfSteel", "TripleThreat", "CracklePowder"]
+                    "SummonFlameSpirit", "SummonStoneElemental", "SummonEffigy", "SummonKiyoko", "SummonShadowClone", "CallFalcon",
+
+                    "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "ThunderStrike", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "MarkForDeath", "PrimeTarget", "GiantsReach", "Execute", "LustyTentacles", "Envenom", "TrickShot", "Shatterstrike", "WyvernSting", "CrowdControl", "StickAndMove", "SuppressiveFire", "NervesOfSteel", "TripleThreat", "CracklePowder", "FrostArrow", "BloodLet"
+                ]
             },
             Perks: {
                 list: [
-                    "TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "Warpaint", "RendingStrike", "EyeOfTheStorm",
-                    
+                    "TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "Warpaint", "RendingStrike", "EyeOfTheStorm", "JourneymanSummoner", "RangersQuarry",
+
                     "StartingAttributeBonuses", "Leftovers",
-                    
-                    "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm", "BubbleButt"
+
+                    "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm", "BubbleButt", "Chastity"
                 ]
             },
-            WeaponPrimary: { list: [] },
-            WeaponSecondary: { list: [] },
-            Items: { list: ["FoxBerry", "Wolfsboon"] },
-            EquipSlots: ["weaponPrimary", "weaponSecondary", "head", "neck", "shoulders", "armorSet", "topGarment", "bottomGarment", "waist", "hands", "feet", "ring1", "ring2"]
-
+            WeaponPrimary: {
+                list: []
+            },
+            WeaponSecondary: {
+                list: []
+            },
+            Items: {
+                list: []
+            },
+            EquipSlots: {
+                list: ["weaponPrimary", "weaponSecondary", "head", "neck", "shoulders", "armorSet", "topGarment", "bottomGarment", "waist", "hands", "feet", "ring1", "ring2"]
+            }
         };
+
         globals.WeaponPrimary.list = globals.Weapons.list;
         globals.WeaponSecondary.list = globals.Shields.list, globals.Totems.list;
         globals.Items.list = [].concat(
@@ -294,461 +460,462 @@
 
         var charMap = {
             // Info
-            "name": { label: "Name", type: "string", groupTag: "Info" },
-            "title": { label: "Title", type: "string", groupTag: "Info" },
-            "taxa": { label: "Taxon", type: "number", options: globals.Taxon, groupTag: "Info" },
-            "class": { label: "Class", type: "number", options: globals.Class, groupTag: "Info" },
-            "background": { label: "Background", type: "number", options: globals.Background, groupTag: "Info" },
-            "genderPref": { label: "Gender Pref", type: "number", groupTag: "Info" },
-            "level": { label: "Level", type: "number", groupTag: "Info" },
-            "exp": { label: "Exp", type: "number", groupTag: "Info" },
-            "orgasms": { label: "Orgasms", type: "number", groupTag: "Info" },
-            "lastOrgasm": { label: "Last Orgasm", type: "number", groupTag: "Info" },
+            name: { label: "Name", type: "string", groupTag: "Info" },
+            title: { label: "Title", type: "string", groupTag: "Info" },
+            taxa: { label: "Taxon", type: "number", options: globals.Taxon, groupTag: "Info" },
+            class: { label: "Class", type: "number", options: globals.Class, groupTag: "Info" },
+            background: { label: "Background", type: "number", options: globals.Background, groupTag: "Info" },
+            genderPref: { label: "Gender Pref", type: "number", groupTag: "Info" },
+            level: { label: "Level", type: "number", groupTag: "Info" },
+            exp: { label: "Exp", type: "number", groupTag: "Info" },
+            orgasms: { label: "Orgasms", type: "number", groupTag: "Info" },
+            lastOrgasm: { label: "Last Orgasm", type: "number", groupTag: "Info" },
             // Stats
-            "hitPoints": { label: "HP", type: "number", groupTag: "Stats" },
-            "hitPointsMaxMod": { label: "HP Max Mod", type: "number", groupTag: "Stats" },
-            "resolvePoints": { label: "Resolve Points", type: "number", groupTag: "Stats" },
-            "resolveMaxMod": { label: "Resolve Points Max Mod", type: "number", groupTag: "Stats" },
-            "threatMod": { label: "Threat Mod", type: "number", groupTag: "Stats" },
-            "strengthAlloc": { label: "Strength Level", type: "number", groupTag: "Stats" },
-            "strengthMod": { label: "Strength Mod", type: "number", groupTag: "Stats" },
-            "toughnessAlloc": { label: "Toughness Level", type: "number", groupTag: "Stats" },
-            "toughnessMod": { label: "Toughness Mod", type: "number", groupTag: "Stats" },
-            "agilityAlloc": { label: "Agility Level", type: "number", groupTag: "Stats" },
-            "agilityMod": { label: "Agility Mod", type: "number", groupTag: "Stats" },
-            "cunningAlloc": { label: "Cunning Level", type: "number", groupTag: "Stats" },
-            "cunningMod": { label: "Cunning Mod", type: "number", groupTag: "Stats" },
-            "willpowerAlloc": { label: "Willpower Level", type: "number", groupTag: "Stats" },
-            "willpowerMod": { label: "Willpower Mod", type: "number", groupTag: "Stats" },
-            "presenceAlloc": { label: "Presence Level", type: "number", groupTag: "Stats" },
-            "presenceMod": { label: "Presence Mod", type: "number", groupTag: "Stats" },
-            "libidoMod": { label: "Libido Mod", type: "number", groupTag: "Stats" },
-            "corruptionMod": { label: "Corruption Mod", type: "number", groupTag: "Stats" },
-            "exhibRaw": { label: "Exhibition Raw", type: "number", groupTag: "Stats" },
-            "feracityRaw": { label: "Feracity Raw", type: "number", groupTag: "Stats" },
-            "feracityMod": { label: "Feracity Mod", type: "number", groupTag: "Stats" },
-            "fertilityMod": { label: "Fertility Mod", type: "number", groupTag: "Stats" },
-            "virilityMod": { label: "Virility Mod", type: "number", groupTag: "Stats" },
-            "penetratingResist": { label: "Penetrating", type: "number", groupTag: "Stats.Resistance" },
-            "crushingResist": { label: "Crushing", type: "number", groupTag: "Stats.Resistance" },
-            "holyResist": { label: "Holy", type: "number", groupTag: "Stats.Resistance" },
-            "blightResist": { label: "Blight", type: "number", groupTag: "Stats.Resistance" },
-            "acidResist": { label: "Acid", type: "number", groupTag: "Stats.Resistance" },
-            "fireResist": { label: "Fire", type: "number", groupTag: "Stats.Resistance" },
-            "frostResist": { label: "Frost", type: "number", groupTag: "Stats.Resistance" },
-            "stormResist": { label: "Storm", type: "number", groupTag: "Stats.Resistance" },
-            "teaseResist": { label: "Tease", type: "number", groupTag: "Stats.Resistance" },
-            "drugResist": { label: "Drug", type: "number", groupTag: "Stats.Resistance" },
-            "pheromoneResist": { label: "Pheromone", type: "number", groupTag: "Stats.Resistance" },
-            "fatigueResist": { label: "Fatigue", type: "number", groupTag: "Stats.Resistance" },
-            "mindResist": { label: "Mind", type: "number", groupTag: "Stats.Resistance" },
-            "raceAffinities": { label: "Race", type: "multioption", options: globals.Affinity, groupTag: "Stats.Affinities" },
-            "classAffinities": { label: "Class", type: "multioption", options: globals.Affinity, groupTag: "Stats.Affinities" },
-            "backgroundAffinities": { label: "Background", type: "multioption", options: globals.Affinity, groupTag: "Stats.Affinities" },
+            hitPoints: { label: "HP", type: "number", groupTag: "Stats" },
+            hitPointsMaxMod: { label: "HP Max Mod", type: "number", groupTag: "Stats" },
+            resolvePoints: { label: "Resolve Points", type: "number", groupTag: "Stats" },
+            resolveMaxMod: { label: "Resolve Points Max Mod", type: "number", groupTag: "Stats" },
+            threatMod: { label: "Threat Mod", type: "number", groupTag: "Stats" },
+            strengthAlloc: { label: "Strength Level", type: "number", groupTag: "Stats" },
+            strengthMod: { label: "Strength Mod", type: "number", groupTag: "Stats" },
+            toughnessAlloc: { label: "Toughness Level", type: "number", groupTag: "Stats" },
+            toughnessMod: { label: "Toughness Mod", type: "number", groupTag: "Stats" },
+            agilityAlloc: { label: "Agility Level", type: "number", groupTag: "Stats" },
+            agilityMod: { label: "Agility Mod", type: "number", groupTag: "Stats" },
+            cunningAlloc: { label: "Cunning Level", type: "number", groupTag: "Stats" },
+            cunningMod: { label: "Cunning Mod", type: "number", groupTag: "Stats" },
+            willpowerAlloc: { label: "Willpower Level", type: "number", groupTag: "Stats" },
+            willpowerMod: { label: "Willpower Mod", type: "number", groupTag: "Stats" },
+            presenceAlloc: { label: "Presence Level", type: "number", groupTag: "Stats" },
+            presenceMod: { label: "Presence Mod", type: "number", groupTag: "Stats" },
+            libidoMod: { label: "Libido Mod", type: "number", groupTag: "Stats" },
+            corruptionMod: { label: "Corruption Mod", type: "number", groupTag: "Stats" },
+            exhibRaw: { label: "Exhibition Raw", type: "number", groupTag: "Stats" },
+            feracityRaw: { label: "Feracity Raw", type: "number", groupTag: "Stats" },
+            feracityMod: { label: "Feracity Mod", type: "number", groupTag: "Stats" },
+            fertilityMod: { label: "Fertility Mod", type: "number", groupTag: "Stats" },
+            virilityMod: { label: "Virility Mod", type: "number", groupTag: "Stats" },
+            penetratingResist: { label: "Penetrating", type: "number", groupTag: "Stats.Resistance" },
+            crushingResist: { label: "Crushing", type: "number", groupTag: "Stats.Resistance" },
+            holyResist: { label: "Holy", type: "number", groupTag: "Stats.Resistance" },
+            blightResist: { label: "Blight", type: "number", groupTag: "Stats.Resistance" },
+            acidResist: { label: "Acid", type: "number", groupTag: "Stats.Resistance" },
+            fireResist: { label: "Fire", type: "number", groupTag: "Stats.Resistance" },
+            frostResist: { label: "Frost", type: "number", groupTag: "Stats.Resistance" },
+            stormResist: { label: "Storm", type: "number", groupTag: "Stats.Resistance" },
+            teaseResist: { label: "Tease", type: "number", groupTag: "Stats.Resistance" },
+            drugResist: { label: "Drug", type: "number", groupTag: "Stats.Resistance" },
+            pheromoneResist: { label: "Pheromone", type: "number", groupTag: "Stats.Resistance" },
+            fatigueResist: { label: "Fatigue", type: "number", groupTag: "Stats.Resistance" },
+            mindResist: { label: "Mind", type: "number", groupTag: "Stats.Resistance" },
+            raceAffinities: {
+                label: "Race",
+                type: "multioption",
+                options: globals.Affinity,
+                groupTag: "Stats.Affinities",
+                max: 3,
+            },
+            classAffinities: {
+                label: "Class",
+                type: "multioption",
+                options: globals.Affinity,
+                groupTag: "Stats.Affinities",
+                max: 3,
+            },
+            backgroundAffinities: {
+                label: "Background",
+                type: "multioption",
+                options: globals.Affinity,
+                groupTag: "Stats.Affinities",
+                max: 3,
+            },
             // Effects
-            "perks": {
+            perks: {
                 label: "Perks",
                 type: "array",
                 groupTag: "Effects",
-                properties: {
+                entry: {
                     type: "object",
                     canBeNull: false,
                     properties: {
-                        "key": { label: "Key", type: "string", options: globals.Perks },
-                        "values": { label: "Values", type: "array", properties: { type: "number" }, min: 6 }
+                        key: { label: "Key", type: "string", options: globals.Perks },
+                        values: { label: "Values", type: "array", entry: { type: "number" }, min: 6 }
                     }
                 }
             },
-            "statusEffects": {
+            statusEffects: {
                 label: "Status",
                 type: "array",
                 groupTag: "Effects",
-                properties: {
+                entry: {
                     type: "object",
                     canBeNull: false,
                     properties: {
-                        "key": { label: "Key", type: "string", options: globals.StatusEffect },
-                        "duration": { label: "Duration", type: "number" },
-                        "values": { label: "Values", type: "array", properties: { type: "number" } }
+                        key: { label: "Key", type: "string", options: globals.StatusEffect },
+                        duration: { label: "Duration", type: "number" },
+                        values: { label: "Values", type: "array", entry: { type: "number" } }
                     }
                 }
             },
-            "combatEffects": {
+            combatEffects: {
                 label: "Combat",
                 type: "array",
                 groupTag: "Effects",
-                properties: {
+                entry: {
                     type: "object",
                     canBeNull: false,
                     properties: {
-                        "key": { label: "Key", type: "string", options: globals.CombatEffect },
-                        "duration": { label: "Duration", type: "number" },
-                        "values": { label: "Values", type: "array", properties: { type: "number" } }
+                        key: { label: "Key", type: "string", options: globals.CombatEffect },
+                        duration: { label: "Duration", type: "number" },
+                        values: { label: "Values", type: "array", entry: { type: "number" } }
                     }
                 }
             },
-            "boon": {
+            boon: {
                 label: "Boon",
                 type: "object",
                 groupTag: "Effects",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.Boon },
-                    "duration": { label: "Duration", type: "number" },
-                    "values": { label: "Values", type: "array", properties: { type: "number" } }
+                    key: { label: "Key", type: "string", options: globals.Boon },
+                    duration: { label: "Duration", type: "number" },
+                    values: { label: "Values", type: "array", entry: { type: "number" } }
                 }
             },
-            "powers": {
+            powers: {
                 label: "Powers",
                 type: "multioption",
                 options: globals.Powers,
                 groupTag: "Effects",
-                customCallback: (obj, key) => {
-                    return (evnt) => {
-                        var fieldset = evnt.currentTarget;
-                        var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked).map(el => ({ "key": el.name }));
-                        obj[key] = list;
-                    }
-                }
+                max: 5,
+                transform: (value) => ({ key: value }),
             },
-            "equippedPowers": {
+            equippedPowers: {
                 label: "Equipped Powers",
                 type: "multioption",
                 options: globals.Powers,
                 groupTag: "Effects",
-                customCallback: (obj, key) => {
-                    return (evnt) => {
-                        var fieldset = evnt.currentTarget;
-                        var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked).map(el => ({ "key": el.name }));
-                        if (list.length > 5 && evnt.target.type === "checkbox" && !evnt.target.parentElement.classList.contains("selected")) {
-                            evnt.target.parentElement.classList.add("selected");
-                            evnt.target.checked = false;
-                        }
-                        else {
-                            obj[key] = list;
-                        }
-                        obj[key].length = 5;
-                    }
-                }
+                max: 5,
+                transform: (value) => ({ key: value }),
             },
             // Inventory
-            "credits": { label: "Credits", type: "number", groupTag: "Inventory" },
-            "weaponPrimary": {
+            credits: { label: "Credits", type: "number", groupTag: "Inventory" },
+            weaponPrimary: {
                 label: "Primary Weapon",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.WeaponPrimary },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.WeaponPrimary },
+                    args: createItemArgsMap()
                 }
             },
-            "weaponSecondary": {
+            weaponSecondary: {
                 label: "Secondary Weapon",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.WeaponSecondary },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.WeaponSecondary },
+                    args: createItemArgsMap()
                 }
             },
-            "head": {
+            head: {
                 label: "Head",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.ItemHead },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.ItemHead },
+                    args: createItemArgsMap()
                 }
             },
-            "neck": {
+            neck: {
                 label: "Neck",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.ItemNeck },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.ItemNeck },
+                    args: createItemArgsMap()
                 }
             },
-            "shoulders": {
+            shoulders: {
                 label: "Shoulders",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.ItemShoulders },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.ItemShoulders },
+                    args: createItemArgsMap()
                 }
             },
-            "armorSet": {
+            armorSet: {
                 label: "Armor Set",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.ArmorSet },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.ArmorSet },
+                    args: createItemArgsMap()
                 }
             },
-            "hands": {
+            hands: {
                 label: "Hands",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.ItemHands },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.ItemHands },
+                    args: createItemArgsMap()
                 }
             },
-            "waist": {
+            waist: {
                 label: "Waist",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.ItemWaist },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.ItemWaist },
+                    args: createItemArgsMap()
                 }
             },
-            "feet": {
+            feet: {
                 label: "Feet",
-                type: "object", 
+                type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.ItemFeet },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.ItemFeet },
+                    args: createItemArgsMap()
                 }
             },
-            "ring1": {
+            ring1: {
                 label: "Ring 1",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.Rings },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.Rings },
+                    args: createItemArgsMap()
                 }
             },
-            "ring2": {
+            ring2: {
                 label: "Ring 2",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.Rings },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.Rings },
+                    args: createItemArgsMap()
                 }
             },
-            "topGarment": {
+            topGarment: {
                 label: "Top Garment",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.TopGarb },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.TopGarb },
+                    args: createItemArgsMap()
                 }
             },
-            "bottomGarment": {
+            bottomGarment: {
                 label: "Bottom Garment",
                 type: "object",
                 groupTag: "Inventory.Equipment",
                 canBeNull: true,
                 properties: {
-                    "key": { label: "Key", type: "string", options: globals.BottomGarb },
-                    "args": createItemArgsMap()
+                    key: { label: "Key", type: "string", options: globals.BottomGarb },
+                    args: createItemArgsMap()
                 }
             },
-            "inventory": {
+            inventory: {
                 label: "Items",
                 type: "array",
                 groupTag: "Inventory",
-                properties: {
+                entry: {
                     type: "object",
                     properties: {
-                        "key": { label: "Key", type: "string", options: globals.Items },
-                        "args": createItemArgsMap()
+                        key: { label: "Key", type: "string", options: globals.Items },
+                        args: createItemArgsMap()
                     }
                 }
             },
-            "reagents": {
+            reagents: {
                 label: "Reagents",
                 type: "object",
                 groupTag: "Inventory",
                 canBeNull: false,
                 properties: (() => {
-                    var obj = {};
-                    for (var index = 0; index < globals.TFType.list.length; index++)
+                    const obj = {};
+                    for (let index = 0; index < globals.TFType.list.length; index++)
                         obj[index] = { label: globals.TFType.list[index], type: "number" };
                     return obj;
                 })()
             },
-            "keyItems": {
+            keyItems: {
                 label: "Key Items",
                 type: "array",
                 groupTag: "Inventory",
-                properties: {
+                entry: {
                     type: "object",
                     properties: {
-                        "key": { label: "Key", type: "string" }
+                        key: { label: "Key", type: "string", options: globals.KeyItems }
                     }
                 }
             },
             // Body
-            "originalRace": { label: "Original Race", type: "string", groupTag: "Body" },
-            "femininity": { label: "Feminitity", type: "number", groupTag: "Body" },
-            "tallness": { label: "Tallness", type: "number", groupTag: "Body" },
-            "tone": { label: "Tone", type: "number", groupTag: "Body" },
-            "thickness": { label: "Thickness", type: "number", groupTag: "Body" },
-            "skinType": { label: "Type", type: "number", options: globals.SkinType, groupTag: "Body.Skin" },
-            "skinTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Skin" },
-            "skinColor": { label: "Skin Color", type: "string", groupTag: "Body.Skin" },
-            "furColor": { label: "Fur Color", type: "string", groupTag: "Body.Skin" },
-            "scaleColor": { label: "Scale Color", type: "string", groupTag: "Body.Skin" },
-            "isVirgin": { label: "Virgin", type: "boolean", groupTag: "Body.Virginity" },
-            "vaginalVirgin": { label: "Vaginal", type: "boolean", groupTag: "Body.Virginity" },
-            "cockVirgin": { label: "Cock", type: "boolean", groupTag: "Body.Virginity" },
-            "analVirgin": { label: "Anal", type: "boolean", groupTag: "Body.Virginity" },
-            "pregnancySpeedRaw": { label: "Speed Raw", type: "number", groupTag: "Body.Pregnancy" },
-            "pregnancySpeedMod": { label: "Speed Mod", type: "number", groupTag: "Body.Pregnancy" },
+            originalRace: { label: "Original Race", type: "string", groupTag: "Body" },
+            femininity: { label: "Feminitity", type: "number", groupTag: "Body" },
+            tallness: { label: "Tallness", type: "number", groupTag: "Body" },
+            tone: { label: "Tone", type: "number", groupTag: "Body" },
+            thickness: { label: "Thickness", type: "number", groupTag: "Body" },
+            skinType: { label: "Type", type: "number", options: globals.SkinType, groupTag: "Body.Skin" },
+            skinTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Skin" },
+            skinColor: { label: "Skin Color", type: "string", groupTag: "Body.Skin" },
+            furColor: { label: "Fur Color", type: "string", groupTag: "Body.Skin" },
+            scaleColor: { label: "Scale Color", type: "string", groupTag: "Body.Skin" },
+            isVirgin: { label: "Virgin", type: "boolean", groupTag: "Body.Virginity" },
+            vaginalVirgin: { label: "Vaginal", type: "boolean", groupTag: "Body.Virginity" },
+            cockVirgin: { label: "Cock", type: "boolean", groupTag: "Body.Virginity" },
+            analVirgin: { label: "Anal", type: "boolean", groupTag: "Body.Virginity" },
+            pregnancySpeedRaw: { label: "Speed Raw", type: "number", groupTag: "Body.Pregnancy" },
+            pregnancySpeedMod: { label: "Speed Mod", type: "number", groupTag: "Body.Pregnancy" },
             // Head
-            "horns": { label: "Count", type: "number", groupTag: "Body.Head.Horns" },
-            "hornType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Horns" },
-            "hornLength": { label: "Length", type: "number", groupTag: "Body.Head.Horns" },
-            "hairColor": { label: "Color", type: "string", groupTag: "Body.Head.Hair" },
-            "hairLength": { label: "Length", type: "number", groupTag: "Body.Head.Hair" },
-            "hairStyle": { label: "Style", type: "string", groupTag: "Body.Head.Hair" },
-            "hairType": { label: "Type", type: "number", options: globals.HairType, groupTag: "Body.Head.Hair" },
-            "earType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Ears" },
-            "earTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Ears" },
-            "earLength": { label: "Count", type: "number", groupTag: "Body.Head.Ears" },
-            "faceType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Face" },
-            "faceTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Face" },
-            "eyeType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Eyes" },
-            "eyeTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Eyes" },
-            "eyeColor": { label: "Color", type: "string", groupTag: "Body.Head.Eyes" },
-            "lipMod": { label: "Mod", type: "number", groupTag: "Body.Head.Lips" },
-            "lipColor": { label: "Color", type: "string", groupTag: "Body.Head.Lips" },
-            "tongueType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Tongue" },
-            "tongueTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Tongue" },
+            horns: { label: "Count", type: "number", groupTag: "Body.Head.Horns" },
+            hornType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Horns" },
+            hornLength: { label: "Length", type: "number", groupTag: "Body.Head.Horns" },
+            hairColor: { label: "Color", type: "string", groupTag: "Body.Head.Hair" },
+            hairLength: { label: "Length", type: "number", groupTag: "Body.Head.Hair" },
+            hairStyle: { label: "Style", type: "string", groupTag: "Body.Head.Hair" },
+            hairType: { label: "Type", type: "number", options: globals.HairType, groupTag: "Body.Head.Hair" },
+            earType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Ears" },
+            earTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Ears" },
+            earLength: { label: "Count", type: "number", groupTag: "Body.Head.Ears" },
+            faceType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Face" },
+            faceTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Face" },
+            eyeType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Eyes" },
+            eyeTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Eyes" },
+            eyeColor: { label: "Color", type: "string", groupTag: "Body.Head.Eyes" },
+            lipMod: { label: "Mod", type: "number", groupTag: "Body.Head.Lips" },
+            lipColor: { label: "Color", type: "string", groupTag: "Body.Head.Lips" },
+            tongueType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Tongue" },
+            tongueTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Tongue" },
             // Torso
-            "wingType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Wings" },
-            "wingCount": { label: "Count", type: "number", groupTag: "Body.Wings" },
-            "armType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Arms" },
-            "armTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Arms" },
-            "breastRows": {
+            wingType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Wings" },
+            wingCount: { label: "Count", type: "number", groupTag: "Body.Wings" },
+            armType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Arms" },
+            armTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Arms" },
+            breastRows: {
                 label: "Row",
                 type: "array",
                 groupTag: "Body.Breasts",
                 min: 1,
-                properties: {
+                entry: {
                     type: "object",
                     canBeNull: false,
                     properties: {
-                        "breasts": { label: "Count", type: "number" },
-                        "sizeRaw": { label: "Size Raw", type: "number" },
-                        "sizeMod": { label: "Size Mod", type: "number" },
+                        breasts: { label: "Count", type: "number" },
+                        sizeRaw: { label: "Size Raw", type: "number" },
+                        sizeMod: { label: "Size Mod", type: "number" },
                     }
                 }
             },
-            "nippleColor": { label: "Color", type: "string", groupTag: "Body.Breasts.Nipples" },
-            "nipplesPerBreast": { label: "Per Breast", type: "number", groupTag: "Body.Breasts.Nipples" },
-            "nippleSizeRatio": { label: "Size Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
-            "nippleType": { label: "Type", type: "number", options: globals.NippleType, groupTag: "Body.Breasts.Nipples" },
-            "breastTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Breasts" },
-            "nippleWidthRatio": { label: "Width Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
-            "milkType": { label: "Type", type: "number", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
-            "milkMultiplierRaw": { label: "Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
-            "milkStorageMultiplierRaw": { label: "Storage Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
-            "milkFullnessRaw": { label: "Fullness", type: "number", groupTag: "Body.Breasts.Milk" },
-            "milkRateRaw": { label: "Rate", type: "number", groupTag: "Body.Breasts.Milk" },
-            "bellyRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Body.Belly" },
-            "bellyRatingMod": { label: "Rating Mod", type: "number", groupTag: "Body.Belly" },
+            nippleColor: { label: "Color", type: "string", groupTag: "Body.Breasts.Nipples" },
+            nipplesPerBreast: { label: "Per Breast", type: "number", groupTag: "Body.Breasts.Nipples" },
+            nippleSizeRatio: { label: "Size Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
+            nippleWidthRatio: { label: "Width Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
+            nippleType: { label: "Type", type: "number", options: globals.NippleType, groupTag: "Body.Breasts.Nipples" },
+            breastTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Breasts" },
+            milkType: { label: "Type", type: "number", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
+            milkMultiplierRaw: { label: "Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
+            milkStorageMultiplierRaw: { label: "Storage Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
+            milkFullnessRaw: { label: "Fullness", type: "number", groupTag: "Body.Breasts.Milk" },
+            milkRateRaw: { label: "Rate", type: "number", groupTag: "Body.Breasts.Milk" },
+            bellyRatingRaw: { label: "Rating Raw", type: "number", groupTag: "Body.Belly" },
+            bellyRatingMod: { label: "Rating Mod", type: "number", groupTag: "Body.Belly" },
             // Lower Torso
-            "hipRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Body.Hips" },
-            "hipRatingMod": { label: "Rating Mod", type: "number", groupTag: "Body.Hips" },
-            "tailType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Tails" },
-            "numTails": { label: "Count", type: "number", groupTag: "Body.Tails" },
-            "tailTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Tails" },
-            "buttRatingRaw": { label: "Rating Raw", type: "number", groupTag: "Body.Butt" },
-            "buttRatingMod": { label: "Rating Mod", type: "number", groupTag: "Body.Butt" },
-            "ass": {
+            hipRatingRaw: { label: "Rating Raw", type: "number", groupTag: "Body.Hips" },
+            hipRatingMod: { label: "Rating Mod", type: "number", groupTag: "Body.Hips" },
+            tailType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Tails" },
+            numTails: { label: "Count", type: "number", groupTag: "Body.Tails" },
+            tailTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Tails" },
+            buttRatingRaw: { label: "Rating Raw", type: "number", groupTag: "Body.Butt" },
+            buttRatingMod: { label: "Rating Mod", type: "number", groupTag: "Body.Butt" },
+            ass: {
                 label: "Butt",
                 type: "object",
                 groupTag: "Body.Butt",
                 canBeNull: false,
                 properties: {
-                    "type": { label: "Type", type: "number", options: globals.BodyType },
-                    "hymen": { label: "Hymen", type: "boolean" },
-                    "clits": { label: "Clits", type: "number" },
-                    "_color": { label: "Color", type: "string" },
-                    "wetnessRaw": { label: "Wetness Raw", type: "number" },
-                    "wetnessMod": { label: "Wetness Mod", type: "number" },
-                    "loosenessRaw": { label: "Looseness Raw", type: "number" },
-                    "loosenessMod": { label: "Looseness Mod", type: "number" },
-                    "bonusCapacity": { label: "Bonus Capacity", type: "number" },
-                    "stretchCounter": { label: "Stretch Counter", type: "number" },
-                    "tags": { label: "Tags", type: "multioption", options: globals.BodyTag }
+                    type: { label: "Type", type: "number", options: globals.BodyType },
+                    hymen: { label: "Hymen", type: "boolean" },
+                    clits: { label: "Clits", type: "number" },
+                    _color: { label: "Color", type: "string" },
+                    wetnessRaw: { label: "Wetness Raw", type: "number" },
+                    wetnessMod: { label: "Wetness Mod", type: "number" },
+                    loosenessRaw: { label: "Looseness Raw", type: "number" },
+                    loosenessMod: { label: "Looseness Mod", type: "number" },
+                    bonusCapacity: { label: "Bonus Capacity", type: "number" },
+                    stretchCounter: { label: "Stretch Counter", type: "number" },
+                    tags: { label: "Tags", type: "multioption", options: globals.BodyTag }
                 }
             },
-            "legType": { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Legs" },
-            "legTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Legs" },
-            "legCount": { label: "Count", type: "number", groupTag: "Body.Legs" },
+            legType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Legs" },
+            legTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Legs" },
+            legCount: { label: "Count", type: "number", groupTag: "Body.Legs" },
             // Genitals
-            "girlCumType": { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
-            "cumType": { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
-            "cumMultiplierRaw": { label: "Cum Multiplier Raw", type: "number", groupTag: "Body.Genitals.Cum" },
-            "cumMultiplierMod": { label: "Cum Multiplier Mod", type: "number", groupTag: "Body.Genitals.Cum" },
-            "cocks": {
+            girlCumType: { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+            cumType: { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+            cumMultiplierRaw: { label: "Cum Multiplier Raw", type: "number", groupTag: "Body.Genitals.Cum" },
+            cumMultiplierMod: { label: "Cum Multiplier Mod", type: "number", groupTag: "Body.Genitals.Cum" },
+            cocks: {
                 label: "Cocks",
                 type: "array",
                 groupTag: "Body.Genitals",
-                properties: {
+                entry: {
                     type: "object",
                     canBeNull: false,
                     properties: {
-                        "type": { label: "Type", type: "number", options: globals.BodyType },
-                        "virgin": { label: "Virgin", type: "boolean" },
-                        "tags": { label: "Tags", type: "multioption", options: globals.BodyTag },
-                        "lengthRaw": { label: "Length Raw", type: "number" },
-                        "lengthMod": { label: "Length Mod", type: "number" },
-                        "thicknessRatioRaw": { label: "Thickness Ratio Raw", type: "number" },
-                        "thicknessRatioMod": { label: "Thickness Ratio Mod", type: "number" },
-                        "flaccidRatio": { label: "Flaccid Ratio", type: "number" },
-                        "knotRatio": { label: "Knot Ratio", type: "number" },
-                        "pierced": { label: "Pierced", type: "number" },
-                        "_color": { label: "Color", type: "string" },
+                        type: { label: "Type", type: "number", options: globals.BodyType },
+                        virgin: { label: "Virgin", type: "boolean" },
+                        tags: { label: "Tags", type: "multioption", options: globals.BodyTag },
+                        lengthRaw: { label: "Length Raw", type: "number" },
+                        lengthMod: { label: "Length Mod", type: "number" },
+                        thicknessRatioRaw: { label: "Thickness Ratio Raw", type: "number" },
+                        thicknessRatioMod: { label: "Thickness Ratio Mod", type: "number" },
+                        flaccidRatio: { label: "Flaccid Ratio", type: "number" },
+                        knotRatio: { label: "Knot Ratio", type: "number" },
+                        pierced: { label: "Pierced", type: "number" },
+                        _color: { label: "Color", type: "string" },
                     }
                 }
             },
-            "_balls": { label: "Count", type: "number", groupTag: "Body.Genitals.Balls" },
-            "ballTags": { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Genitals.Balls" },
-            "ballEfficiency": { label: "Efficiency", type: "number", groupTag: "Body.Genitals.Balls" },
-            "ballSizeRaw": { label: "Size Raw", type: "number", groupTag: "Body.Genitals.Balls" },
-            "ballSizeMod": { label: "Size Mod", type: "number", groupTag: "Body.Genitals.Balls" },
-            "ballFullness": { label: "Fullness", type: "number", groupTag: "Body.Genitals.Balls" },
-            "clitLength": { label: "Length", type: "number", groupTag: "Body.Genitals.Clit" },
-            "vagina": {
+            _balls: { label: "Count", type: "number", groupTag: "Body.Genitals.Balls" },
+            ballTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Genitals.Balls" },
+            ballEfficiency: { label: "Efficiency", type: "number", groupTag: "Body.Genitals.Balls" },
+            ballSizeRaw: { label: "Size Raw", type: "number", groupTag: "Body.Genitals.Balls" },
+            ballSizeMod: { label: "Size Mod", type: "number", groupTag: "Body.Genitals.Balls" },
+            ballFullness: { label: "Fullness", type: "number", groupTag: "Body.Genitals.Balls" },
+            clitLength: { label: "Length", type: "number", groupTag: "Body.Genitals.Clit" },
+            vagina: {
                 label: "Vagina",
                 type: "object",
                 groupTag: "Body.Genitals",
                 canBeNull: true,
                 properties: {
-                    "type": { label: "Type", type: "number", options: globals.BodyType },
-                    "hymen": { label: "Hymen", type: "boolean" },
-                    "clits": { label: "Clits", type: "number" },
-                    "_color": { label: "Color", type: "string" },
-                    "wetnessRaw": { label: "Wetness Raw", type: "number" },
-                    "wetnessMod": { label: "Wetness Mod", type: "number" },
-                    "loosenessRaw": { label: "Looseness Raw", type: "number" },
-                    "loosenessMod": { label: "Looseness Mod", type: "number" },
-                    "bonusCapacity": { label: "Bonus Capacity", type: "number" },
-                    "stretchCounter": { label: "Stretch Counter", type: "number" },
-                    "tags": { label: "Tags", type: "multioption", options: globals.BodyTag }
+                    type: { label: "Type", type: "number", options: globals.BodyType },
+                    hymen: { label: "Hymen", type: "boolean" },
+                    clits: { label: "Clits", type: "number" },
+                    _color: { label: "Color", type: "string" },
+                    wetnessRaw: { label: "Wetness Raw", type: "number" },
+                    wetnessMod: { label: "Wetness Mod", type: "number" },
+                    loosenessRaw: { label: "Looseness Raw", type: "number" },
+                    loosenessMod: { label: "Looseness Mod", type: "number" },
+                    bonusCapacity: { label: "Bonus Capacity", type: "number" },
+                    stretchCounter: { label: "Stretch Counter", type: "number" },
+                    tags: { label: "Tags", type: "multioption", options: globals.BodyTag }
                 }
             },
         };
@@ -758,10 +925,12 @@
                 label: "Args",
                 type: "array",
                 min: 1,
-                properties: {
+                entry: {
+                    type: "number"
+                },
+                override: {
                     0: { label: "Count", type: "number", default: 1 },
                     1: { label: "TF Type", type: "number", options: globals.TFType },
-                    type: "number"
                 }
             };
         }
@@ -776,7 +945,7 @@
             textAreaEl.className = className;
             textAreaEl.value = initialValue;
             if (changeFunc)
-                textAreaEl.addEventListener("change", changeFunc);
+                textAreaEl.addEventListener("change", changeFunc(textAreaEl));
             return textAreaEl;
         }
 
@@ -786,7 +955,7 @@
             checkBoxEl.checked = checked;
             checkBoxEl.type = "checkbox";
             if (changeFunc)
-                checkBoxEl.addEventListener("change", changeFunc);
+                checkBoxEl.addEventListener("change", changeFunc(checkBoxEl));
             return checkBoxEl;
         }
 
@@ -796,152 +965,160 @@
             return panel;
         }
 
-        function createAccordButton(text, panelEl, onClickFunc, clearOtherTabs = false) {
+        function createAccordButton(text, panelEl, onClickFunc) {
             var accordButton = document.createElement("button");
-            accordButton.innerText = text;
-            accordButton.className = "accordion";
+            accordButton.textContent = text;
             accordButton.addEventListener("click", function accordClick() {
-                if (this.className && clearOtherTabs) {
-                    var otherTabs = this.parentElement.getElementsByClassName(this.className);
-                    for (var i = 0; i < otherTabs.length; i++) {
-                        otherTabs[i].className = otherTabs[i].className.replace(" active", "");
-                    }
-                }
-                this.classList.toggle("active");
-                if (panelEl) {
-                    var panel = panelEl;
-                    panel.style.display = panel.style.display === "none" || panel.style.display === "" ? "block" : "none";
-                }
+                this.classList.toggle('active');
+                panelEl.classList.toggle('active');
                 if (onClickFunc)
-                    onClickFunc(panel);
+                    onClickFunc(panelEl);
             });
             return accordButton;
         }
 
         //
-        // On Click Top Tab Functions
+        // Menus
         //
 
-        function clearElement(el) {
-            while (el.lastElementChild) {
-                el.removeChild(el.lastElementChild);
+        var PersistantTabMenu = /** @class */ (function () {
+            function PersistantTabMenu(id, horizontal, inverse) {
+                this.pairs = [];
+                this.invertColors = !!inverse;
+                this.htmlEl = document.createElement('div');
+                if (id)
+                    this.htmlEl.id = id;
+                this.htmlEl.classList.add('tabMenu', horizontal ? 'horizontal' : 'vertical');
+                this.tabsEl = document.createElement('div');
+                this.tabsEl.classList.add('tabs');
+                this.htmlEl.appendChild(this.tabsEl);
             }
-        }
-
-        function generateCharList(obj, el) {
-            var container = document.createElement("div");
-            el.appendChild(container);
-            container.className = "charContainer";
-            var charList = document.createElement("div");
-            container.appendChild(charList);
-            charList.className = "charList";
-            var charDesc = document.createElement("div");
-            container.appendChild(charDesc);
-            charDesc.className = "charDesc";
-            Object.keys(obj.chars).filter(key => charDefaults[key]).forEach(function charKeys(key) {
-                var charListEntry = createAccordButton(key, charDesc, function onClickCharDesc(panel) {
-                    clearElement(panel);
-                    var charKey = key;
-                    if (!window.editObj)
-                        alert("No Save loaded");
-                    else if (!window.editObj.chars)
-                        alert("No Characters in save");
-                    else if (!window.editObj.chars[charKey])
-                        alert("Character " + charKey + " not found");
-                    else {
-                        panel.style.display = "block";
-                        var topTagButtons = document.createElement("div");
-                        charDesc.appendChild(topTagButtons);
-                        topTagButtons.className = "topTagButtons";
-                        var topTagPanels = document.createElement("div");
-                        charDesc.appendChild(topTagPanels);
-                        topTagPanels.className = "topTagPanels";
-                        var tags = {};
-                        var starterTags = ["Info", "Stats", "Effects", "Inventory", "Body"];
-                        var panel;
-                        var button;
-                        for (var index = 0; index < starterTags.length; index++) {
-                            panel = createTopTagPanel(topTagPanels);
-                            button = createTopTagButton(starterTags[index], panel, topTagButtons);
-                            tags[starterTags[index]] = { panel: panel, button: button };
-                        }
-                        generateMappedFields(tags, Object.keys(charMap).reverse().map((key) => generateInfo(window.editObj.chars[charKey], key, panel, charMap)));
-                    }
-                }, true);
-                charListEntry.className += " charListEntry";
-                charList.appendChild(charListEntry);
+            Object.defineProperty(PersistantTabMenu.prototype, "element", {
+                get: function () { return this.htmlEl; },
+                enumerable: true,
+                configurable: true
             });
-        }
-
-        function createTopTagPanel(parent) {
-            var panel = createPanel();
-            panel.className += " topTagPanel";
-            parent.appendChild(panel);
-            return panel;
-        }
-
-        function createTopTagButton(label, panel, parent) {
-            var button = createAccordButton(label, panel, function topTagClick() {
-                var otherPanels = panel.parentElement.getElementsByClassName(panel.className);
-                var otherPanel;
-                for (var i = 0; i < otherPanels.length; i++) {
-                    otherPanel = otherPanels[i];
-                    otherPanel.style.display = "none";
+            PersistantTabMenu.prototype.getTab = function (name) {
+                var element = this.pairs.find(function (el) { return el.name === name; });
+                if (element)
+                    return { button: element.button, content: element.content };
+                return;
+            };
+            PersistantTabMenu.prototype.removeTab = function (name) {
+                var match = this.pairs.find(function (pair) { return pair.name === name; });
+                if (match) {
+                    if (match.button.classList.contains('active') && this.pairs.length > 0)
+                        this.pairs[0].button.click();
+                    this.tabsEl.removeChild(match.button);
+                    this.htmlEl.removeChild(match.content);
+                    this.pairs.splice(this.pairs.findIndex(function (pair) { return pair === match; }), 1);
                 }
-                panel.style.display = "block";
-            }, true);
-            button.className += " topTagButton";
-            parent.appendChild(button);
-            return button;
-        }
+            };
+            PersistantTabMenu.prototype.createTab = function (name, id) {
+                var content = this.createContent(id);
+                var button = this.createButton(name, content);
+                if (this.pairs.length === 0) {
+                    button.classList.add('active');
+                    content.classList.add('active');
+                }
+                this.pairs.push({ name: name, button: button, content: content });
+                this.tabsEl.appendChild(button);
+                this.htmlEl.appendChild(content);
+                return { button: button, content: content };
+            };
+            PersistantTabMenu.prototype.createButton = function (text, panelEl) {
+                var _this = this;
+                var button = document.createElement('button');
+                button.textContent = text;
+                button.className = 'tabbutton';
+                if (this.invertColors)
+                    button.classList.add('inverse');
+                button.addEventListener('click', function () {
+                    for (var _i = 0, _a = _this.pairs; _i < _a.length; _i++) {
+                        var tab = _a[_i];
+                        tab.button.className = tab.button.className.replace(' active', '');
+                        tab.content.className = tab.content.className.replace(' active', '');
+                    }
+                    button.classList.toggle('active');
+                    panelEl.classList.toggle('active');
+                });
+                return button;
+            };
+            PersistantTabMenu.prototype.createContent = function (id) {
+                var content = document.createElement('div');
+                content.className = 'tabcontent content';
+                if (this.invertColors)
+                    content.classList.add('inverse');
+                if (id)
+                    content.id = id;
+                return content;
+            };
+            return PersistantTabMenu;
+        }());
 
-        function onClickCharTab(panel) {
-            clearElement(panel);
-            panel.style.display = "block";
-            if (!window.editObj)
-                alert("No Save File loaded");
-            else
-                generateCharList(window.editObj, panel);
-        }
-
-        function onClickFlagTab(panel) {
-            clearElement(panel);
-            panel.style.display = "block";
-            if (!window.editObj)
-                alert("No Save File loaded");
-            else if (!window.editObj.flags)
-                alert("No Flags in save file");
-            else
-                generateFields(window.editObj.flags, panel);
-        }
-
-        function onClickRawTab(panel) {
-            clearElement(panel);
-            panel.style.display = "block";
-            if (!window.editObj)
-                alert("No Save File loaded");
-            else
-                generateFields(window.editObj, panel);
-        }
-
-        function onClickLoadTab(panel) {
-            panel.click();
-        }
-
-        function onClickSaveTab(panel) {
-            if (fileReader) {
-                var blob = new Blob([JSON.stringify(saveObj())], { type: 'text/json' });
-                if (!!window.StyleMedia) // IE Edge
-                    window.navigator.msSaveBlob(blob, file.name);
-                else
-                    panel.href = window.URL.createObjectURL(blob);
-                panel.download = file.name;
-                panel.click();
+        var RedrawingTabMenu = /** @class */ (function () {
+            function RedrawingTabMenu(id, horizontal, invertColors) {
+                this.pairs = [];
+                this.invertColors = !!invertColors;
+                this.htmlEl = document.createElement('div');
+                if (id)
+                    this.htmlEl.id = id;
+                this.htmlEl.className = 'tabMenu ' + (horizontal ? 'horizontal' : 'vertical');
+                this.tabsEl = document.createElement('div');
+                this.tabsEl.className = 'tabs';
+                this.htmlEl.appendChild(this.tabsEl);
+                this.contentEl = document.createElement('div');
+                this.contentEl.className = 'tabcontent content active';
+                if (this.invertColors)
+                    this.contentEl.classList.add('inverse');
+                this.htmlEl.appendChild(this.contentEl);
             }
-            else {
-                alert("No Save File loaded");
-            }
-        }
+            Object.defineProperty(RedrawingTabMenu.prototype, "element", {
+                get: function () { return this.htmlEl; },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(RedrawingTabMenu.prototype, "content", {
+                get: function () { return this.contentEl; },
+                enumerable: true,
+                configurable: true
+            });
+            RedrawingTabMenu.prototype.getButton = function (name) {
+                var element = this.pairs.find(function (el) { return el.name === name; });
+                if (element)
+                    return element.button;
+                return;
+            };
+            RedrawingTabMenu.prototype.createTab = function (name, redraw) {
+                var _this = this;
+                var button = this.createButton(name);
+                button.addEventListener('click', function () {
+                    while (_this.contentEl.firstChild)
+                        _this.contentEl.removeChild(_this.contentEl.firstChild);
+                    redraw(_this.contentEl);
+                });
+                this.pairs.push({ name: name, button: button });
+                this.tabsEl.appendChild(button);
+                return { button: button, content: this.contentEl };
+            };
+            RedrawingTabMenu.prototype.createButton = function (text) {
+                var _this = this;
+                var button = document.createElement('button');
+                button.textContent = text;
+                button.className = 'tabbutton';
+                if (this.invertColors)
+                    button.classList.add('inverse');
+                button.addEventListener('click', function () {
+                    for (var _i = 0, _a = _this.pairs; _i < _a.length; _i++) {
+                        var tab = _a[_i];
+                        tab.button.className = tab.button.className.replace(' active', '');
+                    }
+                    button.classList.toggle('active');
+                });
+                return button;
+            };
+            return RedrawingTabMenu;
+        }());
 
         //
         // File Reading and Object Loading/Saving
@@ -976,102 +1153,35 @@
             });
         }
 
-        function unpackSave(obj) {
-            Object.keys(obj.chars).forEach(charKey => {
-                if (charDefaults[charKey]) {
-                    obj.chars[charKey] = Object.assign(JSON.parse(JSON.stringify(charDefaults[charKey])), obj.chars[charKey]);
-                }
+        var saveEdit = window.saveEdit = {};
+        function loadObj(obj) {
+            saveEdit.fileObj = obj;
+            saveEdit.editObj = JSON.parse(JSON.stringify(obj));
+            // load char defaults
+            Object.keys(charDefaults).forEach(key => {
+                saveEdit.editObj.chars[key] = Object.assign(JSON.parse(JSON.stringify(charDefaults[key])), saveEdit.editObj.chars[key]);
             });
         }
 
-        function loadObj(obj) {
-            window.fileObj = obj;
-            window.editObj = JSON.parse(JSON.stringify(obj));
-            unpackSave(window.editObj);
-            window.dupObj = JSON.parse(JSON.stringify(window.editObj));
+        saveEdit.diffChar = (name) => diffChar(charDefaults[name], saveEdit.editObj.chars[name]);
+        saveEdit.charDefaults = charDefaults;
 
-            // autoload pc char desc
-            var tabs = Array.from(document.getElementsByClassName("tab"));
-            if (tabs.length > 0) {
-                tabs.filter(el => el.textContent === "Characters")[0].click();
-                var chars = Array.from(document.getElementsByClassName("charListEntry"));
-                if (chars.length > 0) {
-                    chars.filter(el => el.textContent === "pc")[0].click();
-                    var topTabs = Array.from(document.getElementsByClassName("topTagButton"));
-                    if (topTabs.length > 0)
-                        topTabs.filter(el => el.textContent === "Info")[0].click();
-                }
-            }
+        function diffChar(orig, edit) {
+            return Object.keys(orig)
+                .filter((key) => JSON.stringify(orig[key]) !== JSON.stringify(edit[key]))
+                .reduce((copyObj, key) => {
+                    copyObj[key] = edit[key];
+                    return copyObj;
+                }, {});
         }
-
-        function isObj(obj) {
-            return typeof obj === "object" && obj !== null;
-        }
-
-        var noValue = { noValue: true };
-        function diffObjects(orig, edit) {
-            var diffObj = {};
-            var queue = [{ orig: orig, edit: edit, depth: [] }];
-            var info;
-            while (queue.length > 0) {
-                info = queue.pop();
-                // console.log(JSON.stringify(info));
-                if (isObj(info.orig) && isObj(info.edit)) {
-                    Object.keys(info.orig).forEach(k => {
-                        queue.push({ orig: info.orig[k], edit: info.edit[k], depth: [{ key: k, array: Array.isArray(info.orig[k]) }].concat(info.depth) })
-                    });
-                    Object.keys(info.edit).forEach(k => {
-                        queue.push({ orig: info.orig[k], edit: info.edit[k], depth: [{ key: k, array: Array.isArray(info.edit[k]) }].concat(info.depth) })
-                    });
-                }
-                else if (info.orig !== info.edit) {
-                    var depthQueue = info.depth.slice();
-                    var depthObj = diffObj;
-                    var depthInfo;
-                    while (depthQueue.length > 1) {
-                        depthInfo = depthQueue.pop();
-                        if (!depthObj[depthInfo.key]) {
-                            if (depthInfo.array) {
-                                depthObj[depthInfo.key] = [];
-                            }
-                            else depthObj[depthInfo.key] = {};
-                        }
-                        depthObj = depthObj[depthInfo.key];
-                    }
-                    depthInfo = depthQueue.pop();
-                    depthObj[depthInfo.key] = info.edit === undefined ? noValue : info.edit;
-                }
-            }
-            return diffObj;
-        }
-
-        function applyDiff(diff, dest) {
-            var queue = [{ diff: diff, dest: dest, key: null, pdiff: null, pdest: null }];
-            var info;
-            while (queue.length > 0) {
-                info = queue.pop();
-                // console.log(JSON.stringify(info));
-                if (info.diff === noValue) {
-                    if (Array.isArray(info.pdest) && Array.isArray(info.pdiff))
-                        info.pdest.splice(info.key, 1);
-                    delete info.pdest[info.key];
-                }
-                else if (isObj(info.diff) && info.dest !== undefined) {
-                    Object.keys(info.diff).forEach(k => {
-                        queue.push({ diff: info.diff[k], dest: info.dest[k], key: k, pdiff: info.diff, pdest: info.dest })
-                    });
-                }
-                else if (info.diff !== info.dest) {
-                    info.pdest[info.key] = info.diff;
-                }
-            }
-            return dest;
-        }
-        window.diff = () => diffObjects(window.dupObj, window.editObj);
-        window.apply = () => applyDiff(window.diff(), JSON.parse(JSON.stringify(window.fileObj)));
 
         function saveObj() {
-            return applyDiff(diffObjects(window.dupObj, window.editObj), JSON.parse(JSON.stringify(window.fileObj)));
+            var saveCopy = JSON.parse(JSON.stringify(saveEdit.fileObj));
+            saveCopy.chars = Object.keys(charDefaults).reduce((obj, key) => {
+                obj[key] = diffChar(charDefaults[key], saveEdit.editObj.chars[key]);
+                return obj;
+            }, {})
+            return saveCopy;
         }
 
         //
@@ -1080,13 +1190,13 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             var disclaimer = document.createElement("div");
-            disclaimer.className = "disclaimer";
-            disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + "+</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p><p>Saves edited with v19 or earlier will not work.</p>";
+            disclaimer.className = "disclaimer content";
+            disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + " or higher</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p><p>Saves edited with v" + lastBreakingVersion + " or earlier will not work.</p>";
             document.body.appendChild(disclaimer);
 
             var ok = document.createElement("button");
-            ok.innerText = "Accept";
-            ok.className = "accordion";
+            ok.textContent = "Accept";
+            ok.className = "tabbutton";
             disclaimer.appendChild(ok);
 
             ok.addEventListener("click", () => {
@@ -1094,75 +1204,164 @@
                     document.body.removeChild(document.body.lastChild);
                 }
 
-                var tabs = document.createElement("div");
-                tabs.className = "tabs";
-                document.body.appendChild(tabs);
+                var mainScreen = new PersistantTabMenu('main');
+                document.body.appendChild(mainScreen.element);
 
-                var content = document.createElement("div");
-                content.className = "mainTabContent tabcontent";
-                content.id = "mainContent";
-                document.body.appendChild(content);
 
-                var charTab = createAccordButton("Characters", content, onClickCharTab, true);
-                charTab.className += " tab";
-                tabs.appendChild(charTab);
 
-                var flagTab = createAccordButton("Flags", content, onClickFlagTab, true);
-                flagTab.className += " tab";
-                tabs.appendChild(flagTab);
+                var charTab = mainScreen.createTab('Characters');
+                charTab.button.addEventListener('click', () => {
+                    if (!saveEdit.editObj)
+                        alert("No Save File loaded");
+                    else if (charTab.content.children.length <= 0)
+                        generateCharList(saveEdit.editObj, charTab.content);
+                });
 
-                var rawTab = createAccordButton("Raw", content, onClickRawTab, true);
-                rawTab.className += " tab";
-                tabs.appendChild(rawTab);
+                var flagTab = mainScreen.createTab('Flags');
+                flagTab.button.addEventListener('click', () => {
+                    if (!saveEdit.editObj)
+                        alert("No Save File loaded");
+                    else if (!saveEdit.editObj.flags)
+                        alert("No Flags in save file");
+                    else if (flagTab.content.children.length <= 0)
+                        generateFields(saveEdit.editObj.flags, flagTab.content);
+                });
 
-                var input = document.createElement("input");
-                input.id = "load";
-                input.type = "file";
-                input.accept = ".coc2";
-                input.style.display = "none";
-                input.addEventListener("change", handleFiles);
-                var loadTab = createAccordButton("Load", input, onClickLoadTab, true);
-                loadTab.className += " tab";
-                loadTab.appendChild(input);
-                tabs.appendChild(loadTab);
+                var rawTab = mainScreen.createTab('Raw');
+                rawTab.button.addEventListener('click', () => {
+                    if (!saveEdit.editObj)
+                        alert("No Save File loaded");
+                    else if (rawTab.content.children.length <= 0)
+                        generateFields(saveEdit.editObj, rawTab.content);
+                });
 
-                var saveLink = document.createElement("a");
-                saveLink.id = "saveLink";
-                var saveTab = createAccordButton("Save", saveLink, onClickSaveTab, true);
-                saveTab.className += " tab";
-                saveTab.appendChild(saveLink);
-                tabs.appendChild(saveTab);
+                var saveLoadTab = mainScreen.createTab('Save/Load');
+                loadSaveLoadTab(saveLoadTab.content);
+
             });
         });
+
+        function generateCharList(obj, el) {
+            var charsMenu = new RedrawingTabMenu('charMenu', true, true);
+            el.appendChild(charsMenu.element);
+
+            if (!saveEdit.editObj)
+                alert("No Save loaded");
+            else if (!saveEdit.editObj.chars)
+                alert("No Characters in save");
+            else {
+                var charKeys = Object.keys(obj.chars).filter((key) => key in charDefaults);
+                for (var index = 0; index < charKeys.length; index++) {
+                    var charKey = charKeys[index];
+                    if (!saveEdit.editObj.chars[charKey])
+                        alert("Character " + charKey + " not found");
+                    else {
+                        charsMenu.createTab(charKey, ((charKey) => (parentEl) => {
+                                var infoMenu = new PersistantTabMenu('charInfoMenu');
+                                parentEl.appendChild(infoMenu.element);
+                                var tags = {};
+                                var starterTags = ["Info", "Stats", "Effects", "Inventory", "Body"];
+                                for (var index = 0; index < starterTags.length; index++)
+                                    tags[starterTags[index]] = infoMenu.createTab(starterTags[index]);
+
+                                generateMappedFields(tags, Object.keys(charMap).reverse().map((key) => generateInfo(saveEdit.editObj.chars[charKey], key, infoMenu.element, charMap)));
+                                var infoButton = infoMenu.getTab('Info');
+                                if (infoButton)
+                                    infoButton.button.click();
+                            }
+                        )(charKey));
+                    }
+                }
+            }
+        }
+
+        function loadSaveLoadTab(content) {
+            var background = document.createElement('div');
+            background.className = 'content inverse';
+            content.appendChild(background);
+
+            var saveInput = document.createElement('input');
+            saveInput.type = 'text';
+            saveInput.placeholder = file && file.name ? file.name : 'default.coc2';
+
+            var saveButton = document.createElement('button');
+            saveButton.textContent = 'Save';
+            saveButton.className = 'tabbutton';
+
+            var saveLink = document.createElement('a');
+            saveLink.style.display = 'none';
+
+            var loadButton = document.createElement('button');
+            loadButton.textContent = 'Load';
+            loadButton.className = 'tabbutton';
+
+            background.appendChild(saveInput);
+            background.appendChild(saveLink);
+            background.appendChild(saveButton);
+            background.appendChild(loadButton);
+
+            saveButton.addEventListener('click', () => {
+                if (fileReader) {
+                    var filename = saveInput.value && saveInput.value !== file.name ? saveInput.value : file.name;
+                    if (!filename.endsWith('.coc2')) filename += '.coc2';
+                    var blob = new Blob([JSON.stringify(saveObj())], { type: 'text/json' });
+                    if (!!window.StyleMedia) // IE Edge
+                        window.navigator.msSaveBlob(blob, filename);
+                    else
+                        saveLink.href = window.URL.createObjectURL(blob);
+                    saveLink.download = filename;
+                    saveLink.click();
+                }
+                else {
+                    alert("No Save File loaded");
+                }
+            });
+
+            loadButton.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.id = 'load';
+                input.type = 'file';
+                input.accept = '.coc2';
+                input.style.display = 'none';
+                input.addEventListener("change", (event) => {
+                    if (!event.target.files || event.target.files.length === 0) {
+                        alert("Error in file loading");
+                    }
+                    else {
+                        saveInput.placeholder = event.target.files[0].name;
+                        handleFiles(event);
+                    }
+                });
+                input.click();
+            });
+        }
 
         //
         // Set Callbacks
         //
 
         function setNumberCallback(obj, key, modFunc) {
-            return (evnt) => { obj[key] = modFunc ? modFunc(evnt.target.value) : +evnt.target.value; }
+            return (element) => () => { 
+                if (modFunc && !isNaN(+element.value))
+                    obj[key] = modFunc(+element.value);
+                else
+                    obj[key] = +element.value;
+            }
         }
 
         function setStringCallback(obj, key) {
-            return (evnt) => { obj[key] = evnt.target.value; }
+            return (element) => () => { obj[key] = element.value; }
         }
 
         function setSelectorStringCallback(obj, key) {
-            return (evnt) => { obj[key] = evnt.target[+evnt.target.value].innerText === "None" ? null : evnt.target[+evnt.target.value].innerText; }
+            return (element) => () => { 
+                if (element[+element.value].textContent !== 'None')
+                    obj[key] = element[+element.value].textContent;
+            }
         }
 
         function setBooleanCallback(obj, key) {
-            return (evnt) => obj[key] = evnt.target.checked;
-        }
-
-        function setMultiOptionCallback(obj, key, canSelectFunc) {
-            return (evnt) => {
-                if (evnt.currentTarget && evnt.currentTarget.type === "fieldset") {
-                    var fieldset = evnt.currentTarget;
-                    var list = Array.from(fieldset.getElementsByTagName("input")).filter(el => el.checked);
-                    obj[key] = list.map(el => +el.value);
-                }
-            };
+            return (element) => () => { obj[key] = element.checked; };
         }
 
         //
@@ -1176,17 +1375,9 @@
             return title;
         }
 
-        function fieldLabelNoInteract(key) {
-            var entry = document.createElement("div");
-            entry.className = "accordion fieldEntry";
-            var title = fieldTitle(key);
-            entry.appendChild(title);
-            return entry;
-        }
-
         function fieldLabel(key) {
             var entry = document.createElement("label");
-            entry.className = "accordion fieldEntry";
+            entry.className = "fieldEntry";
             var title = fieldTitle(key);
             entry.appendChild(title);
             return entry;
@@ -1194,11 +1385,16 @@
 
         function objectField(text, panel) {
             var accordButton = createAccordButton("", panel);
-            var closed = "⬥ ", open = "⬦ ";
             accordButton.className += " fieldTitle";
-            accordButton.innerText = closed + text;
-            accordButton.addEventListener("click", function nameChanger() {
-                this.innerText = this.innerText.startsWith(closed) ? this.innerText.replace(closed, open) : this.innerText.replace(open, closed);
+            accordButton.textContent = "⬥ " + text;
+            accordButton.addEventListener("click", {
+                open: false,
+                fieldName: text,
+                button: accordButton,
+                handleEvent() {
+                    this.open = !this.open;
+                    this.button.textContent = this.open ? '⬦ ' + this.fieldName : '⬥ ' + this.fieldName;
+                }
             });
             return accordButton;
         }
@@ -1222,47 +1418,62 @@
             var selector = document.createElement("select");
             options.list.forEach((value, index) => {
                 var option = document.createElement("option");
-                option.value = index;
-                option.innerText = value;
-                option.selected = (options.fromSave ? options.fromSave(initialValue) : initialValue) === index || initialValue === value;
+                option.value = index + '';
+                option.textContent = value;
+                if (options.fromSave  && !isNaN(options.fromSave(+initialValue)))
+                    option.selected = options.fromSave(+initialValue) === index;
+                else
+                    option.selected = initialValue === index || initialValue === value;
                 selector.appendChild(option);
             });
-            selector.addEventListener("change", changeFunc);
+            selector.addEventListener("change", changeFunc(selector));
             div.appendChild(selector);
             return div;
         }
 
-        function multiOptionField(name, obj, key, mapValue, changeFunc) {
-            var div = fieldLabelNoInteract(name);
-            var fieldSetEl = document.createElement("fieldset");
-            var options = mapValue.options
-            fieldSetEl.addEventListener("click", mapValue.customCallback ? mapValue.customCallback(obj, key) : setMultiOptionCallback(obj, key));
+        function multiOptionField(obj, key, mapValue) {
+            const listEl = document.createElement('ul');
+            const options = mapValue.options;
             options.list.forEach((option, index) => {
-                var selected = obj[key].reduce((prev, curr) => prev = prev || (option === curr) || (index === curr), false);
-                var label = fieldLabel(option);
-                label.className += " multioption" + (selected ? " selected" : "");
-                var checkbox = createCheckBox(selected, "superhide", function callback() {
-                    this.parentElement.classList.toggle("selected");
+                const selected = obj[key].reduce((prev, curr) => prev = prev || (option === curr) || (index === curr), false);
+                const label = fieldLabel(option);
+                label.className += ' multioption' + (selected ? ' selected' : '');
+                label.addEventListener('click', () => {
+                    const list = Array.from(listEl.getElementsByTagName('label'));
+                    const selectedList = list.filter((el) => el.classList.contains('selected'));
+                    // On
+                    if (!mapValue.max || (mapValue.max && selectedList.length < mapValue.max)) {
+                        label.classList.toggle('selected');
+                        selectedList.push(label);
+                    }
+                    // Off
+                    else if (label.classList.contains('selected'))
+                        label.classList.toggle('selected');
+
+                    if (mapValue.transform)
+                        obj[key] = selectedList.map((el) => mapValue.transform(el.textContent));
+                    else {
+                        obj[key] = list.reduce((numList, el, numIndex) => {
+                            if (el.classList.contains('selected') && el.textContent)
+                                numList.push(numIndex);
+                            return numList;
+                        }, []);
+                    }
                 });
-                checkbox.value = options.list.indexOf(option);
-                checkbox.name = option;
-                label.appendChild(checkbox);
-                fieldSetEl.appendChild(label);
+                listEl.appendChild(label);
             });
-            fieldSetEl.addEventListener("change", changeFunc);
-            div.appendChild(fieldSetEl);
-            return div;
+            return listEl;
         }
 
         function generateAddRemoveButtons(panel, addCallback, removeCallback) {
             var addRemoveButtons = document.createElement("div");
             addRemoveButtons.className = "addRemoveButtons";
             var add = document.createElement("div");
-            add.innerText = "+";
+            add.textContent = "+";
             add.className = "addRemoveButton accordion";
             add.addEventListener("click", addCallback);
             var remove = document.createElement("div");
-            remove.innerText = "–";
+            remove.textContent = "–";
             remove.className = "addRemoveButton accordion";
             remove.addEventListener("click", removeCallback);
             addRemoveButtons.appendChild(add);
@@ -1287,13 +1498,26 @@
                     return obj;
                 }, {});
             }
-            if (map.type === "multioption" || map.type === "array") {
+            if (map.type === "array") {
                 if (!Array.isArray(value)) value = [];
-                return value.map(entry => generateValue(map.properties, entry));
+                return value.map(entry => generateValue(map.entry, entry));
             }
-            if (map.type === "number") return typeof value === "number" ? value : (map.default ? map.default : 0);
-            if (map.type === "string") return typeof value === "string" ? value : (map.default ? map.default : "");
+            if (map.type === "multioption") {
+                if (!Array.isArray(value)) value = [];
+                return value;
+            }
             if (map.type === "boolean") return !!value;
+            if (map.type === "number") return typeof value === "number" ? value : (map.default ? map.default : 0);
+            if (map.type === "string") {
+                if (typeof value === 'string')
+                    return value;
+                else if (map.default)
+                    return map.default;
+                else if (map.options && map.options.list.length > 0)
+                    return map.options.list[0];
+                else
+                    return '';
+            }
         }
 
         function processInfo(tags, info) {
@@ -1311,62 +1535,78 @@
                 label = mapEntry.label;
             }
 
-            if (!obj[key] && !mapEntry.canBeNull) {
+            if (!obj[key] && (mapEntry.type !== "object" || (mapEntry.type === "object" && !mapEntry.canBeNull))) {
                 obj[key] = generateValue(mapEntry, obj[key]);
             }
 
-            // tag = { panel, button }
-            if (mapEntry.groupTag) {
-                mapEntry.groupTag.split(".").reduce(function (parentTag, curTag) {
-                    if (!parentTag[curTag]) parentTag[curTag] = { panel: null, button: null };
-                    if (!parentTag[curTag].panel) {
+            // tag = { button, content }
+            if (mapEntry.label && mapEntry.groupTag) {
+                mapEntry.groupTag.split(".").reduce((parentTag, curTag) => {
+                    if (!parentTag[curTag])
+                        parentTag[curTag] = { button: undefined, content: undefined };
+                    if (!parentTag[curTag].content) {
                         var panel = createPanel();
                         var button = objectField(curTag, panel);
                         parentElement.appendChild(button);
                         parentElement.appendChild(panel);
                         parentTag[curTag].button = button;
-                        parentTag[curTag].panel = panel;
+                        parentTag[curTag].content = panel;
                     }
-                    parentElement = parentTag[curTag].panel;
-                    return parentTag[curTag].panel;
+                    parentElement = parentTag[curTag].content;
+                    return parentTag[curTag];
                 }, tags);
             }
 
             if (mapEntry.type === "multioption" && mapEntry.options) {
-                parentElement.appendChild(multiOptionField(label, obj, key, mapEntry));
-            }
-            else if (mapEntry.type === "object" || mapEntry.type === "array") {
                 var panel = createPanel();
-                if (mapEntry.type === "object" && mapEntry.canBeNull) {
+                panel.appendChild(multiOptionField(obj, key, mapEntry));
+                parentElement.appendChild(objectField(label, panel));
+                parentElement.appendChild(panel);
+            }
+            else if (mapEntry.type === "object") {
+                var panel = createPanel();
+                if (mapEntry.canBeNull) {
                     generateAddRemoveButtons(
                         panel,
                         objectAddCallback(tags, panel, obj, key, mapEntry),
-                        objectRemoveCallback(panel, obj, key, mapEntry)
+                        objectRemoveCallback(panel, obj, key)
                     );
                 }
 
-                if (mapEntry.type === "array") {
-                    if (mapEntry.min)
-                        while (obj[key].length < mapEntry.min) {
-                            if (mapEntry.properties[obj[key].length])
-                                obj[key].push(generateValue(mapEntry.properties[obj[key].length], obj[key]));
-                            else
-                                obj[key].push(generateValue(mapEntry.properties, obj[key]));
-                        }
-
-                    if (!(mapEntry.min && mapEntry.max && mapEntry.min === mapEntry.max)) {
-                        generateAddRemoveButtons(
-                            panel,
-                            arrayAddCallback(tags, panel, obj, key, mapEntry),
-                            arrayRemoveCallback(panel, obj, key, mapEntry)
-                        );
-                    }
-                }
-                parentElement.appendChild(objectField(label, panel, obj[key], mapEntry));
+                parentElement.appendChild(objectField(label, panel));
                 parentElement.appendChild(panel);
 
                 if (obj[key])
                     return Object.keys(obj[key]).reverse().map((objKey) => generateInfo(obj[key], objKey, panel, mapEntry.properties));
+            }
+            else if (mapEntry.type === "array") {
+                var panel = createPanel();
+                if (mapEntry.min)
+                    while (obj[key].length < mapEntry.min) {
+                        if (mapEntry.override && obj[key].length in mapEntry.override)
+                            obj[key].push(generateValue(mapEntry.override[obj[key].length], obj[key]));
+                        else
+                            obj[key].push(generateValue(mapEntry.entry, obj[key]));
+                    }
+
+                if (!(mapEntry.min && mapEntry.max && mapEntry.min === mapEntry.max)) {
+                    generateAddRemoveButtons(
+                        panel,
+                        arrayAddCallback(tags, panel, obj, key, mapEntry),
+                        arrayRemoveCallback(panel, obj, key, mapEntry)
+                    );
+                }
+
+                parentElement.appendChild(objectField(label, panel));
+                parentElement.appendChild(panel);
+
+                if (obj[key])
+                    return Object.keys(obj[key]).reverse().map((objKey) => {
+                        if (mapEntry.override && objKey in mapEntry.override)
+                            return generateInfo(obj[key], objKey, panel, mapEntry.override);
+                        else
+                            return generateInfo(obj[key], objKey, panel, mapEntry.entry);
+                    });
             }
             else if (mapEntry.type === "string") {
                 if (mapEntry.options)
@@ -1409,10 +1649,11 @@
         function arrayAddCallback(tags, parent, obj, key, map) {
             return () => {
                 if (!map.max || (map.max && obj[key].length < map.max)) {
-                    if (typeof obj[key] === 'object')
-                        generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], Object.keys(obj[key]).length + '', parent, map.properties)));
+                    var objKey = (typeof obj[key] === 'object' ? Object.keys(obj[key]).length : obj[key].length + '');
+                    if (map.override && objKey in map.override)
+                        generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], objKey, parent, map.override)));
                     else
-                        generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], obj[key].length, parent, map.properties)));
+                        generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], objKey, parent, map.entry)));
                 }
             };
         }
