@@ -1,0 +1,236 @@
+body {
+    display: block;
+    margin: unset;
+    font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #375a7f;
+    outline: none;
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+
+input {
+    background-color: inherit;
+    font-family: inherit;
+}
+
+input[type="text"] {
+    border: unset;
+    padding-left: 4px;
+    resize: none;
+    color: #EBEFE7;
+}
+
+select {
+    background-color: inherit;
+    color: inherit;
+    border: 0px;
+    width: 20%;
+    font-family: inherit;
+}
+
+.disclaimer {
+    background-color: #375a7f;
+    text-align: center;
+    margin: auto;
+}
+
+
+.content {
+    background-color: #375a7f;
+    padding: 5px;
+    overflow-y: auto;
+    overflow-x: auto;
+    position: relative;
+    box-sizing: border-box;
+    color: #EBEFE7;
+}
+
+.content.inverse {
+    background-color: #28415b;
+}
+
+.tabMenu {
+    height: inherit;
+}
+
+.tabMenu.vertical>.tabs {
+    display: flex;
+    width: 100%;
+    height: 25px;
+}
+
+.tabMenu.horizontal {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: inherit;
+}
+
+.tabMenu.horizontal>.tabs {
+    display: grid;
+}
+
+.tabMenu.horizontal>.tabcontent {
+    height: 100%;
+}
+
+.tabbutton {
+    background-color: #28415b;
+    color: #EBEFE7;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    width: inherit;
+}
+
+.tabbutton.active {
+    background-color: #375a7f;
+}
+
+.tabbutton:hover {
+    background-color: #222;
+}
+
+.tabbutton.inverse {
+    background-color: #375a7f;
+}
+
+.tabbutton.inverse.active {
+    background-color: #28415b;
+}
+
+.tabbutton.inverse:hover {
+    background-color: #2F3027;
+}
+
+.tabcontent {
+    display: none;
+    height: calc(100% - 25px);
+    width: 100%;
+}
+
+.tabcontent.active {
+    display: block;
+}
+
+#main {
+    height: 100vh;
+}
+
+#main>.tabs {
+    height: 45px;
+}
+
+#main>.tabs>.tabbutton {
+    font-size: 1.5em;
+}
+
+#main>.tabcontent {
+    height: calc(100% - 45px);
+}
+
+.active {
+    background-color: #375a7f;
+}
+
+.fieldTitle {
+    width: 20%;
+    padding: 4px 6px;
+    box-sizing: border-box;
+}
+
+button.fieldTitle {
+    width: 100%;
+    color: inherit;
+    background-color: #28415b;
+    border-style: solid;
+    border-color: #28415b;
+    border-width: 5px;
+    padding: 2px 2px;
+    text-align: left;
+}
+
+button.fieldTitle.active {
+    border-style: solid solid none solid;
+    border-width: 5px;
+    background-color: #375a7f;
+}
+
+.fieldEntry {
+    display: flex;
+}
+
+.panel {
+    display: none;
+    padding: 5px 5px;
+}
+
+.panel.active {
+    display: block;
+    border-style: none solid solid solid;
+    border-width: 5px;
+    border-color: #28415b;
+}
+
+.addRemoveButtons {
+    display: flex;
+}
+
+.addRemoveButton {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.multioption {
+    display: inline-flex;
+    position: relative;
+    padding: 0px 5px;
+}
+
+.multioption>.fieldTitle {
+    width: inherit;
+}
+
+.multioption.selected {
+    background-color: #00bc8c;
+}
+
+ul {
+    margin: unset;
+    padding: unset;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul>label {
+    flex-grow: 1;
+}
+
+.tabcontent button,
+label,
+.fieldEntry,
+.addRemoveButton {
+    background-color: #28415b;
+    cursor: pointer;
+}
+
+input[type="text"]:focus,
+select:focus,
+.multioption:hover,
+.addRemoveButton:hover,
+.fieldEntry:hover,
+button.fieldTitle:hover {
+    background-color: #222;
+    border-color: #222;
+}
+
+button.fieldTitle.active:hover {
+    background-color: #222;
+    border-color: #28415b;
+}
