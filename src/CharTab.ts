@@ -1,11 +1,10 @@
 import { RedrawingTabMenu, PersistantTabMenu } from "./Menus";
-import { charDefaults } from "./CharDefaults";
-import { charMap } from "./CharMap";
-import { createPanel } from "./Elements";
-import { objectField, multiOptionField, selectField, stringField, booleanField } from "./Fields";
-import { setSelectorStringCallback, setStringCallback, setNumberCallback, setBooleanCallback } from "./SetValueCallbacks";
-import { State } from "./State";
-import { PropDict, AnyProp, AnyLabeledProp, hasPropLabel, isObjectProp, ObjectProp, ArrayProp, isArrayProp } from "./MapProps";
+import { charDefaults } from "./Data/CharDefaults";
+import { charMap } from "./Data/CharMap";
+import { createPanel } from "./Display/Elements";
+import { objectField, multiOptionField, selectField, stringField, booleanField, setSelectorStringCallback, setStringCallback, setNumberCallback, setBooleanCallback } from "./Display/Fields";
+import { State } from "./Data/State";
+import { PropDict, AnyProp, AnyLabeledProp, hasPropLabel, isObjectProp, ObjectProp, ArrayProp, isArrayProp } from "./Data/MapProps";
 
 export function generateCharList(obj: any, el: HTMLElement, state: State) {
     const charsMenu = new RedrawingTabMenu('charMenu', true, true);

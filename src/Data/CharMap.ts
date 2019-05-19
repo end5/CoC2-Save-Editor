@@ -1,5 +1,5 @@
 import { globals } from "./Globals";
-import { PropDict, PropLabel, ArrayProp } from "./MapProps";
+import { PropDict, PropLabel, ArrayProp } from "../MapProps";
 
 /*
     all

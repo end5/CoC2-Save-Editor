@@ -65,3 +65,27 @@ JSON.stringify(Object.keys(window.CHARS)
         return obj;
     }, {})
 );
+
+// Code for getting flags. Only works on file.
+var fs = require('fs');
+
+var list = [];
+var contents = fs.readFileSync('./dist/main.34c44f3cd8471decbd2d.js', 'utf8');
+var matches = contents.match(/flags\.[\w_]+/g);
+if (matches && matches.length > 0) {
+    list = list.concat(matches.map((value) => value.substr(6)));
+}
+var matches = contents.match(/incFlags\('[\w_]+/g);
+if (matches && matches.length > 0) {
+    list = list.concat(matches.map((value) => value.substr(10)));
+}
+list = list
+    .filter((value, index, self) => self.indexOf(value) === index && value.toUpperCase() === value)
+    .sort()
+    .map((value) => '"' + value + '"');
+
+fs.writeFile('./CompressedFlags.js', 'export const FlagsList = [' + list.join(', ') + '];\n', function (err) {
+    if (err) return console.log(err);
+
+    console.log(list.length + " flags were saved!");
+});

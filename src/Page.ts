@@ -1,7 +1,7 @@
-import { State } from "./State";
+import { State } from "./Data/State";
 import { PersistantTabMenu } from "./Menus";
 import { generateCharList } from "./CharTab";
-import { generateFields } from "./GenFields";
+import { generateFields } from "./RawTab";
 import { loadSaveLoadTab } from "./SaveLoadTab";
 
 export function loadPage(element: HTMLElement, state: State) {
