@@ -1,4 +1,4 @@
-import { RedrawingTabMenu, PersistantTabMenu } from "./Menus";
+import { RedrawingTabMenu, PersistantTabMenu } from "./Display/Menus";
 import { charDefaults } from "./Data/CharDefaults";
 import { charMap } from "./Data/CharMap";
 import { createPanel } from "./Display/Elements";

@@ -1,10 +1,10 @@
 import { State } from "./Data/State";
-import { PersistantTabMenu } from "./Menus";
+import { PersistantTabMenu } from "./Display/Menus";
 import { generateCharList } from "./CharTab";
-import { generateFields } from "./RawTab";
+import { generateFields } from "./Display/GenRawFields";
 import { loadSaveLoadTab } from "./SaveLoadTab";
 
-export function loadPage(element: HTMLElement, state: State) {
+export function loadEditor(element: HTMLElement, state: State) {
     while (element.lastChild)
         element.removeChild(element.lastChild);
 

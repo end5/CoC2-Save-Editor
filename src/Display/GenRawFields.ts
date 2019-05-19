@@ -1,5 +1,5 @@
-import { stringField, booleanField, objectField, setStringCallback, setNumberCallback, setBooleanCallback } from "./Display/Fields";
-import { createPanel } from "./Display/Elements";
+import { stringField, booleanField, objectField, setStringCallback, setNumberCallback, setBooleanCallback } from "./Fields";
+import { createPanel } from "./Elements";
 
 export function generateFields(obj: any, element: HTMLElement) {
     Object.keys(obj).forEach(function fieldKeys(key) {
