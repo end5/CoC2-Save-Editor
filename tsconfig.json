@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "es6",
+        "outDir": "dist",
+        "sourceMap": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true
+    },
+    "include": ["src"]
+}

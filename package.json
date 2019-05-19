@@ -1,0 +1,26 @@
+{
+    "name": "coc2-save-editor",
+    "version": "0.0.24",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {
+        "build": "npm run transpile && npm run bundle",
+        "transpile": "tsc",
+        "bundle": "rollup dist/test.js --format umd --name myBundle --file bundle.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/end5/CoC2-Save-Editor.git"
+    },
+    "author": "end5",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/end5/CoC2-Save-Editor/issues"
+    },
+    "homepage": "https://github.com/end5/CoC2-Save-Editor#readme",
+    "devDependencies": {
+        "rollup": "^1.12.3",
+        "typescript": "^3.4.5"
+    },
+    "dependencies": {}
+}
