@@ -1,4 +1,4 @@
-var globalKeys = {
+const globalKeys = {
     Race: ["Human", "Chimera", "Elf", "Catfolk", "Lupine", "Orc", "Minotaur", "Cowgirl", "Taeleer", "Sheepfolk", "Foxmorph", "Harpy", "Manticore", "Gnoll"],
     Taxon: ["Humanoid", "Beast", "Demon", "Plant", "Ethereal", "Undead", "Construct", "Fey"],
     Class: ["None", "Warrior", "Thief", "Wmage", "Bmage", "Charmer"],
@@ -33,11 +33,18 @@ var globalKeys = {
     CombatEffect: ["Prone", "Bleeding", "Sundered", "Obscured", "Staggered", "Burning", "Terrified", "Poisoned", "Frigid", "Stunned", "Aroused", "Disarmed", "Blinded", "Blessed", "SpiritVeil", "MirrorImage", "RhythmicFocus", "Resistance", "WeaponBuff", "FeatherDance", "WarlordsCry", "TaintedBulwark", "FirstStrike", "Focused", "Covered", "Shielded", "Restrained", "Bloodlust"],
     Powers: ["BaseTease", "AssTease", "CrotchTease", "ChestTease", "Allure", "FeatherDance", "ChainmailJiggle", "BreastPlate", "CumSpray", "WyvernVenom", "HoneySlather", "AphrodisiacSting", "GuardedStance", "RangersStance", "RhythmicFocus", "SpiritVeil", "MirrorImage", "ControlPheromones", "BolsteringDance", "Flight", "Frenzy", "AuraOfDesire", "PipersSong", "VineRestraints", "HarpySong", "Pollination", "Heal", "GroupHeal", "CommandPheromones", "WarlordsCry", "SmokeBomb", "PocketSand", "TaintedBulwark", "Blessing", "Grease", "SongOfStorms", "BlindingBeauty", "TentacleShield", "Warcry", "RagingThurible", "ButtStomp", "AerialDrop", "Quake", "Rush", "Grapple", "Tackle", "Trample", "ShieldBash", "WarStomp", "Charge", "CentaurTrample", "PussyTailTease", "HarpyButtTease", "EffigyBoobTease", "EarthFist", "TentacleSlap", "BellyDance", "DickWobble", "ImpDirtyTrick", "TentacleLash", "MerielleChest", "MerielleAss", "MerielleCrotch", "FritteChest", "FritteAss", "FritteCrotch", "ElarilChest", "ElarilCrotch", "ManticoreTail", "JenExecute", "JenThunderStrike", "WargClaw", "BleedingBite", "SpearThrust", "VaushAttack", "HealingThurible", "ApprenticeAttack", "LustfulImages", "BlightOrb", "WhiteFire", "WitheringBolt", "LightningSpike", "WarSong", "EntropicWinds", "ShadowMagic", "CharmSpell", "SunOfJassira", "FireBolt", "PollenSpray", "Foxfire", "Trick", "Fireball", "DarkThoughts", "Leech", "CarnalHex", "ColdSnap", "VileMiasma", "Jolt", "SummonFlameSpirit", "SummonStoneElemental", "SummonEffigy", "SummonKiyoko", "SummonShadowClone", "CallFalcon", "MercReinforcements", "NormalAttack", "Rend", "FadingStrike", "DirtyTrick", "ThunderStrike", "BleedingCut", "AmazonStrike", "Cleave", "ShellCracker", "ShadowStrike", "MarkForDeath", "PrimeTarget", "GiantsReach", "Execute", "LustyTentacles", "Envenom", "TrickShot", "Shatterstrike", "WyvernSting", "CrowdControl", "StickAndMove", "SuppressiveFire", "NervesOfSteel", "TripleThreat", "CracklePowder", "FrostArrow", "BloodLet", "Enrage"],
     Perks: ["TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "WarPaint", "RendingStrike", "EyeOfTheStorm", "JourneymanSummoner", "RangersQuarry", "StartingAttributeBonuses", "Leftovers", "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm", "BubbleButt", "Chastity"],
+    Items: []
 };
 
-var globals = {
+export interface GlobalOptions {
+    toSave?: (n: any) => any;
+    fromSave?: (n: any) => any;
+    list: string[];
+}
+
+export const globals: Record<keyof typeof globalKeys, GlobalOptions> = {
     Race: {
-        toSave: (n) => ({"key": n}),
+        toSave: (n) => ({key: n}),
         fromSave: (n) => n.key,
         list: globalKeys.Race
     },
@@ -96,7 +103,7 @@ var globals = {
     TFs: { list: globalKeys.TFs },
     Misc: { list: globalKeys.Misc },
     Consumable: { list: globalKeys.Consumable },
-    Set: { list: globalKeys.Sets },
+    Set: { list: globalKeys.Set },
     KeyItems: { list: globalKeys.KeyItems },
     Boon: { list: globalKeys.Boon },
     StatusEffect: { list: globalKeys.StatusEffect },
@@ -104,14 +111,13 @@ var globals = {
     Powers: { list: globalKeys.Powers },
     Perks: { list: globalKeys.Perks },
     Items: {
-        list: [].concat(
-            globalKeys.Weapons,
+        list: globalKeys.Weapons.concat(
             globalKeys.ArmorSet,
             globalKeys.ItemHead,
             globalKeys.ItemNeck,
             globalKeys.ItemShoulders,
             globalKeys.ItemHands,
-            globalKeys.ItemWaistt,
+            globalKeys.ItemWaist,
             globalKeys.ItemFeet,
             globalKeys.Rings,
             globalKeys.TopGarb,
@@ -123,4 +129,3 @@ var globals = {
         )
     },
 };
-

@@ -1,20 +1,24 @@
-function fieldTitle(key) {
-    var title = document.createElement("div");
+import { createAccordButton, createTextInput, createCheckBox } from "./Elements";
+import { GlobalOptions } from "./Globals";
+import { MultiOptionProp } from "./MapProps";
+
+export function fieldTitle(key: string) {
+    const title = document.createElement("div");
     title.className = "fieldTitle";
     title.textContent = key;
     return title;
 }
 
-function fieldLabel(key) {
-    var entry = document.createElement("label");
+export function fieldLabel(key: string) {
+    const entry = document.createElement("label");
     entry.className = "fieldEntry";
-    var title = fieldTitle(key);
+    const title = fieldTitle(key);
     entry.appendChild(title);
     return entry;
 }
 
-function objectField(text, panel) {
-    var accordButton = createAccordButton("", panel);
+export function objectField(text: string, panel: HTMLElement) {
+    const accordButton = createAccordButton("", panel);
     accordButton.className += " fieldTitle";
     accordButton.textContent = "⬥ " + text;
     accordButton.addEventListener("click", {
@@ -25,29 +29,29 @@ function objectField(text, panel) {
             this.open = !this.open;
             this.button.textContent = (this.open ? '⬦ ' : '⬥ ') + this.fieldName;
         }
-    });
+    } as any);
     return accordButton;
 }
 
-function stringField(name, initialValue, changeFunc) {
-    var div = fieldLabel(name);
-    var input = createTextInput(initialValue, "", changeFunc);
+export function stringField(name: string, initialValue: string, changeFunc: (element: HTMLInputElement) => () => void) {
+    const div = fieldLabel(name);
+    const input = createTextInput(initialValue, "", changeFunc);
     div.appendChild(input);
     return div;
 }
 
-function booleanField(name, initialValue, changeFunc) {
-    var div = fieldLabel(name);
-    var input = createCheckBox(initialValue, "", changeFunc);
+export function booleanField(name: string, initialValue: boolean, changeFunc: (element: HTMLInputElement) => () => void) {
+    const div = fieldLabel(name);
+    const input = createCheckBox(initialValue, "", changeFunc);
     div.appendChild(input);
     return div;
 }
 
-function selectField(name, initialValue, options, changeFunc) {
-    var div = fieldLabel(name);
-    var selector = document.createElement("select");
+export function selectField(name: string, initialValue: string | number, options: GlobalOptions, changeFunc: (element: HTMLSelectElement) => () => void) {
+    const div = fieldLabel(name);
+    const selector = document.createElement("select");
     options.list.forEach((value, index) => {
-        var option = document.createElement("option");
+        const option = document.createElement("option");
         option.value = index + '';
         option.textContent = value;
         if (options.fromSave && !isNaN(options.fromSave(+initialValue)))
@@ -61,11 +65,11 @@ function selectField(name, initialValue, options, changeFunc) {
     return div;
 }
 
-function multiOptionField(obj, key, mapValue) {
+export function multiOptionField(obj: Record<string, any>, key: string, mapValue: MultiOptionProp) {
     const listEl = document.createElement('ul');
     const options = mapValue.options;
     options.list.forEach((option, index) => {
-        const selected = obj[key].reduce((prev, curr) => prev = prev || (option === curr) || (index === curr), false);
+        const selected = obj[key].reduce((prev: boolean, curr: any) => prev = prev || (option === curr) || (index === curr), false);
         const label = fieldLabel(option);
         label.className += ' multioption' + (selected ? ' selected' : '');
         label.addEventListener('click', () => {
@@ -81,13 +85,13 @@ function multiOptionField(obj, key, mapValue) {
                 label.classList.toggle('selected');
 
             if (mapValue.transform)
-                obj[key] = selectedList.map((el) => mapValue.transform(el.textContent));
+                obj[key] = selectedList.map((el) => mapValue.transform!(el.textContent));
             else {
                 obj[key] = list.reduce((numList, el, numIndex) => {
                     if (el.classList.contains('selected') && el.textContent)
                         numList.push(numIndex);
                     return numList;
-                }, []);
+                }, [] as any[]);
             }
         });
         listEl.appendChild(label);

@@ -1,3 +1,6 @@
+import { globals } from "./Globals";
+import { PropDict, PropLabel, ArrayProp } from "./MapProps";
+
 /*
     all
         label - The display name of the variable
@@ -19,7 +22,7 @@
     number
 */
 
-var charMap = {
+export const charMap: PropDict = {
     // Info
     name: { label: "Name", type: "string", groupTag: "Info" },
     title: { label: "Title", type: "string", groupTag: "Info" },
@@ -309,7 +312,7 @@ var charMap = {
         groupTag: "Inventory",
         canBeNull: false,
         properties: (() => {
-            const obj = {};
+            const obj: Record<string, any> = {};
             for (let index = 0; index < globals.TFType.list.length; index++)
                 obj[index] = { label: globals.TFType.list[index], type: "number" };
             return obj;
@@ -482,7 +485,7 @@ var charMap = {
     },
 };
 
-function createItemArgsMap() {
+function createItemArgsMap(): PropLabel & ArrayProp {
     return {
         label: "Args",
         type: "array",

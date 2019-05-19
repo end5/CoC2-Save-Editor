@@ -1,4 +1,8 @@
-function generateFields(obj, element) {
+import { stringField, booleanField, objectField } from "./Fields";
+import { setStringCallback, setNumberCallback, setBooleanCallback } from "./SetValueCallbacks";
+import { createPanel } from "./Elements";
+
+export function generateFields(obj: any, element: HTMLElement) {
     Object.keys(obj).forEach(function fieldKeys(key) {
         switch (typeof obj[key]) {
             case "string": {
@@ -16,7 +20,7 @@ function generateFields(obj, element) {
             case "object": {
                 if (obj[key] === null)
                     break;
-                var panel = createPanel();
+                const panel = createPanel();
                 element.appendChild(objectField(key, panel));
                 element.appendChild(panel);
                 generateFields(obj[key], panel);

@@ -6,7 +6,7 @@
     "scripts": {
         "build": "npm run transpile && npm run bundle",
         "transpile": "tsc",
-        "bundle": "rollup dist/test.js --format umd --name myBundle --file bundle.js"
+        "bundle": "rollup dist/index.js --format umd --name myBundle --file bundle.js"
     },
     "repository": {
         "type": "git",

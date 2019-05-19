@@ -1,45 +1,53 @@
-function generateCharList(obj, el) {
-    var charsMenu = new RedrawingTabMenu('charMenu', true, true);
+import { RedrawingTabMenu, PersistantTabMenu } from "./Menus";
+import { charDefaults } from "./CharDefaults";
+import { charMap } from "./CharMap";
+import { createPanel } from "./Elements";
+import { objectField, multiOptionField, selectField, stringField, booleanField } from "./Fields";
+import { setSelectorStringCallback, setStringCallback, setNumberCallback, setBooleanCallback } from "./SetValueCallbacks";
+import { State } from "./State";
+import { PropDict, AnyProp, AnyLabeledProp, hasPropLabel, isObjectProp, ObjectProp, ArrayProp, isArrayProp } from "./MapProps";
+
+export function generateCharList(obj: any, el: HTMLElement, state: State) {
+    const charsMenu = new RedrawingTabMenu('charMenu', true, true);
     el.appendChild(charsMenu.element);
 
-    if (!saveEdit.editObj)
+    if (!state.editObj)
         alert("No Save loaded");
-    else if (!saveEdit.editObj.chars)
+    else if (!state.editObj.chars)
         alert("No Characters in save");
     else {
-        var charKeys = Object.keys(obj.chars).filter((key) => key in charDefaults);
-        for (var index = 0; index < charKeys.length; index++) {
-            var charKey = charKeys[index];
-            if (!saveEdit.editObj.chars[charKey])
+        const charKeys = Object.keys(obj.chars).filter((key) => key in charDefaults);
+        for (const charKey of charKeys) {
+            if (!state.editObj.chars[charKey])
                 alert("Character " + charKey + " not found");
             else {
-                charsMenu.createTab(charKey, ((charKey) => (parentEl) => {
-                        var infoMenu = new PersistantTabMenu('charInfoMenu');
-                        parentEl.appendChild(infoMenu.element);
-                        var tags = {};
-                        var starterTags = ["Info", "Stats", "Effects", "Inventory", "Body"];
-                        for (var index = 0; index < starterTags.length; index++)
-                            tags[starterTags[index]] = infoMenu.createTab(starterTags[index]);
+                charsMenu.createTab(charKey, ((charName) => (parentEl: HTMLElement) => {
+                    const infoMenu = new PersistantTabMenu('charInfoMenu');
+                    parentEl.appendChild(infoMenu.element);
+                    const tags = {} as Record<string, any>;
+                    const starterTags = ["Info", "Stats", "Effects", "Inventory", "Body"];
+                    for (const startTag of starterTags)
+                        tags[startTag] = infoMenu.createTab(startTag);
 
-                        generateMappedFields(tags, Object.keys(charMap).reverse().map((key) => generateInfo(saveEdit.editObj.chars[charKey], key, infoMenu.element, charMap)));
-                        var infoButton = infoMenu.getTab('Info');
-                        if (infoButton)
-                            infoButton.button.click();
-                    }
+                    generateMappedFields(tags, Object.keys(charMap).reverse().map((key) => generateInfo(state.editObj.chars[charName], key, infoMenu.element, charMap)));
+                    const infoButton = infoMenu.getTab('Info');
+                    if (infoButton)
+                        infoButton.button.click();
+                }
                 )(charKey));
             }
         }
     }
 }
 
-function generateAddRemoveButtons(panel, addCallback, removeCallback) {
-    var addRemoveButtons = document.createElement("div");
+function generateAddRemoveButtons(panel: HTMLElement, addCallback: () => void, removeCallback: () => void) {
+    const addRemoveButtons = document.createElement("div");
     addRemoveButtons.className = "addRemoveButtons";
-    var add = document.createElement("div");
+    const add = document.createElement("div");
     add.textContent = "+";
     add.className = "addRemoveButton";
     add.addEventListener("click", addCallback);
-    var remove = document.createElement("div");
+    const remove = document.createElement("div");
     remove.textContent = "–";
     remove.className = "addRemoveButton";
     remove.addEventListener("click", removeCallback);
@@ -48,26 +56,41 @@ function generateAddRemoveButtons(panel, addCallback, removeCallback) {
     panel.appendChild(addRemoveButtons);
 }
 
-function generateInfo(obj, key, element, map) {
-    return {
-        obj: obj,
-        key: key,
-        element: element,
-        map: map,
-    }
+export type Tags = Tag | TagDict;
+export interface TagDict { [x: string]: Tags; }
+
+export interface Tag {
+    button?: HTMLElement;
+    content?: HTMLElement;
 }
 
-function generateValue(map, value, canBeNull) {
+interface Info {
+    obj: Record<string, any>;
+    key: string;
+    element: HTMLElement;
+    map: PropDict | AnyLabeledProp | AnyProp;
+}
+
+function generateInfo<P extends PropDict | AnyProp | AnyLabeledProp>(obj: Record<string, any>, key: string, element: HTMLElement, map: P): Info {
+    return {
+        obj,
+        key,
+        element,
+        map,
+    };
+}
+
+function generateValue(map: AnyProp, value: any) {
     if (map.type === "object") {
         if (typeof value !== "object" || value == null) value = {};
         return Object.keys(map.properties).reduce((obj, key) => {
             obj[key] = generateValue(map.properties[key], value[key]);
             return obj;
-        }, {});
+        }, {} as Record<string, any>);
     }
     if (map.type === "array") {
         if (!Array.isArray(value)) value = [];
-        return value.map(entry => generateValue(map.entry, entry));
+        return value.map((entry: any) => generateValue(map.entry, entry));
     }
     if (map.type === "multioption") {
         if (!Array.isArray(value)) value = [];
@@ -87,51 +110,51 @@ function generateValue(map, value, canBeNull) {
     }
 }
 
-function processInfo(tags, info) {
-    var obj = info.obj;
-    var key = info.key;
-    var mapEntry = info.map[key];
-    var parentElement = info.element;
-    var label = key;
+function processInfo(tags: Tags, info: Info) {
+    const obj = info.obj;
+    const key = info.key;
+    let mapEntry: AnyLabeledProp | AnyProp = (info.map as PropDict)[key];
+    let parentElement = info.element;
+    let label = key;
 
     if (!mapEntry) {
-        mapEntry = info.map;
+        mapEntry = info.map as AnyProp;
     }
 
-    if (mapEntry.label) {
+    if (hasPropLabel(mapEntry)) {
         label = mapEntry.label;
     }
 
-    if (!obj[key] && (mapEntry.type !== "object" || (mapEntry.type === "object" && !mapEntry.canBeNull))) {
+    if (!obj[key] && (!isObjectProp(mapEntry) || (isObjectProp(mapEntry) && !mapEntry.canBeNull))) {
         obj[key] = generateValue(mapEntry, obj[key]);
     }
 
     // tag = { button, content }
-    if (mapEntry.label && mapEntry.groupTag) {
+    if (hasPropLabel(mapEntry) && mapEntry.groupTag) {
         mapEntry.groupTag.split(".").reduce((parentTag, curTag) => {
             if (!parentTag[curTag])
                 parentTag[curTag] = { button: undefined, content: undefined };
             if (!parentTag[curTag].content) {
-                var panel = createPanel();
-                var button = objectField(curTag, panel);
+                const panel = createPanel();
+                const button = objectField(curTag, panel);
                 parentElement.appendChild(button);
                 parentElement.appendChild(panel);
                 parentTag[curTag].button = button;
                 parentTag[curTag].content = panel;
             }
-            parentElement = parentTag[curTag].content;
-            return parentTag[curTag];
-        }, tags);
+            parentElement = (parentTag[curTag] as Tag).content!;
+            return parentTag[curTag] as TagDict;
+        }, tags as TagDict);
     }
 
     if (mapEntry.type === "multioption" && mapEntry.options) {
-        var panel = createPanel();
+        const panel = createPanel();
         panel.appendChild(multiOptionField(obj, key, mapEntry));
         parentElement.appendChild(objectField(label, panel));
         parentElement.appendChild(panel);
     }
     else if (mapEntry.type === "object") {
-        var panel = createPanel();
+        const panel = createPanel();
         if (mapEntry.canBeNull) {
             generateAddRemoveButtons(
                 panel,
@@ -144,10 +167,10 @@ function processInfo(tags, info) {
         parentElement.appendChild(panel);
 
         if (obj[key])
-            return Object.keys(obj[key]).reverse().map((objKey) => generateInfo(obj[key], objKey, panel, mapEntry.properties));
+            return Object.keys(obj[key]).reverse().map((objKey) => generateInfo(obj[key], objKey, panel, (mapEntry as ObjectProp).properties));
     }
     else if (mapEntry.type === "array") {
-        var panel = createPanel();
+        const panel = createPanel();
         if (mapEntry.min)
             while (obj[key].length < mapEntry.min) {
                 if (mapEntry.override && obj[key].length in mapEntry.override)
@@ -169,8 +192,9 @@ function processInfo(tags, info) {
 
         if (obj[key])
             return Object.keys(obj[key]).reverse().map((objKey) => {
-                if (mapEntry.override && objKey in mapEntry.override)
-                    return generateInfo(obj[key], objKey, panel, mapEntry.override);
+                if (!isArrayProp(mapEntry)) throw new Error('Changed from Array type');
+                if (mapEntry.override && objKey in mapEntry.override!)
+                    return generateInfo(obj[key], objKey, panel, mapEntry.override!);
                 else
                     return generateInfo(obj[key], objKey, panel, mapEntry.entry);
             });
@@ -190,9 +214,10 @@ function processInfo(tags, info) {
     else if (mapEntry.type === "boolean") {
         parentElement.appendChild(booleanField(label, generateValue(mapEntry, obj[key]), setBooleanCallback(obj, key)));
     }
+    return;
 }
 
-function objectAddCallback(tags, parent, obj, key, map) {
+function objectAddCallback(tags: Tags, parent: HTMLElement, obj: any, key: string, map: ObjectProp) {
     return () => {
         if (obj[key] == null) {
             obj[key] = generateValue(map, obj[key]);
@@ -202,7 +227,7 @@ function objectAddCallback(tags, parent, obj, key, map) {
         }
     };
 }
-function objectRemoveCallback(parent, obj, key) {
+function objectRemoveCallback(parent: HTMLElement, obj: any, key: string) {
     return () => {
         if (obj[key]) {
             while (parent.lastChild && parent.lastChild !== parent.firstChild) {
@@ -213,10 +238,10 @@ function objectRemoveCallback(parent, obj, key) {
     };
 }
 
-function arrayAddCallback(tags, parent, obj, key, map) {
+function arrayAddCallback(tags: Tags, parent: HTMLElement, obj: any, key: string, map: ArrayProp) {
     return () => {
         if (!map.max || (map.max && obj[key].length < map.max)) {
-            var objKey = (typeof obj[key] === 'object' ? Object.keys(obj[key]).length : obj[key].length + '');
+            const objKey = (typeof obj[key] === 'object' ? Object.keys(obj[key]).length : obj[key].length) + '';
             if (map.override && objKey in map.override)
                 generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], objKey, parent, map.override)));
             else
@@ -225,7 +250,7 @@ function arrayAddCallback(tags, parent, obj, key, map) {
     };
 }
 
-function arrayRemoveCallback(parent, obj, key, map) {
+function arrayRemoveCallback(parent: HTMLElement, obj: any, key: string, map: ArrayProp) {
     return () => {
         if (obj[key]) {
             if (obj[key].length > (map.min ? map.min : 0) && parent.lastChild) {
@@ -237,15 +262,15 @@ function arrayRemoveCallback(parent, obj, key, map) {
     };
 }
 
-function generateMappedFields(tags, startInfo) {
+function generateMappedFields(tags?: Tags, startInfo?: Info | Info[]) {
     if (!startInfo)
         return;
 
-    var queue = Array.isArray(startInfo) ? startInfo : [startInfo];
-    var tags = tags ? tags : {};
+    let queue = Array.isArray(startInfo) ? startInfo : [startInfo];
+    tags = tags ? tags : {};
 
     while (queue.length > 0) {
-        var results = processInfo(tags, queue.pop());
+        const results = processInfo(tags, queue.pop()!);
         if (results)
             queue = queue.concat(results);
     }
