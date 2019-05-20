@@ -62,43 +62,63 @@
             list: globalKeys.Race
         },
         Taxon: {
-            toSave: (n) => n + 1,
-            fromSave: (n) => n - 1,
+            toSave: (n) => globalKeys.Taxon.indexOf(n) + 1,
+            fromSave: (n) => globalKeys.Taxon[n - 1],
             list: globalKeys.Taxon
         },
-        Class: { list: globalKeys.Class },
-        Background: { list: globalKeys.Background },
-        Affinity: { list: globalKeys.Affinity },
-        TFType: { list: globalKeys.TFType },
+        Class: {
+            toSave: (n) => globalKeys.Class.indexOf(n),
+            fromSave: (n) => globalKeys.Class[n],
+            list: globalKeys.Class
+        },
+        Background: {
+            toSave: (n) => globalKeys.Background.indexOf(n),
+            fromSave: (n) => globalKeys.Background[n],
+            list: globalKeys.Background
+        },
+        Affinity: {
+            toSave: (n) => globalKeys.Affinity.indexOf(n),
+            fromSave: (n) => globalKeys.Affinity[n],
+            list: globalKeys.Affinity
+        },
+        TFType: {
+            toSave: (n) => globalKeys.TFType.indexOf(n),
+            fromSave: (n) => globalKeys.TFType[n],
+            list: globalKeys.TFType
+        },
         // None = -1
         BodyType: {
-            toSave: (n) => n - 1,
-            fromSave: (n) => n + 1,
+            toSave: (n) => globalKeys.BodyType.indexOf(n) - 1,
+            fromSave: (n) => globalKeys.BodyType[n + 1],
             list: globalKeys.BodyType
         },
-        BodyTag: { list: globalKeys.BodyTag },
+        BodyTag: {
+            toSave: (n) => globalKeys.BodyTag.indexOf(n),
+            fromSave: (n) => globalKeys.BodyTag[n],
+            list: globalKeys.BodyTag
+        },
         // None = -1
         FluidType: {
-            toSave: (n) => n - 1,
-            fromSave: (n) => n + 1,
+            toSave: (n) => globalKeys.FluidType.indexOf(n) - 1,
+            fromSave: (n) => globalKeys.FluidType[n + 1],
             list: globalKeys.FluidType
         },
         // None = -1
         SkinType: {
-            toSave: (n) => n - 1,
-            fromSave: (n) => n + 1,
+            toSave: (n) => globalKeys.SkinType.indexOf(n) - 1,
+            fromSave: (n) => globalKeys.SkinType[n + 1],
             list: globalKeys.SkinType
         },
         // None = -1
         NippleType: {
-            toSave: (n) => n - 1,
-            fromSave: (n) => n + 1,
+            toSave: (n) => globalKeys.NippleType.indexOf(n) - 1,
+            fromSave: (n) => globalKeys.NippleType[n + 1],
             list: globalKeys.NippleType
         },
         // None = -1
         HairType: {
-            toSave: (n) => n - 1,
-            fromSave: (n) => n + 1,
+            toSave: (n) => globalKeys.HairType.indexOf(n) - 1,
+            fromSave: (n) => globalKeys.HairType[n + 1],
             list: globalKeys.HairType
         },
         Weapons: { list: globalKeys.Weapons },
@@ -121,7 +141,11 @@
         Boon: { list: globalKeys.Boon },
         StatusEffect: { list: globalKeys.StatusEffect },
         CombatEffect: { list: globalKeys.CombatEffect },
-        Powers: { list: globalKeys.Powers },
+        Powers: {
+            toSave: (v) => ({ key: v }),
+            fromSave: (v) => v ? v.key : undefined,
+            list: globalKeys.Powers
+        },
         Perks: { list: globalKeys.Perks },
         Items: {
             list: globalKeys.Weapons.concat(globalKeys.ArmorSet, globalKeys.ItemHead, globalKeys.ItemNeck, globalKeys.ItemShoulders, globalKeys.ItemHands, globalKeys.ItemWaist, globalKeys.ItemFeet, globalKeys.Rings, globalKeys.TopGarb, globalKeys.BottomGarb, globalKeys.Offhand, globalKeys.TFs, globalKeys.Misc, globalKeys.Set)
@@ -277,16 +301,14 @@
             type: "multioption",
             options: globals.Powers,
             groupTag: "Effects",
-            max: 5,
-            transform: (value) => ({ key: value }),
+            max: 5
         },
         equippedPowers: {
             label: "Equipped Powers",
             type: "multioption",
             options: globals.Powers,
             groupTag: "Effects",
-            max: 5,
-            transform: (value) => ({ key: value }),
+            max: 5
         },
         // Inventory
         credits: { label: "Credits", type: "number", groupTag: "Inventory" },
@@ -708,38 +730,28 @@
             const option = document.createElement('option');
             option.value = index + '';
             option.textContent = value;
-            if (options.fromSave && !isNaN(options.fromSave(+initialValue)))
-                option.selected = options.fromSave(+initialValue) === index;
-            else
-                option.selected = initialValue === index || initialValue === value;
+            option.selected = initialValue === value;
             selector.appendChild(option);
         });
         selector.addEventListener('change', changeFunc(selector));
         div.appendChild(selector);
         return div;
     }
-    function multiOptionField(label, obj, objKey, mapValue) {
+    function multiOptionField(label, initialValues, mapValue, changeFunc) {
         // Taken directly from fieldLabel
         const div = document.createElement('label');
         div.className = 'field dark';
         const title = fieldTitle(label);
         div.appendChild(title);
-        // Counter on max number of selections
-        if (mapValue.max)
-            title.textContent += ' (0/' + mapValue.max + ')';
         const listEl = document.createElement('ul');
         listEl.className = 'multioption-list';
-        const options = mapValue.options.list.map((key, index) => ({
-            key,
-            index,
-            // Check to see if the obj already has this value
-            selected: obj[objKey].find((objValue) => key === objValue || index === objValue)
+        const options = mapValue.options.list.map((value) => ({
+            key: value,
+            selected: !!~initialValues.indexOf(value)
         }));
-        // Add a counter on max number of selections
-        if (mapValue.max) {
-            const selectCount = options.filter((item) => item.selected).length;
-            title.textContent = label + ' (' + selectCount + '/' + mapValue.max + ')';
-        }
+        // Counter on max number of selections
+        if (mapValue.max)
+            title.textContent += ' (' + options.filter((option) => option.selected).length + '/' + mapValue.max + ')';
         for (const option of options) {
             const listItem = document.createElement('li');
             listItem.className = 'multioption';
@@ -764,13 +776,7 @@
                 if (mapValue.max) {
                     title.textContent = label + ' (' + selectedList.length + '/' + mapValue.max + ')';
                 }
-                // If there is a transform func, use the keys of the selected options
-                // Else use the indexes of the selected options
-                if (mapValue.transform)
-                    obj[objKey] = mapValue.transform(selectedList.map((item) => item.key));
-                else {
-                    obj[objKey] = selectedList.map((item) => item.index);
-                }
+                changeFunc(mapValue, selectedList.map((value) => value.key));
             });
             listEl.appendChild(listItem);
         }
@@ -785,25 +791,36 @@
                 obj[key] = +element.value;
         };
     }
-    function setStringCallback(obj, key) {
+    function setStringCallback(obj, key, modFunc) {
         return (inputElement) => () => {
-            obj[key] = inputElement.value;
+            if (modFunc)
+                obj[key] = modFunc(inputElement.value);
+            else
+                obj[key] = inputElement.value;
         };
     }
-    function setSelectorStringCallback(obj, key) {
+    function setSelectorStringCallback(obj, key, modFunc) {
         return (inputElement) => () => {
-            if (inputElement[+inputElement.value].textContent !== 'None')
+            if (modFunc)
+                obj[key] = modFunc(inputElement[+inputElement.value].textContent);
+            else
                 obj[key] = inputElement[+inputElement.value].textContent;
         };
     }
-    function setBooleanCallback(obj, key) {
+    function setBooleanCallback(obj, key, modFunc) {
         return (inputElement) => () => {
-            obj[key] = inputElement.checked;
+            if (modFunc)
+                obj[key] = modFunc(inputElement.checked);
+            else
+                obj[key] = inputElement.checked;
         };
     }
 
     function hasPropLabel(prop) {
         return prop.label !== undefined;
+    }
+    function isValueProp(prop) {
+        return prop.type === 'boolean' || prop.type === 'number' || prop.type === 'string';
     }
     function isObjectProp(prop) {
         return prop.type === 'object';
@@ -1013,7 +1030,12 @@
             }, tags);
         }
         if (isMultiOptionProp(mapEntry)) {
-            parentElement.appendChild(multiOptionField(label, obj, key, mapEntry));
+            parentElement.appendChild(multiOptionField(label, generateValue(mapEntry, obj[key]), mapEntry, (multiMapEntry, selValues) => {
+                if (multiMapEntry.options.toSave)
+                    obj[key] = selValues.map((value) => multiMapEntry.options.toSave(value));
+                else
+                    obj[key] = selValues;
+            }));
         }
         else if (mapEntry.type === "object") {
             const objField = objectField(label);
@@ -1049,20 +1071,22 @@
                         return generateInfo(obj[key], objKey, objField.content, mapEntry.entry);
                 });
         }
-        else if (mapEntry.type === "string") {
-            if (mapEntry.options)
-                parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key)));
-            else
-                parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setStringCallback(obj, key)));
-        }
-        else if (mapEntry.type === "number") {
-            if (mapEntry.options)
-                parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setNumberCallback(obj, key, mapEntry.options.toSave)));
-            else
-                parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setNumberCallback(obj, key)));
-        }
-        else if (mapEntry.type === "boolean") {
-            parentElement.appendChild(booleanField(label, generateValue(mapEntry, obj[key]), setBooleanCallback(obj, key)));
+        if (isValueProp(mapEntry)) {
+            if (mapEntry.type === "string") {
+                if (mapEntry.options)
+                    parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
+                else
+                    parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setStringCallback(obj, key)));
+            }
+            else if (mapEntry.type === "number") {
+                if (mapEntry.options)
+                    parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
+                else
+                    parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setNumberCallback(obj, key)));
+            }
+            else if (mapEntry.type === "boolean") {
+                parentElement.appendChild(booleanField(label, generateValue(mapEntry, obj[key]), setBooleanCallback(obj, key)));
+            }
         }
         return;
     }
@@ -1075,30 +1099,35 @@
                 return obj;
             }, {});
         }
-        if (isArrayProp(map)) {
+        else if (isArrayProp(map)) {
             if (!Array.isArray(value))
                 value = [];
             return value.map((entry) => generateValue(map.entry, entry));
         }
-        if (isMultiOptionProp(map)) {
+        else if (isMultiOptionProp(map)) {
             if (!Array.isArray(value))
                 value = [];
+            if (map.options && map.options.fromSave)
+                value = value.map((v) => map.options.fromSave(v));
             return value;
         }
-        if (map.type === "boolean")
-            return !!value;
-        if (map.type === "number")
-            return typeof value === "number" ? value : map.default || 0;
-        if (map.type === "string") {
-            if (typeof value === 'string')
-                return value;
-            else if (map.default)
-                return map.default;
-            else if (map.options && map.options.list.length > 0)
-                return map.options.list[0];
-            else
-                return '';
-        }
+        if (!value)
+            if (map.type === "boolean")
+                value = !!value;
+            else if (map.type === "number") {
+                value = map.default || 0;
+            }
+            else if (map.type === "string") {
+                if (map.default)
+                    value = map.default;
+                else if (map.options && map.options.list.length > 0)
+                    value = map.options.list[0];
+                else
+                    value = '';
+            }
+        if (map.options && map.options.fromSave)
+            value = map.options.fromSave(value);
+        return value;
     }
     function objectAddCallback(tags, parent, obj, key, map) {
         return () => {
@@ -1157,9 +1186,9 @@
         panel.appendChild(addRemoveButtons);
     }
 
-    function loadSaveLoadBar(content, state) {
+    function loadSaveLoadBar(content, state, button) {
         const background = document.createElement('div');
-        background.className = 'content dark';
+        background.className = 'content light';
         background.id = 'save-load-bar';
         const loadButton = document.createElement('button');
         loadButton.textContent = 'Load';
@@ -1205,6 +1234,7 @@
                         saveInput.placeholder = filename;
                         saveInput.value = filename;
                         saveInput.disabled = false;
+                        button.click();
                     });
                 }
             });
@@ -1247,8 +1277,6 @@
             state.editObj.chars[key] = Object.assign(JSON.parse(JSON.stringify(charDefaults[key])), state.editObj.chars[key]);
         });
     }
-    // state.diffChar = (name) => diffChar(charDefaults[name], state.editObj.chars[name]);
-    // state.charDefaults = charDefaults;
     function saveObj(state) {
         const saveCopy = JSON.parse(JSON.stringify(state.fileObj));
         saveCopy.chars = Object.keys(charDefaults).reduce((obj, key) => {
@@ -1278,7 +1306,7 @@
         ulEl.className = 'flags';
         // Assume they are all strings or numbers
         const flagNameElPairs = Flags.map((name) => {
-            const el = stringField(name, save.flags[name] ? save.flags[name] : '', booleanStringOrNumber(save.flags, name));
+            const el = stringField(name, save.flags[name] || '', booleanStringOrNumber(save.flags, name));
             ulEl.appendChild(el);
             return { name, el };
         });
@@ -1300,7 +1328,9 @@
     }
     function booleanStringOrNumber(obj, key) {
         return (element) => () => {
-            if (element.value.toLocaleLowerCase() === 'true')
+            if (element.value === '' || element.value === undefined)
+                delete obj[key];
+            else if (element.value.toLocaleLowerCase() === 'true')
                 obj[key] = true;
             else if (element.value.toLocaleLowerCase() === 'false')
                 obj[key] = false;
@@ -1311,45 +1341,13 @@
         };
     }
 
-    function loadRawTab(content, save) {
-        while (content.firstChild)
-            content.removeChild(content.firstChild);
-        generateFields(content, save);
-    }
-    function generateFields(element, obj) {
-        Object.keys(obj).forEach(function fieldKeys(key) {
-            switch (typeof obj[key]) {
-                case "string": {
-                    element.appendChild(stringField(key, obj[key], setStringCallback(obj, key)));
-                    break;
-                }
-                case "number": {
-                    element.appendChild(stringField(key, obj[key], setNumberCallback(obj, key)));
-                    break;
-                }
-                case "boolean": {
-                    element.appendChild(booleanField(key, obj[key], setBooleanCallback(obj, key)));
-                    break;
-                }
-                case "object": {
-                    if (obj[key] === null)
-                        break;
-                    const objField = objectField(key);
-                    element.appendChild(objField.button);
-                    element.appendChild(objField.content);
-                    generateFields(obj[key], objField.content);
-                }
-            }
-        });
-    }
-
+    // import { loadRawTab } from "./RawTab";
     function loadEditor(element, state) {
         while (element.lastChild)
             element.removeChild(element.lastChild);
-        loadSaveLoadBar(element, state);
         const mainScreen = new TabMenu({ tabsPos: 'top', activeStyle: 'light', inactiveStyle: 'dark' });
         mainScreen.element.id = 'main';
-        mainScreen.createTab('Characters', (content) => {
+        const charTab = mainScreen.createTab('Characters', (content) => {
             if (!state.editObj)
                 alert("No Save File loaded");
             else
@@ -1363,16 +1361,24 @@
             else
                 loadFlagTab(content, state.editObj);
         });
-        mainScreen.createTab('Raw', (content) => {
-            if (!state.editObj)
-                alert("No Save File loaded");
-            else
-                loadRawTab(content, state.editObj);
-        });
+        // mainScreen.createTab('Raw', (content) => {
+        //     if (!state.editObj)
+        //         alert("No Save File loaded");
+        //     else
+        //         loadRawTab(content, state.editObj);
+        // });
+        loadSaveLoadBar(element, state, charTab.button);
         element.appendChild(mainScreen.element);
     }
 
     const state = {};
+
+    if (window) {
+        const editor = window.editor = {};
+        editor.state = state;
+        editor.diffChar = (name) => diffChar(charDefaults[name], state.editObj.chars[name]);
+        editor.charDefaults = charDefaults;
+    }
 
     const editorVersion = "23";
     const gameVersion = "0.1.17";
@@ -1386,7 +1392,6 @@
         ok.textContent = "Accept";
         ok.className = "tab dark";
         disclaimer.appendChild(ok);
-        state.editObj = JSON.parse(`{"savestamp":1558197229055,"flags":{"NAV_DISABLED":0,"TUT_STATUS":5},"currentLocation":"HAWK_G34","timestamp":566,"version":"0.1.22","options":{"charOptions":{"easyMode":false,"sillyMode":false,"buttslutMode":false,"shortPregMode":true,"autosave":true},"systemOptions":{"defaultFont":false,"fontSize":1,"brightness":1,"disableBusts":false,"slowCombat":false,"combatFlowDefault":0,"autosaveDefault":true}},"camps":{},"saveEnable":true,"quests":[[0],[0],[0],[],[],[],[],[],[],[],[],[]],"chars":{"pc":{"name":"asdf","class":1,"background":1,"exp":225,"hitPoints":105,"perks":[{"key":"StartingAttributeBonuses","values":[0,1,0,0,0,2]},{"key":"WellHung","values":[]},{"key":"Veteran","values":[]}],"powers":[{"key":"NormalAttack"},{"key":"GuardedStance"},{"key":"Rend"},{"key":"ThunderStrike"}],"equippedPowers":[{"key":"GuardedStance"},{"key":"Rend"},null,{"key":"ThunderStrike"},null],"credits":105,"weaponPrimary":{"key":"ShortSword","args":[1]},"femininity":20,"tallness":70,"tone":95,"thickness":25,"hipRatingRaw":5,"buttRatingRaw":5,"bellyRatingRaw":1,"eyeColor":"blue","_balls":2,"cocks":[{"type":1,"virgin":true,"tags":[],"lengthRaw":6,"lengthMod":0,"thicknessRatioRaw":1,"thicknessRatioMod":0,"flaccidRatio":0.4,"_knotRatio":1.5,"pierced":0,"_color":""}],"lastRechargeEquipped":1,"_race":{"key":"Human"}},"champ":{},"cait":{},"berwyn":{},"arona":{},"brint":{},"kiyoko":{},"etheryn":{},"gwyn":{},"kinu":{},"eryka":{},"garret":{},"lusina":{},"kasyrra":{},"shar":{}},"party":{"members":["pc"],"guest":null},"hash":"0aa50f8e5b34b94612e4927e36926cd2"}`);
         ok.addEventListener("click", () => loadEditor(document.body, state));
     });
 
