@@ -59,7 +59,7 @@ export function booleanField(name: string, initialValue: boolean, changeFunc: Ev
     return div;
 }
 
-export function selectField(name: string, initialValue: string | number, options: GlobalOptions, changeFunc: EventFunc<HTMLSelectElement>) {
+export function selectField(name: string, initialValue: string, options: GlobalOptions, changeFunc: EventFunc<HTMLSelectElement>) {
     const div = fieldLabel(name);
     const selector = document.createElement('select');
     selector.className = 'value';
@@ -67,10 +67,7 @@ export function selectField(name: string, initialValue: string | number, options
         const option = document.createElement('option');
         option.value = index + '';
         option.textContent = value;
-        if (options.fromSave && !isNaN(options.fromSave(+initialValue)))
-            option.selected = options.fromSave(+initialValue) === index;
-        else
-            option.selected = initialValue === index || initialValue === value;
+        option.selected = initialValue === value;
         selector.appendChild(option);
     });
     selector.addEventListener('change', changeFunc(selector));
@@ -78,32 +75,25 @@ export function selectField(name: string, initialValue: string | number, options
     return div;
 }
 
-export function multiOptionField(label: string, obj: Record<string, any>, objKey: string, mapValue: MultiOptionProp) {
+export function multiOptionField(label: string, initialValues: string[], mapValue: MultiOptionProp, changeFunc: (mapValue: MultiOptionProp, selectedValues: string[]) => void) {
     // Taken directly from fieldLabel
     const div = document.createElement('label');
     div.className = 'field dark';
     const title = fieldTitle(label);
     div.appendChild(title);
 
-    // Counter on max number of selections
-    if (mapValue.max)
-        title.textContent += ' (0/' + mapValue.max + ')';
-
     const listEl = document.createElement('ul');
     listEl.className = 'multioption-list';
 
-    const options = mapValue.options.list.map((key, index) => ({
-        key,
-        index,
-        // Check to see if the obj already has this value
-        selected: obj[objKey].find((objValue: any) => key === objValue || index === objValue)
-    }));
+    const options = mapValue.options.list.map((value) =>
+        ({
+            key: value,
+            selected: !!~initialValues.indexOf(value)
+        }));
 
-    // Add a counter on max number of selections
-    if (mapValue.max) {
-        const selectCount = options.filter((item) => item.selected).length;
-        title.textContent = label + ' (' + selectCount + '/' + mapValue.max + ')';
-    }
+    // Counter on max number of selections
+    if (mapValue.max)
+        title.textContent += ' (' + options.filter((option) => option.selected).length + '/' + mapValue.max + ')';
 
     for (const option of options) {
         const listItem = document.createElement('li');
@@ -135,13 +125,7 @@ export function multiOptionField(label: string, obj: Record<string, any>, objKey
                 title.textContent = label + ' (' + selectedList.length + '/' + mapValue.max + ')';
             }
 
-            // If there is a transform func, use the keys of the selected options
-            // Else use the indexes of the selected options
-            if (mapValue.transform)
-                obj[objKey] = mapValue.transform(selectedList.map((item) => item.key));
-            else {
-                obj[objKey] = selectedList.map((item) => item.index);
-            }
+            changeFunc(mapValue, selectedList.map((value) => value.key));
         });
 
         listEl.appendChild(listItem);
@@ -152,7 +136,7 @@ export function multiOptionField(label: string, obj: Record<string, any>, objKey
     return div;
 }
 
-export function setNumberCallback(obj: Record<string, any>, key: string, modFunc?: (num: number) => number) {
+export function setNumberCallback(obj: Record<string, any>, key: string, modFunc?: (num: number) => any) {
     return (element: HTMLInputElement | HTMLSelectElement) => () => {
         if (modFunc && !isNaN(+element.value))
             obj[key] = modFunc(+element.value);
@@ -161,21 +145,29 @@ export function setNumberCallback(obj: Record<string, any>, key: string, modFunc
     };
 }
 
-export function setStringCallback(obj: Record<string, any>, key: string) {
+export function setStringCallback(obj: Record<string, any>, key: string, modFunc?: (num: string) => any) {
     return (inputElement: HTMLInputElement) => () => {
-        obj[key] = inputElement.value;
+        if (modFunc)
+            obj[key] = modFunc(inputElement.value);
+        else
+            obj[key] = inputElement.value;
     };
 }
 
-export function setSelectorStringCallback(obj: Record<string, any>, key: string) {
+export function setSelectorStringCallback(obj: Record<string, any>, key: string, modFunc?: (num: string) => any) {
     return (inputElement: HTMLSelectElement) => () => {
-        if (inputElement[+inputElement.value].textContent !== 'None')
+        if (modFunc)
+            obj[key] = modFunc(inputElement[+inputElement.value].textContent!);
+        else
             obj[key] = inputElement[+inputElement.value].textContent;
     };
 }
 
-export function setBooleanCallback(obj: Record<string, any>, key: string) {
+export function setBooleanCallback(obj: Record<string, any>, key: string, modFunc?: (num: boolean) => any) {
     return (inputElement: HTMLInputElement) => () => {
-        obj[key] = inputElement.checked;
+        if (modFunc)
+            obj[key] = modFunc(inputElement.checked);
+        else
+            obj[key] = inputElement.checked;
     };
 }

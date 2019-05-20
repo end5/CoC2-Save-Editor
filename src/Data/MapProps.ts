@@ -60,8 +60,6 @@ export interface MultiOptionProp {
     type: 'multioption';
     options: GlobalOptions;
     max?: number;
-    // Default returns a number
-    transform?: (value: any) => any;
 }
 
 export function hasPropLabel(prop: AnyProp): prop is AnyLabeledProp {

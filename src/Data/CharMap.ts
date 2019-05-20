@@ -151,16 +151,14 @@ export const charMap: PropDict = {
         type: "multioption",
         options: globals.Powers,
         groupTag: "Effects",
-        max: 5,
-        transform: (value) => ({ key: value }),
+        max: 5
     },
     equippedPowers: {
         label: "Equipped Powers",
         type: "multioption",
         options: globals.Powers,
         groupTag: "Effects",
-        max: 5,
-        transform: (value) => ({ key: value }),
+        max: 5
     },
     // Inventory
     credits: { label: "Credits", type: "number", groupTag: "Inventory" },

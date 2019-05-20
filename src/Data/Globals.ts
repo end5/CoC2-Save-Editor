@@ -37,55 +37,75 @@ const globalKeys = {
 };
 
 export interface GlobalOptions {
-    toSave?: (n: any) => any;
-    fromSave?: (n: any) => any;
+    toSave?: (n: string) => any;
+    fromSave?: (n: any) => string;
     list: string[];
 }
 
 export const globals: Record<keyof typeof globalKeys, GlobalOptions> = {
     Race: {
-        toSave: (n) => ({key: n}),
+        toSave: (n) => ({ key: n }),
         fromSave: (n) => n.key,
         list: globalKeys.Race
     },
     Taxon: {
-        toSave: (n) => n + 1,
-        fromSave: (n) => n - 1,
+        toSave: (n) => globalKeys.Taxon.indexOf(n) + 1,
+        fromSave: (n) => globalKeys.Taxon[n - 1],
         list: globalKeys.Taxon
     },
-    Class: { list: globalKeys.Class },
-    Background: { list: globalKeys.Background },
-    Affinity: { list: globalKeys.Affinity },
-    TFType: { list: globalKeys.TFType },
+    Class: {
+        toSave: (n) => globalKeys.Class.indexOf(n),
+        fromSave: (n) => globalKeys.Class[n],
+        list: globalKeys.Class
+    },
+    Background: {
+        toSave: (n) => globalKeys.Background.indexOf(n),
+        fromSave: (n) => globalKeys.Background[n],
+        list: globalKeys.Background
+    },
+    Affinity: {
+        toSave: (n) => globalKeys.Affinity.indexOf(n),
+        fromSave: (n) => globalKeys.Affinity[n],
+        list: globalKeys.Affinity
+    },
+    TFType: {
+        toSave: (n) => globalKeys.TFType.indexOf(n),
+        fromSave: (n) => globalKeys.TFType[n],
+        list: globalKeys.TFType
+    },
     // None = -1
     BodyType: {
-        toSave: (n) => n - 1,
-        fromSave: (n) => n + 1,
+        toSave: (n) => globalKeys.BodyType.indexOf(n) - 1,
+        fromSave: (n) => globalKeys.BodyType[n + 1],
         list: globalKeys.BodyType
     },
-    BodyTag: { list: globalKeys.BodyTag },
+    BodyTag: {
+        toSave: (n) => globalKeys.BodyTag.indexOf(n),
+        fromSave: (n) => globalKeys.BodyTag[n],
+        list: globalKeys.BodyTag
+    },
     // None = -1
     FluidType: {
-        toSave: (n) => n - 1,
-        fromSave: (n) => n + 1,
+        toSave: (n) => globalKeys.FluidType.indexOf(n) - 1,
+        fromSave: (n) => globalKeys.FluidType[n + 1],
         list: globalKeys.FluidType
     },
     // None = -1
     SkinType: {
-        toSave: (n) => n - 1,
-        fromSave: (n) => n + 1,
+        toSave: (n) => globalKeys.SkinType.indexOf(n) - 1,
+        fromSave: (n) => globalKeys.SkinType[n + 1],
         list: globalKeys.SkinType
     },
     // None = -1
     NippleType: {
-        toSave: (n) => n - 1,
-        fromSave: (n) => n + 1,
+        toSave: (n) => globalKeys.NippleType.indexOf(n) - 1,
+        fromSave: (n) => globalKeys.NippleType[n + 1],
         list: globalKeys.NippleType
     },
     // None = -1
     HairType: {
-        toSave: (n) => n - 1,
-        fromSave: (n) => n + 1,
+        toSave: (n) => globalKeys.HairType.indexOf(n) - 1,
+        fromSave: (n) => globalKeys.HairType[n + 1],
         list: globalKeys.HairType
     },
     Weapons: { list: globalKeys.Weapons },
@@ -108,7 +128,11 @@ export const globals: Record<keyof typeof globalKeys, GlobalOptions> = {
     Boon: { list: globalKeys.Boon },
     StatusEffect: { list: globalKeys.StatusEffect },
     CombatEffect: { list: globalKeys.CombatEffect },
-    Powers: { list: globalKeys.Powers },
+    Powers: {
+        toSave: (v) => ({ key: v }),
+        fromSave: (v) => v ? v.key : undefined,
+        list: globalKeys.Powers
+    },
     Perks: { list: globalKeys.Perks },
     Items: {
         list: globalKeys.Weapons.concat(
