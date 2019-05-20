@@ -3,7 +3,7 @@ import { loadCharTab } from "./CharTab";
 import { loadSaveLoadBar } from "./SaveLoadBar";
 import { TabMenu } from "./Display/TabMenu";
 import { loadFlagTab } from "./FlagsTab";
-import { loadRawTab } from "./RawTab";
+// import { loadRawTab } from "./RawTab";
 
 export function loadEditor(element: HTMLElement, state: State) {
     while (element.lastChild)
@@ -28,12 +28,12 @@ export function loadEditor(element: HTMLElement, state: State) {
             loadFlagTab(content, state.editObj);
     });
 
-    mainScreen.createTab('Raw', (content) => {
-        if (!state.editObj)
-            alert("No Save File loaded");
-        else
-            loadRawTab(content, state.editObj);
-    });
+    // mainScreen.createTab('Raw', (content) => {
+    //     if (!state.editObj)
+    //         alert("No Save File loaded");
+    //     else
+    //         loadRawTab(content, state.editObj);
+    // });
 
     loadSaveLoadBar(element, state, charTab.button);
 
