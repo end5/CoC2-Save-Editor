@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    const charDefaults = {
+    var charDefaults = {
         pc: { name: "Unnamed", cName: "", soloCombatPrefix: "", taxa: 1, class: 0, background: 0, isPlural: false, partyLeader: true, level: 1, exp: 0, canGainExp: false, compTags: [], actionPoints: 1, hitPoints: 100, hitPointsMaxMod: 0, resolvePoints: 100, resolveMaxMod: 0, threatMod: 10, strengthAlloc: 0, strengthMod: 0, toughnessAlloc: 0, toughnessMod: 0, agilityAlloc: 0, agilityMod: 0, cunningAlloc: 0, cunningMod: 0, willpowerAlloc: 0, willpowerMod: 0, presenceAlloc: 0, presenceMod: 0, libidoMod: 0, corruptionMod: 0, isLustImmune: false, penetratingResist: 0, crushingResist: 0, holyResist: 0, blightResist: 0, acidResist: 0, fireResist: 0, frostResist: 0, stormResist: 0, teaseResist: 0, drugResist: 0, pheromoneResist: 0, fatigueResist: 0, mindResist: 0, perks: [], powers: [], equippedPowers: [null, null, null, null, null], stance: null, multiTurnAttack: null, combatEffects: [], statusEffects: [], likes: [], dislikes: [], boon: null, credits: 0, weaponPrimary: { key: "RustyKnife", args: [1] }, weaponSecondary: null, head: null, neck: null, shoulders: null, armorSet: { key: "ComfortableClothes", args: [1] }, hands: null, waist: null, feet: { key: "LeatherBoots", args: [1] }, ring1: null, ring2: null, topGarment: null, bottomGarment: { key: "PlainUnderwear", args: [1] }, inventory: [], keyItems: [], set: null, originalRace: "human", femininity: 50, tallness: 66, tone: 50, thickness: 50, hipRatingRaw: 0, hipRatingMod: 0, buttRatingRaw: 0, buttRatingMod: 0, bellyRatingRaw: 0, bellyRatingMod: 0, lipMod: 0, hairColor: "brown", skinColor: "pale", furColor: "brown", scaleColor: "", lipColor: "peach", hairLength: 2, hairStyle: "", hairType: 1, hairTags: [], horns: 0, hornType: -1, hornLength: 0, wingType: -1, wingCount: 0, skinType: 6, skinTags: [], tailType: -1, numTails: 0, tailTags: [], armType: 1, armTags: [], legCount: 2, legType: 1, legTags: [], tongueType: 1, tongueTags: [], faceType: 1, faceTags: [], earType: 1, earTags: [], earLength: 0, eyeType: 1, eyeTags: [], eyeColor: "brown", orgasms: 0, lastOrgasm: 0, lastMilked: 0, exhibRaw: 0, isVirgin: true, vaginalVirgin: true, cockVirgin: true, analVirgin: true, pregnancySpeedRaw: 1, pregnancySpeedMod: 0, breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }], nippleColor: "pink", nipplesPerBreast: 1, nippleSizeRatio: 1, nippleType: 7, breastTags: [], milkType: 4, milkMultiplierRaw: 0, milkStorageMultiplierRaw: 1, milkFullnessRaw: 0, milkRateRaw: 10, _balls: 0, ballTags: [], ballEfficiency: 1, ballSizeRaw: 3, ballSizeMod: 0, ballFullness: 100, cocks: [], feracityRaw: 1, feracityMod: 0, fertilityMod: 0, virilityMod: 0, vagina: null, clitLength: 0.5, girlCumType: 1, cumType: 2, cumMultiplierRaw: 1, cumMultiplierMod: 0, ass: { type: 1, hymen: false, clits: 0, wetnessRaw: 0, wetnessMod: 0, loosenessRaw: 1, loosenessMod: 0, bonusCapacity: 0, stretchCounter: 0, tags: [], _color: "" }, reagents: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0 }, defaultCockIdx: 0, lastRingSlotEquipped: 2, lastRechargeEquipped: 2, title: "Adventurer", wyldMark: -1, drinks: [], customImage: null, pendingLoot: [], sensed: [], storage: [] },
         cait: { name: "Cait", cName: "", soloCombatPrefix: "", taxa: 1, class: 3, background: 10, genderPref: 1, isPlural: false, partyLeader: false, level: 1, exp: 0, canGainExp: true, compTags: [4, 1], actionPoints: 1, hitPoints: 105, hitPointsMaxMod: 0, resolvePoints: 100, resolveMaxMod: 0, threatMod: 10, strengthAlloc: 0, strengthMod: 0, toughnessAlloc: 0, toughnessMod: 1, agilityAlloc: 0, agilityMod: 1, cunningAlloc: 0, cunningMod: 0, willpowerAlloc: 0, willpowerMod: 2, presenceAlloc: 0, presenceMod: 0, libidoMod: 15, corruptionMod: 0, isLustImmune: false, penetratingResist: 0, crushingResist: 0, holyResist: 0, blightResist: 0, acidResist: 0, fireResist: 0, frostResist: 0, stormResist: 0, teaseResist: 0, drugResist: 0, pheromoneResist: 0, fatigueResist: 0, mindResist: 0, perks: [{ key: "StartingAttributeBonuses", values: [0, 0, 1, 0, 1, 1] }, { key: "HealersHands", values: [] }], powers: [{ key: "NormalAttack" }, { key: "SpiritVeil" }, { key: "Heal" }, { key: "WhiteFire" }], equippedPowers: [{ key: "Heal" }, { key: "WhiteFire" }, null, { key: "SpiritVeil" }, null], stance: null, multiTurnAttack: null, combatEffects: [], statusEffects: [], likes: [-14, -16, -17, -9], dislikes: [-4, -8], boon: null, credits: 0, weaponPrimary: { key: "CaitsStaff", args: [1] }, weaponSecondary: null, head: null, neck: null, shoulders: { key: "PriestessCloak", args: [1] }, armorSet: { key: "PassionPriestessGarb", args: [1] }, hands: { key: "SilverBracelets", args: [1] }, waist: { key: "PotionBelt", args: [1] }, feet: { key: "CaitsKneeBoots", args: [1] }, ring1: null, ring2: null, topGarment: null, bottomGarment: null, inventory: [], keyItems: [], set: { key: "PassionSet", args: [1] }, originalRace: "catfolk", _race: { key: "Catfolk" }, femininity: 85, tallness: 66, tone: 40, thickness: 30, hipRatingRaw: 12, hipRatingMod: 0, buttRatingRaw: 12, buttRatingMod: 0, bellyRatingRaw: 7, bellyRatingMod: 0, lipMod: 0, hairColor: "pink", skinColor: "fair", furColor: "brown", scaleColor: "", lipColor: "peach", hairLength: 2, hairStyle: "", hairType: 1, hairTags: [], horns: 0, hornType: -1, hornLength: 0, wingType: -1, wingCount: 0, skinType: 6, skinTags: [], tailType: 4, numTails: 1, tailTags: [], armType: 1, armTags: [], legCount: 2, legType: 1, legTags: [], tongueType: 1, tongueTags: [], faceType: 1, faceTags: [], earType: 1, earTags: [], earLength: 0, eyeType: 1, eyeTags: [], eyeColor: "blue", orgasms: 0, lastOrgasm: 0, lastMilked: 0, exhibRaw: 0, isVirgin: false, vaginalVirgin: false, cockVirgin: true, analVirgin: true, pregnancySpeedRaw: 1, pregnancySpeedMod: 0, breastRows: [{ breasts: 2, sizeRaw: 6, sizeMod: 0 }], nippleColor: "pink", nipplesPerBreast: 1, nippleSizeRatio: 1, nippleType: 7, breastTags: [], milkType: 4, milkMultiplierRaw: 0, milkStorageMultiplierRaw: 1, milkFullnessRaw: 0, milkRateRaw: 10, _balls: 0, ballTags: [], ballEfficiency: 1, ballSizeRaw: 3, ballSizeMod: 0, ballFullness: 100, cocks: [], feracityRaw: 1, feracityMod: 0, fertilityMod: 0, virilityMod: 0, vagina: { type: 1, hymen: false, clits: 1, wetnessRaw: 1, wetnessMod: 0, loosenessRaw: 1.5, loosenessMod: 0, bonusCapacity: 0, stretchCounter: 0, tags: [], _color: "" }, clitLength: 0.5, girlCumType: 1, cumType: 2, cumMultiplierRaw: 1, cumMultiplierMod: 0, ass: { type: 1, hymen: false, clits: 0, wetnessRaw: 0, wetnessMod: 0, loosenessRaw: 1, loosenessMod: 0, bonusCapacity: 0, stretchCounter: 0, tags: [], _color: "" }, reagents: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0 }, defaultCockIdx: 0, lastRingSlotEquipped: 2, lastRechargeEquipped: 1 },
         berwyn: { name: "Berwyn", cName: "", soloCombatPrefix: "", taxa: 1, class: 4, background: 6, genderPref: 0, isPlural: false, partyLeader: false, level: 3, exp: 0, canGainExp: true, compTags: [4], actionPoints: 1, hitPoints: 170, hitPointsMaxMod: 0, resolvePoints: 100, resolveMaxMod: 0, threatMod: 10, strengthAlloc: 0, strengthMod: 0, toughnessAlloc: 0, toughnessMod: 2, agilityAlloc: 0, agilityMod: 1, cunningAlloc: 2, cunningMod: 0, willpowerAlloc: 2, willpowerMod: 1, presenceAlloc: 2, presenceMod: 0, libidoMod: 0, corruptionMod: 0, isLustImmune: false, penetratingResist: 0, crushingResist: 0, holyResist: 0, blightResist: 0, acidResist: 0, fireResist: 0, frostResist: 0, stormResist: 0, teaseResist: 0, drugResist: 0, pheromoneResist: 0, fatigueResist: 0, mindResist: 0, perks: [{ key: "StartingAttributeBonuses", values: [0, 0, 0, 1, 1, 1] }, { key: "ArcaneAttunement", values: [] }, { key: "JourneymanSummoner", values: [] }], powers: [{ key: "NormalAttack" }, { key: "FireBolt" }, { key: "CharmSpell" }, { key: "GroupHeal" }, { key: "SummonStoneElemental" }], equippedPowers: [{ key: "FireBolt" }, { key: "CharmSpell" }, { key: "GroupHeal" }, { key: "SummonStoneElemental" }, null], stance: null, multiTurnAttack: null, combatEffects: [], statusEffects: [], likes: [-14, -10, -17, -9], dislikes: [-4, -8], boon: null, credits: 0, weaponPrimary: { key: "BirchStaff", args: [1] }, weaponSecondary: null, head: null, neck: null, shoulders: null, armorSet: { key: "SummonersRobes", args: [1] }, hands: null, waist: null, feet: null, ring1: null, ring2: null, topGarment: null, bottomGarment: null, inventory: [], keyItems: [], set: { key: "SummonerSet", args: [1] }, originalRace: "half-lupine", femininity: 70, tallness: 66, tone: 30, thickness: 5, hipRatingRaw: 10, hipRatingMod: 0, buttRatingRaw: 10, buttRatingMod: 0, bellyRatingRaw: 2, bellyRatingMod: 0, lipMod: 0, hairColor: "white", skinColor: "brown", furColor: "brown", scaleColor: "", lipColor: "peach", hairLength: 2, hairStyle: "", hairType: 1, hairTags: [], horns: 0, hornType: -1, hornLength: 0, wingType: -1, wingCount: 0, skinType: 6, skinTags: [], tailType: -1, numTails: 0, tailTags: [], armType: 1, armTags: [], legCount: 2, legType: 1, legTags: [], tongueType: 1, tongueTags: [], faceType: 1, faceTags: [], earType: 1, earTags: [], earLength: 0, eyeType: 1, eyeTags: [], eyeColor: "blue", orgasms: 0, lastOrgasm: 0, lastMilked: 0, exhibRaw: 0, isVirgin: false, vaginalVirgin: true, cockVirgin: false, analVirgin: false, pregnancySpeedRaw: 1, pregnancySpeedMod: 0, breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }], nippleColor: "pink", nipplesPerBreast: 1, nippleSizeRatio: 1, nippleType: 7, breastTags: [], milkType: 4, milkMultiplierRaw: 0, milkStorageMultiplierRaw: 1, milkFullnessRaw: 0, milkRateRaw: 10, _balls: 2, ballTags: [], ballEfficiency: 1, ballSizeRaw: 10, ballSizeMod: 0, ballFullness: 100, cocks: [{ type: 0, virgin: true, tags: [], lengthRaw: 20, lengthMod: 0, thicknessRatioRaw: 1, thicknessRatioMod: 0, flaccidRatio: 0.4, _knotRatio: 1.5, pierced: 0, _color: "" }], feracityRaw: 1, feracityMod: 0, fertilityMod: 0, virilityMod: 0, vagina: null, clitLength: 0.5, girlCumType: 1, cumType: 2, cumMultiplierRaw: 2, cumMultiplierMod: 0, ass: { type: 1, hymen: false, clits: 0, wetnessRaw: 0, wetnessMod: 0, loosenessRaw: 1, loosenessMod: 0, bonusCapacity: 0, stretchCounter: 0, tags: [], _color: "" }, reagents: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0 }, defaultCockIdx: 0, lastRingSlotEquipped: 2, lastRechargeEquipped: 2 },
@@ -15,7 +15,7 @@
         garret: { name: "Garret", cName: "", soloCombatPrefix: "", taxa: 1, class: 1, background: 5, genderPref: 0, isPlural: false, partyLeader: false, level: 3, exp: 0, canGainExp: false, compTags: [], actionPoints: 1, hitPoints: 195, hitPointsMaxMod: 0, resolvePoints: 100, resolveMaxMod: 0, threatMod: 10, strengthAlloc: 2, strengthMod: 0, toughnessAlloc: 2, toughnessMod: 1, agilityAlloc: 0, agilityMod: 0, cunningAlloc: 1, cunningMod: 2, willpowerAlloc: 1, willpowerMod: 1, presenceAlloc: 0, presenceMod: 0, libidoMod: 10, corruptionMod: 0, isLustImmune: false, penetratingResist: 0, crushingResist: 0, holyResist: 0, blightResist: 0, acidResist: 0, fireResist: 0, frostResist: 0, stormResist: 0, teaseResist: 0, drugResist: 0, pheromoneResist: 0, fatigueResist: 0, mindResist: 0, perks: [{ key: "StartingAttributeBonuses", values: [1, 2, 0, 0, 0, 0] }], powers: [{ key: "NormalAttack" }, { key: "GuardedStance" }, { key: "AmazonStrike" }, { key: "Cleave" }, { key: "PrimeTarget" }], equippedPowers: [null, null, null, null, null], stance: null, multiTurnAttack: null, combatEffects: [], statusEffects: [], likes: [-9, -4], dislikes: [-8, -3], boon: null, credits: 60, weaponPrimary: { key: "ShortSword", args: [1] }, weaponSecondary: null, head: null, neck: null, shoulders: null, armorSet: null, hands: null, waist: null, feet: null, ring1: null, ring2: null, topGarment: null, bottomGarment: null, inventory: [], keyItems: [], set: null, originalRace: "lupine", _race: { key: "Lupine" }, femininity: 0, tallness: 94, tone: 80, thickness: 30, hipRatingRaw: 8, hipRatingMod: 0, buttRatingRaw: 8, buttRatingMod: 0, bellyRatingRaw: 8, bellyRatingMod: 0, lipMod: 0, hairColor: "black", skinColor: "black", furColor: "black", scaleColor: "", lipColor: "black", hairLength: 2, hairStyle: "", hairType: 1, hairTags: [], horns: 0, hornType: -1, hornLength: 0, wingType: -1, wingCount: 0, skinType: 4, skinTags: [], tailType: 23, numTails: 1, tailTags: [15, 17], armType: 1, armTags: [], legCount: 2, legType: 23, legTags: [26], tongueType: 23, tongueTags: [], faceType: 23, faceTags: [24], earType: 23, earTags: [], earLength: 0, eyeType: 23, eyeTags: [], eyeColor: "brown", orgasms: 0, lastOrgasm: 0, lastMilked: 0, exhibRaw: 0, isVirgin: false, vaginalVirgin: true, cockVirgin: false, analVirgin: false, pregnancySpeedRaw: 1, pregnancySpeedMod: 0, breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }], nippleColor: "pink", nipplesPerBreast: 1, nippleSizeRatio: 1, nippleType: 7, breastTags: [], milkType: 4, milkMultiplierRaw: 0, milkStorageMultiplierRaw: 1, milkFullnessRaw: 0, milkRateRaw: 10, _balls: 0, ballTags: [], ballEfficiency: 1, ballSizeRaw: 3, ballSizeMod: 0, ballFullness: 100, cocks: [{ type: 3, virgin: true, tags: [1, 3, 38], lengthRaw: 12, lengthMod: 0, thicknessRatioRaw: 1, thicknessRatioMod: 0, flaccidRatio: 0.4, _knotRatio: 1.5, pierced: 0, _color: "red" }], feracityRaw: 1, feracityMod: 0, fertilityMod: 0, virilityMod: 0, vagina: null, clitLength: 0.5, girlCumType: 1, cumType: 2, cumMultiplierRaw: 1, cumMultiplierMod: 0, ass: { type: 1, hymen: false, clits: 0, wetnessRaw: 0, wetnessMod: 0, loosenessRaw: 1, loosenessMod: 0, bonusCapacity: 0, stretchCounter: 0, tags: [], _color: "" }, reagents: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0 }, defaultCockIdx: 0, lastRingSlotEquipped: 2, lastRechargeEquipped: 2 }
     };
 
-    const globalKeys = {
+    var globalKeys = {
         Race: ["Human", "Chimera", "Elf", "Catfolk", "Lupine", "Orc", "Minotaur", "Cowgirl", "Taeleer", "Sheepfolk", "Foxmorph", "Harpy", "Manticore", "Gnoll"],
         Taxon: ["Humanoid", "Beast", "Demon", "Plant", "Ethereal", "Undead", "Construct", "Fey"],
         Class: ["None", "Warrior", "Thief", "Wmage", "Bmage", "Charmer"],
@@ -52,70 +52,70 @@
         Perks: ["TwistTheKnife", "SharpenBlades", "Veteran", "Armorer", "HealersHands", "PrayerOfWarding", "ArcaneStrike", "ArcaneAttunement", "Stylish", "FocusingPerformance", "WarPaint", "RendingStrike", "EyeOfTheStorm", "JourneymanSummoner", "RangersQuarry", "StartingAttributeBonuses", "Leftovers", "WellHung", "Buxom", "Stretchy", "SizeMonarch", "Breeder", "Sterile", "Milky", "Libidinous", "Reserved", "MessyOrgasm", "BubbleButt", "Chastity"],
         Items: []
     };
-    const globals = {
+    var globals = {
         Race: {
-            toSave: (n) => ({ key: n }),
-            fromSave: (n) => n.key,
+            toSave: function (n) { return ({ key: n }); },
+            fromSave: function (n) { return n.key; },
             list: globalKeys.Race
         },
         Taxon: {
-            toSave: (n) => globalKeys.Taxon.indexOf(n) + 1,
-            fromSave: (n) => globalKeys.Taxon[n - 1],
+            toSave: function (n) { return globalKeys.Taxon.indexOf(n) + 1; },
+            fromSave: function (n) { return globalKeys.Taxon[n - 1]; },
             list: globalKeys.Taxon
         },
         Class: {
-            toSave: (n) => globalKeys.Class.indexOf(n),
-            fromSave: (n) => globalKeys.Class[n],
+            toSave: function (n) { return globalKeys.Class.indexOf(n); },
+            fromSave: function (n) { return globalKeys.Class[n]; },
             list: globalKeys.Class
         },
         Background: {
-            toSave: (n) => globalKeys.Background.indexOf(n),
-            fromSave: (n) => globalKeys.Background[n],
+            toSave: function (n) { return globalKeys.Background.indexOf(n); },
+            fromSave: function (n) { return globalKeys.Background[n]; },
             list: globalKeys.Background
         },
         Affinity: {
-            toSave: (n) => globalKeys.Affinity.indexOf(n),
-            fromSave: (n) => globalKeys.Affinity[n],
+            toSave: function (n) { return globalKeys.Affinity.indexOf(n); },
+            fromSave: function (n) { return globalKeys.Affinity[n]; },
             list: globalKeys.Affinity
         },
         TFType: {
-            toSave: (n) => globalKeys.TFType.indexOf(n),
-            fromSave: (n) => globalKeys.TFType[n],
+            toSave: function (n) { return globalKeys.TFType.indexOf(n); },
+            fromSave: function (n) { return globalKeys.TFType[n]; },
             list: globalKeys.TFType
         },
         // None = -1
         BodyType: {
-            toSave: (n) => globalKeys.BodyType.indexOf(n) - 1,
-            fromSave: (n) => globalKeys.BodyType[n + 1],
+            toSave: function (n) { return globalKeys.BodyType.indexOf(n) - 1; },
+            fromSave: function (n) { return globalKeys.BodyType[n + 1]; },
             list: globalKeys.BodyType
         },
         BodyTag: {
-            toSave: (n) => globalKeys.BodyTag.indexOf(n),
-            fromSave: (n) => globalKeys.BodyTag[n],
+            toSave: function (n) { return globalKeys.BodyTag.indexOf(n); },
+            fromSave: function (n) { return globalKeys.BodyTag[n]; },
             list: globalKeys.BodyTag
         },
         // None = -1
         FluidType: {
-            toSave: (n) => globalKeys.FluidType.indexOf(n) - 1,
-            fromSave: (n) => globalKeys.FluidType[n + 1],
+            toSave: function (n) { return globalKeys.FluidType.indexOf(n) - 1; },
+            fromSave: function (n) { return globalKeys.FluidType[n + 1]; },
             list: globalKeys.FluidType
         },
         // None = -1
         SkinType: {
-            toSave: (n) => globalKeys.SkinType.indexOf(n) - 1,
-            fromSave: (n) => globalKeys.SkinType[n + 1],
+            toSave: function (n) { return globalKeys.SkinType.indexOf(n) - 1; },
+            fromSave: function (n) { return globalKeys.SkinType[n + 1]; },
             list: globalKeys.SkinType
         },
         // None = -1
         NippleType: {
-            toSave: (n) => globalKeys.NippleType.indexOf(n) - 1,
-            fromSave: (n) => globalKeys.NippleType[n + 1],
+            toSave: function (n) { return globalKeys.NippleType.indexOf(n) - 1; },
+            fromSave: function (n) { return globalKeys.NippleType[n + 1]; },
             list: globalKeys.NippleType
         },
         // None = -1
         HairType: {
-            toSave: (n) => globalKeys.HairType.indexOf(n) - 1,
-            fromSave: (n) => globalKeys.HairType[n + 1],
+            toSave: function (n) { return globalKeys.HairType.indexOf(n) - 1; },
+            fromSave: function (n) { return globalKeys.HairType[n + 1]; },
             list: globalKeys.HairType
         },
         Weapons: { list: globalKeys.Weapons },
@@ -139,8 +139,8 @@
         StatusEffect: { list: globalKeys.StatusEffect },
         CombatEffect: { list: globalKeys.CombatEffect },
         Powers: {
-            toSave: (v) => ({ key: v }),
-            fromSave: (v) => v ? v.key : undefined,
+            toSave: function (v) { return ({ key: v }); },
+            fromSave: function (v) { return v ? v.key : undefined; },
             list: globalKeys.Powers
         },
         Perks: { list: globalKeys.Perks },
@@ -169,7 +169,7 @@
         boolean
         number
     */
-    const charMap = {
+    var charMap = {
         // Info
         name: { label: "Name", type: "string", groupTag: "Info" },
         title: { label: "Title", type: "string", groupTag: "Info" },
@@ -456,9 +456,9 @@
             type: "object",
             groupTag: "Inventory",
             canBeNull: false,
-            properties: (() => {
-                const obj = {};
-                for (let index = 0; index < globals.TFType.list.length; index++)
+            properties: (function () {
+                var obj = {};
+                for (var index = 0; index < globals.TFType.list.length; index++)
                     obj[index] = { label: globals.TFType.list[index], type: "number" };
                 return obj;
             })()
@@ -645,7 +645,7 @@
     }
 
     function createTextInput(initialValue, className, changeFunc) {
-        const textAreaEl = document.createElement('input');
+        var textAreaEl = document.createElement('input');
         textAreaEl.type = 'text';
         textAreaEl.className = className;
         textAreaEl.value = initialValue;
@@ -654,7 +654,7 @@
         return textAreaEl;
     }
     function createCheckBox(checked, className, changeFunc) {
-        const checkBoxEl = document.createElement('input');
+        var checkBoxEl = document.createElement('input');
         checkBoxEl.className = className;
         checkBoxEl.checked = checked;
         checkBoxEl.type = 'checkbox';
@@ -663,7 +663,7 @@
         return checkBoxEl;
     }
     function createFilterBar() {
-        const el = document.createElement('input');
+        var el = document.createElement('input');
         el.className = 'filter-bar';
         el.type = 'text';
         el.placeholder = 'Filter...';
@@ -671,27 +671,27 @@
     }
 
     function fieldTitle(key) {
-        const title = document.createElement('div');
+        var title = document.createElement('div');
         title.className = 'title';
         title.textContent = key;
         return title;
     }
     function fieldLabel(key) {
-        const entry = document.createElement('label');
+        var entry = document.createElement('label');
         entry.className = 'field dark';
-        const title = fieldTitle(key);
+        var title = fieldTitle(key);
         entry.appendChild(title);
         return entry;
     }
     function objectField(text) {
-        const button = document.createElement('button');
+        var button = document.createElement('button');
         button.className = 'collapsing-button title dark';
         button.textContent = '⬥';
         if (text)
             button.textContent += ' ' + text;
-        const content = document.createElement('div');
+        var content = document.createElement('div');
         content.className = 'field-content collapsed light';
-        button.addEventListener('click', () => {
+        button.addEventListener('click', function () {
             if (content.classList.contains('collapsed')) {
                 button.classList.replace('dark', 'light');
                 content.classList.remove('collapsed');
@@ -705,26 +705,26 @@
             if (text)
                 button.textContent += ' ' + text;
         });
-        return { button, content };
+        return { button: button, content: content };
     }
     function stringField(name, initialValue, changeFunc) {
-        const div = fieldLabel(name);
-        const input = createTextInput(initialValue, 'value', changeFunc);
+        var div = fieldLabel(name);
+        var input = createTextInput(initialValue, 'value', changeFunc);
         div.appendChild(input);
         return div;
     }
     function booleanField(name, initialValue, changeFunc) {
-        const div = fieldLabel(name);
-        const input = createCheckBox(initialValue, 'value', changeFunc);
+        var div = fieldLabel(name);
+        var input = createCheckBox(initialValue, 'value', changeFunc);
         div.appendChild(input);
         return div;
     }
     function selectField(name, initialValue, options, changeFunc) {
-        const div = fieldLabel(name);
-        const selector = document.createElement('select');
+        var div = fieldLabel(name);
+        var selector = document.createElement('select');
         selector.className = 'value';
-        options.list.forEach((value, index) => {
-            const option = document.createElement('option');
+        options.list.forEach(function (value, index) {
+            var option = document.createElement('option');
             option.value = index + '';
             option.textContent = value;
             option.selected = initialValue === value;
@@ -736,27 +736,29 @@
     }
     function multiOptionField(label, initialValues, mapValue, changeFunc) {
         // Taken directly from fieldLabel
-        const div = document.createElement('label');
+        var div = document.createElement('label');
         div.className = 'field dark';
-        const title = fieldTitle(label);
+        var title = fieldTitle(label);
         div.appendChild(title);
-        const listEl = document.createElement('ul');
+        var listEl = document.createElement('ul');
         listEl.className = 'multioption-list';
-        const options = mapValue.options.list.map((value) => ({
-            key: value,
-            selected: !!~initialValues.indexOf(value)
-        }));
+        var options = mapValue.options.list.map(function (value) {
+            return ({
+                key: value,
+                selected: !!~initialValues.indexOf(value)
+            });
+        });
         // Counter on max number of selections
         if (mapValue.max)
-            title.textContent += ' (' + options.filter((option) => option.selected).length + '/' + mapValue.max + ')';
-        for (const option of options) {
-            const listItem = document.createElement('li');
+            title.textContent += ' (' + options.filter(function (option) { return option.selected; }).length + '/' + mapValue.max + ')';
+        var _loop_1 = function (option) {
+            var listItem = document.createElement('li');
             listItem.className = 'multioption';
             listItem.textContent = option.key;
             if (option.selected)
                 listItem.className += ' selected';
-            listItem.addEventListener('click', () => {
-                let selectedList = options.filter((item) => item.selected);
+            listItem.addEventListener('click', function () {
+                var selectedList = options.filter(function (item) { return item.selected; });
                 // On
                 if (!option.selected && (!mapValue.max || (mapValue.max && selectedList.length < mapValue.max))) {
                     listItem.classList.add('selected');
@@ -768,49 +770,53 @@
                     option.selected = false;
                 }
                 // Filter again to have the correct items in a sorted order
-                selectedList = options.filter((item) => item.selected);
+                selectedList = options.filter(function (item) { return item.selected; });
                 // Redraw the counter if there is a max
                 if (mapValue.max) {
                     title.textContent = label + ' (' + selectedList.length + '/' + mapValue.max + ')';
                 }
-                changeFunc(mapValue, selectedList.map((value) => value.key));
+                changeFunc(mapValue, selectedList.map(function (value) { return value.key; }));
             });
             listEl.appendChild(listItem);
+        };
+        for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
+            var option = options_1[_i];
+            _loop_1(option);
         }
         div.appendChild(listEl);
         return div;
     }
     function setNumberCallback(obj, key, modFunc) {
-        return (element) => () => {
+        return function (element) { return function () {
             if (modFunc && !isNaN(+element.value))
                 obj[key] = modFunc(+element.value);
             else
                 obj[key] = +element.value;
-        };
+        }; };
     }
     function setStringCallback(obj, key, modFunc) {
-        return (inputElement) => () => {
+        return function (inputElement) { return function () {
             if (modFunc)
                 obj[key] = modFunc(inputElement.value);
             else
                 obj[key] = inputElement.value;
-        };
+        }; };
     }
     function setSelectorStringCallback(obj, key, modFunc) {
-        return (inputElement) => () => {
+        return function (inputElement) { return function () {
             if (modFunc)
                 obj[key] = modFunc(inputElement[+inputElement.value].textContent);
             else
                 obj[key] = inputElement[+inputElement.value].textContent;
-        };
+        }; };
     }
     function setBooleanCallback(obj, key, modFunc) {
-        return (inputElement) => () => {
+        return function (inputElement) { return function () {
             if (modFunc)
                 obj[key] = modFunc(inputElement.checked);
             else
                 obj[key] = inputElement.checked;
-        };
+        }; };
     }
 
     function hasPropLabel(prop) {
@@ -829,8 +835,8 @@
         return prop.type === 'multioption' && 'options' in prop;
     }
 
-    class TabMenu {
-        constructor(options) {
+    var TabMenu = /** @class */ (function () {
+        function TabMenu(options) {
             this.options = {
                 tabsPos: 'top',
                 inactiveStyle: 'dark',
@@ -845,7 +851,7 @@
                 if (options.activeStyle)
                     this.options.activeStyle = options.activeStyle;
             }
-            const direction = this.options.tabsPos === 'left' ? ' vertical ' : ' horizontal ';
+            var direction = this.options.tabsPos === 'left' ? ' vertical ' : ' horizontal ';
             this.parentEl = document.createElement('div');
             this.parentEl.className = 'tab-menu ' + this.options.tabsPos;
             this.tabsEl = document.createElement('ul');
@@ -857,29 +863,41 @@
             this.parentEl.appendChild(this.contentEl);
             this.contentEl.appendChild(this.redrawContentEl);
         }
-        get element() { return this.parentEl; }
-        get content() { return this.contentEl; }
-        get redrawContent() {
-            if (!this.redrawContentEl)
-                this.redrawContentEl = this.createContent();
-            return this.redrawContentEl;
-        }
+        Object.defineProperty(TabMenu.prototype, "element", {
+            get: function () { return this.parentEl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TabMenu.prototype, "content", {
+            get: function () { return this.contentEl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TabMenu.prototype, "redrawContent", {
+            get: function () {
+                if (!this.redrawContentEl)
+                    this.redrawContentEl = this.createContent();
+                return this.redrawContentEl;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * Get a tag and its content by name
          * @param name
          */
-        getTab(name) {
-            const element = this.pairs.find((el) => el.name === name);
+        TabMenu.prototype.getTab = function (name) {
+            var element = this.pairs.find(function (el) { return el.name === name; });
             if (element)
                 return { button: element.button, content: element.content };
             return;
-        }
+        };
         /**
          * Remove a tab and its contents by tab name
          * @param name
          */
-        removeTab(name) {
-            const match = this.pairs.find((pair) => pair.name === name);
+        TabMenu.prototype.removeTab = function (name) {
+            var match = this.pairs.find(function (pair) { return pair.name === name; });
             if (match) {
                 // If hidden, switch to the first tab
                 if (!match.button.classList.contains('collapsed') && this.pairs.length > 0)
@@ -890,9 +908,9 @@
                 // Don't remove the redraw content element
                 if (match.content !== this.redrawContentEl)
                     this.contentEl.removeChild(match.content);
-                this.pairs.splice(this.pairs.findIndex((pair) => pair === match), 1);
+                this.pairs.splice(this.pairs.findIndex(function (pair) { return pair === match; }), 1);
             }
-        }
+        };
         /**
          * Creates a new tab.
          * All tabs that supply a redraw function use the same content element.
@@ -900,39 +918,42 @@
          * @param name
          * @param redraw
          */
-        createTab(name, redraw) {
-            const li = document.createElement('li');
-            const content = redraw ? this.redrawContent : this.createContent();
-            const button = this.createButton(name, content, redraw);
-            this.pairs.push({ name, button, content });
+        TabMenu.prototype.createTab = function (name, redraw) {
+            var li = document.createElement('li');
+            var content = redraw ? this.redrawContent : this.createContent();
+            var button = this.createButton(name, content, redraw);
+            this.pairs.push({ name: name, button: button, content: content });
             li.appendChild(button);
             this.tabsEl.appendChild(li);
             this.contentEl.appendChild(content);
-            return { button, content };
-        }
-        createButton(text, contentEl, redraw) {
-            const button = document.createElement('button');
+            return { button: button, content: content };
+        };
+        TabMenu.prototype.createButton = function (text, contentEl, redraw) {
+            var _this = this;
+            var button = document.createElement('button');
             button.textContent = text;
             button.className = 'tab ' + this.options.inactiveStyle;
-            button.addEventListener('click', () => {
-                for (const pair of this.pairs) {
-                    pair.button.classList.replace(this.options.activeStyle, this.options.inactiveStyle);
+            button.addEventListener('click', function () {
+                for (var _i = 0, _a = _this.pairs; _i < _a.length; _i++) {
+                    var pair = _a[_i];
+                    pair.button.classList.replace(_this.options.activeStyle, _this.options.inactiveStyle);
                     if (!pair.content.classList.contains('collapsed'))
                         pair.content.classList.add('collapsed');
                 }
-                button.classList.replace(this.options.inactiveStyle, this.options.activeStyle);
+                button.classList.replace(_this.options.inactiveStyle, _this.options.activeStyle);
                 contentEl.classList.remove('collapsed');
                 if (redraw)
                     redraw(contentEl);
             });
             return button;
-        }
-        createContent() {
-            const content = document.createElement('div');
+        };
+        TabMenu.prototype.createContent = function () {
+            var content = document.createElement('div');
             content.className = 'content ' + this.options.activeStyle + ' collapsed';
             return content;
-        }
-    }
+        };
+        return TabMenu;
+    }());
 
     function loadCharTab(charContent, save) {
         while (charContent.firstChild)
@@ -940,11 +961,12 @@
         generateCharList(charContent, save.chars);
     }
     function generateCharList(el, charObj) {
-        const menu = new TabMenu({ tabsPos: 'left', inactiveStyle: 'light', activeStyle: 'dark' });
-        const charKeys = Object.keys(charObj).filter((key) => key in charDefaults);
-        let firstTab;
-        let name;
-        for (const charKey of charKeys) {
+        var menu = new TabMenu({ tabsPos: 'left', inactiveStyle: 'light', activeStyle: 'dark' });
+        var charKeys = Object.keys(charObj).filter(function (key) { return key in charDefaults; });
+        var firstTab;
+        var name;
+        for (var _i = 0, charKeys_1 = charKeys; _i < charKeys_1.length; _i++) {
+            var charKey = charKeys_1[_i];
             name = charKey;
             if (charObj[charKey].name)
                 name = charObj[charKey].name;
@@ -958,22 +980,27 @@
             firstTab.button.click();
     }
     function generateCharInfo(char) {
-        return (charsContentEl) => {
+        return function (charsContentEl) {
             while (charsContentEl.firstChild)
                 charsContentEl.removeChild(charsContentEl.firstChild);
-            const infoMenu = new TabMenu({ tabsPos: 'top', inactiveStyle: 'dark', activeStyle: 'light' });
-            const starterTags = ['Info', 'Stats', 'Effects', 'Inventory', 'Body'];
-            for (const starterTag of starterTags) {
-                infoMenu.createTab(starterTag, (charContentEl) => {
+            var infoMenu = new TabMenu({ tabsPos: 'top', inactiveStyle: 'dark', activeStyle: 'light' });
+            var starterTags = ['Info', 'Stats', 'Effects', 'Inventory', 'Body'];
+            var _loop_1 = function (starterTag) {
+                infoMenu.createTab(starterTag, function (charContentEl) {
+                    var _a;
                     while (charContentEl.firstChild)
                         charContentEl.removeChild(charContentEl.firstChild);
-                    generateMappedFields({ [starterTag]: { button: undefined, content: charContentEl } }, Object.keys(charMap).reverse()
+                    generateMappedFields((_a = {}, _a[starterTag] = { button: undefined, content: charContentEl }, _a), Object.keys(charMap).reverse()
                         // Filter out tags not in this group
-                        .filter((key) => charMap[key].groupTag && charMap[key].groupTag.startsWith(starterTag))
-                        .map((key) => generateInfo(char, key, charContentEl, charMap[key])));
+                        .filter(function (key) { return charMap[key].groupTag && charMap[key].groupTag.startsWith(starterTag); })
+                        .map(function (key) { return generateInfo(char, key, charContentEl, charMap[key]); }));
                 });
+            };
+            for (var _i = 0, starterTags_1 = starterTags; _i < starterTags_1.length; _i++) {
+                var starterTag = starterTags_1[_i];
+                _loop_1(starterTag);
             }
-            const infoButton = infoMenu.getTab('Info');
+            var infoButton = infoMenu.getTab('Info');
             if (infoButton)
                 infoButton.button.click();
             charsContentEl.appendChild(infoMenu.element);
@@ -981,29 +1008,29 @@
     }
     function generateInfo(obj, key, element, map) {
         return {
-            obj,
-            key,
-            element,
-            map,
+            obj: obj,
+            key: key,
+            element: element,
+            map: map,
         };
     }
     function generateMappedFields(tags, startInfo) {
         if (!startInfo)
             return;
-        let queue = Array.isArray(startInfo) ? startInfo : [startInfo];
+        var queue = Array.isArray(startInfo) ? startInfo : [startInfo];
         tags = tags ? tags : {};
         while (queue.length > 0) {
-            const results = processInfo(tags, queue.pop());
+            var results = processInfo(tags, queue.pop());
             if (results)
                 queue = queue.concat(results);
         }
     }
     function processInfo(tags, info) {
-        const obj = info.obj;
-        const key = info.key;
-        let mapEntry = info.map[key];
-        let parentElement = info.element;
-        let label = key;
+        var obj = info.obj;
+        var key = info.key;
+        var mapEntry = info.map[key];
+        var parentElement = info.element;
+        var label = key;
         if (!mapEntry) {
             mapEntry = info.map;
         }
@@ -1013,11 +1040,11 @@
         if (!obj[key] && (!isObjectProp(mapEntry) || (isObjectProp(mapEntry) && !mapEntry.canBeNull)))
             obj[key] = generateValue(mapEntry, obj[key]);
         if (hasPropLabel(mapEntry) && mapEntry.groupTag) {
-            mapEntry.groupTag.split(".").reduce((parentTag, curTag) => {
+            mapEntry.groupTag.split(".").reduce(function (parentTag, curTag) {
                 if (!parentTag[curTag])
                     parentTag[curTag] = { button: undefined, content: undefined };
                 if (!parentTag[curTag].content) {
-                    const objField = objectField(curTag);
+                    var objField = objectField(curTag);
                     parentElement.appendChild(objField.button);
                     parentElement.appendChild(objField.content);
                     parentTag[curTag] = objField;
@@ -1027,25 +1054,25 @@
             }, tags);
         }
         if (isMultiOptionProp(mapEntry)) {
-            parentElement.appendChild(multiOptionField(label, generateValue(mapEntry, obj[key]), mapEntry, (multiMapEntry, selValues) => {
+            parentElement.appendChild(multiOptionField(label, generateValue(mapEntry, obj[key]), mapEntry, function (multiMapEntry, selValues) {
                 if (multiMapEntry.options.toSave)
-                    obj[key] = selValues.map((value) => multiMapEntry.options.toSave(value));
+                    obj[key] = selValues.map(function (value) { return multiMapEntry.options.toSave(value); });
                 else
                     obj[key] = selValues;
             }));
         }
         else if (mapEntry.type === "object") {
-            const objField = objectField(label);
+            var objField_1 = objectField(label);
             if (mapEntry.canBeNull) {
-                generateAddRemoveButtons(objField.content, objectAddCallback(tags, objField.content, obj, key, mapEntry), objectRemoveCallback(objField.content, obj, key));
+                generateAddRemoveButtons(objField_1.content, objectAddCallback(tags, objField_1.content, obj, key, mapEntry), objectRemoveCallback(objField_1.content, obj, key));
             }
-            parentElement.appendChild(objField.button);
-            parentElement.appendChild(objField.content);
+            parentElement.appendChild(objField_1.button);
+            parentElement.appendChild(objField_1.content);
             if (obj[key])
-                return Object.keys(obj[key]).reverse().map((objKey) => generateInfo(obj[key], objKey, objField.content, mapEntry.properties));
+                return Object.keys(obj[key]).reverse().map(function (objKey) { return generateInfo(obj[key], objKey, objField_1.content, mapEntry.properties); });
         }
         else if (isArrayProp(mapEntry)) {
-            const objField = objectField(label);
+            var objField_2 = objectField(label);
             if (mapEntry.min)
                 while (obj[key].length < mapEntry.min) {
                     if (mapEntry.override && obj[key].length in mapEntry.override)
@@ -1054,18 +1081,18 @@
                         obj[key].push(generateValue(mapEntry.entry, obj[key]));
                 }
             if (!(mapEntry.min && mapEntry.max && mapEntry.min === mapEntry.max)) {
-                generateAddRemoveButtons(objField.content, arrayAddCallback(tags, objField.content, obj, key, mapEntry), arrayRemoveCallback(objField.content, obj, key, mapEntry));
+                generateAddRemoveButtons(objField_2.content, arrayAddCallback(tags, objField_2.content, obj, key, mapEntry), arrayRemoveCallback(objField_2.content, obj, key, mapEntry));
             }
-            parentElement.appendChild(objField.button);
-            parentElement.appendChild(objField.content);
+            parentElement.appendChild(objField_2.button);
+            parentElement.appendChild(objField_2.content);
             if (obj[key])
-                return Object.keys(obj[key]).reverse().map((objKey) => {
+                return Object.keys(obj[key]).reverse().map(function (objKey) {
                     if (!isArrayProp(mapEntry))
                         throw new Error('Changed from Array type');
                     if (mapEntry.override && objKey in mapEntry.override)
-                        return generateInfo(obj[key], objKey, objField.content, mapEntry.override);
+                        return generateInfo(obj[key], objKey, objField_2.content, mapEntry.override);
                     else
-                        return generateInfo(obj[key], objKey, objField.content, mapEntry.entry);
+                        return generateInfo(obj[key], objKey, objField_2.content, mapEntry.entry);
                 });
         }
         if (isValueProp(mapEntry)) {
@@ -1091,7 +1118,7 @@
         if (isObjectProp(map)) {
             if (typeof value !== "object" || value == null)
                 value = {};
-            return Object.keys(map.properties).reduce((obj, key) => {
+            return Object.keys(map.properties).reduce(function (obj, key) {
                 obj[key] = generateValue(map.properties[key], value[key]);
                 return obj;
             }, {});
@@ -1099,13 +1126,13 @@
         else if (isArrayProp(map)) {
             if (!Array.isArray(value))
                 value = [];
-            return value.map((entry) => generateValue(map.entry, entry));
+            return value.map(function (entry) { return generateValue(map.entry, entry); });
         }
         else if (isMultiOptionProp(map)) {
             if (!Array.isArray(value))
                 value = [];
             if (map.options && map.options.fromSave)
-                value = value.map((v) => map.options.fromSave(v));
+                value = value.map(function (v) { return map.options.fromSave(v); });
             return value;
         }
         if (!value)
@@ -1127,16 +1154,18 @@
         return value;
     }
     function objectAddCallback(tags, parent, obj, key, map) {
-        return () => {
+        return function () {
             if (obj[key] == null) {
                 // Add value here to force display
                 obj[key] = generateValue(map, obj[key]);
-                generateMappedFields(tags, Object.keys(map.properties).reverse().map((mapKey) => generateInfo(obj[key], mapKey, parent, map.properties)));
+                generateMappedFields(tags, Object.keys(map.properties).reverse().map(function (mapKey) {
+                    return generateInfo(obj[key], mapKey, parent, map.properties);
+                }));
             }
         };
     }
     function objectRemoveCallback(parent, obj, key) {
-        return () => {
+        return function () {
             if (obj[key]) {
                 while (parent.lastChild && parent.lastChild !== parent.firstChild) {
                     parent.removeChild(parent.lastChild);
@@ -1146,9 +1175,9 @@
         };
     }
     function arrayAddCallback(tags, parent, obj, key, map) {
-        return () => {
+        return function () {
             if (!map.max || (map.max && obj[key].length < map.max)) {
-                const objKey = (typeof obj[key] === 'object' ? Object.keys(obj[key]).length : obj[key].length) + '';
+                var objKey = (typeof obj[key] === 'object' ? Object.keys(obj[key]).length : obj[key].length) + '';
                 if (map.override && objKey in map.override)
                     generateMappedFields(tags, processInfo(tags, generateInfo(obj[key], objKey, parent, map.override)));
                 else
@@ -1157,7 +1186,7 @@
         };
     }
     function arrayRemoveCallback(parent, obj, key, map) {
-        return () => {
+        return function () {
             if (obj[key]) {
                 if (obj[key].length > (map.min ? map.min : 0) && parent.lastChild) {
                     parent.removeChild(parent.lastChild);
@@ -1168,13 +1197,13 @@
         };
     }
     function generateAddRemoveButtons(panel, addCallback, removeCallback) {
-        const addRemoveButtons = document.createElement('div');
+        var addRemoveButtons = document.createElement('div');
         addRemoveButtons.className = 'add-remove-buttons';
-        const add = document.createElement('button');
+        var add = document.createElement('button');
         add.textContent = '+';
         add.className = 'button-pair dark';
         add.addEventListener('click', addCallback);
-        const remove = document.createElement('button');
+        var remove = document.createElement('button');
         remove.textContent = '–';
         remove.className = 'button-pair dark';
         remove.addEventListener('click', removeCallback);
@@ -1351,16 +1380,16 @@
     }
 
     function loadSaveLoadBar(content, state, button) {
-        const background = document.createElement('div');
+        var background = document.createElement('div');
         background.className = 'content light';
         background.id = 'save-load-bar';
-        const loadButton = document.createElement('button');
+        var loadButton = document.createElement('button');
         loadButton.textContent = 'Load';
         loadButton.className = 'tab dark';
-        const saveButton = document.createElement('button');
+        var saveButton = document.createElement('button');
         saveButton.textContent = 'Save';
         saveButton.className = 'tab dark';
-        const saveInput = document.createElement('input');
+        var saveInput = document.createElement('input');
         saveInput.type = 'text';
         if (state.file && state.file.name)
             saveInput.placeholder = state.file.name;
@@ -1370,31 +1399,31 @@
         background.appendChild(saveButton);
         background.appendChild(saveInput);
         content.appendChild(background);
-        saveButton.addEventListener('click', () => {
+        saveButton.addEventListener('click', function () {
             if (state.fileReader && state.file) {
-                let filename = saveInput.value !== saveInput.placeholder ? saveInput.value : saveInput.placeholder;
+                var filename = saveInput.value !== saveInput.placeholder ? saveInput.value : saveInput.placeholder;
                 if (!filename.endsWith('.coc2'))
                     filename += '.coc2';
-                const blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
+                var blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
                 saveAs(blob, filename);
             }
             else {
                 alert("No Save File loaded");
             }
         });
-        loadButton.addEventListener('click', () => {
-            const input = document.createElement('input');
+        loadButton.addEventListener('click', function () {
+            var input = document.createElement('input');
             input.id = 'load';
             input.type = 'file';
             input.accept = '.coc2';
             input.style.display = 'none';
-            input.addEventListener("change", () => {
+            input.addEventListener("change", function () {
                 if (!input.files || input.files.length === 0) {
                     alert("Error in file loading");
                 }
                 else {
                     saveInput.placeholder = input.files[0].name;
-                    handleFiles(input.files[0], state, (filename) => {
+                    handleFiles(input.files[0], state, function (filename) {
                         saveInput.placeholder = filename;
                         saveInput.value = filename;
                         saveInput.disabled = false;
@@ -1409,8 +1438,8 @@
         state.file = file;
         state.fileReader = new FileReader();
         state.fileReader.readAsText(state.file);
-        state.fileReader.addEventListener("loadend", (ev) => {
-            let obj;
+        state.fileReader.addEventListener("loadend", function (ev) {
+            var obj;
             try {
                 if (!state.fileReader)
                     throw new Error('FileReader disappeared');
@@ -1428,7 +1457,7 @@
                 onSuccess(file.name);
             }
         });
-        state.fileReader.addEventListener("error", (evnt) => {
+        state.fileReader.addEventListener("error", function (evnt) {
             console.log(evnt);
             alert("Error reading file");
         });
@@ -1437,13 +1466,13 @@
         state.fileObj = obj;
         state.editObj = JSON.parse(JSON.stringify(obj));
         // load char defaults
-        Object.keys(charDefaults).forEach((key) => {
+        Object.keys(charDefaults).forEach(function (key) {
             state.editObj.chars[key] = Object.assign(JSON.parse(JSON.stringify(charDefaults[key])), state.editObj.chars[key]);
         });
     }
     function saveObj(state) {
-        const saveCopy = JSON.parse(JSON.stringify(state.fileObj));
-        saveCopy.chars = Object.keys(charDefaults).reduce((obj, key) => {
+        var saveCopy = JSON.parse(JSON.stringify(state.fileObj));
+        saveCopy.chars = Object.keys(charDefaults).reduce(function (obj, key) {
             obj[key] = diffChar(charDefaults[key], state.editObj.chars[key]);
             return obj;
         }, {});
@@ -1451,31 +1480,32 @@
     }
     function diffChar(orig, edit) {
         return Object.keys(orig)
-            .filter((key) => JSON.stringify(orig[key]) !== JSON.stringify(edit[key]))
-            .reduce((copyObj, key) => {
+            .filter(function (key) { return JSON.stringify(orig[key]) !== JSON.stringify(edit[key]); })
+            .reduce(function (copyObj, key) {
             copyObj[key] = edit[key];
             return copyObj;
         }, {});
     }
 
-    const Flags = ["AHMRI_BLOWJOB", "AHMRI_CUDDLEBATED", "AHMRI_ENCOUNTERED", "AHMRI_FUCKED", "AHMRI_MUNCHED", "AHMRI_SAVED", "AHMRI_SEX_WAIT", "AHMRI_TALK_CAMP", "AHMRI_TEASED", "AHMRI_TITFUCKED", "ALRAUNE_DEFEATED", "ALRAUNE_DOM", "ALRAUNE_KILLED", "ALRAUNE_PC_PREG_FERTILIZED", "ALRAUNE_PC_PREG_NUM_KIDS", "ALRAUNE_SEEDED", "ALRAUNE_SEED_TS", "ANAL_PROBING", "ARONA_ENCOUNTERED", "ARONA_FUCKED", "ARONA_INTERROGATED", "ARONA_MET", "ARONA_PCWINS", "ARONA_RECRUITED", "ARONA_SLEEPING_WITH_PLACEHOLDER", "ARONA_SUBMISSION", "ARONA_WINS", "ARONA_WON_LAST", "ATUGIA_ALEWDIA", "ATUGIA_RECRUITED", "ATUGIA_TALKED_RUNES", "BEAT_TOLLUS", "BERWYN_CAIT_TALK_HAD", "BERWYN_DEFEATED", "BERWYN_FUCKED", "BERWYN_FUCKED_ANAL", "BERWYN_MET", "BERWYN_NICE", "BERWYN_QUEST_COMPLETE", "BERWYN_QUEST_DECLINED", "BERWYN_RECRUITED", "BERWYN_SPANKED", "BERWYN_TOWER_COMMON_VISITED", "BERWYN_TOWER_FOUND_LAB", "BERWYN_TOWER_INFUSION_DONE", "BERWYN_UNREC_BAR", "BRINT_ALL_NIGHT", "BRINT_ANAL", "BRINT_APP_BIMBO", "BRINT_CONTRA", "BRINT_ETHERYN_3SUM", "BRINT_FUCKED", "BRINT_FUCKED_ARONA", "BRINT_GREAT", "BRINT_IS_BRIENNE", "BRINT_MET", "BRINT_ORAL", "BRINT_RECRUITED", "BRINT_RIMMED", "BRINT_ROUGH", "BRINT_TALKED_FATHER", "BRINT_TALKED_LEAVE", "BRINT_TALKED_SEX", "BRINT_TALKED_VILLAGE", "BRINT_TOPPED", "BRINT_UNDERTABLE", "BRINT_VAG", "CAIT_ARONA_3SUM", "CAIT_BERWYN_3SUM", "CAIT_BREASTPLAY", "CAIT_BRINT_3SUM", "CAIT_DAD_FOUND", "CAIT_FUCKED", "CAIT_LOADED", "CAIT_MET_FROSTHOUND", "CAIT_MILK_SCORE", "CAIT_MINO_MILKED", "CAIT_RECRUITED", "CAIT_SCRITCHED", "CAIT_SEXABLE", "CAIT_TALKED", "CAIT_TALKED_FAITH", "CAIT_TALKED_FAM", "CAIT_TALKED_FM", "CENTAUR_CHIEF_DEFEATED", "CENTAUR_MARAUDERS_ASSFUCKED_LEADER", "CENTAUR_MARAUDERS_COCK_STAGE", "CENTAUR_MARAUDERS_ENCOUNTERED", "CENTAUR_MARAUDERS_KILLED", "CENTAUR_MARAUDERS_RIDDEN_LEADER", "CENTAUR_MARAUDERS_TIMES_LOSSES", "CENTAUR_MARAUDERS_TIMES_LOSSES_CONSEC", "CENTAUR_MARAUDERS_VAG_STAGE", "CENTAUR_MARAUDER_BLOWN", "CUMPCAKES_USED", "DOG_DAYS_AFTERMATH_FH_PROCS", "DOG_DAYS_FINISH_DAY", "DOG_DAYS_GARRET_CAGE", "DOG_DAYS_GARRET_ELF", "DOG_DAYS_GARRET_GARRET", "DOG_DAYS_GARRET_RESCUED", "DOG_DAYS_GARRET_TALKED", "DOG_DAYS_GARRET_WORKERS", "DOG_DAYS_GARTH_GARRET", "DOG_DAYS_GARTH_GARRET_2", "DOG_DAYS_GARTH_LOCATION", "DOG_DAYS_GARTH_TROUBLES", "DOG_DAYS_LONGHOUSE_APPROACHED", "DOG_DAYS_PEACEFUL_RESOLUTION", "DOG_DAYS_SANDERS_AFTERMATH", "EFFIGIES_MET", "EFFIGIES_TALK", "ELF_TROUPE_MET", "ERYKA_GREETED", "ERYKA_HELPED", "ERYKA_MET", "ERYKA_WON_LAST", "ETHERYN_APPROACHED", "ETHERYN_AT_CASTLE", "ETHERYN_CONFESSED", "ETHERYN_CONFIDENCE", "ETHERYN_FUCKED", "ETHERYN_MET", "ETHERYN_RECRUITED", "ETHERYN_TALK_BIRD", "ETHERYN_TALK_HER", "ETHERYN_TALK_HER_CONF", "EVELYN_INTRO_FUCKED", "EVELYN_INTRO_LEFT", "EVERGREEN_MET", "FLUFFSNEK_ENCOUNTERED", "FLUFFSNEK_INVESTIGATED", "FOREST_KITSUNE_OPINION", "FOREST_X34_EN", "FOUND_ORC_CAMP", "FOUNTAIN_GODDESS_DIPPED", "FOUNTAIN_GODDESS_ENCOUNTERED", "FOUNTAIN_GODDESS_LAST_USE", "GARRET_FROSTHOUND_APPROACHED", "GARRET_FROSTHOUND_FRIENDS_TALK", "GARRET_FUCKED", "GARRET_PC_IS_BITCH", "GARRET_PREG_REVEAL", "GARRET_REJECTED_PLAYER", "GARTH_STORAGE_UPGRADE", "GARTH_TALK_ADV", "GARTH_TRAIN", "GATEGUARD_ASKED_ENTRANCE", "GATEGUARD_ENCOUNTERED", "GIRTH_EQUIPPED", "GNOLL_RAIDERS_ENCOUNTERED", "GWYN_FUCKED", "GWYN_PREG_NUM_KIDS", "HARPIES_MET", "HORNETS_MET", "HRETHA_MET", "HWEEN_WITCH_TOUCH", "IVRIS_ALCHEMY", "IVRIS_MET", "IVRIS_TRAIN", "JEN_FOUGHT", "JEN_FUCKED", "JEN_FUCKED_LAST", "JEN_MET", "JEN_MET_LEOFRIC", "JEN_OGRISH_TS", "JEN_PCWINS", "JEN_RAN", "JEN_TALKED_BELT", "JEN_TALKED_FEELINGS", "JEN_TALKED_LEOFRIC", "KASYRRA_DREAM1", "KASYRRA_FW_FUCKED", "KASYRRA_IMP_LOSS", "KASYRRA_PC_PREG_NUM_BIRTHS", "KASYRRA_PREG_TIMER", "KINU_ADULT_PERSONALITY", "KINU_BEAUTY_ADVICE", "KINU_BIG_SISTER", "KINU_BIRDS", "KINU_CHILD_PERSONALITY", "KINU_CONT_HAPPY", "KINU_DECORATION", "KINU_EDU_HELP", "KINU_EVENT_DONE", "KINU_FLOOF_PROBLEMS", "KINU_FLOWERS", "KINU_FOOD_THIEF", "KINU_GIFTED", "KINU_IM_PRETTY", "KINU_LADYS_ARMS", "KINU_MATH", "KINU_MET", "KINU_MUSHROOMS", "KINU_MUSIC_PERF", "KINU_NIGHT_DONE", "KINU_PRODIGY", "KINU_ROMANCE_MATTERS", "KINU_SCARF", "KINU_SWEET_POTATO", "KINU_TO_GOOD_HP", "KINU_WEAPON", "KIYOKO_AMULET", "KIYOKO_DIV_TS", "KIYOKO_ENCOUNTER", "KIYOKO_FUCKED", "KIYOKO_MEAL_TS", "KIYOKO_NEWYEARS", "KIYOKO_NUM_KITS", "KIYOKO_PREG_REVEALED", "KIYOKO_PREG_STAGE", "KIYOKO_RECRUITED", "KIYOKO_TALK_FREE", "LADYS_ARMS_DAY", "LAST_STATUE_SEX", "LEORAH_CHAT_VENOM", "LEORAH_FUCKED", "LEORAH_MET", "LEORAH_PEEPED", "LEORAH_TALK_CAPARISON", "LUPSCOUTS_FUCKED_LAST", "LUPSCOUTS_MET", "LUPSCOUTS_SUBMITTED_LAST", "LUPSCOUTS_WON_LAST", "LUSINA_ANAL", "LUSINA_ENCOUNTERED", "LUSINA_FUCKED", "LUSINA_MET", "LUSINA_MILKY", "MANTICORE_ENCOUNTERED", "MEOW_INTRODUCED", "MEOW_SPRING_ORGY", "MERCS_MET", "MERC_BOOMER_FUCKED", "MERC_CAIT_TS", "MERC_DALE_FUCKED", "MERC_JAN_FUCKED", "MERC_LUSA_FUCKED", "MERC_PCWINS", "MERC_WINS", "MOTHERS_DAY", "NAV_DISABLED", "NURSERY_CONSTRUCTION_TS", "NURSERY_DONATED", "NURSERY_UPGRADES", "NURSERY_VISITED", "OGRISH_MET", "OVERWORLD_LOCATION", "OVILIXER_PC_PREG_FERTILIZED", "RIVER_CULTIST_PCWINS", "RIVER_FORDED", "SANDERS_MET", "SECOND_LAST_STATUE_SEX", "SHAR_COURAGE", "SHAR_EGG_COLOR", "SHAR_FUCKED", "SHAR_GIVE_OVI", "SHAR_GROPE", "SHAR_MET", "SHAR_PERVERSION", "SHAR_PLAY", "SHAR_PLAY_TIMES", "SHAR_SAW_BIRTH", "SHAR_STORY_ALRAUNE", "SHAR_STORY_TOLLUS", "SHRINE_LOOTED", "SHRINE_PUZZLE", "SHRINE_PUZZLE_ATTEMPTS", "SLIMES_CUMMIED", "SLIMES_ENCOUNTERED", "SLIMES_HERM_RIDE", "SLIMES_OUTCOME", "SLIMES_WINS", "SNEK_FUCKED", "STATUES_SEXED", "STATUES_VISITED", "STATUE_MFH", "SUGO_BRINT_TS", "SUGO_CAP", "SUGO_FOREST", "SUGO_FUCKED", "SUGO_HAWK_MET", "SUGO_MET", "SUGO_Q1CHOICE", "SUGO_QUEST_DELIVERY_DATE", "SUGO_RIDE", "SUGO_SUCKED_NUTS", "SUGO_TALK_CLOTHES", "SUGO_USED_STALL", "TODO_ARONA_CHIEF", "TODO_BARON_DISPOSED", "TODO_BARON_MARRIED", "TODO_BARON_QUEST", "TODO_BED_MATE", "TODO_BRINT_IS_BRIENNE", "TODO_CENTAUR_CAMP_BEATEN", "TODO_CENTAUR_QUEST", "TODO_CENTAUR_QUEST_DONE", "TODO_CODEX_TIRA", "TODO_CODEX_TRONARII", "TODO_ELF_QUEEN_BEATEN", "TODO_ETHERYN_CONFIDENT", "TODO_GATEGUARD_OPENED", "TODO_KHORMINOS_VISITED", "TODO_ORC_DUNGEON_COMPLETE", "TODO_WINTER_CITY_VISITED", "TUT_STATUS", "VALLEY_DRAWBRIDGE", "VALLEY_VISITS", "VAUSH_CUMMED", "VAUSH_ENCOUNTERED", "VAUSH_ENCOUNTERED_NH", "VAUSH_FUCKED", "VAUSH_INTERACTED", "VAUSH_MET", "VAUSH_PITCHED", "VAUSH_SPURNED", "VAUSH_TALKED_HIM", "WAYSTONE_GARDEN", "WINGLEADER_BIRTH_VIEWED", "WINGLEADER_NUM_BABIES", "WINGLEADER_PREG_NUM_KIDS", "WINGLEADER_PREG_TIMER", "WINGLEADER_STATE", "WINTER_CITY", "WITCH_CORSET_FOUND", "WITCH_CORSET_USED", "WITCH_TOUCH_PROC", "WOLVES_MET", "WYLD_ELVES_FOUGHT", "WYLD_ELVES_MET", "WYLD_ELVES_TS", "WYLD_ELVES_WINS", "WYVERN_MET"];
+    var Flags = ["AHMRI_BLOWJOB", "AHMRI_CUDDLEBATED", "AHMRI_ENCOUNTERED", "AHMRI_FUCKED", "AHMRI_MUNCHED", "AHMRI_SAVED", "AHMRI_SEX_WAIT", "AHMRI_TALK_CAMP", "AHMRI_TEASED", "AHMRI_TITFUCKED", "ALRAUNE_DEFEATED", "ALRAUNE_DOM", "ALRAUNE_KILLED", "ALRAUNE_PC_PREG_FERTILIZED", "ALRAUNE_PC_PREG_NUM_KIDS", "ALRAUNE_SEEDED", "ALRAUNE_SEED_TS", "ANAL_PROBING", "ARONA_ENCOUNTERED", "ARONA_FUCKED", "ARONA_INTERROGATED", "ARONA_MET", "ARONA_PCWINS", "ARONA_RECRUITED", "ARONA_SLEEPING_WITH_PLACEHOLDER", "ARONA_SUBMISSION", "ARONA_WINS", "ARONA_WON_LAST", "ATUGIA_ALEWDIA", "ATUGIA_RECRUITED", "ATUGIA_TALKED_RUNES", "BEAT_TOLLUS", "BERWYN_CAIT_TALK_HAD", "BERWYN_DEFEATED", "BERWYN_FUCKED", "BERWYN_FUCKED_ANAL", "BERWYN_MET", "BERWYN_NICE", "BERWYN_QUEST_COMPLETE", "BERWYN_QUEST_DECLINED", "BERWYN_RECRUITED", "BERWYN_SPANKED", "BERWYN_TOWER_COMMON_VISITED", "BERWYN_TOWER_FOUND_LAB", "BERWYN_TOWER_INFUSION_DONE", "BERWYN_UNREC_BAR", "BRINT_ALL_NIGHT", "BRINT_ANAL", "BRINT_APP_BIMBO", "BRINT_CONTRA", "BRINT_ETHERYN_3SUM", "BRINT_FUCKED", "BRINT_FUCKED_ARONA", "BRINT_GREAT", "BRINT_IS_BRIENNE", "BRINT_MET", "BRINT_ORAL", "BRINT_RECRUITED", "BRINT_RIMMED", "BRINT_ROUGH", "BRINT_TALKED_FATHER", "BRINT_TALKED_LEAVE", "BRINT_TALKED_SEX", "BRINT_TALKED_VILLAGE", "BRINT_TOPPED", "BRINT_UNDERTABLE", "BRINT_VAG", "CAIT_ARONA_3SUM", "CAIT_BERWYN_3SUM", "CAIT_BREASTPLAY", "CAIT_BRINT_3SUM", "CAIT_DAD_FOUND", "CAIT_FUCKED", "CAIT_LOADED", "CAIT_MET_FROSTHOUND", "CAIT_MILK_SCORE", "CAIT_MINO_MILKED", "CAIT_RECRUITED", "CAIT_SCRITCHED", "CAIT_SEXABLE", "CAIT_TALKED", "CAIT_TALKED_FAITH", "CAIT_TALKED_FAM", "CAIT_TALKED_FM", "CENTAUR_CHIEF_DEFEATED", "CENTAUR_MARAUDERS_ASSFUCKED_LEADER", "CENTAUR_MARAUDERS_COCK_STAGE", "CENTAUR_MARAUDERS_ENCOUNTERED", "CENTAUR_MARAUDERS_KILLED", "CENTAUR_MARAUDERS_RIDDEN_LEADER", "CENTAUR_MARAUDERS_TIMES_LOSSES", "CENTAUR_MARAUDERS_TIMES_LOSSES_CONSEC", "CENTAUR_MARAUDERS_VAG_STAGE", "CENTAUR_MARAUDER_BLOWN", "CUMPCAKES_USED", "DOG_DAYS_AFTERMATH_FH_PROCS", "DOG_DAYS_FINISH_DAY", "DOG_DAYS_GARRET_CAGE", "DOG_DAYS_GARRET_ELF", "DOG_DAYS_GARRET_GARRET", "DOG_DAYS_GARRET_RESCUED", "DOG_DAYS_GARRET_TALKED", "DOG_DAYS_GARRET_WORKERS", "DOG_DAYS_GARTH_GARRET", "DOG_DAYS_GARTH_GARRET_2", "DOG_DAYS_GARTH_LOCATION", "DOG_DAYS_GARTH_TROUBLES", "DOG_DAYS_LONGHOUSE_APPROACHED", "DOG_DAYS_PEACEFUL_RESOLUTION", "DOG_DAYS_SANDERS_AFTERMATH", "EFFIGIES_MET", "EFFIGIES_TALK", "ELF_TROUPE_MET", "ERYKA_GREETED", "ERYKA_HELPED", "ERYKA_MET", "ERYKA_WON_LAST", "ETHERYN_APPROACHED", "ETHERYN_AT_CASTLE", "ETHERYN_CONFESSED", "ETHERYN_CONFIDENCE", "ETHERYN_FUCKED", "ETHERYN_MET", "ETHERYN_RECRUITED", "ETHERYN_TALK_BIRD", "ETHERYN_TALK_HER", "ETHERYN_TALK_HER_CONF", "EVELYN_INTRO_FUCKED", "EVELYN_INTRO_LEFT", "EVERGREEN_MET", "FLUFFSNEK_ENCOUNTERED", "FLUFFSNEK_INVESTIGATED", "FOREST_KITSUNE_OPINION", "FOREST_X34_EN", "FOUND_ORC_CAMP", "FOUNTAIN_GODDESS_DIPPED", "FOUNTAIN_GODDESS_ENCOUNTERED", "FOUNTAIN_GODDESS_LAST_USE", "GARRET_FROSTHOUND_APPROACHED", "GARRET_FROSTHOUND_FRIENDS_TALK", "GARRET_FUCKED", "GARRET_PC_IS_BITCH", "GARRET_PREG_REVEAL", "GARRET_REJECTED_PLAYER", "GARTH_STORAGE_UPGRADE", "GARTH_TALK_ADV", "GARTH_TRAIN", "GATEGUARD_ASKED_ENTRANCE", "GATEGUARD_ENCOUNTERED", "GIRTH_EQUIPPED", "GNOLL_RAIDERS_ENCOUNTERED", "GWYN_FUCKED", "GWYN_PREG_NUM_KIDS", "HARPIES_MET", "HORNETS_MET", "HRETHA_MET", "HWEEN_WITCH_TOUCH", "IVRIS_ALCHEMY", "IVRIS_MET", "IVRIS_TRAIN", "JEN_FOUGHT", "JEN_FUCKED", "JEN_FUCKED_LAST", "JEN_MET", "JEN_MET_LEOFRIC", "JEN_OGRISH_TS", "JEN_PCWINS", "JEN_RAN", "JEN_TALKED_BELT", "JEN_TALKED_FEELINGS", "JEN_TALKED_LEOFRIC", "KASYRRA_DREAM1", "KASYRRA_FW_FUCKED", "KASYRRA_IMP_LOSS", "KASYRRA_PC_PREG_NUM_BIRTHS", "KASYRRA_PREG_TIMER", "KINU_ADULT_PERSONALITY", "KINU_BEAUTY_ADVICE", "KINU_BIG_SISTER", "KINU_BIRDS", "KINU_CHILD_PERSONALITY", "KINU_CONT_HAPPY", "KINU_DECORATION", "KINU_EDU_HELP", "KINU_EVENT_DONE", "KINU_FLOOF_PROBLEMS", "KINU_FLOWERS", "KINU_FOOD_THIEF", "KINU_GIFTED", "KINU_IM_PRETTY", "KINU_LADYS_ARMS", "KINU_MATH", "KINU_MET", "KINU_MUSHROOMS", "KINU_MUSIC_PERF", "KINU_NIGHT_DONE", "KINU_PRODIGY", "KINU_ROMANCE_MATTERS", "KINU_SCARF", "KINU_SWEET_POTATO", "KINU_TO_GOOD_HP", "KINU_WEAPON", "KIYOKO_AMULET", "KIYOKO_DIV_TS", "KIYOKO_ENCOUNTER", "KIYOKO_FUCKED", "KIYOKO_MEAL_TS", "KIYOKO_NEWYEARS", "KIYOKO_NUM_KITS", "KIYOKO_PREG_REVEALED", "KIYOKO_PREG_STAGE", "KIYOKO_RECRUITED", "KIYOKO_TALK_FREE", "LADYS_ARMS_DAY", "LAST_STATUE_SEX", "LEORAH_CHAT_VENOM", "LEORAH_FUCKED", "LEORAH_MET", "LEORAH_PEEPED", "LEORAH_TALK_CAPARISON", "LUPSCOUTS_FUCKED_LAST", "LUPSCOUTS_MET", "LUPSCOUTS_SUBMITTED_LAST", "LUPSCOUTS_WON_LAST", "LUSINA_ANAL", "LUSINA_ENCOUNTERED", "LUSINA_FUCKED", "LUSINA_MET", "LUSINA_MILKY", "MANTICORE_ENCOUNTERED", "MEOW_INTRODUCED", "MEOW_SPRING_ORGY", "MERCS_MET", "MERC_BOOMER_FUCKED", "MERC_CAIT_TS", "MERC_DALE_FUCKED", "MERC_JAN_FUCKED", "MERC_LUSA_FUCKED", "MERC_PCWINS", "MERC_WINS", "MOTHERS_DAY", "NAV_DISABLED", "NURSERY_CONSTRUCTION_TS", "NURSERY_DONATED", "NURSERY_UPGRADES", "NURSERY_VISITED", "OGRISH_MET", "OVERWORLD_LOCATION", "OVILIXER_PC_PREG_FERTILIZED", "RIVER_CULTIST_PCWINS", "RIVER_FORDED", "SANDERS_MET", "SECOND_LAST_STATUE_SEX", "SHAR_COURAGE", "SHAR_EGG_COLOR", "SHAR_FUCKED", "SHAR_GIVE_OVI", "SHAR_GROPE", "SHAR_MET", "SHAR_PERVERSION", "SHAR_PLAY", "SHAR_PLAY_TIMES", "SHAR_SAW_BIRTH", "SHAR_STORY_ALRAUNE", "SHAR_STORY_TOLLUS", "SHRINE_LOOTED", "SHRINE_PUZZLE", "SHRINE_PUZZLE_ATTEMPTS", "SLIMES_CUMMIED", "SLIMES_ENCOUNTERED", "SLIMES_HERM_RIDE", "SLIMES_OUTCOME", "SLIMES_WINS", "SNEK_FUCKED", "STATUES_SEXED", "STATUES_VISITED", "STATUE_MFH", "SUGO_BRINT_TS", "SUGO_CAP", "SUGO_FOREST", "SUGO_FUCKED", "SUGO_HAWK_MET", "SUGO_MET", "SUGO_Q1CHOICE", "SUGO_QUEST_DELIVERY_DATE", "SUGO_RIDE", "SUGO_SUCKED_NUTS", "SUGO_TALK_CLOTHES", "SUGO_USED_STALL", "TODO_ARONA_CHIEF", "TODO_BARON_DISPOSED", "TODO_BARON_MARRIED", "TODO_BARON_QUEST", "TODO_BED_MATE", "TODO_BRINT_IS_BRIENNE", "TODO_CENTAUR_CAMP_BEATEN", "TODO_CENTAUR_QUEST", "TODO_CENTAUR_QUEST_DONE", "TODO_CODEX_TIRA", "TODO_CODEX_TRONARII", "TODO_ELF_QUEEN_BEATEN", "TODO_ETHERYN_CONFIDENT", "TODO_GATEGUARD_OPENED", "TODO_KHORMINOS_VISITED", "TODO_ORC_DUNGEON_COMPLETE", "TODO_WINTER_CITY_VISITED", "TUT_STATUS", "VALLEY_DRAWBRIDGE", "VALLEY_VISITS", "VAUSH_CUMMED", "VAUSH_ENCOUNTERED", "VAUSH_ENCOUNTERED_NH", "VAUSH_FUCKED", "VAUSH_INTERACTED", "VAUSH_MET", "VAUSH_PITCHED", "VAUSH_SPURNED", "VAUSH_TALKED_HIM", "WAYSTONE_GARDEN", "WINGLEADER_BIRTH_VIEWED", "WINGLEADER_NUM_BABIES", "WINGLEADER_PREG_NUM_KIDS", "WINGLEADER_PREG_TIMER", "WINGLEADER_STATE", "WINTER_CITY", "WITCH_CORSET_FOUND", "WITCH_CORSET_USED", "WITCH_TOUCH_PROC", "WOLVES_MET", "WYLD_ELVES_FOUGHT", "WYLD_ELVES_MET", "WYLD_ELVES_TS", "WYLD_ELVES_WINS", "WYVERN_MET"];
 
     function loadFlagTab(flagContent, save) {
         while (flagContent.firstChild)
             flagContent.removeChild(flagContent.firstChild);
-        const filterBarDiv = document.createElement('div');
+        var filterBarDiv = document.createElement('div');
         filterBarDiv.className = 'filter-div dark';
-        const filterBar = createFilterBar();
-        const ulEl = document.createElement('ul');
+        var filterBar = createFilterBar();
+        var ulEl = document.createElement('ul');
         ulEl.className = 'flags';
         // Assume they are all strings or numbers
-        const flagNameElPairs = Flags.map((name) => {
-            const el = stringField(name, save.flags[name] || '', booleanStringOrNumber(save.flags, name));
+        var flagNameElPairs = Flags.map(function (name) {
+            var el = stringField(name, save.flags[name] || '', booleanStringOrNumber(save.flags, name));
             ulEl.appendChild(el);
-            return { name, el };
+            return { name: name, el: el };
         });
-        filterBar.addEventListener('keyup', () => {
-            for (const pair of flagNameElPairs) {
+        filterBar.addEventListener('keyup', function () {
+            for (var _i = 0, flagNameElPairs_1 = flagNameElPairs; _i < flagNameElPairs_1.length; _i++) {
+                var pair = flagNameElPairs_1[_i];
                 if (pair.name.toLocaleLowerCase().startsWith(filterBar.value.toLocaleLowerCase())) {
                     if (pair.el.classList.contains('collapsed')) {
                         pair.el.classList.toggle('collapsed');
@@ -1491,7 +1521,7 @@
         flagContent.appendChild(ulEl);
     }
     function booleanStringOrNumber(obj, key) {
-        return (element) => () => {
+        return function (element) { return function () {
             if (element.value === '' || element.value === undefined)
                 delete obj[key];
             else if (element.value.toLocaleLowerCase() === 'true')
@@ -1502,22 +1532,22 @@
                 obj[key] = +element.value;
             else
                 obj[key] = element.value;
-        };
+        }; };
     }
 
     // import { loadRawTab } from "./RawTab";
     function loadEditor(element, state) {
         while (element.lastChild)
             element.removeChild(element.lastChild);
-        const mainScreen = new TabMenu({ tabsPos: 'top', activeStyle: 'light', inactiveStyle: 'dark' });
+        var mainScreen = new TabMenu({ tabsPos: 'top', activeStyle: 'light', inactiveStyle: 'dark' });
         mainScreen.element.id = 'main';
-        const charTab = mainScreen.createTab('Characters', (content) => {
+        var charTab = mainScreen.createTab('Characters', function (content) {
             if (!state.editObj)
                 alert("No Save File loaded");
             else
                 loadCharTab(content, state.editObj);
         });
-        mainScreen.createTab('Flags', (content) => {
+        mainScreen.createTab('Flags', function (content) {
             if (!state.editObj)
                 alert("No Save File loaded");
             else if (!state.editObj.flags)
@@ -1535,28 +1565,28 @@
         element.appendChild(mainScreen.element);
     }
 
-    const state = {};
+    var state = {};
 
     if (window) {
-        const editor = window.editor = {};
+        var editor = window.editor = {};
         editor.state = state;
-        editor.diffChar = (name) => diffChar(charDefaults[name], state.editObj.chars[name]);
+        editor.diffChar = function (name) { return diffChar(charDefaults[name], state.editObj.chars[name]); };
         editor.charDefaults = charDefaults;
     }
 
-    const editorVersion = "25";
-    const gameVersion = "0.1.17";
-    const lastBreakingVersion = "24";
-    document.addEventListener("DOMContentLoaded", () => {
-        const disclaimer = document.createElement("div");
+    var editorVersion = "25";
+    var gameVersion = "0.1.17";
+    var lastBreakingVersion = "24";
+    document.addEventListener("DOMContentLoaded", function () {
+        var disclaimer = document.createElement("div");
         disclaimer.className = "disclaimer content dark";
         disclaimer.innerHTML = "<h2>CoC2 Save Editor v" + editorVersion + "</h2><h4>For use with versions of CoC2 " + gameVersion + " or higher</h4><p>Disclaimer: Editing any saves may permanently mess up the save or cause unusual bugs or errors in the game. Edit at your own risk and remember to back up your saves.</p><p>Saves edited with v" + lastBreakingVersion + " or earlier will not work.</p>";
         document.body.appendChild(disclaimer);
-        const ok = document.createElement("button");
+        var ok = document.createElement("button");
         ok.textContent = "Accept";
         ok.className = "tab dark";
         disclaimer.appendChild(ok);
-        ok.addEventListener("click", () => loadEditor(document.body, state));
+        ok.addEventListener("click", function () { return loadEditor(document.body, state); });
     });
 
 }());
