@@ -1,57 +1,70 @@
-import { createAccordButton, createTextInput, createCheckBox } from "./Elements";
-import { GlobalOptions } from "../Data/Globals";
-import { MultiOptionProp } from "../Data/MapProps";
+import { createTextInput, EventFunc, createCheckBox } from './Elements';
+import { MultiOptionProp } from '../Data/MapProps';
+import { GlobalOptions } from '../Data/Globals';
 
 export function fieldTitle(key: string) {
-    const title = document.createElement("div");
-    title.className = "fieldTitle";
+    const title = document.createElement('div');
+    title.className = 'title';
     title.textContent = key;
     return title;
 }
 
-export function fieldLabel(key: string) {
-    const entry = document.createElement("label");
-    entry.className = "fieldEntry";
+function fieldLabel(key: string) {
+    const entry = document.createElement('label');
+    entry.className = 'field dark';
     const title = fieldTitle(key);
     entry.appendChild(title);
     return entry;
 }
 
-export function objectField(text: string, panel: HTMLElement) {
-    const accordButton = createAccordButton("", panel);
-    accordButton.className += " fieldTitle";
-    accordButton.textContent = "⬥ " + text;
-    accordButton.addEventListener("click", {
-        open: false,
-        fieldName: text,
-        button: accordButton,
-        handleEvent() {
-            this.open = !this.open;
-            this.button.textContent = (this.open ? '⬦ ' : '⬥ ') + this.fieldName;
+export function objectField(text: string) {
+    const button = document.createElement('button');
+    button.className = 'collapsing-button title dark';
+    button.textContent = '⬥';
+    if (text)
+        button.textContent += ' ' + text;
+
+    const content = document.createElement('div');
+    content.className = 'field-content collapsed light';
+
+    button.addEventListener('click', () => {
+        if (content.classList.contains('collapsed')) {
+            button.classList.replace('dark', 'light');
+            content.classList.remove('collapsed');
+            button.textContent = '⬦';
         }
-    } as any);
-    return accordButton;
+        else {
+            button.classList.replace('light', 'dark');
+            content.classList.add('collapsed');
+            button.textContent = '⬥';
+        }
+
+        if (text)
+            button.textContent += ' ' + text;
+    });
+    return { button, content };
 }
 
-export function stringField(name: string, initialValue: string, changeFunc: (element: HTMLInputElement) => () => void) {
+export function stringField(name: string, initialValue: string, changeFunc: EventFunc<HTMLInputElement>) {
     const div = fieldLabel(name);
-    const input = createTextInput(initialValue, "", changeFunc);
+    const input = createTextInput(initialValue, 'value', changeFunc);
     div.appendChild(input);
     return div;
 }
 
-export function booleanField(name: string, initialValue: boolean, changeFunc: (element: HTMLInputElement) => () => void) {
+export function booleanField(name: string, initialValue: boolean, changeFunc: EventFunc<HTMLInputElement>) {
     const div = fieldLabel(name);
-    const input = createCheckBox(initialValue, "", changeFunc);
+    const input = createCheckBox(initialValue, 'value', changeFunc);
     div.appendChild(input);
     return div;
 }
 
-export function selectField(name: string, initialValue: string | number, options: GlobalOptions, changeFunc: (element: HTMLSelectElement) => () => void) {
+export function selectField(name: string, initialValue: string | number, options: GlobalOptions, changeFunc: EventFunc<HTMLSelectElement>) {
     const div = fieldLabel(name);
-    const selector = document.createElement("select");
+    const selector = document.createElement('select');
+    selector.className = 'value';
     options.list.forEach((value, index) => {
-        const option = document.createElement("option");
+        const option = document.createElement('option');
         option.value = index + '';
         option.textContent = value;
         if (options.fromSave && !isNaN(options.fromSave(+initialValue)))
@@ -60,46 +73,86 @@ export function selectField(name: string, initialValue: string | number, options
             option.selected = initialValue === index || initialValue === value;
         selector.appendChild(option);
     });
-    selector.addEventListener("change", changeFunc(selector));
+    selector.addEventListener('change', changeFunc(selector));
     div.appendChild(selector);
     return div;
 }
 
-export function multiOptionField(obj: Record<string, any>, key: string, mapValue: MultiOptionProp) {
+export function multiOptionField(label: string, obj: Record<string, any>, objKey: string, mapValue: MultiOptionProp) {
+    // Taken directly from fieldLabel
+    const div = document.createElement('label');
+    div.className = 'field dark';
+    const title = fieldTitle(label);
+    div.appendChild(title);
+
+    // Counter on max number of selections
+    if (mapValue.max)
+        title.textContent += ' (0/' + mapValue.max + ')';
+
     const listEl = document.createElement('ul');
-    const options = mapValue.options;
-    options.list.forEach((option, index) => {
-        const selected = obj[key].reduce((prev: boolean, curr: any) => prev = prev || (option === curr) || (index === curr), false);
-        const label = fieldLabel(option);
-        label.className += ' multioption' + (selected ? ' selected' : '');
-        label.addEventListener('click', () => {
-            const list = Array.from(listEl.getElementsByTagName('label'));
-            const selectedList = list.filter((el) => el.classList.contains('selected'));
+    listEl.className = 'multioption-list';
+
+    const options = mapValue.options.list.map((key, index) => ({
+        key,
+        index,
+        // Check to see if the obj already has this value
+        selected: obj[objKey].find((objValue: any) => key === objValue || index === objValue)
+    }));
+
+    // Add a counter on max number of selections
+    if (mapValue.max) {
+        const selectCount = options.filter((item) => item.selected).length;
+        title.textContent = label + ' (' + selectCount + '/' + mapValue.max + ')';
+    }
+
+    for (const option of options) {
+        const listItem = document.createElement('li');
+        listItem.className = 'multioption';
+        listItem.textContent = option.key;
+
+        if (option.selected)
+            listItem.className += ' selected';
+
+        listItem.addEventListener('click', () => {
+            let selectedList = options.filter((item) => item.selected);
+
             // On
-            if (!mapValue.max || (mapValue.max && selectedList.length < mapValue.max)) {
-                label.classList.toggle('selected');
-                selectedList.push(label);
+            if (!option.selected && (!mapValue.max || (mapValue.max && selectedList.length < mapValue.max))) {
+                listItem.classList.add('selected');
+                option.selected = true;
             }
             // Off
-            else if (label.classList.contains('selected'))
-                label.classList.toggle('selected');
+            else if (option.selected) {
+                listItem.classList.remove('selected');
+                option.selected = false;
+            }
 
+            // Filter again to have the correct items in a sorted order
+            selectedList = options.filter((item) => item.selected);
+
+            // Redraw the counter if there is a max
+            if (mapValue.max) {
+                title.textContent = label + ' (' + selectedList.length + '/' + mapValue.max + ')';
+            }
+
+            // If there is a transform func, use the keys of the selected options
+            // Else use the indexes of the selected options
             if (mapValue.transform)
-                obj[key] = selectedList.map((el) => mapValue.transform!(el.textContent));
+                obj[objKey] = mapValue.transform(selectedList.map((item) => item.key));
             else {
-                obj[key] = list.reduce((numList, el, numIndex) => {
-                    if (el.classList.contains('selected') && el.textContent)
-                        numList.push(numIndex);
-                    return numList;
-                }, [] as any[]);
+                obj[objKey] = selectedList.map((item) => item.index);
             }
         });
-        listEl.appendChild(label);
-    });
-    return listEl;
+
+        listEl.appendChild(listItem);
+    }
+
+    div.appendChild(listEl);
+
+    return div;
 }
 
-export function setNumberCallback(obj: any, key: string, modFunc?: (value: any) => any) {
+export function setNumberCallback(obj: Record<string, any>, key: string, modFunc?: (num: number) => number) {
     return (element: HTMLInputElement | HTMLSelectElement) => () => {
         if (modFunc && !isNaN(+element.value))
             obj[key] = modFunc(+element.value);
@@ -108,21 +161,21 @@ export function setNumberCallback(obj: any, key: string, modFunc?: (value: any) 
     };
 }
 
-export function setStringCallback(obj: any, key: string) {
-    return (element: HTMLInputElement) => () => { obj[key] = element.value; };
-}
-
-export function setSelectorStringCallback(obj: any, key: string, modFunc?: (value: any) => any) {
-    return (element: HTMLSelectElement) => () => {
-        if (element[+element.value].textContent !== 'None') {
-            if (modFunc)
-                obj[key] = modFunc(element[+element.value].textContent);
-            else
-                obj[key] = element[+element.value].textContent;
-        }
+export function setStringCallback(obj: Record<string, any>, key: string) {
+    return (inputElement: HTMLInputElement) => () => {
+        obj[key] = inputElement.value;
     };
 }
 
-export function setBooleanCallback(obj: any, key: string) {
-    return (element: HTMLInputElement) => () => { obj[key] = element.checked; };
+export function setSelectorStringCallback(obj: Record<string, any>, key: string) {
+    return (inputElement: HTMLSelectElement) => () => {
+        if (inputElement[+inputElement.value].textContent !== 'None')
+            obj[key] = inputElement[+inputElement.value].textContent;
+    };
+}
+
+export function setBooleanCallback(obj: Record<string, any>, key: string) {
+    return (inputElement: HTMLInputElement) => () => {
+        obj[key] = inputElement.checked;
+    };
 }

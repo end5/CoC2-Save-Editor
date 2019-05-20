@@ -6,7 +6,7 @@
     "scripts": {
         "build": "npm run transpile && npm run bundle",
         "transpile": "tsc",
-        "bundle": "rollup dist/index.js --format umd --name myBundle --file bundle.js"
+        "bundle": "rollup dist/index.js --format umd --name SaveEditor --file bundle.js"
     },
     "repository": {
         "type": "git",
@@ -19,6 +19,8 @@
     },
     "homepage": "https://github.com/end5/CoC2-Save-Editor#readme",
     "devDependencies": {
+        "@types/file-saver": "^2.0.0",
+        "file-saver": "^2.0.2",
         "rollup": "^1.12.3",
         "typescript": "^3.4.5"
     },

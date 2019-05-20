@@ -1,42 +1,38 @@
 import { State } from "./Data/State";
 import { charDefaults } from "./Data/CharDefaults";
+import { saveAs } from 'file-saver';
 
-export function loadSaveLoadTab(content: HTMLElement, state: State) {
+export function loadSaveLoadBar(content: HTMLElement, state: State) {
     const background = document.createElement('div');
-    background.className = 'content inverse';
-    content.appendChild(background);
-
-    const saveInput = document.createElement('input');
-    saveInput.type = 'text';
-    saveInput.placeholder = state.file && state.file.name ? state.file.name : 'default.coc2';
-
-    const saveButton = document.createElement('button');
-    saveButton.textContent = 'Save';
-    saveButton.className = 'tabbutton';
-
-    const saveLink = document.createElement('a');
-    saveLink.style.display = 'none';
+    background.className = 'content dark';
+    background.id = 'save-load-bar';
 
     const loadButton = document.createElement('button');
     loadButton.textContent = 'Load';
-    loadButton.className = 'tabbutton';
+    loadButton.className = 'tab dark';
 
-    background.appendChild(saveInput);
-    background.appendChild(saveLink);
-    background.appendChild(saveButton);
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.className = 'tab dark';
+
+    const saveInput = document.createElement('input');
+    saveInput.type = 'text';
+    if (state.file && state.file.name)
+        saveInput.placeholder = state.file.name;
+    else
+        saveInput.disabled = true;
+
     background.appendChild(loadButton);
+    background.appendChild(saveButton);
+    background.appendChild(saveInput);
+    content.appendChild(background);
 
     saveButton.addEventListener('click', () => {
         if (state.fileReader && state.file) {
-            let filename = (saveInput.value && saveInput.value) !== state.file.name ? saveInput.value : state.file.name;
+            let filename = saveInput.value !== saveInput.placeholder ? saveInput.value : saveInput.placeholder;
             if (!filename.endsWith('.coc2')) filename += '.coc2';
             const blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
-            if ('StyleMedia' in (window as any)) // IE Edge
-                window.navigator.msSaveBlob(blob, filename);
-            else
-                saveLink.href = window.URL.createObjectURL(blob);
-            saveLink.download = filename;
-            saveLink.click();
+            saveAs(blob, filename);
         }
         else {
             alert("No Save File loaded");
@@ -55,14 +51,18 @@ export function loadSaveLoadTab(content: HTMLElement, state: State) {
             }
             else {
                 saveInput.placeholder = input.files[0].name;
-                handleFiles(input.files[0], state);
+                handleFiles(input.files[0], state, (filename) => {
+                    saveInput.placeholder = filename;
+                    saveInput.value = filename;
+                    saveInput.disabled = false;
+                });
             }
         });
         input.click();
     });
 }
 
-function handleFiles(file: File, state: State) {
+function handleFiles(file: File, state: State, onSuccess: (filename: string) => void) {
     state.file = file;
     state.fileReader = new FileReader();
     state.fileReader.readAsText(state.file);
@@ -80,6 +80,7 @@ function handleFiles(file: File, state: State) {
         if (obj) {
             loadObj(obj, state);
             alert("Load Complete");
+            onSuccess(file.name);
         }
     });
     state.fileReader.addEventListener("error", (evnt) => {

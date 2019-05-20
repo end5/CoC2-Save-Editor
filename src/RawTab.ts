@@ -1,7 +1,13 @@
-import { stringField, booleanField, objectField, setStringCallback, setNumberCallback, setBooleanCallback } from "./Fields";
-import { createPanel } from "./Elements";
+import { stringField, booleanField, objectField, setStringCallback, setNumberCallback, setBooleanCallback } from "./Display/Fields";
 
-export function generateFields(obj: any, element: HTMLElement) {
+export function loadRawTab(content: HTMLElement, save: any) {
+    while (content.firstChild)
+        content.removeChild(content.firstChild);
+
+    generateFields(content, save);
+}
+
+export function generateFields(element: HTMLElement, obj: any) {
     Object.keys(obj).forEach(function fieldKeys(key) {
         switch (typeof obj[key]) {
             case "string": {
@@ -19,10 +25,10 @@ export function generateFields(obj: any, element: HTMLElement) {
             case "object": {
                 if (obj[key] === null)
                     break;
-                const panel = createPanel();
-                element.appendChild(objectField(key, panel));
-                element.appendChild(panel);
-                generateFields(obj[key], panel);
+                const objField = objectField(key);
+                element.appendChild(objField.button);
+                element.appendChild(objField.content);
+                generateFields(obj[key], objField.content);
             }
         }
     });

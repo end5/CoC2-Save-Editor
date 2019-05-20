@@ -1,42 +1,41 @@
 import { State } from "./Data/State";
-import { PersistantTabMenu } from "./Display/Menus";
-import { generateCharList } from "./CharTab";
-import { generateFields } from "./Display/GenRawFields";
-import { loadSaveLoadTab } from "./SaveLoadTab";
+import { loadCharTab } from "./CharTab";
+import { loadSaveLoadBar } from "./SaveLoadBar";
+import { TabMenu } from "./Display/TabMenu";
+import { loadFlagTab } from "./FlagsTab";
+import { loadRawTab } from "./RawTab";
 
 export function loadEditor(element: HTMLElement, state: State) {
     while (element.lastChild)
         element.removeChild(element.lastChild);
 
-    const mainScreen = new PersistantTabMenu('main');
-    element.appendChild(mainScreen.element);
+    loadSaveLoadBar(element, state);
 
-    const charTab = mainScreen.createTab('Characters');
-    charTab.button.addEventListener('click', () => {
+    const mainScreen = new TabMenu({ tabsPos: 'top', activeStyle: 'light', inactiveStyle: 'dark' });
+    mainScreen.element.id = 'main';
+
+    mainScreen.createTab('Characters', (content) => {
         if (!state.editObj)
             alert("No Save File loaded");
-        else if (charTab.content.children.length <= 0)
-            generateCharList(state.editObj, charTab.content, state);
+        else
+            loadCharTab(content, state.editObj);
     });
 
-    const flagTab = mainScreen.createTab('Flags');
-    flagTab.button.addEventListener('click', () => {
+    mainScreen.createTab('Flags', (content) => {
         if (!state.editObj)
             alert("No Save File loaded");
         else if (!state.editObj.flags)
             alert("No Flags in save file");
-        else if (flagTab.content.children.length <= 0)
-            generateFields(state.editObj.flags, flagTab.content);
+        else
+            loadFlagTab(content, state.editObj);
     });
 
-    const rawTab = mainScreen.createTab('Raw');
-    rawTab.button.addEventListener('click', () => {
+    mainScreen.createTab('Raw', (content) => {
         if (!state.editObj)
             alert("No Save File loaded");
-        else if (rawTab.content.children.length <= 0)
-            generateFields(state.editObj, rawTab.content);
+        else
+            loadRawTab(content, state.editObj);
     });
 
-    const saveLoadTab = mainScreen.createTab('Save/Load');
-    loadSaveLoadTab(saveLoadTab.content, state);
+    element.appendChild(mainScreen.element);
 }
