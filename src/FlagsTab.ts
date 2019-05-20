@@ -15,7 +15,7 @@ export function loadFlagTab(flagContent: HTMLElement, save: Record<string, any>)
 
     // Assume they are all strings or numbers
     const flagNameElPairs = Flags.map((name) => {
-        const el = stringField(name, save.flags[name] ? save.flags[name] : '', booleanStringOrNumber(save.flags, name));
+        const el = stringField(name, save.flags[name] || '', booleanStringOrNumber(save.flags, name));
         ulEl.appendChild(el);
         return { name, el };
     });
@@ -40,7 +40,9 @@ export function loadFlagTab(flagContent: HTMLElement, save: Record<string, any>)
 
 function booleanStringOrNumber(obj: Record<string, any>, key: string) {
     return (element: HTMLInputElement | HTMLSelectElement) => () => {
-        if (element.value.toLocaleLowerCase() === 'true')
+        if (element.value === '' || element.value === undefined)
+            delete obj[key];
+        else if (element.value.toLocaleLowerCase() === 'true')
             obj[key] = true;
         else if (element.value.toLocaleLowerCase() === 'false')
             obj[key] = false;
