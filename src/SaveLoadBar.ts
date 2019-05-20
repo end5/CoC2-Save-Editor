@@ -1,6 +1,7 @@
 import { State } from "./Data/State";
 import { charDefaults } from "./Data/CharDefaults";
-import { saveAs } from 'file-saver';
+import 'file-saver';
+import '../external/FileSaver.js';
 
 export function loadSaveLoadBar(content: HTMLElement, state: State, button: HTMLElement) {
     const background = document.createElement('div');
