@@ -1380,7 +1380,7 @@
         editor.charDefaults = charDefaults;
     }
 
-    const editorVersion = "23";
+    const editorVersion = "24";
     const gameVersion = "0.1.17";
     const lastBreakingVersion = "22";
     document.addEventListener("DOMContentLoaded", () => {
