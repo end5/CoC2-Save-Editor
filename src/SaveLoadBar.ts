@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 
 export function loadSaveLoadBar(content: HTMLElement, state: State) {
     const background = document.createElement('div');
-    background.className = 'content dark';
+    background.className = 'content light';
     background.id = 'save-load-bar';
 
     const loadButton = document.createElement('button');

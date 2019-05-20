@@ -5,6 +5,7 @@ body {
     color: #EBEFE7;
     height: 100vh;
     overflow: auto;
+    background-color: #222;
 }
 
 button {
@@ -55,6 +56,10 @@ select:focus {
     background-color: #28415b;
 }
 
+.tab-menu {
+    height: 100%;
+}
+
 .tab {
     word-break: break-all;
     line-height: inherit;
@@ -82,7 +87,7 @@ select:focus {
 }
 
 .contents.horizontal {
-    height: calc(100% - 22px);
+    height: calc(100% - 24px);
 }
 
 .tabs.vertical {
@@ -116,7 +121,7 @@ select:focus {
     overflow: hidden;
 }
 
-.field>input {
+.field>input[type="text"] {
     width: 20%;
 }
 
@@ -138,7 +143,7 @@ select:focus {
 
 .filter-bar {
     font-size: inherit;
-    width: 100%;
+    width: calc(100% - 4px);
     height: 25px;
 }
 
@@ -178,6 +183,10 @@ select:focus {
 
 /* Main Layout */
 
+#main {
+    height: calc(100% - 45px);
+}
+
 #main>.tabs {
     font-size: 1.5em;
     height: 45px;
@@ -198,12 +207,16 @@ select:focus {
 }
 
 #save-load-bar>.tab {
-    width: 50px;
+    width: 100px;
+    margin-right: 4px;
 }
 
 #save-load-bar>input {
-    width: calc(100% - 110px);
-    padding: 2px 2px 5px 5px;
+    width: calc(100% - 200px - 8px - 16px);
+    height: calc(100% - 4px);
+    float:  right;
+    padding: 2px 8px;
+    background-color: #28415b;
 }
 
 /* Save Load Bar End */
@@ -274,7 +287,7 @@ select:focus {
 }
 
 .flags .title {
-    width: calc(100% - 20% - 12px);
+    width: calc(100% - 20% - 16px);
 }
 
 /* Flag Tab End */
