@@ -1,8 +1,5 @@
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('file-saver')) :
-    typeof define === 'function' && define.amd ? define(['file-saver'], factory) :
-    (global = global || self, factory(global.fileSaver));
-}(this, function (fileSaver) { 'use strict';
+(function () {
+    'use strict';
 
     const charDefaults = {
         pc: { name: "Unnamed", cName: "", soloCombatPrefix: "", taxa: 1, class: 0, background: 0, isPlural: false, partyLeader: true, level: 1, exp: 0, canGainExp: false, compTags: [], actionPoints: 1, hitPoints: 100, hitPointsMaxMod: 0, resolvePoints: 100, resolveMaxMod: 0, threatMod: 10, strengthAlloc: 0, strengthMod: 0, toughnessAlloc: 0, toughnessMod: 0, agilityAlloc: 0, agilityMod: 0, cunningAlloc: 0, cunningMod: 0, willpowerAlloc: 0, willpowerMod: 0, presenceAlloc: 0, presenceMod: 0, libidoMod: 0, corruptionMod: 0, isLustImmune: false, penetratingResist: 0, crushingResist: 0, holyResist: 0, blightResist: 0, acidResist: 0, fireResist: 0, frostResist: 0, stormResist: 0, teaseResist: 0, drugResist: 0, pheromoneResist: 0, fatigueResist: 0, mindResist: 0, perks: [], powers: [], equippedPowers: [null, null, null, null, null], stance: null, multiTurnAttack: null, combatEffects: [], statusEffects: [], likes: [], dislikes: [], boon: null, credits: 0, weaponPrimary: { key: "RustyKnife", args: [1] }, weaponSecondary: null, head: null, neck: null, shoulders: null, armorSet: { key: "ComfortableClothes", args: [1] }, hands: null, waist: null, feet: { key: "LeatherBoots", args: [1] }, ring1: null, ring2: null, topGarment: null, bottomGarment: { key: "PlainUnderwear", args: [1] }, inventory: [], keyItems: [], set: null, originalRace: "human", femininity: 50, tallness: 66, tone: 50, thickness: 50, hipRatingRaw: 0, hipRatingMod: 0, buttRatingRaw: 0, buttRatingMod: 0, bellyRatingRaw: 0, bellyRatingMod: 0, lipMod: 0, hairColor: "brown", skinColor: "pale", furColor: "brown", scaleColor: "", lipColor: "peach", hairLength: 2, hairStyle: "", hairType: 1, hairTags: [], horns: 0, hornType: -1, hornLength: 0, wingType: -1, wingCount: 0, skinType: 6, skinTags: [], tailType: -1, numTails: 0, tailTags: [], armType: 1, armTags: [], legCount: 2, legType: 1, legTags: [], tongueType: 1, tongueTags: [], faceType: 1, faceTags: [], earType: 1, earTags: [], earLength: 0, eyeType: 1, eyeTags: [], eyeColor: "brown", orgasms: 0, lastOrgasm: 0, lastMilked: 0, exhibRaw: 0, isVirgin: true, vaginalVirgin: true, cockVirgin: true, analVirgin: true, pregnancySpeedRaw: 1, pregnancySpeedMod: 0, breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }], nippleColor: "pink", nipplesPerBreast: 1, nippleSizeRatio: 1, nippleType: 7, breastTags: [], milkType: 4, milkMultiplierRaw: 0, milkStorageMultiplierRaw: 1, milkFullnessRaw: 0, milkRateRaw: 10, _balls: 0, ballTags: [], ballEfficiency: 1, ballSizeRaw: 3, ballSizeMod: 0, ballFullness: 100, cocks: [], feracityRaw: 1, feracityMod: 0, fertilityMod: 0, virilityMod: 0, vagina: null, clitLength: 0.5, girlCumType: 1, cumType: 2, cumMultiplierRaw: 1, cumMultiplierMod: 0, ass: { type: 1, hymen: false, clits: 0, wetnessRaw: 0, wetnessMod: 0, loosenessRaw: 1, loosenessMod: 0, bonusCapacity: 0, stretchCounter: 0, tags: [], _color: "" }, reagents: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0 }, defaultCockIdx: 0, lastRingSlotEquipped: 2, lastRechargeEquipped: 2, title: "Adventurer", wyldMark: -1, drinks: [], customImage: null, pendingLoot: [], sensed: [], storage: [] },
@@ -1186,6 +1183,173 @@
         panel.appendChild(addRemoveButtons);
     }
 
+    /*
+    * FileSaver.js
+    * A saveAs() FileSaver implementation.
+    *
+    * By Eli Grey, http://eligrey.com
+    *
+    * License : https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md (MIT)
+    * source  : http://purl.eligrey.com/github/FileSaver.js
+    */
+
+    // The one and only way of getting global scope in all environments
+    // https://stackoverflow.com/q/3277182/1008999
+    var _global = typeof window === 'object' && window.window === window
+      ? window : typeof self === 'object' && self.self === self
+      ? self : typeof global === 'object' && global.global === global
+      ? global
+      : undefined;
+
+    function bom (blob, opts) {
+      if (typeof opts === 'undefined') opts = { autoBom: false };
+      else if (typeof opts !== 'object') {
+        console.warn('Deprecated: Expected third argument to be a object');
+        opts = { autoBom: !opts };
+      }
+
+      // prepend BOM for UTF-8 XML and text/* types (including HTML)
+      // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+      if (opts.autoBom && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+        return new Blob([String.fromCharCode(0xFEFF), blob], { type: blob.type })
+      }
+      return blob
+    }
+
+    function download (url, name, opts) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.onload = function () {
+        saveAs$1(xhr.response, name, opts);
+      };
+      xhr.onerror = function () {
+        console.error('could not download file');
+      };
+      xhr.send();
+    }
+
+    function corsEnabled (url) {
+      var xhr = new XMLHttpRequest();
+      // use sync to avoid popup blocker
+      xhr.open('HEAD', url, false);
+      try {
+        xhr.send();
+      } catch (e) {}
+      return xhr.status >= 200 && xhr.status <= 299
+    }
+
+    // `a.click()` doesn't work for all browsers (#465)
+    function click (node) {
+      try {
+        node.dispatchEvent(new MouseEvent('click'));
+      } catch (e) {
+        var evt = document.createEvent('MouseEvents');
+        evt.initMouseEvent('click', true, true, window, 0, 0, 0, 80,
+                              20, false, false, false, false, 0, null);
+        node.dispatchEvent(evt);
+      }
+    }
+
+    var saveAs$1 = _global.saveAs || (
+      // probably in some web worker
+      (typeof window !== 'object' || window !== _global)
+        ? function saveAs () { /* noop */ }
+
+      // Use download attribute first if possible (#193 Lumia mobile)
+      : 'download' in HTMLAnchorElement.prototype
+      ? function saveAs (blob, name, opts) {
+        var URL = _global.URL || _global.webkitURL;
+        var a = document.createElement('a');
+        name = name || blob.name || 'download';
+
+        a.download = name;
+        a.rel = 'noopener'; // tabnabbing
+
+        // TODO: detect chrome extensions & packaged apps
+        // a.target = '_blank'
+
+        if (typeof blob === 'string') {
+          // Support regular links
+          a.href = blob;
+          if (a.origin !== location.origin) {
+            corsEnabled(a.href)
+              ? download(blob, name, opts)
+              : click(a, a.target = '_blank');
+          } else {
+            click(a);
+          }
+        } else {
+          // Support blobs
+          a.href = URL.createObjectURL(blob);
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 4E4); // 40s
+          setTimeout(function () { click(a); }, 0);
+        }
+      }
+
+      // Use msSaveOrOpenBlob as a second approach
+      : 'msSaveOrOpenBlob' in navigator
+      ? function saveAs (blob, name, opts) {
+        name = name || blob.name || 'download';
+
+        if (typeof blob === 'string') {
+          if (corsEnabled(blob)) {
+            download(blob, name, opts);
+          } else {
+            var a = document.createElement('a');
+            a.href = blob;
+            a.target = '_blank';
+            setTimeout(function () { click(a); });
+          }
+        } else {
+          navigator.msSaveOrOpenBlob(bom(blob, opts), name);
+        }
+      }
+
+      // Fallback to using FileReader and a popup
+      : function saveAs (blob, name, opts, popup) {
+        // Open a popup immediately do go around popup blocker
+        // Mostly only available on user interaction and the fileReader is async so...
+        popup = popup || open('', '_blank');
+        if (popup) {
+          popup.document.title =
+          popup.document.body.innerText = 'downloading...';
+        }
+
+        if (typeof blob === 'string') return download(blob, name, opts)
+
+        var force = blob.type === 'application/octet-stream';
+        var isSafari = /constructor/i.test(_global.HTMLElement) || _global.safari;
+        var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent);
+
+        if ((isChromeIOS || (force && isSafari)) && typeof FileReader === 'object') {
+          // Safari doesn't allow downloading of blob URLs
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            var url = reader.result;
+            url = isChromeIOS ? url : url.replace(/^data:[^;]*;/, 'data:attachment/file;');
+            if (popup) popup.location.href = url;
+            else location = url;
+            popup = null; // reverse-tabnabbing #460
+          };
+          reader.readAsDataURL(blob);
+        } else {
+          var URL = _global.URL || _global.webkitURL;
+          var url = URL.createObjectURL(blob);
+          if (popup) popup.location = url;
+          else location.href = url;
+          popup = null; // reverse-tabnabbing #460
+          setTimeout(function () { URL.revokeObjectURL(url); }, 4E4); // 40s
+        }
+      }
+    );
+
+    _global.saveAs = saveAs$1.saveAs = saveAs$1;
+
+    if (typeof module !== 'undefined') {
+      module.exports = saveAs$1;
+    }
+
     function loadSaveLoadBar(content, state, button) {
         const background = document.createElement('div');
         background.className = 'content light';
@@ -1212,7 +1376,7 @@
                 if (!filename.endsWith('.coc2'))
                     filename += '.coc2';
                 const blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
-                fileSaver.saveAs(blob, filename);
+                saveAs(blob, filename);
             }
             else {
                 alert("No Save File loaded");
@@ -1380,9 +1544,9 @@
         editor.charDefaults = charDefaults;
     }
 
-    const editorVersion = "24";
+    const editorVersion = "25";
     const gameVersion = "0.1.17";
-    const lastBreakingVersion = "22";
+    const lastBreakingVersion = "24";
     document.addEventListener("DOMContentLoaded", () => {
         const disclaimer = document.createElement("div");
         disclaimer.className = "disclaimer content dark";
@@ -1395,4 +1559,4 @@
         ok.addEventListener("click", () => loadEditor(document.body, state));
     });
 
-}));
+}());
