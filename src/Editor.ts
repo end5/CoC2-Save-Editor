@@ -9,12 +9,10 @@ export function loadEditor(element: HTMLElement, state: State) {
     while (element.lastChild)
         element.removeChild(element.lastChild);
 
-    loadSaveLoadBar(element, state);
-
     const mainScreen = new TabMenu({ tabsPos: 'top', activeStyle: 'light', inactiveStyle: 'dark' });
     mainScreen.element.id = 'main';
 
-    mainScreen.createTab('Characters', (content) => {
+    const charTab = mainScreen.createTab('Characters', (content) => {
         if (!state.editObj)
             alert("No Save File loaded");
         else
@@ -36,6 +34,8 @@ export function loadEditor(element: HTMLElement, state: State) {
         else
             loadRawTab(content, state.editObj);
     });
+
+    loadSaveLoadBar(element, state, charTab.button);
 
     element.appendChild(mainScreen.element);
 }

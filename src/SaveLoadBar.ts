@@ -2,7 +2,7 @@ import { State } from "./Data/State";
 import { charDefaults } from "./Data/CharDefaults";
 import { saveAs } from 'file-saver';
 
-export function loadSaveLoadBar(content: HTMLElement, state: State) {
+export function loadSaveLoadBar(content: HTMLElement, state: State, button: HTMLElement) {
     const background = document.createElement('div');
     background.className = 'content light';
     background.id = 'save-load-bar';
@@ -55,6 +55,7 @@ export function loadSaveLoadBar(content: HTMLElement, state: State) {
                     saveInput.placeholder = filename;
                     saveInput.value = filename;
                     saveInput.disabled = false;
+                    button.click();
                 });
             }
         });
@@ -89,7 +90,7 @@ function handleFiles(file: File, state: State, onSuccess: (filename: string) => 
     });
 }
 
-function loadObj(obj: any, state: State) {
+export function loadObj(obj: any, state: State) {
     state.fileObj = obj;
     state.editObj = JSON.parse(JSON.stringify(obj));
     // load char defaults
@@ -97,9 +98,6 @@ function loadObj(obj: any, state: State) {
         state.editObj.chars[key] = Object.assign(JSON.parse(JSON.stringify(charDefaults[key])), state.editObj.chars[key]);
     });
 }
-
-// state.diffChar = (name) => diffChar(charDefaults[name], state.editObj.chars[name]);
-// state.charDefaults = charDefaults;
 
 function saveObj(state: State) {
     const saveCopy = JSON.parse(JSON.stringify(state.fileObj));
@@ -110,7 +108,7 @@ function saveObj(state: State) {
     return saveCopy;
 }
 
-function diffChar(orig: any, edit: any) {
+export function diffChar(orig: any, edit: any) {
     return Object.keys(orig)
         .filter((key) => JSON.stringify(orig[key]) !== JSON.stringify(edit[key]))
         .reduce((copyObj, key) => {
