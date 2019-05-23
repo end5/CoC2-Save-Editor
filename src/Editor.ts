@@ -16,7 +16,12 @@ export function loadEditor(element: HTMLElement, state: State) {
         if (!state.editObj)
             alert("No Save File loaded");
         else
-            loadCharTab(content, state.editObj);
+            try {
+                loadCharTab(content, state.editObj);
+            }
+            catch (e) {
+                alert(e);
+            }
     });
 
     mainScreen.createTab('Flags', (content) => {
@@ -25,7 +30,12 @@ export function loadEditor(element: HTMLElement, state: State) {
         else if (!state.editObj.flags)
             alert("No Flags in save file");
         else
-            loadFlagTab(content, state.editObj);
+            try {
+                loadFlagTab(content, state.editObj);
+            }
+            catch (e) {
+                alert(e);
+            }
     });
 
     // mainScreen.createTab('Raw', (content) => {
