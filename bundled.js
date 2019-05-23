@@ -822,18 +822,6 @@
     function hasPropLabel(prop) {
         return prop.label !== undefined;
     }
-    function isValueProp(prop) {
-        return prop.type === 'boolean' || prop.type === 'number' || prop.type === 'string';
-    }
-    function isObjectProp(prop) {
-        return prop.type === 'object';
-    }
-    function isArrayProp(prop) {
-        return prop.type === 'array';
-    }
-    function isMultiOptionProp(prop) {
-        return prop.type === 'multioption' && 'options' in prop;
-    }
 
     var TabMenu = /** @class */ (function () {
         function TabMenu(options) {
@@ -990,10 +978,15 @@
                     var _a;
                     while (charContentEl.firstChild)
                         charContentEl.removeChild(charContentEl.firstChild);
-                    generateMappedFields((_a = {}, _a[starterTag] = { button: undefined, content: charContentEl }, _a), Object.keys(charMap).reverse()
-                        // Filter out tags not in this group
-                        .filter(function (key) { return charMap[key].groupTag && charMap[key].groupTag.startsWith(starterTag); })
-                        .map(function (key) { return generateInfo(char, key, charContentEl, charMap[key]); }));
+                    try {
+                        generateMappedFields((_a = {}, _a[starterTag] = { button: undefined, content: charContentEl }, _a), Object.keys(charMap).reverse()
+                            // Filter out tags not in this group
+                            .filter(function (key) { return charMap[key].groupTag && charMap[key].groupTag.startsWith(starterTag); })
+                            .map(function (key) { return generateInfo(char, key, charContentEl, charMap[key]); }));
+                    }
+                    catch (e) {
+                        alert(e);
+                    }
                 });
             };
             for (var _i = 0, starterTags_1 = starterTags; _i < starterTags_1.length; _i++) {
@@ -1037,8 +1030,8 @@
         if (hasPropLabel(mapEntry)) {
             label = mapEntry.label;
         }
-        if (!obj[key] && (!isObjectProp(mapEntry) || (isObjectProp(mapEntry) && !mapEntry.canBeNull)))
-            obj[key] = generateValue(mapEntry, obj[key]);
+        if (!obj[key] && (mapEntry.type !== 'object' || (mapEntry.type === 'object' && !mapEntry.canBeNull)))
+            obj[key] = transformValue(mapEntry, obj[key]);
         if (hasPropLabel(mapEntry) && mapEntry.groupTag) {
             mapEntry.groupTag.split(".").reduce(function (parentTag, curTag) {
                 if (!parentTag[curTag])
@@ -1053,15 +1046,15 @@
                 return parentTag[curTag];
             }, tags);
         }
-        if (isMultiOptionProp(mapEntry)) {
-            parentElement.appendChild(multiOptionField(label, generateValue(mapEntry, obj[key]), mapEntry, function (multiMapEntry, selValues) {
+        if (mapEntry.type === 'multioption') {
+            parentElement.appendChild(multiOptionField(label, transformValue(mapEntry, obj[key]), mapEntry, function (multiMapEntry, selValues) {
                 if (multiMapEntry.options.toSave)
                     obj[key] = selValues.map(function (value) { return multiMapEntry.options.toSave(value); });
                 else
                     obj[key] = selValues;
             }));
         }
-        else if (mapEntry.type === "object") {
+        else if (mapEntry.type === 'object') {
             var objField_1 = objectField(label);
             if (mapEntry.canBeNull) {
                 generateAddRemoveButtons(objField_1.content, objectAddCallback(tags, objField_1.content, obj, key, mapEntry), objectRemoveCallback(objField_1.content, obj, key));
@@ -1071,14 +1064,14 @@
             if (obj[key])
                 return Object.keys(obj[key]).reverse().map(function (objKey) { return generateInfo(obj[key], objKey, objField_1.content, mapEntry.properties); });
         }
-        else if (isArrayProp(mapEntry)) {
+        else if (mapEntry.type === 'array') {
             var objField_2 = objectField(label);
             if (mapEntry.min)
                 while (obj[key].length < mapEntry.min) {
                     if (mapEntry.override && obj[key].length in mapEntry.override)
-                        obj[key].push(generateValue(mapEntry.override[obj[key].length], obj[key]));
+                        obj[key].push(transformValue(mapEntry.override[obj[key].length], obj[key][obj[key].length]));
                     else
-                        obj[key].push(generateValue(mapEntry.entry, obj[key]));
+                        obj[key].push(transformValue(mapEntry.entry, obj[key][obj[key].length]));
                 }
             if (!(mapEntry.min && mapEntry.max && mapEntry.min === mapEntry.max)) {
                 generateAddRemoveButtons(objField_2.content, arrayAddCallback(tags, objField_2.content, obj, key, mapEntry), arrayRemoveCallback(objField_2.content, obj, key, mapEntry));
@@ -1087,7 +1080,7 @@
             parentElement.appendChild(objField_2.content);
             if (obj[key])
                 return Object.keys(obj[key]).reverse().map(function (objKey) {
-                    if (!isArrayProp(mapEntry))
+                    if (mapEntry.type !== 'array')
                         throw new Error('Changed from Array type');
                     if (mapEntry.override && objKey in mapEntry.override)
                         return generateInfo(obj[key], objKey, objField_2.content, mapEntry.override);
@@ -1095,60 +1088,61 @@
                         return generateInfo(obj[key], objKey, objField_2.content, mapEntry.entry);
                 });
         }
-        if (isValueProp(mapEntry)) {
-            if (mapEntry.type === "string") {
-                if (mapEntry.options)
-                    parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
-                else
-                    parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setStringCallback(obj, key)));
-            }
-            else if (mapEntry.type === "number") {
-                if (mapEntry.options)
-                    parentElement.appendChild(selectField(label, generateValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
-                else
-                    parentElement.appendChild(stringField(label, generateValue(mapEntry, obj[key]), setNumberCallback(obj, key)));
-            }
-            else if (mapEntry.type === "boolean") {
-                parentElement.appendChild(booleanField(label, generateValue(mapEntry, obj[key]), setBooleanCallback(obj, key)));
-            }
+        if (mapEntry.type === "string") {
+            if (mapEntry.options)
+                parentElement.appendChild(selectField(label, transformValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
+            else
+                parentElement.appendChild(stringField(label, transformValue(mapEntry, obj[key]), setStringCallback(obj, key)));
+        }
+        else if (mapEntry.type === "number") {
+            if (mapEntry.options)
+                parentElement.appendChild(selectField(label, transformValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
+            else
+                parentElement.appendChild(stringField(label, transformValue(mapEntry, obj[key]), setNumberCallback(obj, key)));
+        }
+        else if (mapEntry.type === "boolean") {
+            parentElement.appendChild(booleanField(label, transformValue(mapEntry, obj[key]), setBooleanCallback(obj, key)));
         }
         return;
     }
-    function generateValue(map, value) {
-        if (isObjectProp(map)) {
-            if (typeof value !== "object" || value == null)
+    function transformValue(map, value) {
+        if (map.type === 'object') {
+            if (value == null)
                 value = {};
             return Object.keys(map.properties).reduce(function (obj, key) {
-                obj[key] = generateValue(map.properties[key], value[key]);
+                obj[key] = transformValue(map.properties[key], value[key]);
                 return obj;
             }, {});
         }
-        else if (isArrayProp(map)) {
-            if (!Array.isArray(value))
+        if (map.type === 'array') {
+            if (value == null)
                 value = [];
-            return value.map(function (entry) { return generateValue(map.entry, entry); });
+            return value.map(function (entry) { return transformValue(map.entry, entry); });
         }
-        else if (isMultiOptionProp(map)) {
-            if (!Array.isArray(value))
+        if (map.type === 'multioption') {
+            if (value == null)
                 value = [];
             if (map.options && map.options.fromSave)
                 value = value.map(function (v) { return map.options.fromSave(v); });
             return value;
         }
-        if (!value)
-            if (map.type === "boolean")
-                value = !!value;
-            else if (map.type === "number") {
+        if (map.type === "boolean") {
+            if (value == null)
+                value = map.default || false;
+        }
+        if (map.type === "number") {
+            if (value == null)
                 value = map.default || 0;
-            }
-            else if (map.type === "string") {
+        }
+        if (map.type === "string") {
+            if (value == null)
                 if (map.default)
                     value = map.default;
                 else if (map.options && map.options.list.length > 0)
                     value = map.options.list[0];
                 else
                     value = '';
-            }
+        }
         if (map.options && map.options.fromSave)
             value = map.options.fromSave(value);
         return value;
@@ -1157,7 +1151,7 @@
         return function () {
             if (obj[key] == null) {
                 // Add value here to force display
-                obj[key] = generateValue(map, obj[key]);
+                obj[key] = transformValue(map, obj[key]);
                 generateMappedFields(tags, Object.keys(map.properties).reverse().map(function (mapKey) {
                     return generateInfo(obj[key], mapKey, parent, map.properties);
                 }));
@@ -1479,7 +1473,7 @@
         return saveCopy;
     }
     function diffChar(orig, edit) {
-        return Object.keys(orig)
+        return Object.keys(edit)
             .filter(function (key) { return JSON.stringify(orig[key]) !== JSON.stringify(edit[key]); })
             .reduce(function (copyObj, key) {
             copyObj[key] = edit[key];
@@ -1574,9 +1568,9 @@
         editor.charDefaults = charDefaults;
     }
 
-    var editorVersion = "25";
+    var editorVersion = "26";
     var gameVersion = "0.1.17";
-    var lastBreakingVersion = "24";
+    var lastBreakingVersion = "25";
     document.addEventListener("DOMContentLoaded", function () {
         var disclaimer = document.createElement("div");
         disclaimer.className = "disclaimer content dark";
