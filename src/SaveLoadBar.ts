@@ -110,7 +110,7 @@ function saveObj(state: State) {
 }
 
 export function diffChar(orig: any, edit: any) {
-    return Object.keys(orig)
+    return Object.keys(edit)
         .filter((key) => JSON.stringify(orig[key]) !== JSON.stringify(edit[key]))
         .reduce((copyObj, key) => {
             copyObj[key] = edit[key];

@@ -65,19 +65,3 @@ export interface MultiOptionProp {
 export function hasPropLabel(prop: AnyProp): prop is AnyLabeledProp {
     return (prop as AnyLabeledProp).label !== undefined;
 }
-
-export function isValueProp(prop: AnyProp | AnyLabeledProp): prop is ValueProp {
-    return prop.type === 'boolean' || prop.type === 'number' || prop.type === 'string';
-}
-
-export function isObjectProp(prop: AnyProp | AnyLabeledProp): prop is ObjectProp {
-    return prop.type === 'object';
-}
-
-export function isArrayProp(prop: AnyProp | AnyLabeledProp): prop is ArrayProp {
-    return prop.type === 'array';
-}
-
-export function isMultiOptionProp(prop: AnyProp | AnyLabeledProp): prop is MultiOptionProp {
-    return prop.type === 'multioption' && 'options' in prop;
-}

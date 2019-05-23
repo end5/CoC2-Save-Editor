@@ -1,7 +1,7 @@
 import { charDefaults } from "./Data/CharDefaults";
 import { charMap } from "./Data/CharMap";
 import { objectField, multiOptionField, selectField, stringField, booleanField, setSelectorStringCallback, setStringCallback, setNumberCallback, setBooleanCallback } from "./Display/Fields";
-import { PropDict, AnyProp, AnyLabeledProp, hasPropLabel, isObjectProp, ObjectProp, ArrayProp, isArrayProp, isMultiOptionProp, isValueProp } from "./Data/MapProps";
+import { PropDict, AnyProp, AnyLabeledProp, hasPropLabel, ObjectProp, ArrayProp } from "./Data/MapProps";
 import { TabMenu } from "./Display/TabMenu";
 
 export function loadCharTab(charContent: HTMLElement, save: Record<string, any>) {
@@ -48,13 +48,18 @@ function generateCharInfo(char: Record<string, any>) {
                 while (charContentEl.firstChild)
                     charContentEl.removeChild(charContentEl.firstChild);
 
-                generateMappedFields(
-                    { [starterTag]: { button: undefined, content: charContentEl } },
-                    Object.keys(charMap).reverse()
-                        // Filter out tags not in this group
-                        .filter((key) => charMap[key].groupTag && charMap[key].groupTag!.startsWith(starterTag))
-                        .map((key) => generateInfo(char, key, charContentEl, charMap[key]))
-                );
+                try {
+                    generateMappedFields(
+                        { [starterTag]: { button: undefined, content: charContentEl } },
+                        Object.keys(charMap).reverse()
+                            // Filter out tags not in this group
+                            .filter((key) => charMap[key].groupTag && charMap[key].groupTag!.startsWith(starterTag))
+                            .map((key) => generateInfo(char, key, charContentEl, charMap[key]))
+                    );
+                }
+                catch (e) {
+                    alert(e);
+                }
             });
         }
         const infoButton = infoMenu.getTab('Info');
@@ -118,8 +123,8 @@ function processInfo(tags: Tags, info: Info) {
         label = mapEntry.label;
     }
 
-    if (!obj[key] && (!isObjectProp(mapEntry) || (isObjectProp(mapEntry) && !mapEntry.canBeNull)))
-        obj[key] = generateValue(mapEntry, obj[key]);
+    if (!obj[key] && (mapEntry.type !== 'object' || (mapEntry.type === 'object' && !mapEntry.canBeNull)))
+        obj[key] = transformValue(mapEntry, obj[key]);
 
     if (hasPropLabel(mapEntry) && mapEntry.groupTag) {
         mapEntry.groupTag.split(".").reduce((parentTag, curTag) => {
@@ -136,10 +141,10 @@ function processInfo(tags: Tags, info: Info) {
         }, tags as TagDict);
     }
 
-    if (isMultiOptionProp(mapEntry)) {
+    if (mapEntry.type === 'multioption') {
         parentElement.appendChild(multiOptionField(
             label,
-            generateValue(mapEntry, obj[key]),
+            transformValue(mapEntry, obj[key]),
             mapEntry,
             (multiMapEntry, selValues) => {
                 if (multiMapEntry.options.toSave)
@@ -149,7 +154,7 @@ function processInfo(tags: Tags, info: Info) {
             }
         ));
     }
-    else if (mapEntry.type === "object") {
+    else if (mapEntry.type === 'object') {
         const objField = objectField(label);
 
         if (mapEntry.canBeNull) {
@@ -166,15 +171,15 @@ function processInfo(tags: Tags, info: Info) {
         if (obj[key])
             return Object.keys(obj[key]).reverse().map((objKey) => generateInfo(obj[key], objKey, objField.content, (mapEntry as ObjectProp).properties));
     }
-    else if (isArrayProp(mapEntry)) {
+    else if (mapEntry.type === 'array') {
         const objField = objectField(label);
 
         if (mapEntry.min)
             while (obj[key].length < mapEntry.min) {
                 if (mapEntry.override && obj[key].length in mapEntry.override)
-                    obj[key].push(generateValue(mapEntry.override[obj[key].length], obj[key]));
+                    obj[key].push(transformValue(mapEntry.override[obj[key].length], obj[key][obj[key].length]));
                 else
-                    obj[key].push(generateValue(mapEntry.entry, obj[key]));
+                    obj[key].push(transformValue(mapEntry.entry, obj[key][obj[key].length]));
             }
 
         if (!(mapEntry.min && mapEntry.max && mapEntry.min === mapEntry.max)) {
@@ -190,90 +195,91 @@ function processInfo(tags: Tags, info: Info) {
 
         if (obj[key])
             return Object.keys(obj[key]).reverse().map((objKey) => {
-                if (!isArrayProp(mapEntry)) throw new Error('Changed from Array type');
-                if (mapEntry.override && objKey in mapEntry.override!)
-                    return generateInfo(obj[key], objKey, objField.content, mapEntry.override!);
+                if (mapEntry.type !== 'array') throw new Error('Changed from Array type');
+                if (mapEntry.override && objKey in mapEntry.override)
+                    return generateInfo(obj[key], objKey, objField.content, mapEntry.override);
                 else
                     return generateInfo(obj[key], objKey, objField.content, mapEntry.entry);
             });
     }
-    if (isValueProp(mapEntry)) {
-        if (mapEntry.type === "string") {
-            if (mapEntry.options)
-                parentElement.appendChild(selectField(
-                    label,
-                    generateValue(mapEntry, obj[key]),
-                    mapEntry.options,
-                    setSelectorStringCallback(obj, key, mapEntry.options.toSave)
-                ));
-            else
-                parentElement.appendChild(stringField(
-                    label,
-                    generateValue(mapEntry, obj[key]),
-                    setStringCallback(obj, key)
-                ));
-        }
-        else if (mapEntry.type === "number") {
-            if (mapEntry.options)
-                parentElement.appendChild(selectField(
-                    label,
-                    generateValue(mapEntry, obj[key]),
-                    mapEntry.options,
-                    setSelectorStringCallback(obj, key, mapEntry.options.toSave)
-                ));
-            else
-                parentElement.appendChild(stringField(
-                    label,
-                    generateValue(mapEntry, obj[key]),
-                    setNumberCallback(obj, key)
-                ));
-        }
-        else if (mapEntry.type === "boolean") {
-            parentElement.appendChild(booleanField(
+    if (mapEntry.type === "string") {
+        if (mapEntry.options)
+            parentElement.appendChild(selectField(
                 label,
-                generateValue(mapEntry, obj[key]),
-                setBooleanCallback(obj, key)
+                transformValue(mapEntry, obj[key]),
+                mapEntry.options,
+                setSelectorStringCallback(obj, key, mapEntry.options.toSave)
             ));
-        }
+        else
+            parentElement.appendChild(stringField(
+                label,
+                transformValue(mapEntry, obj[key]),
+                setStringCallback(obj, key)
+            ));
+    }
+    else if (mapEntry.type === "number") {
+        if (mapEntry.options)
+            parentElement.appendChild(selectField(
+                label,
+                transformValue(mapEntry, obj[key]),
+                mapEntry.options,
+                setSelectorStringCallback(obj, key, mapEntry.options.toSave)
+            ));
+        else
+            parentElement.appendChild(stringField(
+                label,
+                transformValue(mapEntry, obj[key]),
+                setNumberCallback(obj, key)
+            ));
+    }
+    else if (mapEntry.type === "boolean") {
+        parentElement.appendChild(booleanField(
+            label,
+            transformValue(mapEntry, obj[key]),
+            setBooleanCallback(obj, key)
+        ));
     }
     return;
 }
 
-function generateValue(map: AnyProp, value: any) {
-    if (isObjectProp(map)) {
-        if (typeof value !== "object" || value == null)
+function transformValue(map: AnyProp, value: any) {
+    if (map.type === 'object') {
+        if (value == null)
             value = {};
         return Object.keys(map.properties).reduce((obj, key) => {
-            obj[key] = generateValue(map.properties[key], value[key]);
+            obj[key] = transformValue(map.properties[key], value[key]);
             return obj;
         }, {} as Record<string, any>);
     }
-    else if (isArrayProp(map)) {
-        if (!Array.isArray(value))
+    if (map.type === 'array') {
+        if (value == null)
             value = [];
-        return value.map((entry: any) => generateValue(map.entry, entry));
+        return value.map((entry: any) => transformValue(map.entry, entry));
     }
-    else if (isMultiOptionProp(map)) {
-        if (!Array.isArray(value))
+    if (map.type === 'multioption') {
+        if (value == null)
             value = [];
         if (map.options && map.options.fromSave)
             value = value.map((v: any) => map.options.fromSave!(v));
         return value;
     }
-    if (!value)
-        if (map.type === "boolean")
-            value = !!value;
-        else if (map.type === "number") {
+    if (map.type === "boolean") {
+        if (value == null)
+            value = map.default || false;
+    }
+    if (map.type === "number") {
+        if (value == null)
             value = map.default || 0;
-        }
-        else if (map.type === "string") {
+    }
+    if (map.type === "string") {
+        if (value == null)
             if (map.default)
                 value = map.default;
             else if (map.options && map.options.list.length > 0)
                 value = map.options.list[0];
             else
                 value = '';
-        }
+    }
 
     if (map.options && map.options.fromSave)
         value = map.options.fromSave(value);
@@ -285,7 +291,7 @@ function objectAddCallback(tags: Tags, parent: HTMLElement, obj: Record<string, 
     return () => {
         if (obj[key] == null) {
             // Add value here to force display
-            obj[key] = generateValue(map, obj[key]);
+            obj[key] = transformValue(map, obj[key]);
             generateMappedFields(tags, Object.keys(map.properties).reverse().map((mapKey) =>
                 generateInfo(obj[key], mapKey, parent, map.properties)
             ));
