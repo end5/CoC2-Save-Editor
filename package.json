@@ -4,9 +4,10 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
-        "build": "npm run transpile && npm run bundle",
+        "build": "npm run transpile && npm run rollup && npm run bundle",
         "transpile": "tsc",
-        "bundle": "rollup dist/index.js --format iife --name SaveEditor --file bundled.js"
+        "rollup": "rollup dist/index.js --format iife --name SaveEditor --file bundled.js",
+        "bundle": "node scripts/bundler"
     },
     "repository": {
         "type": "git",
