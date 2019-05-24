@@ -27,7 +27,9 @@ stringifyGlobals({
     Background: getGlobalsByPrefix('BG_'),
     Affinity: window.GLOBALS.AFFINITY,
     TFType: Object.keys(window.GLOBALS.TF_TYPE_PARTS).sort(key => +key).map(key => window.GLOBALS.TF_TYPE_PARTS[key]),
-    BodyType: getGlobalsByPrefix('BODY_TYPE_'),
+    BodyType: getGlobalsByPrefix('BODY_TYPE_')
+        .filter((value) => value !== 'Sylvan')
+        .map((value) => value === 'Elf' ? 'Elf/Sylvan' : value),
     BodyTag: getGlobalsByPrefix('BODY_TAG_'),
     FluidType: getGlobalsByPrefix('FLUID_TYPE_'),
     SkinType: getGlobalsByPrefix('SKIN_TYPE_'),
