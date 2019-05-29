@@ -150,8 +150,7 @@ export const charMap: PropDict = {
         label: "Powers",
         type: "multioption",
         options: globals.Powers,
-        groupTag: "Effects",
-        max: 5
+        groupTag: "Effects"
     },
     equippedPowers: {
         label: "Equipped Powers",
