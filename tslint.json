@@ -19,7 +19,6 @@
         "array-type": false,
         "object-literal-sort-keys": false,
         "no-console": false,
-        // "no-null-keyword": true,
         "variable-name": [
             true,
             "ban-keywords",
