@@ -37,8 +37,11 @@ const globalKeys = {
 };
 
 export interface GlobalOptions {
+    // Convert to serialized from display
     toSave?: (n: string) => any;
+    // Convert from serialized to display
     fromSave?: (n: any) => string;
+    // List of options
     list: string[];
 }
 

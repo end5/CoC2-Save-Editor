@@ -136,25 +136,19 @@ export function multiOptionField(label: string, initialValues: string[], mapValu
     return div;
 }
 
-export function setNumberCallback(obj: Record<string, any>, key: string, modFunc?: (num: number) => any) {
-    return (element: HTMLInputElement | HTMLSelectElement) => () => {
-        if (modFunc && !isNaN(+element.value))
-            obj[key] = modFunc(+element.value);
-        else
-            obj[key] = +element.value;
+export function setNumberCallback(obj: Record<string, any>, key: string) {
+    return (element: HTMLInputElement) => () => {
+        obj[key] = +element.value;
     };
 }
 
-export function setStringCallback(obj: Record<string, any>, key: string, modFunc?: (num: string) => any) {
+export function setStringCallback(obj: Record<string, any>, key: string) {
     return (inputElement: HTMLInputElement) => () => {
-        if (modFunc)
-            obj[key] = modFunc(inputElement.value);
-        else
-            obj[key] = inputElement.value;
+        obj[key] = inputElement.value;
     };
 }
 
-export function setSelectorStringCallback(obj: Record<string, any>, key: string, modFunc?: (num: string) => any) {
+export function setSelectorCallback(obj: Record<string, any>, key: string, modFunc?: (num: string) => any) {
     return (inputElement: HTMLSelectElement) => () => {
         if (modFunc)
             obj[key] = modFunc(inputElement[+inputElement.value].textContent!);
@@ -163,11 +157,8 @@ export function setSelectorStringCallback(obj: Record<string, any>, key: string,
     };
 }
 
-export function setBooleanCallback(obj: Record<string, any>, key: string, modFunc?: (num: boolean) => any) {
+export function setBooleanCallback(obj: Record<string, any>, key: string) {
     return (inputElement: HTMLInputElement) => () => {
-        if (modFunc)
-            obj[key] = modFunc(inputElement.checked);
-        else
-            obj[key] = inputElement.checked;
+        obj[key] = inputElement.checked;
     };
 }

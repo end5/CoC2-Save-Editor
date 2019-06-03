@@ -2,9 +2,9 @@ import { loadEditor } from "./Editor";
 import { state } from "./Data/State";
 import "./Window";
 
-const editorVersion = "27";
+const editorVersion = "28";
 const gameVersion = "0.1.17";
-const lastBreakingVersion = "25";
+const lastBreakingVersion = "27";
 
 document.addEventListener("DOMContentLoaded", () => {
     const disclaimer = document.createElement("div");

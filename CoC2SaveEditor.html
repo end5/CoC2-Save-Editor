@@ -483,9 +483,9 @@ select:focus {
         // Info
         name: { label: "Name", type: "string", groupTag: "Info" },
         title: { label: "Title", type: "string", groupTag: "Info" },
-        taxa: { label: "Taxon", type: "number", options: globals.Taxon, groupTag: "Info" },
-        class: { label: "Class", type: "number", options: globals.Class, groupTag: "Info" },
-        background: { label: "Background", type: "number", options: globals.Background, groupTag: "Info" },
+        taxa: { label: "Taxon", type: "selector", options: globals.Taxon, groupTag: "Info" },
+        class: { label: "Class", type: "selector", options: globals.Class, groupTag: "Info" },
+        background: { label: "Background", type: "selector", options: globals.Background, groupTag: "Info" },
         genderPref: { label: "Gender Pref", type: "number", groupTag: "Info" },
         level: { label: "Level", type: "number", groupTag: "Info" },
         exp: { label: "Exp", type: "number", groupTag: "Info" },
@@ -559,7 +559,7 @@ select:focus {
                 type: "object",
                 canBeNull: false,
                 properties: {
-                    key: { label: "Key", type: "string", options: globals.Perks },
+                    key: { label: "Key", type: "selector", options: globals.Perks },
                     values: { label: "Values", type: "array", entry: { type: "number" }, min: 6 }
                 }
             }
@@ -572,7 +572,7 @@ select:focus {
                 type: "object",
                 canBeNull: false,
                 properties: {
-                    key: { label: "Key", type: "string", options: globals.StatusEffect },
+                    key: { label: "Key", type: "selector", options: globals.StatusEffect },
                     duration: { label: "Duration", type: "number" },
                     values: { label: "Values", type: "array", entry: { type: "number" } }
                 }
@@ -586,7 +586,7 @@ select:focus {
                 type: "object",
                 canBeNull: false,
                 properties: {
-                    key: { label: "Key", type: "string", options: globals.CombatEffect },
+                    key: { label: "Key", type: "selector", options: globals.CombatEffect },
                     duration: { label: "Duration", type: "number" },
                     values: { label: "Values", type: "array", entry: { type: "number" } }
                 }
@@ -598,7 +598,7 @@ select:focus {
             groupTag: "Effects",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.Boon },
+                key: { label: "Key", type: "selector", options: globals.Boon },
                 duration: { label: "Duration", type: "number" },
                 values: { label: "Values", type: "array", entry: { type: "number" } }
             }
@@ -624,7 +624,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.Weapons },
+                key: { label: "Key", type: "selector", options: globals.Weapons },
                 args: createItemArgsMap()
             }
         },
@@ -634,7 +634,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.Offhand },
+                key: { label: "Key", type: "selector", options: globals.Offhand },
                 args: createItemArgsMap()
             }
         },
@@ -644,7 +644,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.ItemHead },
+                key: { label: "Key", type: "selector", options: globals.ItemHead },
                 args: createItemArgsMap()
             }
         },
@@ -654,7 +654,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.ItemNeck },
+                key: { label: "Key", type: "selector", options: globals.ItemNeck },
                 args: createItemArgsMap()
             }
         },
@@ -664,7 +664,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.ItemShoulders },
+                key: { label: "Key", type: "selector", options: globals.ItemShoulders },
                 args: createItemArgsMap()
             }
         },
@@ -674,7 +674,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.ArmorSet },
+                key: { label: "Key", type: "selector", options: globals.ArmorSet },
                 args: createItemArgsMap()
             }
         },
@@ -684,7 +684,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.ItemHands },
+                key: { label: "Key", type: "selector", options: globals.ItemHands },
                 args: createItemArgsMap()
             }
         },
@@ -694,7 +694,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.ItemWaist },
+                key: { label: "Key", type: "selector", options: globals.ItemWaist },
                 args: createItemArgsMap()
             }
         },
@@ -704,7 +704,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.ItemFeet },
+                key: { label: "Key", type: "selector", options: globals.ItemFeet },
                 args: createItemArgsMap()
             }
         },
@@ -714,7 +714,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.Rings },
+                key: { label: "Key", type: "selector", options: globals.Rings },
                 args: createItemArgsMap()
             }
         },
@@ -724,7 +724,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.Rings },
+                key: { label: "Key", type: "selector", options: globals.Rings },
                 args: createItemArgsMap()
             }
         },
@@ -734,7 +734,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.TopGarb },
+                key: { label: "Key", type: "selector", options: globals.TopGarb },
                 args: createItemArgsMap()
             }
         },
@@ -744,7 +744,7 @@ select:focus {
             groupTag: "Inventory.Equipment",
             canBeNull: true,
             properties: {
-                key: { label: "Key", type: "string", options: globals.BottomGarb },
+                key: { label: "Key", type: "selector", options: globals.BottomGarb },
                 args: createItemArgsMap()
             }
         },
@@ -755,7 +755,7 @@ select:focus {
             entry: {
                 type: "object",
                 properties: {
-                    key: { label: "Key", type: "string", options: globals.Items },
+                    key: { label: "Key", type: "selector", options: globals.Items },
                     args: createItemArgsMap()
                 }
             }
@@ -779,18 +779,18 @@ select:focus {
             entry: {
                 type: "object",
                 properties: {
-                    key: { label: "Key", type: "string", options: globals.KeyItems }
+                    key: { label: "Key", type: "selector", options: globals.KeyItems }
                 }
             }
         },
         // Body
-        _race: { label: "Race", type: "string", options: globals.Race, groupTag: "Body" },
+        _race: { label: "Race", type: "selector", options: globals.Race, groupTag: "Body" },
         originalRace: { label: "Original Race", type: "string", groupTag: "Body" },
         femininity: { label: "Feminitity", type: "number", groupTag: "Body" },
         tallness: { label: "Tallness", type: "number", groupTag: "Body" },
         tone: { label: "Tone", type: "number", groupTag: "Body" },
         thickness: { label: "Thickness", type: "number", groupTag: "Body" },
-        skinType: { label: "Type", type: "number", options: globals.SkinType, groupTag: "Body.Skin" },
+        skinType: { label: "Type", type: "selector", options: globals.SkinType, groupTag: "Body.Skin" },
         skinTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Skin" },
         skinColor: { label: "Skin Color", type: "string", groupTag: "Body.Skin" },
         furColor: { label: "Fur Color", type: "string", groupTag: "Body.Skin" },
@@ -803,28 +803,28 @@ select:focus {
         pregnancySpeedMod: { label: "Speed Mod", type: "number", groupTag: "Body.Pregnancy" },
         // Head
         horns: { label: "Count", type: "number", groupTag: "Body.Head.Horns" },
-        hornType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Horns" },
+        hornType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Horns" },
         hornLength: { label: "Length", type: "number", groupTag: "Body.Head.Horns" },
         hairColor: { label: "Color", type: "string", groupTag: "Body.Head.Hair" },
         hairLength: { label: "Length", type: "number", groupTag: "Body.Head.Hair" },
         hairStyle: { label: "Style", type: "string", groupTag: "Body.Head.Hair" },
-        hairType: { label: "Type", type: "number", options: globals.HairType, groupTag: "Body.Head.Hair" },
-        earType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Ears" },
+        hairType: { label: "Type", type: "selector", options: globals.HairType, groupTag: "Body.Head.Hair" },
+        earType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Ears" },
         earTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Ears" },
         earLength: { label: "Count", type: "number", groupTag: "Body.Head.Ears" },
-        faceType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Face" },
+        faceType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Face" },
         faceTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Face" },
-        eyeType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Eyes" },
+        eyeType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Eyes" },
         eyeTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Eyes" },
         eyeColor: { label: "Color", type: "string", groupTag: "Body.Head.Eyes" },
         lipMod: { label: "Mod", type: "number", groupTag: "Body.Head.Lips" },
         lipColor: { label: "Color", type: "string", groupTag: "Body.Head.Lips" },
-        tongueType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Tongue" },
+        tongueType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Tongue" },
         tongueTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Tongue" },
         // Torso
-        wingType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Wings" },
+        wingType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Wings" },
         wingCount: { label: "Count", type: "number", groupTag: "Body.Wings" },
-        armType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Arms" },
+        armType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Arms" },
         armTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Arms" },
         breastRows: {
             label: "Row",
@@ -845,9 +845,9 @@ select:focus {
         nipplesPerBreast: { label: "Per Breast", type: "number", groupTag: "Body.Breasts.Nipples" },
         nippleSizeRatio: { label: "Size Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
         nippleWidthRatio: { label: "Width Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
-        nippleType: { label: "Type", type: "number", options: globals.NippleType, groupTag: "Body.Breasts.Nipples" },
+        nippleType: { label: "Type", type: "selector", options: globals.NippleType, groupTag: "Body.Breasts.Nipples" },
         breastTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Breasts" },
-        milkType: { label: "Type", type: "number", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
+        milkType: { label: "Type", type: "selector", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
         milkMultiplierRaw: { label: "Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
         milkStorageMultiplierRaw: { label: "Storage Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
         milkFullnessRaw: { label: "Fullness", type: "number", groupTag: "Body.Breasts.Milk" },
@@ -857,7 +857,7 @@ select:focus {
         // Lower Torso
         hipRatingRaw: { label: "Rating Raw", type: "number", groupTag: "Body.Hips" },
         hipRatingMod: { label: "Rating Mod", type: "number", groupTag: "Body.Hips" },
-        tailType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Tails" },
+        tailType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Tails" },
         numTails: { label: "Count", type: "number", groupTag: "Body.Tails" },
         tailTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Tails" },
         buttRatingRaw: { label: "Rating Raw", type: "number", groupTag: "Body.Butt" },
@@ -868,7 +868,7 @@ select:focus {
             groupTag: "Body.Butt",
             canBeNull: false,
             properties: {
-                type: { label: "Type", type: "number", options: globals.BodyType },
+                type: { label: "Type", type: "selector", options: globals.BodyType },
                 hymen: { label: "Hymen", type: "boolean" },
                 clits: { label: "Clits", type: "number" },
                 _color: { label: "Color", type: "string" },
@@ -881,12 +881,12 @@ select:focus {
                 tags: { label: "Tags", type: "multioption", options: globals.BodyTag }
             }
         },
-        legType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Legs" },
+        legType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Legs" },
         legTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Legs" },
         legCount: { label: "Count", type: "number", groupTag: "Body.Legs" },
         // Genitals
-        girlCumType: { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
-        cumType: { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+        girlCumType: { label: "Girl Cum Type", type: "selector", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+        cumType: { label: "Cum Type", type: "selector", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
         cumMultiplierRaw: { label: "Cum Multiplier Raw", type: "number", groupTag: "Body.Genitals.Cum" },
         cumMultiplierMod: { label: "Cum Multiplier Mod", type: "number", groupTag: "Body.Genitals.Cum" },
         cocks: {
@@ -897,7 +897,7 @@ select:focus {
                 type: "object",
                 canBeNull: false,
                 properties: {
-                    type: { label: "Type", type: "number", options: globals.BodyType },
+                    type: { label: "Type", type: "selector", options: globals.BodyType },
                     virgin: { label: "Virgin", type: "boolean" },
                     tags: { label: "Tags", type: "multioption", options: globals.BodyTag },
                     lengthRaw: { label: "Length Raw", type: "number" },
@@ -924,7 +924,7 @@ select:focus {
             groupTag: "Body.Genitals",
             canBeNull: true,
             properties: {
-                type: { label: "Type", type: "number", options: globals.BodyType },
+                type: { label: "Type", type: "selector", options: globals.BodyType },
                 hymen: { label: "Hymen", type: "boolean" },
                 clits: { label: "Clits", type: "number" },
                 _color: { label: "Color", type: "string" },
@@ -948,7 +948,7 @@ select:focus {
             },
             override: {
                 0: { label: "Count", type: "number", default: 1 },
-                1: { label: "TF Type", type: "number", options: globals.TFType },
+                1: { label: "TF Type", type: "selector", options: globals.TFType },
             }
         };
     }
@@ -1095,23 +1095,17 @@ select:focus {
         div.appendChild(listEl);
         return div;
     }
-    function setNumberCallback(obj, key, modFunc) {
+    function setNumberCallback(obj, key) {
         return function (element) { return function () {
-            if (modFunc && !isNaN(+element.value))
-                obj[key] = modFunc(+element.value);
-            else
-                obj[key] = +element.value;
+            obj[key] = +element.value;
         }; };
     }
-    function setStringCallback(obj, key, modFunc) {
+    function setStringCallback(obj, key) {
         return function (inputElement) { return function () {
-            if (modFunc)
-                obj[key] = modFunc(inputElement.value);
-            else
-                obj[key] = inputElement.value;
+            obj[key] = inputElement.value;
         }; };
     }
-    function setSelectorStringCallback(obj, key, modFunc) {
+    function setSelectorCallback(obj, key, modFunc) {
         return function (inputElement) { return function () {
             if (modFunc)
                 obj[key] = modFunc(inputElement[+inputElement.value].textContent);
@@ -1119,12 +1113,9 @@ select:focus {
                 obj[key] = inputElement[+inputElement.value].textContent;
         }; };
     }
-    function setBooleanCallback(obj, key, modFunc) {
+    function setBooleanCallback(obj, key) {
         return function (inputElement) { return function () {
-            if (modFunc)
-                obj[key] = modFunc(inputElement.checked);
-            else
-                obj[key] = inputElement.checked;
+            obj[key] = inputElement.checked;
         }; };
     }
 
@@ -1320,7 +1311,6 @@ select:focus {
         if (!startInfo)
             return;
         var queue = Array.isArray(startInfo) ? startInfo : [startInfo];
-        tags = tags ? tags : {};
         while (queue.length > 0) {
             var results = processInfo(tags, queue.pop());
             if (results)
@@ -1338,25 +1328,25 @@ select:focus {
         }
         if (hasPropLabel(mapEntry)) {
             label = mapEntry.label;
+            if (mapEntry.groupTag) {
+                mapEntry.groupTag.split(".").reduce(function (parentTag, curTag) {
+                    if (!parentTag[curTag])
+                        parentTag[curTag] = { button: undefined, content: undefined };
+                    if (!parentTag[curTag].content) {
+                        var objField = objectField(curTag);
+                        parentElement.appendChild(objField.button);
+                        parentElement.appendChild(objField.content);
+                        parentTag[curTag] = objField;
+                    }
+                    parentElement = parentTag[curTag].content;
+                    return parentTag[curTag];
+                }, tags);
+            }
         }
         if (!obj[key] && (mapEntry.type !== 'object' || (mapEntry.type === 'object' && !mapEntry.canBeNull)))
-            obj[key] = transformValue(mapEntry, obj[key]);
-        if (hasPropLabel(mapEntry) && mapEntry.groupTag) {
-            mapEntry.groupTag.split(".").reduce(function (parentTag, curTag) {
-                if (!parentTag[curTag])
-                    parentTag[curTag] = { button: undefined, content: undefined };
-                if (!parentTag[curTag].content) {
-                    var objField = objectField(curTag);
-                    parentElement.appendChild(objField.button);
-                    parentElement.appendChild(objField.content);
-                    parentTag[curTag] = objField;
-                }
-                parentElement = parentTag[curTag].content;
-                return parentTag[curTag];
-            }, tags);
-        }
+            obj[key] = generateValue(mapEntry);
         if (mapEntry.type === 'multioption') {
-            parentElement.appendChild(multiOptionField(label, transformValue(mapEntry, obj[key]), mapEntry, function (multiMapEntry, selValues) {
+            parentElement.appendChild(multiOptionField(label, maybeFromSave(mapEntry, obj[key]), mapEntry, function (multiMapEntry, selValues) {
                 if (multiMapEntry.options.toSave)
                     obj[key] = selValues.map(function (value) { return multiMapEntry.options.toSave(value); });
                 else
@@ -1371,96 +1361,84 @@ select:focus {
             parentElement.appendChild(objField_1.button);
             parentElement.appendChild(objField_1.content);
             if (obj[key])
-                return Object.keys(obj[key]).reverse().map(function (objKey) { return generateInfo(obj[key], objKey, objField_1.content, mapEntry.properties); });
+                return Object.keys(obj[key]).concat(Object.keys(mapEntry.properties))
+                    .filter(function (objKey, index, self) { return self.indexOf(objKey) === index; })
+                    .reverse()
+                    .map(function (objKey) { return generateInfo(obj[key], objKey, objField_1.content, mapEntry.properties); });
         }
         else if (mapEntry.type === 'array') {
-            var objField_2 = objectField(label);
-            if (mapEntry.min)
-                while (obj[key].length < mapEntry.min) {
-                    if (mapEntry.override && obj[key].length in mapEntry.override)
-                        obj[key].push(transformValue(mapEntry.override[obj[key].length], obj[key][obj[key].length]));
-                    else
-                        obj[key].push(transformValue(mapEntry.entry, obj[key][obj[key].length]));
-                }
+            var objField = objectField(label);
             if (!(mapEntry.min && mapEntry.max && mapEntry.min === mapEntry.max)) {
-                generateAddRemoveButtons(objField_2.content, arrayAddCallback(tags, objField_2.content, obj, key, mapEntry), arrayRemoveCallback(objField_2.content, obj, key, mapEntry));
+                generateAddRemoveButtons(objField.content, arrayAddCallback(tags, objField.content, obj, key, mapEntry), arrayRemoveCallback(objField.content, obj, key, mapEntry));
             }
-            parentElement.appendChild(objField_2.button);
-            parentElement.appendChild(objField_2.content);
-            if (obj[key])
-                return Object.keys(obj[key]).reverse().map(function (objKey) {
-                    if (mapEntry.type !== 'array')
-                        throw new Error('Changed from Array type');
-                    if (mapEntry.override && objKey in mapEntry.override)
-                        return generateInfo(obj[key], objKey, objField_2.content, mapEntry.override);
-                    else
-                        return generateInfo(obj[key], objKey, objField_2.content, mapEntry.entry);
-                });
+            parentElement.appendChild(objField.button);
+            parentElement.appendChild(objField.content);
+            var maxMin = obj[key].length;
+            if (mapEntry.min && mapEntry.min > maxMin)
+                maxMin = mapEntry.min;
+            var list = [];
+            for (var index = maxMin - 1; index >= 0; index--) {
+                if (mapEntry.override && index in mapEntry.override)
+                    list.push(generateInfo(obj[key], index + '', objField.content, mapEntry.override));
+                else
+                    list.push(generateInfo(obj[key], index + '', objField.content, mapEntry.entry));
+            }
+            return list;
         }
-        if (mapEntry.type === "string") {
-            if (mapEntry.options)
-                parentElement.appendChild(selectField(label, transformValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
-            else
-                parentElement.appendChild(stringField(label, transformValue(mapEntry, obj[key]), setStringCallback(obj, key)));
+        else if (mapEntry.type === "selector") {
+            parentElement.appendChild(selectField(label, maybeFromSave(mapEntry, obj[key]), mapEntry.options, setSelectorCallback(obj, key, mapEntry.options.toSave)));
+        }
+        else if (mapEntry.type === "string") {
+            parentElement.appendChild(stringField(label, obj[key], setStringCallback(obj, key)));
         }
         else if (mapEntry.type === "number") {
-            if (mapEntry.options)
-                parentElement.appendChild(selectField(label, transformValue(mapEntry, obj[key]), mapEntry.options, setSelectorStringCallback(obj, key, mapEntry.options.toSave)));
-            else
-                parentElement.appendChild(stringField(label, transformValue(mapEntry, obj[key]), setNumberCallback(obj, key)));
+            parentElement.appendChild(stringField(label, obj[key], setNumberCallback(obj, key)));
         }
         else if (mapEntry.type === "boolean") {
-            parentElement.appendChild(booleanField(label, transformValue(mapEntry, obj[key]), setBooleanCallback(obj, key)));
+            parentElement.appendChild(booleanField(label, obj[key], setBooleanCallback(obj, key)));
         }
         return;
     }
-    function transformValue(map, value) {
+    function generateValue(map) {
         if (map.type === 'object') {
-            if (value == null)
-                value = {};
-            return Object.keys(map.properties).reduce(function (obj, key) {
-                obj[key] = transformValue(map.properties[key], value[key]);
-                return obj;
-            }, {});
+            return {};
         }
-        if (map.type === 'array') {
-            if (value == null)
-                value = [];
-            return value.map(function (entry) { return transformValue(map.entry, entry); });
+        else if (map.type === 'array') {
+            return [];
         }
-        if (map.type === 'multioption') {
-            if (value == null)
-                value = [];
-            if (map.options && map.options.fromSave)
-                value = value.map(function (v) { return map.options.fromSave(v); });
-            return value;
+        else if (map.type === 'multioption') {
+            return [];
         }
-        if (map.type === "boolean") {
-            if (value == null)
-                value = map.default || false;
+        else if (map.type === 'selector') {
+            if (map.options.toSave)
+                return map.options.toSave(map.options.list[0]);
+            else
+                return map.options.list[0];
         }
-        if (map.type === "number") {
-            if (value == null)
-                value = map.default || 0;
+        else if (map.type === 'boolean') {
+            return map.default || false;
         }
-        if (map.type === "string") {
-            if (value == null)
-                if (map.default)
-                    value = map.default;
-                else if (map.options && map.options.list.length > 0)
-                    value = map.options.list[0];
-                else
-                    value = '';
+        else if (map.type === 'number') {
+            return map.default || 0;
         }
+        else if (map.type === 'string') {
+            return map.default || '';
+        }
+        throw new Error('Unknown map type');
+    }
+    function maybeFromSave(map, value) {
         if (map.options && map.options.fromSave)
-            value = map.options.fromSave(value);
+            if (map.type === 'multioption')
+                value = value.map(function (v) { return map.options.fromSave(v); });
+            else
+                value = map.options.fromSave(value);
         return value;
     }
     function objectAddCallback(tags, parent, obj, key, map) {
         return function () {
             if (obj[key] == null) {
                 // Add value here to force display
-                obj[key] = transformValue(map, obj[key]);
+                obj[key] = generateValue(map);
                 generateMappedFields(tags, Object.keys(map.properties).reverse().map(function (mapKey) {
                     return generateInfo(obj[key], mapKey, parent, map.properties);
                 }));
@@ -1887,9 +1865,9 @@ select:focus {
         editor.charDefaults = charDefaults;
     }
 
-    var editorVersion = "27";
+    var editorVersion = "28";
     var gameVersion = "0.1.17";
-    var lastBreakingVersion = "25";
+    var lastBreakingVersion = "27";
     document.addEventListener("DOMContentLoaded", function () {
         var disclaimer = document.createElement("div");
         disclaimer.className = "disclaimer content dark";

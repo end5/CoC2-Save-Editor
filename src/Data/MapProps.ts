@@ -24,7 +24,7 @@ import { GlobalOptions } from './Globals';
 */
 
 export type AnyLabeledProp = AnyProp & PropLabel;
-export type AnyProp = ValueProp | ArrayProp | ObjectProp | MultiOptionProp;
+export type AnyProp = ValueProp | SelectorProp | ArrayProp | ObjectProp | MultiOptionProp;
 
 export interface PropDict {
     [x: string]: AnyLabeledProp;
@@ -38,8 +38,13 @@ export interface PropLabel {
 
 export interface ValueProp {
     type: 'boolean' | 'number' | 'string';
-    options?: GlobalOptions;
     default?: boolean | number | string;
+}
+
+export interface SelectorProp {
+    type: 'selector';
+    options: GlobalOptions;
+    default?: any;
 }
 
 export interface ObjectProp {
@@ -53,7 +58,8 @@ export interface ArrayProp {
     min?: number;
     max?: number;
     entry: AnyProp;
-    override?: PropDict;
+    // Override by array position
+    override?: Record<number, AnyLabeledProp>;
 }
 
 export interface MultiOptionProp {

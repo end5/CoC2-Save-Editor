@@ -26,9 +26,9 @@ export const charMap: PropDict = {
     // Info
     name: { label: "Name", type: "string", groupTag: "Info" },
     title: { label: "Title", type: "string", groupTag: "Info" },
-    taxa: { label: "Taxon", type: "number", options: globals.Taxon, groupTag: "Info" },
-    class: { label: "Class", type: "number", options: globals.Class, groupTag: "Info" },
-    background: { label: "Background", type: "number", options: globals.Background, groupTag: "Info" },
+    taxa: { label: "Taxon", type: "selector", options: globals.Taxon, groupTag: "Info" },
+    class: { label: "Class", type: "selector", options: globals.Class, groupTag: "Info" },
+    background: { label: "Background", type: "selector", options: globals.Background, groupTag: "Info" },
     genderPref: { label: "Gender Pref", type: "number", groupTag: "Info" },
     level: { label: "Level", type: "number", groupTag: "Info" },
     exp: { label: "Exp", type: "number", groupTag: "Info" },
@@ -102,7 +102,7 @@ export const charMap: PropDict = {
             type: "object",
             canBeNull: false,
             properties: {
-                key: { label: "Key", type: "string", options: globals.Perks },
+                key: { label: "Key", type: "selector", options: globals.Perks },
                 values: { label: "Values", type: "array", entry: { type: "number" }, min: 6 }
             }
         }
@@ -115,7 +115,7 @@ export const charMap: PropDict = {
             type: "object",
             canBeNull: false,
             properties: {
-                key: { label: "Key", type: "string", options: globals.StatusEffect },
+                key: { label: "Key", type: "selector", options: globals.StatusEffect },
                 duration: { label: "Duration", type: "number" },
                 values: { label: "Values", type: "array", entry: { type: "number" } }
             }
@@ -129,7 +129,7 @@ export const charMap: PropDict = {
             type: "object",
             canBeNull: false,
             properties: {
-                key: { label: "Key", type: "string", options: globals.CombatEffect },
+                key: { label: "Key", type: "selector", options: globals.CombatEffect },
                 duration: { label: "Duration", type: "number" },
                 values: { label: "Values", type: "array", entry: { type: "number" } }
             }
@@ -141,7 +141,7 @@ export const charMap: PropDict = {
         groupTag: "Effects",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.Boon },
+            key: { label: "Key", type: "selector", options: globals.Boon },
             duration: { label: "Duration", type: "number" },
             values: { label: "Values", type: "array", entry: { type: "number" } }
         }
@@ -167,7 +167,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.Weapons },
+            key: { label: "Key", type: "selector", options: globals.Weapons },
             args: createItemArgsMap()
         }
     },
@@ -177,7 +177,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.Offhand },
+            key: { label: "Key", type: "selector", options: globals.Offhand },
             args: createItemArgsMap()
         }
     },
@@ -187,7 +187,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.ItemHead },
+            key: { label: "Key", type: "selector", options: globals.ItemHead },
             args: createItemArgsMap()
         }
     },
@@ -197,7 +197,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.ItemNeck },
+            key: { label: "Key", type: "selector", options: globals.ItemNeck },
             args: createItemArgsMap()
         }
     },
@@ -207,7 +207,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.ItemShoulders },
+            key: { label: "Key", type: "selector", options: globals.ItemShoulders },
             args: createItemArgsMap()
         }
     },
@@ -217,7 +217,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.ArmorSet },
+            key: { label: "Key", type: "selector", options: globals.ArmorSet },
             args: createItemArgsMap()
         }
     },
@@ -227,7 +227,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.ItemHands },
+            key: { label: "Key", type: "selector", options: globals.ItemHands },
             args: createItemArgsMap()
         }
     },
@@ -237,7 +237,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.ItemWaist },
+            key: { label: "Key", type: "selector", options: globals.ItemWaist },
             args: createItemArgsMap()
         }
     },
@@ -247,7 +247,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.ItemFeet },
+            key: { label: "Key", type: "selector", options: globals.ItemFeet },
             args: createItemArgsMap()
         }
     },
@@ -257,7 +257,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.Rings },
+            key: { label: "Key", type: "selector", options: globals.Rings },
             args: createItemArgsMap()
         }
     },
@@ -267,7 +267,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.Rings },
+            key: { label: "Key", type: "selector", options: globals.Rings },
             args: createItemArgsMap()
         }
     },
@@ -277,7 +277,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.TopGarb },
+            key: { label: "Key", type: "selector", options: globals.TopGarb },
             args: createItemArgsMap()
         }
     },
@@ -287,7 +287,7 @@ export const charMap: PropDict = {
         groupTag: "Inventory.Equipment",
         canBeNull: true,
         properties: {
-            key: { label: "Key", type: "string", options: globals.BottomGarb },
+            key: { label: "Key", type: "selector", options: globals.BottomGarb },
             args: createItemArgsMap()
         }
     },
@@ -298,7 +298,7 @@ export const charMap: PropDict = {
         entry: {
             type: "object",
             properties: {
-                key: { label: "Key", type: "string", options: globals.Items },
+                key: { label: "Key", type: "selector", options: globals.Items },
                 args: createItemArgsMap()
             }
         }
@@ -322,18 +322,18 @@ export const charMap: PropDict = {
         entry: {
             type: "object",
             properties: {
-                key: { label: "Key", type: "string", options: globals.KeyItems }
+                key: { label: "Key", type: "selector", options: globals.KeyItems }
             }
         }
     },
     // Body
-    _race: { label: "Race", type: "string", options: globals.Race, groupTag: "Body" },
+    _race: { label: "Race", type: "selector", options: globals.Race, groupTag: "Body" },
     originalRace: { label: "Original Race", type: "string", groupTag: "Body" },
     femininity: { label: "Feminitity", type: "number", groupTag: "Body" },
     tallness: { label: "Tallness", type: "number", groupTag: "Body" },
     tone: { label: "Tone", type: "number", groupTag: "Body" },
     thickness: { label: "Thickness", type: "number", groupTag: "Body" },
-    skinType: { label: "Type", type: "number", options: globals.SkinType, groupTag: "Body.Skin" },
+    skinType: { label: "Type", type: "selector", options: globals.SkinType, groupTag: "Body.Skin" },
     skinTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Skin" },
     skinColor: { label: "Skin Color", type: "string", groupTag: "Body.Skin" },
     furColor: { label: "Fur Color", type: "string", groupTag: "Body.Skin" },
@@ -346,28 +346,28 @@ export const charMap: PropDict = {
     pregnancySpeedMod: { label: "Speed Mod", type: "number", groupTag: "Body.Pregnancy" },
     // Head
     horns: { label: "Count", type: "number", groupTag: "Body.Head.Horns" },
-    hornType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Horns" },
+    hornType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Horns" },
     hornLength: { label: "Length", type: "number", groupTag: "Body.Head.Horns" },
     hairColor: { label: "Color", type: "string", groupTag: "Body.Head.Hair" },
     hairLength: { label: "Length", type: "number", groupTag: "Body.Head.Hair" },
     hairStyle: { label: "Style", type: "string", groupTag: "Body.Head.Hair" },
-    hairType: { label: "Type", type: "number", options: globals.HairType, groupTag: "Body.Head.Hair" },
-    earType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Ears" },
+    hairType: { label: "Type", type: "selector", options: globals.HairType, groupTag: "Body.Head.Hair" },
+    earType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Ears" },
     earTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Ears" },
     earLength: { label: "Count", type: "number", groupTag: "Body.Head.Ears" },
-    faceType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Face" },
+    faceType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Face" },
     faceTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Face" },
-    eyeType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Eyes" },
+    eyeType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Eyes" },
     eyeTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Eyes" },
     eyeColor: { label: "Color", type: "string", groupTag: "Body.Head.Eyes" },
     lipMod: { label: "Mod", type: "number", groupTag: "Body.Head.Lips" },
     lipColor: { label: "Color", type: "string", groupTag: "Body.Head.Lips" },
-    tongueType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Head.Tongue" },
+    tongueType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Head.Tongue" },
     tongueTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Head.Tongue" },
     // Torso
-    wingType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Wings" },
+    wingType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Wings" },
     wingCount: { label: "Count", type: "number", groupTag: "Body.Wings" },
-    armType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Arms" },
+    armType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Arms" },
     armTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Arms" },
     breastRows: {
         label: "Row",
@@ -388,9 +388,9 @@ export const charMap: PropDict = {
     nipplesPerBreast: { label: "Per Breast", type: "number", groupTag: "Body.Breasts.Nipples" },
     nippleSizeRatio: { label: "Size Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
     nippleWidthRatio: { label: "Width Ratio", type: "number", groupTag: "Body.Breasts.Nipples" },
-    nippleType: { label: "Type", type: "number", options: globals.NippleType, groupTag: "Body.Breasts.Nipples" },
+    nippleType: { label: "Type", type: "selector", options: globals.NippleType, groupTag: "Body.Breasts.Nipples" },
     breastTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Breasts" },
-    milkType: { label: "Type", type: "number", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
+    milkType: { label: "Type", type: "selector", options: globals.FluidType, groupTag: "Body.Breasts.Milk" },
     milkMultiplierRaw: { label: "Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
     milkStorageMultiplierRaw: { label: "Storage Multiplier", type: "number", groupTag: "Body.Breasts.Milk" },
     milkFullnessRaw: { label: "Fullness", type: "number", groupTag: "Body.Breasts.Milk" },
@@ -400,7 +400,7 @@ export const charMap: PropDict = {
     // Lower Torso
     hipRatingRaw: { label: "Rating Raw", type: "number", groupTag: "Body.Hips" },
     hipRatingMod: { label: "Rating Mod", type: "number", groupTag: "Body.Hips" },
-    tailType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Tails" },
+    tailType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Tails" },
     numTails: { label: "Count", type: "number", groupTag: "Body.Tails" },
     tailTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Tails" },
     buttRatingRaw: { label: "Rating Raw", type: "number", groupTag: "Body.Butt" },
@@ -411,7 +411,7 @@ export const charMap: PropDict = {
         groupTag: "Body.Butt",
         canBeNull: false,
         properties: {
-            type: { label: "Type", type: "number", options: globals.BodyType },
+            type: { label: "Type", type: "selector", options: globals.BodyType },
             hymen: { label: "Hymen", type: "boolean" },
             clits: { label: "Clits", type: "number" },
             _color: { label: "Color", type: "string" },
@@ -424,12 +424,12 @@ export const charMap: PropDict = {
             tags: { label: "Tags", type: "multioption", options: globals.BodyTag }
         }
     },
-    legType: { label: "Type", type: "number", options: globals.BodyType, groupTag: "Body.Legs" },
+    legType: { label: "Type", type: "selector", options: globals.BodyType, groupTag: "Body.Legs" },
     legTags: { label: "Tags", type: "multioption", options: globals.BodyTag, groupTag: "Body.Legs" },
     legCount: { label: "Count", type: "number", groupTag: "Body.Legs" },
     // Genitals
-    girlCumType: { label: "Girl Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
-    cumType: { label: "Cum Type", type: "number", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+    girlCumType: { label: "Girl Cum Type", type: "selector", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
+    cumType: { label: "Cum Type", type: "selector", options: globals.FluidType, groupTag: "Body.Genitals.Cum" },
     cumMultiplierRaw: { label: "Cum Multiplier Raw", type: "number", groupTag: "Body.Genitals.Cum" },
     cumMultiplierMod: { label: "Cum Multiplier Mod", type: "number", groupTag: "Body.Genitals.Cum" },
     cocks: {
@@ -440,7 +440,7 @@ export const charMap: PropDict = {
             type: "object",
             canBeNull: false,
             properties: {
-                type: { label: "Type", type: "number", options: globals.BodyType },
+                type: { label: "Type", type: "selector", options: globals.BodyType },
                 virgin: { label: "Virgin", type: "boolean" },
                 tags: { label: "Tags", type: "multioption", options: globals.BodyTag },
                 lengthRaw: { label: "Length Raw", type: "number" },
@@ -467,7 +467,7 @@ export const charMap: PropDict = {
         groupTag: "Body.Genitals",
         canBeNull: true,
         properties: {
-            type: { label: "Type", type: "number", options: globals.BodyType },
+            type: { label: "Type", type: "selector", options: globals.BodyType },
             hymen: { label: "Hymen", type: "boolean" },
             clits: { label: "Clits", type: "number" },
             _color: { label: "Color", type: "string" },
@@ -492,7 +492,7 @@ function createItemArgsMap(): PropLabel & ArrayProp {
         },
         override: {
             0: { label: "Count", type: "number", default: 1 },
-            1: { label: "TF Type", type: "number", options: globals.TFType },
+            1: { label: "TF Type", type: "selector", options: globals.TFType },
         }
     };
 }
