@@ -72,7 +72,7 @@ JSON.stringify(Object.keys(window.CHARS)
 var fs = require('fs');
 
 var list = [];
-var contents = fs.readFileSync('./dist/main.34c44f3cd8471decbd2d.js', 'utf8');
+var contents = fs.readFileSync('./source.js', 'utf8');
 var matches = contents.match(/flags\.[\w_]+/g);
 if (matches && matches.length > 0) {
     list = list.concat(matches.map((value) => value.substr(6)));
@@ -86,7 +86,7 @@ list = list
     .sort()
     .map((value) => '"' + value + '"');
 
-fs.writeFile('./CompressedFlags.js', 'export const FlagsList = [' + list.join(', ') + '];\n', function (err) {
+fs.writeFile('./CompressedFlags.js', 'export const Flags = [' + list.join(', ') + '];\n', function (err) {
     if (err) return console.log(err);
 
     console.log(list.length + " flags were saved!");
