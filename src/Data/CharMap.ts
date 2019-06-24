@@ -160,7 +160,7 @@ export const charMap: PropDict = {
         max: 5
     },
     // Inventory
-    credits: { label: "Credits", type: "number", groupTag: "Inventory" },
+    credits: { label: "Electrum Coins", type: "number", groupTag: "Inventory" },
     weaponPrimary: {
         label: "Primary Weapon",
         type: "object",
