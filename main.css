@@ -259,6 +259,10 @@ select:focus {
     margin-bottom: 5px;
 }
 
+.multioption-container {
+    display: grid;
+}
+
 .multioption-list {
     padding: 0;
     margin: 0;

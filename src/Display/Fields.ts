@@ -1,4 +1,4 @@
-import { createTextInput, EventFunc, createCheckBox } from './Elements';
+import { createTextInput, EventFunc, createCheckBox, createFilterBar } from './Elements';
 import { MultiOptionProp } from '../Data/MapProps';
 import { GlobalOptions } from '../Data/Globals';
 
@@ -82,21 +82,47 @@ export function multiOptionField(label: string, initialValues: string[], mapValu
     const title = fieldTitle(label);
     div.appendChild(title);
 
+    const component = document.createElement('div');
+    component.className = 'multioption-container';
+
     const listEl = document.createElement('ul');
     listEl.className = 'multioption-list';
 
     const options = mapValue.options.list.map((value) =>
         ({
             key: value,
+            element: document.createElement('li'),
             selected: !!~initialValues.indexOf(value)
         }));
+
+    const filter = createFilterBar();
+    filter.addEventListener('keyup', () => {
+        let filterText = filter.value.toLocaleLowerCase();
+        let selectedOnly = false;
+
+        if (filterText.startsWith('*')) {
+            filterText = filterText.slice(1);
+            selectedOnly = true;
+        }
+
+        for (const item of options) {
+            if (
+                (!selectedOnly || (selectedOnly && item.selected)) &&
+                item.key.toLocaleLowerCase().startsWith(filterText)
+            )
+                item.element.classList.remove('collapsed');
+            else
+                item.element.classList.add('collapsed');
+        }
+    });
 
     // Counter on max number of selections
     if (mapValue.max)
         title.textContent += ' (' + options.filter((option) => option.selected).length + '/' + mapValue.max + ')';
 
     for (const option of options) {
-        const listItem = document.createElement('li');
+        // const listItem = document.createElement('li');
+        const listItem = option.element;
         listItem.className = 'multioption';
         listItem.textContent = option.key;
 
@@ -131,7 +157,9 @@ export function multiOptionField(label: string, initialValues: string[], mapValu
         listEl.appendChild(listItem);
     }
 
-    div.appendChild(listEl);
+    component.appendChild(filter);
+    component.appendChild(listEl);
+    div.appendChild(component);
 
     return div;
 }

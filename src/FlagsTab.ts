@@ -21,15 +21,13 @@ export function loadFlagTab(flagContent: HTMLElement, save: Record<string, any>)
     });
 
     filterBar.addEventListener('keyup', () => {
+        const filterText = filterBar.value.toLocaleLowerCase();
+
         for (const pair of flagNameElPairs) {
-            if (pair.name.toLocaleLowerCase().startsWith(filterBar.value.toLocaleLowerCase())) {
-                if (pair.el.classList.contains('collapsed')) {
-                    pair.el.classList.toggle('collapsed');
-                }
-            }
-            else if (!pair.el.classList.contains('collapsed')) {
-                pair.el.classList.toggle('collapsed');
-            }
+            if (pair.name.toLocaleLowerCase().startsWith(filterText))
+                pair.el.classList.remove('collapsed');
+            else
+                pair.el.classList.add('collapsed');
         }
     });
 
