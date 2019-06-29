@@ -265,6 +265,10 @@ select:focus {
     margin-bottom: 5px;
 }
 
+.multioption-container {
+    display: grid;
+}
+
 .multioption-list {
     padding: 0;
     margin: 0;
@@ -1054,19 +1058,40 @@ select:focus {
         div.className = 'field dark';
         var title = fieldTitle(label);
         div.appendChild(title);
+        var component = document.createElement('div');
+        component.className = 'multioption-container';
         var listEl = document.createElement('ul');
         listEl.className = 'multioption-list';
         var options = mapValue.options.list.map(function (value) {
             return ({
                 key: value,
+                element: document.createElement('li'),
                 selected: !!~initialValues.indexOf(value)
             });
+        });
+        var filter = createFilterBar();
+        filter.addEventListener('keyup', function () {
+            var filterText = filter.value.toLocaleLowerCase();
+            var selectedOnly = false;
+            if (filterText.startsWith('*')) {
+                filterText = filterText.slice(1);
+                selectedOnly = true;
+            }
+            for (var _i = 0, options_2 = options; _i < options_2.length; _i++) {
+                var item = options_2[_i];
+                if ((!selectedOnly || (selectedOnly && item.selected)) &&
+                    item.key.toLocaleLowerCase().startsWith(filterText))
+                    item.element.classList.remove('collapsed');
+                else
+                    item.element.classList.add('collapsed');
+            }
         });
         // Counter on max number of selections
         if (mapValue.max)
             title.textContent += ' (' + options.filter(function (option) { return option.selected; }).length + '/' + mapValue.max + ')';
         var _loop_1 = function (option) {
-            var listItem = document.createElement('li');
+            // const listItem = document.createElement('li');
+            var listItem = option.element;
             listItem.className = 'multioption';
             listItem.textContent = option.key;
             if (option.selected)
@@ -1097,7 +1122,9 @@ select:focus {
             var option = options_1[_i];
             _loop_1(option);
         }
-        div.appendChild(listEl);
+        component.appendChild(filter);
+        component.appendChild(listEl);
+        div.appendChild(component);
         return div;
     }
     function setNumberCallback(obj, key) {
@@ -1790,16 +1817,13 @@ select:focus {
             return { name: name, el: el };
         });
         filterBar.addEventListener('keyup', function () {
+            var filterText = filterBar.value.toLocaleLowerCase();
             for (var _i = 0, flagNameElPairs_1 = flagNameElPairs; _i < flagNameElPairs_1.length; _i++) {
                 var pair = flagNameElPairs_1[_i];
-                if (pair.name.toLocaleLowerCase().startsWith(filterBar.value.toLocaleLowerCase())) {
-                    if (pair.el.classList.contains('collapsed')) {
-                        pair.el.classList.toggle('collapsed');
-                    }
-                }
-                else if (!pair.el.classList.contains('collapsed')) {
-                    pair.el.classList.toggle('collapsed');
-                }
+                if (pair.name.toLocaleLowerCase().startsWith(filterText))
+                    pair.el.classList.remove('collapsed');
+                else
+                    pair.el.classList.add('collapsed');
             }
         });
         filterBarDiv.appendChild(filterBar);
@@ -1870,7 +1894,7 @@ select:focus {
         editor.charDefaults = charDefaults;
     }
 
-    var editorVersion = "30";
+    var editorVersion = "31";
     var gameVersion = "0.2.3";
     var lastBreakingVersion = "27";
     document.addEventListener("DOMContentLoaded", function () {
