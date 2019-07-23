@@ -1720,8 +1720,13 @@ select:focus {
                 var filename = saveInput.value !== saveInput.placeholder ? saveInput.value : saveInput.placeholder;
                 if (!filename.endsWith('.coc2'))
                     filename += '.coc2';
-                var blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
-                saveAs(blob, filename);
+                try {
+                    var blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
+                    saveAs(blob, filename);
+                }
+                catch (e) {
+                    alert("Problem with saving. Error:" + e);
+                }
             }
             else {
                 alert("No Save File loaded");

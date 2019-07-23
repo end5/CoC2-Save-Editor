@@ -32,8 +32,13 @@ export function loadSaveLoadBar(content: HTMLElement, state: State, button: HTML
         if (state.fileReader && state.file) {
             let filename = saveInput.value !== saveInput.placeholder ? saveInput.value : saveInput.placeholder;
             if (!filename.endsWith('.coc2')) filename += '.coc2';
-            const blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
-            saveAs(blob, filename);
+            try {
+                const blob = new Blob([JSON.stringify(saveObj(state))], { type: 'text/json' });
+                saveAs(blob, filename);
+            }
+            catch (e) {
+                alert("Problem with saving. Error:" + e);
+            }
         }
         else {
             alert("No Save File loaded");
