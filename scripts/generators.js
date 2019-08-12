@@ -89,13 +89,17 @@ var matches = contents.match(/flags\.[\w_]+/g);
 if (matches && matches.length > 0) {
     list = list.concat(matches.map((value) => value.substr(6)));
 }
+var matches = contents.match(/flags\[['"][\w_]+['"]\]/g);
+if (matches && matches.length > 0) {
+    list = list.concat(matches.map((value) => value.substr(7, value.length - 2)));
+}
 var matches = contents.match(/incFlags\('[\w_]+/g);
 if (matches && matches.length > 0) {
     list = list.concat(matches.map((value) => value.substr(10)));
 }
 
 // This needs to be filled in from pregnancy flags above
-const pregFlagKeys = ["WINGLEADER_PREG", "KASYRRA_PC_PREG", "IMP_PC_PREG", "ALRAUNE_PC_PREG", "HORNET_PC_PREG", "GWYN_PREG", "WYVERN_PREG", "OVILIXER_PC_PREG", "SHAR_OVILIXER_PREG", "LUPINE_PC_PREG", "BRINT_PC_PREG", "HRETHA_PREG", "ZUZAAN_PREG"];
+const pregFlagKeys = ["WINGLEADER_PREG", "KASYRRA_PC_PREG", "IMP_PC_PREG", "ALRAUNE_PC_PREG", "HORNET_PC_PREG", "GWYN_PREG", "WYVERN_PREG", "OVILIXER_PC_PREG", "SHAR_OVILIXER_PREG", "LUPINE_PC_PREG", "BRINT_PC_PREG", "HRETHA_PREG", "ZUZAAN_PREG", "BRIENNE_PREG"];
 
 const expandedPregFlags = [];
 for (const flag of pregFlagKeys) {
