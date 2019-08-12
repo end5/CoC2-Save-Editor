@@ -2,8 +2,8 @@ import { loadEditor } from "./Editor";
 import { state } from "./Data/State";
 import "./Window";
 
-const editorVersion = "32";
-const gameVersion = "0.2.7";
+const editorVersion = "33";
+const gameVersion = "0.2.10";
 const lastBreakingVersion = "27";
 
 document.addEventListener("DOMContentLoaded", () => {
