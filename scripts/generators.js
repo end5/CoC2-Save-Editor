@@ -99,7 +99,7 @@ if (matches && matches.length > 0) {
 }
 
 // This needs to be filled in from pregnancy flags above
-const pregFlagKeys = ["WINGLEADER_PREG", "KASYRRA_PC_PREG", "IMP_PC_PREG", "ALRAUNE_PC_PREG", "HORNET_PC_PREG", "GWYN_PREG", "WYVERN_PREG", "OVILIXER_PC_PREG", "SHAR_OVILIXER_PREG", "LUPINE_PC_PREG", "BRINT_PC_PREG", "HRETHA_PREG", "ZUZAAN_PREG", "BRIENNE_PREG"];
+const pregFlagKeys = ["WINGLEADER_PREG", "KASYRRA_PC_PREG", "IMP_PC_PREG", "ALRAUNE_PC_PREG", "HORNET_PC_PREG", "GWYN_PREG", "WYVERN_PREG", "OVILIXER_PC_PREG", "SHAR_OVILIXER_PREG", "LUPINE_PC_PREG", "BRINT_PC_PREG", "HRETHA_PREG", "ZUZAAN_PREG", "BRIENNE_PREG", "SHAR_PREG", "ATANI_PREG"];
 
 const expandedPregFlags = [];
 for (const flag of pregFlagKeys) {
