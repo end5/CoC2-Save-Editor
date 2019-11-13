@@ -19,10 +19,10 @@
         "url": "https://github.com/end5/CoC2-Save-Editor/issues"
     },
     "homepage": "https://github.com/end5/CoC2-Save-Editor#readme",
-    "devDependencies": {
-        "@types/file-saver": "^2.0.0",
-        "rollup": "^1.12.3",
-        "typescript": "^3.4.5"
-    },
-    "dependencies": {}
+    "dependencies": {
+        "@types/file-saver": "^2.0.1",
+        "rollup": "^1.27.0",
+        "tslint": "^5.20.1",
+        "typescript": "^3.7.2"
+    }
 }
