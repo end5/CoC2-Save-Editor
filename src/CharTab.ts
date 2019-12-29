@@ -1,4 +1,4 @@
-import { charDefaults } from "./Data/CharDefaults";
+import { charDefaults } from "./GameData/CharDefaults";
 import { charMap } from "./Data/CharMap";
 import { objectField, multiOptionField, selectField, stringField, booleanField, setSelectorCallback, setStringCallback, setNumberCallback, setBooleanCallback } from "./Display/Fields";
 import { PropDict, AnyProp, AnyLabeledProp, hasPropLabel, ObjectProp, ArrayProp, MultiOptionProp, SelectorProp } from "./Data/MapProps";

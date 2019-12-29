@@ -1,6 +1,6 @@
 import { state } from "./Data/State";
 import { diffChar } from "./SaveLoadBar";
-import { charDefaults } from "./Data/CharDefaults";
+import { charDefaults } from "./GameData/CharDefaults";
 
 if (window) {
     const editor: any = (window as any).editor = {};

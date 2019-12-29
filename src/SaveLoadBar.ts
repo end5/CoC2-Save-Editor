@@ -1,5 +1,5 @@
 import { State } from "./Data/State";
-import { charDefaults } from "./Data/CharDefaults";
+import { charDefaults } from "./GameData/CharDefaults";
 import 'file-saver';
 import '../external/FileSaver.js';
 

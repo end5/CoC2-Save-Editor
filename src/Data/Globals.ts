@@ -1,4 +1,4 @@
-import { globalKeys } from "./GlobalKeys";
+import { globalKeys } from "../GameData/GlobalKeys";
 
 export interface GlobalOptions {
     // Convert to serialized from display

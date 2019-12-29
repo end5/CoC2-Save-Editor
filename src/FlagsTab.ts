@@ -1,6 +1,6 @@
 import { createFilterBar } from "./Display/Elements";
 import { stringField } from "./Display/Fields";
-import { Flags } from "./Data/Flags";
+import { Flags } from "./GameData/Flags";
 
 export function loadFlagTab(flagContent: HTMLElement, save: Record<string, any>) {
     while (flagContent.firstChild)
