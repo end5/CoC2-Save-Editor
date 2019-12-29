@@ -58,31 +58,19 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "ComfortableClothes",
-            args: [1]
-        },
+        armorSet: { key: "ComfortableClothes", args: [1] },
         hands: null,
         waist: null,
-        feet: {
-            key: "LeatherBoots",
-            args: [1]
-        },
+        feet: { key: "LeatherBoots", args: [1] },
         ring1: null,
         ring2: null,
         topGarment: null,
-        bottomGarment: {
-            key: "PlainUnderwear",
-            args: [1]
-        },
+        bottomGarment: { key: "PlainUnderwear", args: [1] },
         inventory: [],
         keyItems: [],
         set: null,
@@ -142,11 +130,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -262,29 +246,23 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 0, 1, 0, 1, 1]
-        }, {
-            key: "HealersHands",
-            values: []
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "SpiritVeil"
-        }, {
-            key: "Heal"
-        }, {
-            key: "WhiteFire"
-        }],
-        equippedPowers: [{
-            key: "Heal"
-        }, {
-            key: "WhiteFire"
-        }, null, {
-            key: "SpiritVeil"
-        }, null],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 0, 1, 0, 1, 1] },
+            { key: "HealersHands", values: [] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "SpiritVeil" },
+            { key: "Heal" },
+            { key: "WhiteFire" }
+        ],
+        equippedPowers: [
+            { key: "Heal" },
+            { key: "WhiteFire" },
+            null,
+            { key: "SpiritVeil" },
+            null
+        ],
         stance: null,
         multiTurnAttack: null,
         combatEffects: [],
@@ -293,47 +271,24 @@ export const charDefaults = {
         dislikes: [-4, -8],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "CaitsStaff",
-            args: [1]
-        },
+        weaponPrimary: { key: "CaitsStaff", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
-        shoulders: {
-            key: "PriestessCloak",
-            args: [1]
-        },
-        armorSet: {
-            key: "PassionPriestessGarb",
-            args: [1]
-        },
-        hands: {
-            key: "SilverBracelets",
-            args: [1]
-        },
-        waist: {
-            key: "PotionBelt",
-            args: [1]
-        },
-        feet: {
-            key: "CaitsKneeBoots",
-            args: [1]
-        },
+        shoulders: { key: "PriestessCloak", args: [1] },
+        armorSet: { key: "PassionPriestessGarb", args: [1] },
+        hands: { key: "SilverBracelets", args: [1] },
+        waist: { key: "PotionBelt", args: [1] },
+        feet: { key: "CaitsKneeBoots", args: [1] },
         ring1: null,
         ring2: null,
         topGarment: null,
         bottomGarment: null,
         inventory: [],
         keyItems: [],
-        set: {
-            key: "PassionSet",
-            args: [1]
-        },
+        set: { key: "PassionSet", args: [1] },
         originalRace: "catfolk",
-        _race: {
-            key: "Catfolk"
-        },
+        _race: { key: "Catfolk" },
         femininity: 85,
         tallness: 66,
         tone: 40,
@@ -389,11 +344,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 6,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 6, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -514,36 +465,25 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 0, 0, 1, 1, 1]
-        }, {
-            key: "ArcaneAttunement",
-            values: []
-        }, {
-            key: "JourneymanSummoner",
-            values: []
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "FireBolt"
-        }, {
-            key: "CharmSpell"
-        }, {
-            key: "GroupHeal"
-        }, {
-            key: "SummonStoneElemental"
-        }],
-        equippedPowers: [{
-            key: "FireBolt"
-        }, {
-            key: "CharmSpell"
-        }, {
-            key: "GroupHeal"
-        }, {
-            key: "SummonStoneElemental"
-        }, null],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 0, 0, 1, 1, 1] },
+            { key: "ArcaneAttunement", values: [] },
+            { key: "JourneymanSummoner", values: [] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "FireBolt" },
+            { key: "CharmSpell" },
+            { key: "GroupHeal" },
+            { key: "SummonStoneElemental" }
+        ],
+        equippedPowers: [
+            { key: "FireBolt" },
+            { key: "CharmSpell" },
+            { key: "GroupHeal" },
+            { key: "SummonStoneElemental" },
+            null
+        ],
         stance: null,
         multiTurnAttack: null,
         combatEffects: [],
@@ -552,18 +492,12 @@ export const charDefaults = {
         dislikes: [-4, -8],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "BirchStaff",
-            args: [1]
-        },
+        weaponPrimary: { key: "BirchStaff", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "SummonersRobes",
-            args: [1]
-        },
+        armorSet: { key: "SummonersRobes", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -573,10 +507,7 @@ export const charDefaults = {
         bottomGarment: null,
         inventory: [],
         keyItems: [],
-        set: {
-            key: "SummonerSet",
-            args: [1]
-        },
+        set: { key: "SummonerSet", args: [1] },
         originalRace: "half-lupine",
         femininity: 70,
         tallness: 66,
@@ -633,11 +564,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -654,19 +581,21 @@ export const charDefaults = {
         ballSizeRaw: 10,
         ballSizeMod: 0,
         ballFullness: 100,
-        cocks: [{
-            type: 1,
-            virgin: true,
-            tags: [],
-            lengthRaw: 20,
-            lengthMod: 0,
-            thicknessRatioRaw: 1,
-            thicknessRatioMod: 0,
-            flaccidRatio: 0.4,
-            _knotRatio: 1.5,
-            pierced: 0,
-            _color: ""
-        }],
+        cocks: [
+            {
+                type: 1,
+                virgin: true,
+                tags: [],
+                lengthRaw: 20,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: 0.4,
+                _knotRatio: 1.5,
+                pierced: 0,
+                _color: ""
+            }
+        ],
         feracityRaw: 1,
         feracityMod: 0,
         fertilityMod: 0,
@@ -758,33 +687,24 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "WarPaint",
-            values: []
-        }, {
-            key: "StartingAttributeBonuses",
-            values: [0, 3, 0, 0, 0, 0]
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "GuardedStance"
-        }, {
-            key: "AmazonStrike"
-        }, {
-            key: "Cleave"
-        }, {
-            key: "PrimeTarget"
-        }],
-        equippedPowers: [{
-            key: "GuardedStance"
-        }, {
-            key: "AmazonStrike"
-        }, {
-            key: "Cleave"
-        }, {
-            key: "PrimeTarget"
-        }, null],
+        perks: [
+            { key: "WarPaint", values: [] },
+            { key: "StartingAttributeBonuses", values: [0, 3, 0, 0, 0, 0] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "GuardedStance" },
+            { key: "AmazonStrike" },
+            { key: "Cleave" },
+            { key: "PrimeTarget" }
+        ],
+        equippedPowers: [
+            { key: "GuardedStance" },
+            { key: "AmazonStrike" },
+            { key: "Cleave" },
+            { key: "PrimeTarget" },
+            null
+        ],
         stance: null,
         multiTurnAttack: null,
         combatEffects: [],
@@ -793,21 +713,12 @@ export const charDefaults = {
         dislikes: [-8, -3],
         boon: null,
         credits: 60,
-        weaponPrimary: {
-            key: "AronasMastbreaker",
-            args: [1]
-        },
-        weaponSecondary: {
-            key: "HoplonShield",
-            args: [1]
-        },
+        weaponPrimary: { key: "AronasMastbreaker", args: [1] },
+        weaponSecondary: { key: "HoplonShield", args: [1] },
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "AronasWarhides",
-            args: [1]
-        },
+        armorSet: { key: "AronasWarhides", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -819,9 +730,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "orc",
-        _race: {
-            key: "Orc"
-        },
+        _race: { key: "Orc" },
         femininity: 65,
         tallness: 94,
         tone: 80,
@@ -877,11 +786,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 5,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 5, sizeMod: 0 }],
         nippleColor: "black",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -898,19 +803,21 @@ export const charDefaults = {
         ballSizeRaw: 3,
         ballSizeMod: 0,
         ballFullness: 100,
-        cocks: [{
-            type: 1,
-            virgin: true,
-            tags: [],
-            lengthRaw: 12,
-            lengthMod: 0,
-            thicknessRatioRaw: 1,
-            thicknessRatioMod: 0,
-            flaccidRatio: 0.4,
-            _knotRatio: 1.5,
-            pierced: 0,
-            _color: ""
-        }],
+        cocks: [
+            {
+                type: 1,
+                virgin: true,
+                tags: [],
+                lengthRaw: 12,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: 0.4,
+                _knotRatio: 1.5,
+                pierced: 0,
+                _color: ""
+            }
+        ],
         feracityRaw: 1,
         feracityMod: 0,
         fertilityMod: 0,
@@ -1014,29 +921,23 @@ export const charDefaults = {
         pheromoneResist: -75,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [2, 1, 0, 0, 0, 0]
-        }, {
-            key: "RendingStrike",
-            values: []
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "GiantsReach"
-        }, {
-            key: "Cleave"
-        }, {
-            key: "Frenzy"
-        }],
-        equippedPowers: [{
-            key: "GiantsReach"
-        }, {
-            key: "Cleave"
-        }, null, {
-            key: "Frenzy"
-        }, null],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [2, 1, 0, 0, 0, 0] },
+            { key: "RendingStrike", values: [] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "GiantsReach" },
+            { key: "Cleave" },
+            { key: "Frenzy" }
+        ],
+        equippedPowers: [
+            { key: "GiantsReach" },
+            { key: "Cleave" },
+            null,
+            { key: "Frenzy" },
+            null
+        ],
         stance: null,
         multiTurnAttack: null,
         combatEffects: [],
@@ -1045,21 +946,12 @@ export const charDefaults = {
         dislikes: [-1, -7],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "Poleaxe",
-            args: [1]
-        },
-        weaponSecondary: {
-            key: "Mace",
-            args: [1]
-        },
+        weaponPrimary: { key: "Poleaxe", args: [1] },
+        weaponSecondary: { key: "Mace", args: [1] },
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "LoinclothAndGuards",
-            args: [1]
-        },
+        armorSet: { key: "LoinclothAndGuards", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -1069,14 +961,9 @@ export const charDefaults = {
         bottomGarment: null,
         inventory: [],
         keyItems: [],
-        set: {
-            key: "LoinSet",
-            args: [1]
-        },
+        set: { key: "LoinSet", args: [1] },
         originalRace: "minotaur",
-        _race: {
-            key: "Minotaur"
-        },
+        _race: { key: "Minotaur" },
         femininity: 5,
         tallness: 102,
         tone: 80,
@@ -1132,11 +1019,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -1153,19 +1036,21 @@ export const charDefaults = {
         ballSizeRaw: 30,
         ballSizeMod: 0,
         ballFullness: 100,
-        cocks: [{
-            type: 6,
-            virgin: true,
-            tags: [4, 38],
-            lengthRaw: 24,
-            lengthMod: 0,
-            thicknessRatioRaw: 1,
-            thicknessRatioMod: 0,
-            flaccidRatio: 0.4,
-            _knotRatio: 1.5,
-            pierced: 0,
-            _color: "brown"
-        }],
+        cocks: [
+            {
+                type: 6,
+                virgin: true,
+                tags: [4, 38],
+                lengthRaw: 24,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: 0.4,
+                _knotRatio: 1.5,
+                pierced: 0,
+                _color: "brown"
+            }
+        ],
         feracityRaw: 1,
         feracityMod: 0,
         fertilityMod: 0,
@@ -1257,29 +1142,23 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [1, 1, 0, 0, 0, 1]
-        }, {
-            key: "RendingStrike",
-            values: []
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "GiantsReach"
-        }, {
-            key: "Cleave"
-        }, {
-            key: "Frenzy"
-        }],
-        equippedPowers: [{
-            key: "GiantsReach"
-        }, {
-            key: "Cleave"
-        }, null, {
-            key: "Frenzy"
-        }, null],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [1, 1, 0, 0, 0, 1] },
+            { key: "RendingStrike", values: [] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "GiantsReach" },
+            { key: "Cleave" },
+            { key: "Frenzy" }
+        ],
+        equippedPowers: [
+            { key: "GiantsReach" },
+            { key: "Cleave" },
+            null,
+            { key: "Frenzy" },
+            null
+        ],
         stance: null,
         multiTurnAttack: null,
         combatEffects: [],
@@ -1288,21 +1167,12 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "Poleaxe",
-            args: [1]
-        },
-        weaponSecondary: {
-            key: "Mace",
-            args: [1]
-        },
+        weaponPrimary: { key: "Poleaxe", args: [1] },
+        weaponSecondary: { key: "Mace", args: [1] },
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "LoinclothAndGuards",
-            args: [1]
-        },
+        armorSet: { key: "LoinclothAndGuards", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -1312,14 +1182,9 @@ export const charDefaults = {
         bottomGarment: null,
         inventory: [],
         keyItems: [],
-        set: {
-            key: "FemaleLoinSet",
-            args: [1]
-        },
+        set: { key: "FemaleLoinSet", args: [1] },
         originalRace: "cowgirl",
-        _race: {
-            key: "Cowgirl"
-        },
+        _race: { key: "Cowgirl" },
         femininity: 85,
         tallness: 102,
         tone: 80,
@@ -1375,11 +1240,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 10,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 10, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -1500,13 +1361,10 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 0, 0, 1, 2, 0]
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 0, 0, 1, 2, 0] }
+        ],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -1516,10 +1374,7 @@ export const charDefaults = {
         dislikes: [-4, -8],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -1590,11 +1445,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 1,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 1, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -1715,39 +1566,26 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 0, 1, 0, 1, 1]
-        }, {
-            key: "Chastity",
-            values: []
-        }, {
-            key: "TwistTheKnife",
-            values: []
-        }, {
-            key: "RangersQuarry",
-            values: []
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "FrostArrow"
-        }, {
-            key: "EntropicWinds"
-        }, {
-            key: "GroupHeal"
-        }, {
-            key: "CallFalcon"
-        }],
-        equippedPowers: [{
-            key: "FrostArrow"
-        }, {
-            key: "EntropicWinds"
-        }, {
-            key: "GroupHeal"
-        }, {
-            key: "CallFalcon"
-        }, null],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 0, 1, 0, 1, 1] },
+            { key: "Chastity", values: [] },
+            { key: "TwistTheKnife", values: [] },
+            { key: "RangersQuarry", values: [] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "FrostArrow" },
+            { key: "EntropicWinds" },
+            { key: "GroupHeal" },
+            { key: "CallFalcon" }
+        ],
+        equippedPowers: [
+            { key: "FrostArrow" },
+            { key: "EntropicWinds" },
+            { key: "GroupHeal" },
+            { key: "CallFalcon" },
+            null
+        ],
         stance: null,
         multiTurnAttack: null,
         combatEffects: [],
@@ -1756,18 +1594,12 @@ export const charDefaults = {
         dislikes: [-14, -4],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "HuntingBow",
-            args: [1]
-        },
+        weaponPrimary: { key: "HuntingBow", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "OutridersLeathers",
-            args: [1]
-        },
+        armorSet: { key: "OutridersLeathers", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -1777,14 +1609,9 @@ export const charDefaults = {
         bottomGarment: null,
         inventory: [],
         keyItems: [],
-        set: {
-            key: "OutriderSet",
-            args: [1]
-        },
+        set: { key: "OutriderSet", args: [1] },
         originalRace: "pale elf",
-        _race: {
-            key: "Elf"
-        },
+        _race: { key: "Elf" },
         femininity: 65,
         tallness: 67,
         tone: 10,
@@ -1840,11 +1667,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 1,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 1, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -1861,19 +1684,21 @@ export const charDefaults = {
         ballSizeRaw: 3,
         ballSizeMod: 0,
         ballFullness: 100,
-        cocks: [{
-            type: 1,
-            virgin: true,
-            tags: [],
-            lengthRaw: 4,
-            lengthMod: 0,
-            thicknessRatioRaw: 1,
-            thicknessRatioMod: 0,
-            flaccidRatio: 0.4,
-            _knotRatio: 1.5,
-            pierced: 0,
-            _color: "pale"
-        }],
+        cocks: [
+            {
+                type: 1,
+                virgin: true,
+                tags: [],
+                lengthRaw: 4,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: 0.4,
+                _knotRatio: 1.5,
+                pierced: 0,
+                _color: "pale"
+            }
+        ],
         feracityRaw: 1,
         feracityMod: 0,
         fertilityMod: 0,
@@ -1965,29 +1790,23 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 1, 0, 0, 1, 1]
-        }, {
-            key: "FontOfWill",
-            values: []
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "GuardedStance"
-        }, {
-            key: "EternalLight"
-        }, {
-            key: "EchoesOfLife"
-        }],
-        equippedPowers: [{
-            key: "GuardedStance"
-        }, {
-            key: "EternalLight"
-        }, null, {
-            key: "EchoesOfLife"
-        }, null],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 1, 0, 0, 1, 1] },
+            { key: "FontOfWill", values: [] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "GuardedStance" },
+            { key: "EternalLight" },
+            { key: "EchoesOfLife" }
+        ],
+        equippedPowers: [
+            { key: "GuardedStance" },
+            { key: "EternalLight" },
+            null,
+            { key: "EchoesOfLife" },
+            null
+        ],
         stance: null,
         multiTurnAttack: null,
         combatEffects: [],
@@ -1996,18 +1815,12 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "SummonedHalberd",
-            args: [1]
-        },
+        weaponPrimary: { key: "SummonedHalberd", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "SigilBoundJerkin",
-            args: [1]
-        },
+        armorSet: { key: "SigilBoundJerkin", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -2017,14 +1830,9 @@ export const charDefaults = {
         bottomGarment: null,
         inventory: [],
         keyItems: [],
-        set: {
-            key: "KnightSet",
-            args: [1]
-        },
+        set: { key: "KnightSet", args: [1] },
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 70,
         tallness: 60,
         tone: 70,
@@ -2080,11 +1888,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 1,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 1, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -2205,9 +2009,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -2217,10 +2019,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -2237,9 +2036,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -2295,11 +2092,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -2420,9 +2213,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -2432,10 +2223,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -2452,9 +2240,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -2510,11 +2296,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -2623,19 +2405,15 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [1, 1, 0, 0, 0, 1]
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "Tackle"
-        }, {
-            key: "PocketSand"
-        }, {
-            key: "Cleave"
-        }],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [1, 1, 0, 0, 0, 1] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "Tackle" },
+            { key: "PocketSand" },
+            { key: "Cleave" }
+        ],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -2645,18 +2423,12 @@ export const charDefaults = {
         dislikes: [-8, -3, -15],
         boon: null,
         credits: 65,
-        weaponPrimary: {
-            key: "SanctifiedGladius",
-            args: [1]
-        },
+        weaponPrimary: { key: "SanctifiedGladius", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "MailCuirass",
-            args: [1]
-        },
+        armorSet: { key: "MailCuirass", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -2668,9 +2440,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 80,
         tallness: 72,
         tone: 90,
@@ -2726,11 +2496,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 4,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 4, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -2747,19 +2513,21 @@ export const charDefaults = {
         ballSizeRaw: 3,
         ballSizeMod: 0,
         ballFullness: 100,
-        cocks: [{
-            type: 1,
-            virgin: true,
-            tags: [],
-            lengthRaw: 10,
-            lengthMod: 0,
-            thicknessRatioRaw: 1,
-            thicknessRatioMod: 0,
-            flaccidRatio: 0.4,
-            _knotRatio: 1.5,
-            pierced: 0,
-            _color: ""
-        }],
+        cocks: [
+            {
+                type: 1,
+                virgin: true,
+                tags: [],
+                lengthRaw: 10,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: 0.4,
+                _knotRatio: 1.5,
+                pierced: 0,
+                _color: ""
+            }
+        ],
         feracityRaw: 1,
         feracityMod: 0,
         fertilityMod: 0,
@@ -2851,21 +2619,16 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [1, 2, 0, 0, 0, 0]
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "Frenzy"
-        }, {
-            key: "Pummel"
-        }, {
-            key: "Bloodrage"
-        }, {
-            key: "WarSong"
-        }],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [1, 2, 0, 0, 0, 0] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "Frenzy" },
+            { key: "Pummel" },
+            { key: "Bloodrage" },
+            { key: "WarSong" }
+        ],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -2875,21 +2638,12 @@ export const charDefaults = {
         dislikes: [-1],
         boon: null,
         credits: 60,
-        weaponPrimary: {
-            key: "SilverCestus",
-            args: [1]
-        },
-        weaponSecondary: {
-            key: "SilverCestus",
-            args: [1]
-        },
+        weaponPrimary: { key: "SilverCestus", args: [1] },
+        weaponSecondary: { key: "SilverCestus", args: [1] },
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "LeatherJerkin",
-            args: [1]
-        },
+        armorSet: { key: "LeatherJerkin", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -2901,9 +2655,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "lupine",
-        _race: {
-            key: "Lupine"
-        },
+        _race: { key: "Lupine" },
         femininity: 0,
         tallness: 94,
         tone: 80,
@@ -2959,11 +2711,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -2980,19 +2728,21 @@ export const charDefaults = {
         ballSizeRaw: 3,
         ballSizeMod: 0,
         ballFullness: 100,
-        cocks: [{
-            type: 3,
-            virgin: true,
-            tags: [1, 3, 38],
-            lengthRaw: 12,
-            lengthMod: 0,
-            thicknessRatioRaw: 1,
-            thicknessRatioMod: 0,
-            flaccidRatio: 0.4,
-            _knotRatio: 1.5,
-            pierced: 0,
-            _color: "red"
-        }],
+        cocks: [
+            {
+                type: 3,
+                virgin: true,
+                tags: [1, 3, 38],
+                lengthRaw: 12,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: 0.4,
+                _knotRatio: 1.5,
+                pierced: 0,
+                _color: "red"
+            }
+        ],
         feracityRaw: 1,
         feracityMod: 0,
         fertilityMod: 0,
@@ -3081,24 +2831,17 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 0, 1, 0, 0, 2]
-        }, {
-            key: "LightSensitivity",
-            values: []
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "DuelistsStance"
-        }, {
-            key: "FanOfBlades"
-        }, {
-            key: "ShellCracker"
-        }, {
-            key: "SmokeBomb"
-        }],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 0, 1, 0, 0, 2] },
+            { key: "LightSensitivity", values: [] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "DuelistsStance" },
+            { key: "FanOfBlades" },
+            { key: "ShellCracker" },
+            { key: "SmokeBomb" }
+        ],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -3108,21 +2851,12 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 120,
-        weaponPrimary: {
-            key: "BelharanClaymore",
-            args: [1]
-        },
+        weaponPrimary: { key: "BelharanClaymore", args: [1] },
         weaponSecondary: null,
         head: null,
-        neck: {
-            key: "Maidenshield",
-            args: [1]
-        },
+        neck: { key: "Maidenshield", args: [1] },
         shoulders: null,
-        armorSet: {
-            key: "LeatherJerkin",
-            args: [1]
-        },
+        armorSet: { key: "LeatherJerkin", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -3134,9 +2868,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -3192,11 +2924,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -3306,9 +3034,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -3318,10 +3044,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -3338,9 +3061,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -3396,11 +3117,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -3510,11 +3227,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "FadingStrike"
-        }],
+        powers: [{ key: "NormalAttack" }, { key: "FadingStrike" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -3524,18 +3237,12 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "Spear",
-            args: [1]
-        },
+        weaponPrimary: { key: "Spear", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "ComfortableClothes",
-            args: [1]
-        },
+        armorSet: { key: "ComfortableClothes", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -3547,9 +3254,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "harpy",
-        _race: {
-            key: "Harpy"
-        },
+        _race: { key: "Harpy" },
         femininity: 90,
         tallness: 68,
         tone: 50,
@@ -3605,11 +3310,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 4,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 4, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -3730,21 +3431,16 @@ export const charDefaults = {
         pheromoneResist: -50,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 0, 2, 0, 0, 1]
-        }],
-        powers: [{
-            key: "ZippingHarrassment"
-        }, {
-            key: "PocketSand"
-        }, {
-            key: "UnintentionalTease"
-        }, {
-            key: "MegaHeal"
-        }, {
-            key: "MagicalFlash"
-        }],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 0, 2, 0, 0, 1] }
+        ],
+        powers: [
+            { key: "ZippingHarrassment" },
+            { key: "PocketSand" },
+            { key: "UnintentionalTease" },
+            { key: "MegaHeal" },
+            { key: "MagicalFlash" }
+        ],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -3754,10 +3450,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -3774,9 +3467,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -3832,11 +3523,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -3946,15 +3633,12 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "Heal"
-        }, {
-            key: "WhiteFire"
-        }, {
-            key: "DirtyTrick"
-        }],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "Heal" },
+            { key: "WhiteFire" },
+            { key: "DirtyTrick" }
+        ],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -3964,21 +3648,12 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 40,
-        weaponPrimary: {
-            key: "Dagger",
-            args: [1]
-        },
-        weaponSecondary: {
-            key: "Francisca",
-            args: [1]
-        },
+        weaponPrimary: { key: "Dagger", args: [1] },
+        weaponSecondary: { key: "Francisca", args: [1] },
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "AronasWarhides",
-            args: [1]
-        },
+        armorSet: { key: "AronasWarhides", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -3990,9 +3665,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "orc",
-        _race: {
-            key: "Orc"
-        },
+        _race: { key: "Orc" },
         femininity: 80,
         tallness: 70,
         tone: 5,
@@ -4048,11 +3721,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 13,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 13, sizeMod: 0 }],
         nippleColor: "black",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -4174,17 +3843,13 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "FadingStrike"
-        }, {
-            key: "EntropicWinds"
-        }, {
-            key: "LightningSpike"
-        }, {
-            key: "SpiritVeil"
-        }],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "FadingStrike" },
+            { key: "EntropicWinds" },
+            { key: "LightningSpike" },
+            { key: "SpiritVeil" }
+        ],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -4194,18 +3859,12 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 60,
-        weaponPrimary: {
-            key: "BladeStaff",
-            args: [1]
-        },
+        weaponPrimary: { key: "BladeStaff", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "AronasWarhides",
-            args: [1]
-        },
+        armorSet: { key: "AronasWarhides", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -4217,9 +3876,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "orc",
-        _race: {
-            key: "Orc"
-        },
+        _race: { key: "Orc" },
         femininity: 90,
         tallness: 76,
         tone: 10,
@@ -4275,11 +3932,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 8,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 8, sizeMod: 0 }],
         nippleColor: "black",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -4400,9 +4053,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -4412,10 +4063,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -4432,9 +4080,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -4490,11 +4136,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -4603,9 +4245,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -4615,10 +4255,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -4635,9 +4272,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -4693,11 +4328,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -4818,9 +4449,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -4830,10 +4459,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -4850,9 +4476,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "human",
-        _race: {
-            key: "Human"
-        },
+        _race: { key: "Human" },
         femininity: 50,
         tallness: 66,
         tone: 50,
@@ -4908,11 +4532,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 0,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 0, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -4929,19 +4549,21 @@ export const charDefaults = {
         ballSizeRaw: 40,
         ballSizeMod: 0,
         ballFullness: 100,
-        cocks: [{
-            type: 3,
-            virgin: true,
-            tags: [],
-            lengthRaw: 10,
-            lengthMod: 0,
-            thicknessRatioRaw: 1,
-            thicknessRatioMod: 0,
-            flaccidRatio: 0.4,
-            _knotRatio: 1.5,
-            pierced: 0,
-            _color: "black"
-        }],
+        cocks: [
+            {
+                type: 3,
+                virgin: true,
+                tags: [],
+                lengthRaw: 10,
+                lengthMod: 0,
+                thicknessRatioRaw: 1,
+                thicknessRatioMod: 0,
+                flaccidRatio: 0.4,
+                _knotRatio: 1.5,
+                pierced: 0,
+                _color: "black"
+            }
+        ],
         feracityRaw: 5,
         feracityMod: 0,
         fertilityMod: 0,
@@ -5043,27 +4665,19 @@ export const charDefaults = {
         pheromoneResist: 0,
         fatigueResist: 0,
         mindResist: 0,
-        perks: [{
-            key: "StartingAttributeBonuses",
-            values: [0, 0, 2, 1, 0, 0]
-        }],
-        powers: [{
-            key: "NormalAttack"
-        }, {
-            key: "Foxfire"
-        }, {
-            key: "Leech"
-        }, {
-            key: "FanOfBlades"
-        }, {
-            key: "Trick"
-        }, {
-            key: "DualBlitz"
-        }, {
-            key: "ChestTease"
-        }, {
-            key: "WyvernSting"
-        }],
+        perks: [
+            { key: "StartingAttributeBonuses", values: [0, 0, 2, 1, 0, 0] }
+        ],
+        powers: [
+            { key: "NormalAttack" },
+            { key: "Foxfire" },
+            { key: "Leech" },
+            { key: "FanOfBlades" },
+            { key: "Trick" },
+            { key: "DualBlitz" },
+            { key: "ChestTease" },
+            { key: "WyvernSting" }
+        ],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -5073,21 +4687,12 @@ export const charDefaults = {
         dislikes: [-8, -3, -15],
         boon: null,
         credits: 30,
-        weaponPrimary: {
-            key: "Dagger",
-            args: [1]
-        },
-        weaponSecondary: {
-            key: "Dagger",
-            args: [1]
-        },
+        weaponPrimary: { key: "Dagger", args: [1] },
+        weaponSecondary: { key: "Dagger", args: [1] },
         head: null,
         neck: null,
         shoulders: null,
-        armorSet: {
-            key: "LeatherCoat",
-            args: [1]
-        },
+        armorSet: { key: "LeatherCoat", args: [1] },
         hands: null,
         waist: null,
         feet: null,
@@ -5154,11 +4759,7 @@ export const charDefaults = {
         analVirgin: false,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 5,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 5, sizeMod: 0 }],
         nippleColor: "pink",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,
@@ -5280,9 +4881,7 @@ export const charDefaults = {
         fatigueResist: 0,
         mindResist: 0,
         perks: [],
-        powers: [{
-            key: "NormalAttack"
-        }],
+        powers: [{ key: "NormalAttack" }],
         equippedPowers: [null, null, null, null, null],
         stance: null,
         multiTurnAttack: null,
@@ -5292,10 +4891,7 @@ export const charDefaults = {
         dislikes: [],
         boon: null,
         credits: 0,
-        weaponPrimary: {
-            key: "RustyKnife",
-            args: [1]
-        },
+        weaponPrimary: { key: "RustyKnife", args: [1] },
         weaponSecondary: null,
         head: null,
         neck: null,
@@ -5312,9 +4908,7 @@ export const charDefaults = {
         keyItems: [],
         set: null,
         originalRace: "orc",
-        _race: {
-            key: "Orc"
-        },
+        _race: { key: "Orc" },
         femininity: 90,
         tallness: 70,
         tone: 70,
@@ -5370,11 +4964,7 @@ export const charDefaults = {
         analVirgin: true,
         pregnancySpeedRaw: 1,
         pregnancySpeedMod: 0,
-        breastRows: [{
-            breasts: 2,
-            sizeRaw: 6,
-            sizeMod: 0
-        }],
+        breastRows: [{ breasts: 2, sizeRaw: 6, sizeMod: 0 }],
         nippleColor: "black",
         nipplesPerBreast: 1,
         nippleSizeRatio: 1,

@@ -30,14 +30,7 @@ export const globalKeys = {
         "Construct",
         "Fey"
     ],
-    Class: [
-        "None",
-        "Warrior",
-        "Thief",
-        "Wmage",
-        "Bmage",
-        "Charmer"
-    ],
+    Class: ["None", "Warrior", "Thief", "Wmage", "Bmage", "Charmer"],
     Background: [
         "None",
         "Noblescion",
@@ -310,13 +303,7 @@ export const globalKeys = {
         "RingOfTemptation",
         "MaresRing"
     ],
-    TopGarb: [
-        "LaceyBra",
-        "SilkShirt",
-        "Camisole",
-        "SilkCorset",
-        "LinenTunic"
-    ],
+    TopGarb: ["LaceyBra", "SilkShirt", "Camisole", "SilkCorset", "LinenTunic"],
     BottomGarb: [
         "PlainUnderwear",
         "SilkPanties",

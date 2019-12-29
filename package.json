@@ -21,6 +21,8 @@
     "homepage": "https://github.com/end5/CoC2-Save-Editor#readme",
     "dependencies": {
         "@types/file-saver": "^2.0.1",
+        "prettier": "^1.19.1",
+        "puppeteer": "^2.0.0",
         "rollup": "^1.27.0",
         "tslint": "^5.20.1",
         "typescript": "^3.7.2"
