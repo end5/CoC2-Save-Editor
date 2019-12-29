@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
+        "generate": "node scripts/generate.js",
         "build": "npm run transpile && npm run rollup && npm run bundle",
         "transpile": "tsc",
         "rollup": "rollup dist/index.js --format iife --name SaveEditor --file bundled.js",
