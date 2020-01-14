@@ -209,6 +209,7 @@ export const globalKeys = {
         "Fist",
         "RustyKnife",
         "Dagger",
+        "ThrowingKnife",
         "ShortSword",
         "CurvedBlade",
         "Spear",
@@ -218,8 +219,13 @@ export const globalKeys = {
         "Francisca",
         "Javelin",
         "Quarterstaff",
+        "SlingStaff",
         "BladeStaff",
+        "EternalDelusion",
+        "SeasonalRhapsody",
+        "DivineBlossom",
         "HuntingBow",
+        "RangerBow",
         "WarBow",
         "Sling",
         "Mace",
@@ -232,11 +238,18 @@ export const globalKeys = {
         "WhitewoodBow",
         "BelharanClaymore",
         "GirthyRod",
+        "MetalWand",
         "SilverCestus",
         "GalonsGriefmaker",
         "BessyMauler",
         "WarPick",
-        "FlamingDagger"
+        "FlamingDagger",
+        "AphrodisiacWhip",
+        "SharpSickle",
+        "BalancedBlade",
+        "Kunai",
+        "StraightPike",
+        "SwiftSword"
     ],
     ArmorSet: [
         "ComfortableClothes",
@@ -254,27 +267,37 @@ export const globalKeys = {
         "SummonersRobes",
         "WitchsCorset",
         "OutridersLeathers",
-        "SigilBoundJerkin"
+        "SigilBoundJerkin",
+        "LamellarArmour",
+        "CultistCoat"
     ],
     ItemHead: [
         "WitchsHat",
         "DuelingHat",
         "WideBrimmedHat",
         "HelmOfHeroes",
-        "HornedHelm"
+        "HornedHelm",
+        "HoplonHelm",
+        "Kabuto"
     ],
     ItemNeck: [
         "WardAmulet",
         "AmuletOfTransference",
         "AmuletOfUnion",
         "Maidenshield",
-        "SerpentLocket"
+        "SerpentLocket",
+        "FoxTailCharm",
+        "Magatama",
+        "FluffyScarf",
+        "CultistCharm"
     ],
     ItemShoulders: [
         "FlameCape",
         "PriestessCloak",
         "HirrudsCloak",
-        "CloakOfWinter"
+        "CloakOfWinter",
+        "LeatherSpaulders",
+        "BronzePauldrons"
     ],
     ItemHands: [
         "Gauntlets",
@@ -287,21 +310,29 @@ export const globalKeys = {
         "HipQuiver",
         "ChampionsBelt",
         "SallowBelt",
-        "BeltWithPouch"
+        "BeltWithPouch",
+        "LeatherFaulds",
+        "EvergreensBountifulBag",
+        "FluffySash",
+        "Senninbari"
     ],
     ItemFeet: [
         "IronGreaves",
         "LeatherBoots",
         "CaitsKneeBoots",
         "ThighLeatherBoots",
-        "WingedSabatons"
+        "WingedSabatons",
+        "IronClogs"
     ],
     Rings: [
         "WizardRing",
         "RoguesRing",
         "RingOfPureThought",
         "RingOfTemptation",
-        "MaresRing"
+        "MaresRing",
+        "HornetRing",
+        "LuckyStrike",
+        "Charm"
     ],
     TopGarb: ["LaceyBra", "SilkShirt", "Camisole", "SilkCorset", "LinenTunic"],
     BottomGarb: [
@@ -316,8 +347,12 @@ export const globalKeys = {
         "TowerShield",
         "WickerShield",
         "RunicShield",
+        "RosebloomShield",
         "LynxTotem",
-        "WarTotem"
+        "MageWand",
+        "WarTotem",
+        "BlankScroll",
+        "FoxJewel"
     ],
     TFs: [
         "FoxBerry",
@@ -359,7 +394,9 @@ export const globalKeys = {
         "LargeSilverSphere",
         "PristineWood",
         "MetalParts",
-        "SturdyStone"
+        "SturdyStone",
+        "Dildo",
+        "MagicalAnalBeads"
     ],
     Consumable: [
         "EffigySeed",
@@ -389,13 +426,22 @@ export const globalKeys = {
         "TomeOfDisarm",
         "HornetHoney",
         "RedCowWine",
-        "KitsuneGift"
+        "KitsuneGift",
+        "LustfulLiquor",
+        "IceWine",
+        "TomeOfArcCannon",
+        "TomeOfKiaijutsu",
+        "TomeOfCarnalHex",
+        "TomeOfCounterspell",
+        "TomeOfHeatWeapon",
+        "TomeOfLeech"
     ],
     Set: [
         "PassionSet",
         "LoinSet",
         "FemaleLoinSet",
         "SummonerSet",
+        "ExcultistSet",
         "OutriderSet",
         "KnightSet"
     ],
@@ -412,7 +458,13 @@ export const globalKeys = {
         "TarnishedKettle",
         "RustyCauldron",
         "JarlMedallion",
-        "RagsDress"
+        "RagsDress",
+        "HoneyCore",
+        "HoneyKey",
+        "VenomKey",
+        "NiceWine",
+        "MaidCostume",
+        "EvergreensBountifulBag"
     ],
     Boon: [
         "VelunsBlessing",
@@ -425,7 +477,16 @@ export const globalKeys = {
         "LoversDry",
         "PaleAle",
         "TotalPurity",
-        "FrostmandersEmbrace"
+        "FrostmandersEmbrace",
+        "BlessingLearning",
+        "BlessingHealth",
+        "BlessingRomance",
+        "BlessingPurity",
+        "BlessingWealth",
+        "PhysicalMassage",
+        "ElementalMassage",
+        "SpiritualMassage",
+        "MentalMassage"
     ],
     StatusEffect: [
         "AnallyFilled",
@@ -435,6 +496,7 @@ export const globalKeys = {
         "SharpenBlades",
         "PrayerOfWarding",
         "ArcaneAttunement",
+        "HeartsDesires",
         "FocusingPerformance",
         "TakeComfort",
         "CherishThis",
@@ -445,8 +507,11 @@ export const globalKeys = {
         "AphrodisiacCovered",
         "WellFed",
         "BlueBalled",
+        "Relaxed",
         "VenomHigh",
         "Fatigued",
+        "BruisedAndBeaten",
+        "HappyTummy",
         "Overburdened",
         "Heat",
         "ArtificialHeat",
@@ -457,7 +522,9 @@ export const globalKeys = {
         "StudStatuesGift",
         "MatronStatuesGift",
         "CumCovered",
-        "Drained"
+        "MilkBathed",
+        "Drained",
+        "HoneyBrain"
     ],
     CombatEffect: [
         "Prone",
@@ -470,7 +537,9 @@ export const globalKeys = {
         "Poisoned",
         "Frigid",
         "Stunned",
+        "StunImmune",
         "Aroused",
+        "LustTagged",
         "Disarmed",
         "Silenced",
         "Blinded",
@@ -486,7 +555,7 @@ export const globalKeys = {
         "FirstStrike",
         "Focused",
         "Covered",
-        "Inspired",
+        "Bolstered",
         "Protected",
         "Shielded",
         "Restrained",
@@ -502,7 +571,15 @@ export const globalKeys = {
         "Winterstem",
         "AncestralAegis",
         "EternalLight",
-        "Counterspelled"
+        "Counterspelled",
+        "Banished",
+        "Inspired",
+        "Unbreakable",
+        "SpiritBound",
+        "Shelled",
+        "Defending",
+        "BladeBlock",
+        "Overcharged"
     ],
     Powers: [
         "BaseTease",
@@ -514,10 +591,14 @@ export const globalKeys = {
         "ChainmailJiggle",
         "BreastPlate",
         "CumSpray",
+        "LustTag",
         "WyvernVenom",
         "HoneySlather",
         "AphrodisiacSting",
+        "MindSnap",
+        "OneTwo",
         "SpidersStride",
+        "Defend",
         "GuardedStance",
         "Protect",
         "RangersStance",
@@ -529,6 +610,7 @@ export const globalKeys = {
         "MirrorImage",
         "ControlPheromones",
         "BolsteringDance",
+        "Firewalk",
         "SongOfCourage",
         "Flight",
         "Frenzy",
@@ -574,6 +656,17 @@ export const globalKeys = {
         "LeyCrystalGrenade",
         "Wyldsap",
         "HornetHoney",
+        "Inspiration",
+        "Unbreakable",
+        "Revive",
+        "Devotion",
+        "SpiritBinder",
+        "Shell",
+        "Overcharge",
+        "Detonate",
+        "CalmMind",
+        "Kitsunetsuki",
+        "LifeBond",
         "Punch",
         "ButtStomp",
         "AerialDrop",
@@ -594,9 +687,12 @@ export const globalKeys = {
         "TailWhack",
         "PummelFoe",
         "BoulderHeave",
+        "ByTheHorns",
+        "FireSummonAttack",
         "PussyTailTease",
         "HarpyButtTease",
         "EffigyBoobTease",
+        "CultistAllure",
         "EarthFist",
         "TentacleSlap",
         "BellyDance",
@@ -626,6 +722,9 @@ export const globalKeys = {
         "MagicalFlash",
         "UnintentionalTease",
         "DriderPrimeTarget",
+        "PincerSmash",
+        "HoneyCumSpray",
+        "HarrickBloodLet",
         "LustfulImages",
         "BlightOrb",
         "WhiteFire",
@@ -658,6 +757,11 @@ export const globalKeys = {
         "MagicMissile",
         "BlueFlameBlade",
         "Hex",
+        "Banishment",
+        "ArcCannon",
+        "MassDrain",
+        "Nullify",
+        "BanishSummon",
         "SummonFlameSpirit",
         "SummonStoneElemental",
         "SummonEffigy",
@@ -666,6 +770,8 @@ export const globalKeys = {
         "CallFalcon",
         "MercReinforcements",
         "SummonPhyria",
+        "MysticCall",
+        "SummonHornets",
         "NormalAttack",
         "Rend",
         "FadingStrike",
@@ -707,19 +813,28 @@ export const globalKeys = {
         "EchoesOfLife",
         "ChillTouch",
         "Disarm",
-        "PowerWave"
+        "PowerWave",
+        "Assassinate",
+        "AuroraArrow",
+        "BladeBlock"
     ],
     Perks: [
         "TwistTheKnife",
         "SharpenBlades",
+        "EscapeArtist",
         "Veteran",
         "Armorer",
+        "IronWill",
         "HealersHands",
         "PrayerOfWarding",
+        "FocusedWill",
         "ArcaneStrike",
         "ArcaneAttunement",
         "Stylish",
         "FocusingPerformance",
+        "HeartsDesires",
+        "FilthyTease",
+        "CommandingPresense",
         "WarPaint",
         "RendingStrike",
         "EyeOfTheStorm",
@@ -746,7 +861,8 @@ export const globalKeys = {
         "Chastity",
         "Oviparous",
         "NukiNuts",
-        "CumCascades"
+        "CumCascades",
+        "Bimbo"
     ],
     Items: []
 };
