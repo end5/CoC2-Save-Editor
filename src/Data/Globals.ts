@@ -116,6 +116,7 @@ export const globals: Record<keyof typeof globalKeys, GlobalOptions> = {
             globalKeys.Offhand,
             globalKeys.TFs,
             globalKeys.Misc,
+            globalKeys.Consumable,
             globalKeys.Set
         )
     },
