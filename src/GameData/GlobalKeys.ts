@@ -104,7 +104,8 @@ export const globalKeys = {
         "Hyena",
         "Salamander",
         "Tanuki",
-        "Humanmasked"
+        "Humanmasked",
+        "Porcine"
     ],
     BodyTag: [
         "Internal",
@@ -155,7 +156,8 @@ export const globalKeys = {
         "Floppy",
         "Wooly",
         "Ignan",
-        "Antennae"
+        "Antennae",
+        "Curly"
     ],
     FluidType: [
         "None",
@@ -385,7 +387,9 @@ export const globalKeys = {
         "MilkCandy",
         "MilkTea",
         "DoublePepper",
-        "KnottedPepper"
+        "KnottedPepper",
+        "SpiderSilk",
+        "PinkTruffle"
     ],
     Misc: [
         "CampingSupplies",
@@ -486,7 +490,9 @@ export const globalKeys = {
         "PhysicalMassage",
         "ElementalMassage",
         "SpiritualMassage",
-        "MentalMassage"
+        "MentalMassage",
+        "GoodFortune",
+        "BadFortune"
     ],
     StatusEffect: [
         "AnallyFilled",

@@ -1694,7 +1694,7 @@ export const charDefaults = {
         cocks: [],
         feracityRaw: 1,
         feracityMod: 0,
-        fertilityMod: 0,
+        fertilityMod: 2,
         virilityMod: 0,
         vagina: {
             type: 1,
