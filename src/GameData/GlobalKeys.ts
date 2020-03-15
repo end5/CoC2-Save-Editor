@@ -18,7 +18,8 @@ export const globalKeys = {
         "Goblin",
         "Tanuki",
         "Mothfolk",
-        "Marefolk"
+        "Marefolk",
+        "Spiderfolk"
     ],
     Taxon: [
         "Humanoid",
@@ -291,7 +292,9 @@ export const globalKeys = {
         "FoxTailCharm",
         "Magatama",
         "FluffyScarf",
-        "CultistCharm"
+        "CultistCharm",
+        "PainSlutChoker",
+        "SubbyCollar"
     ],
     ItemShoulders: [
         "FlameCape",
@@ -350,6 +353,7 @@ export const globalKeys = {
         "WickerShield",
         "RunicShield",
         "RosebloomShield",
+        "BrawnShield",
         "LynxTotem",
         "MageWand",
         "WarTotem",
@@ -694,6 +698,7 @@ export const globalKeys = {
         "PummelFoe",
         "BoulderHeave",
         "ByTheHorns",
+        "LightningFist",
         "FireSummonAttack",
         "PussyTailTease",
         "HarpyButtTease",
@@ -778,6 +783,7 @@ export const globalKeys = {
         "SummonPhyria",
         "MysticCall",
         "SummonHornets",
+        "SummonWolfSpirit",
         "NormalAttack",
         "Rend",
         "FadingStrike",
