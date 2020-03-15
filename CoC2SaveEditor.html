@@ -6462,7 +6462,8 @@ select:focus {
             "Goblin",
             "Tanuki",
             "Mothfolk",
-            "Marefolk"
+            "Marefolk",
+            "Spiderfolk"
         ],
         Taxon: [
             "Humanoid",
@@ -6735,7 +6736,9 @@ select:focus {
             "FoxTailCharm",
             "Magatama",
             "FluffyScarf",
-            "CultistCharm"
+            "CultistCharm",
+            "PainSlutChoker",
+            "SubbyCollar"
         ],
         ItemShoulders: [
             "FlameCape",
@@ -6794,6 +6797,7 @@ select:focus {
             "WickerShield",
             "RunicShield",
             "RosebloomShield",
+            "BrawnShield",
             "LynxTotem",
             "MageWand",
             "WarTotem",
@@ -7138,6 +7142,7 @@ select:focus {
             "PummelFoe",
             "BoulderHeave",
             "ByTheHorns",
+            "LightningFist",
             "FireSummonAttack",
             "PussyTailTease",
             "HarpyButtTease",
@@ -7222,6 +7227,7 @@ select:focus {
             "SummonPhyria",
             "MysticCall",
             "SummonHornets",
+            "SummonWolfSpirit",
             "NormalAttack",
             "Rend",
             "FadingStrike",
@@ -9217,6 +9223,10 @@ select:focus {
         "JEN_TALKED_BELT",
         "JEN_TALKED_FEELINGS",
         "JEN_TALKED_LEOFRIC",
+        "JIN_FUCKED",
+        "JIN_MET",
+        "JIN_TALKED_FIGHT",
+        "JIN_TALKED_HIM",
         "JUNE_CONFIDENCE",
         "JUNE_EXHAUSTED",
         "JUNE_FUCKED",
@@ -9365,6 +9375,8 @@ select:focus {
         "MAI_MASSAGE",
         "MANTICORE_ENCOUNTERED",
         "MAREFOLK_SHAMAN_ENCOUNTERED",
+        "MEIRA_INTRO",
+        "MEIRA_SERVICES_TALKED",
         "MEOW_INTRODUCED",
         "MEOW_SPRING_ORGY",
         "MERCS_MET",
@@ -9455,10 +9467,13 @@ select:focus {
         "QUINTILLUS_ARRANGEMENT_TALKED",
         "QUINTILLUS_ARRANGEMENT_TALKED_COMPANION",
         "QUINTILLUS_BOOTH_TEASE",
+        "QUINTILLUS_CAPTURED_REAVER",
         "QUINTILLUS_CHASERS_MET",
         "QUINTILLUS_CHASERS_TS",
         "QUINTILLUS_CULT_TALKED",
         "QUINTILLUS_DRINKED_FH",
+        "QUINTILLUS_FEET_CULT_CAMP",
+        "QUINTILLUS_FEET_CULT_CAMP_IGNORED",
         "QUINTILLUS_FH_MET",
         "QUINTILLUS_FUCKED",
         "QUINTILLUS_HELPED",
@@ -9475,6 +9490,10 @@ select:focus {
         "QUINTILLUS_SEX_ACCEPTED",
         "QUINTILLUS_SEX_OFFERED",
         "QUINTILLUS_SEX_OFFERED_TS",
+        "QUINTILLUS_STATUES",
+        "QUINTILLUS_TALKED_BAREFEET",
+        "QUINTILLUS_TALKED_COMP_KIYOKO",
+        "QUINTILLUS_TALKED_STATUES",
         "QUINTILLUS_TALONS_MENTIONED",
         "QUINTILLUS_TALONS_TALKED",
         "RAGS_BIRTH_ANN",
@@ -9496,6 +9515,7 @@ select:focus {
         "RIVER_CULTIST_PCWINS",
         "RIVER_FORDED",
         "RIVER_MET",
+        "ROLLO_APPROACHED",
         "SANDERS_MET",
         "SANDERS_TALK_ORDER",
         "SECOND_LAST_STATUE_SEX",
@@ -9552,10 +9572,24 @@ select:focus {
         "SUGO_SUCKED_NUTS",
         "SUGO_TALK_CLOTHES",
         "SUGO_USED_STALL",
+        "SVERN_METAL_RELIC",
         "TAELEER_PC_PREG_EGG_LAID",
         "TAELEER_PC_PREG_NUM_BIRTHS",
         "TAELEER_PC_PREG_NUM_KIDS",
         "TAELEER_PC_PREG_TIMER",
+        "TAKA_APPROACH",
+        "TAKA_BACKEDOUT_TS",
+        "TAKA_DRINKOFF",
+        "TAKA_DRINKOFF_TS",
+        "TAKA_DRINKS",
+        "TAKA_DRINKS_TS",
+        "TAKA_FUCKED",
+        "TAKA_GOSSIP_TS",
+        "TAKA_MET",
+        "TAKA_OPINION",
+        "TAKA_PASSED_TS",
+        "TAKA_PROB_TALK_TS",
+        "TAKA_TALK_GOURD",
         "TANUKI_PC_PREG_EGG_LAID",
         "TANUKI_PC_PREG_NUM_BIRTHS",
         "TANUKI_PC_PREG_NUM_KIDS",
@@ -9611,10 +9645,13 @@ select:focus {
         "VAUSH_SPURNED",
         "VAUSH_TALKED_HIM",
         "VIVIANE_ENCHANTING",
+        "VIVIANE_ENCHANTING_TS",
         "VIVIANE_FUCKED",
         "VIVIANE_HERSELF",
         "VIVIANE_MAGIC",
         "VIVIANE_MET",
+        "VIVIANE_NEW_SUPPLIES",
+        "VIVIANE_TRAINING",
         "WAYSTONE_GARDEN",
         "WAY_FLOOFS",
         "WAY_FOOTHILLS",
@@ -9749,8 +9786,8 @@ select:focus {
         editor.charDefaults = charDefaults;
     }
 
-    var editorVersion = "37";
-    var gameVersion = "0.2.38";
+    var editorVersion = "38";
+    var gameVersion = "0.2.40";
     var lastBreakingVersion = "27";
     document.addEventListener("DOMContentLoaded", function () {
         var disclaimer = document.createElement("div");
