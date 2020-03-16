@@ -2,7 +2,7 @@ import { loadEditor } from "./Editor";
 import { state } from "./Data/State";
 import "./Window";
 
-const editorVersion = "38";
+const editorVersion = "39";
 const gameVersion = "0.2.40";
 const lastBreakingVersion = "27";
 

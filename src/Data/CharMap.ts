@@ -322,7 +322,8 @@ export const charMap: PropDict = {
         entry: {
             type: "object",
             properties: {
-                key: { label: "Key", type: "selector", options: globals.KeyItems }
+                key: { label: "Key", type: "selector", options: globals.KeyItems },
+                state: { label: "State", type: "number" }
             }
         }
     },

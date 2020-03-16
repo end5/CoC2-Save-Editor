@@ -106,7 +106,7 @@ export function loadObj(obj: any, state: State) {
 }
 
 function saveObj(state: State) {
-    const saveCopy = JSON.parse(JSON.stringify(state.fileObj));
+    const saveCopy = JSON.parse(JSON.stringify(state.editObj));
     saveCopy.chars = (Object.keys(charDefaults) as (keyof typeof charDefaults)[]).reduce((obj, key) => {
         obj[key] = diffChar(charDefaults[key], state.editObj.chars[key]);
         return obj;
