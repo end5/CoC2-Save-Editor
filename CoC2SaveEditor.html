@@ -7740,7 +7740,8 @@ select:focus {
             entry: {
                 type: "object",
                 properties: {
-                    key: { label: "Key", type: "selector", options: globals.KeyItems }
+                    key: { label: "Key", type: "selector", options: globals.KeyItems },
+                    state: { label: "State", type: "number" }
                 }
             }
         },
@@ -8741,7 +8742,7 @@ select:focus {
         });
     }
     function saveObj(state) {
-        var saveCopy = JSON.parse(JSON.stringify(state.fileObj));
+        var saveCopy = JSON.parse(JSON.stringify(state.editObj));
         saveCopy.chars = Object.keys(charDefaults).reduce(function (obj, key) {
             obj[key] = diffChar(charDefaults[key], state.editObj.chars[key]);
             return obj;
@@ -9786,7 +9787,7 @@ select:focus {
         editor.charDefaults = charDefaults;
     }
 
-    var editorVersion = "38";
+    var editorVersion = "39";
     var gameVersion = "0.2.40";
     var lastBreakingVersion = "27";
     document.addEventListener("DOMContentLoaded", function () {
