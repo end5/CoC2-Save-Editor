@@ -29,29 +29,53 @@ const fs = require('fs');
                 return Object.keys(window.GLOBALS)
                     .filter(key => key.startsWith(prefix))
                     .sort(key => window.GLOBALS[key])
-                    .map(key => key
-                        .slice(prefix.length)
-                        .split('_')
-                        .map(str => str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()).join(' '));
+                    .map(key => ({
+                        name: key.slice(prefix.length)
+                            .split('_')
+                            .map(str => str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()).join(' '),
+                        value: window.GLOBALS[key]
+                    }));
             }
 
+            function space(str) {
+                return str.replace(/([A-Z])/g, ' $1').trim();
+            }
+
+            function getName(obj) {
+                return getMemberValue(obj, ['name', '_name']).replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+            }
+
+            function getDesc(obj) {
+                return getMemberValue(obj, ['desc', 'description', '_desc', '_description']);
+            }
+
+            function getMemberValue(obj, keys) {
+                for (const key of keys)
+                    if (key in obj)
+                        return typeof obj[key] === 'function' ? obj[key]() : obj[key];
+            }
+
+            const items = Object.keys(window.ITEMS).map(key => [key, new window.ITEMS[key]()]);
             function getItemsByType(type) {
-                return Object.keys(window.ITEMS)
-                    .map(key => [key, new window.ITEMS[key]()])
-                    .filter(item => item[1].type === type)
-                    .map(item => item[0])
+                return items.filter(tuple => tuple[1].type === type)
+                    .map(tuple => ({ name: getName(tuple[1]), value: tuple[0], desc: getDesc(tuple[1]) }))
+            }
+
+            function getThingFromWindow(name) {
+                return Object.keys(window[name]).map(key => {
+                    const thing = new window[name][key](pc);
+                    return { name: getName(thing), value: key, desc: getDesc(thing) }
+                });
             }
 
             returnObj.globals = JSON.stringify({
-                Race: Object.keys(window.RACES),
+                Race: Object.keys(window.RACES).map(v => ({ name: v, value: v })),
                 Taxon: getGlobalsByPrefix('TAXA_'),
                 Class: getGlobalsByPrefix('CLASS_'),
                 Background: getGlobalsByPrefix('BG_'),
-                Affinity: window.GLOBALS.AFFINITY,
-                TFType: Object.keys(window.GLOBALS.TF_TYPE_PARTS).sort(key => +key).map(key => window.GLOBALS.TF_TYPE_PARTS[key]),
-                BodyType: getGlobalsByPrefix('BODY_TYPE_')
-                    .filter((value) => value !== 'Sylvan')
-                    .map((value) => value === 'Elf' ? 'Elf/Sylvan' : value),
+                Affinity: window.GLOBALS.AFFINITY.map((v, i) => ({ name: v, value: i })),
+                TFType: Object.keys(window.GLOBALS.TF_TYPE_PARTS).map(key => ({ name: window.GLOBALS.TF_TYPE_PARTS[key], value: +key })),
+                BodyType: getGlobalsByPrefix('BODY_TYPE_'),
                 BodyTag: getGlobalsByPrefix('BODY_TAG_'),
                 FluidType: getGlobalsByPrefix('FLUID_TYPE_'),
                 SkinType: getGlobalsByPrefix('SKIN_TYPE_'),
@@ -73,13 +97,13 @@ const fs = require('fs');
                 Misc: getItemsByType(window.GLOBALS.ITEM_MISC),
                 Consumable: getItemsByType(window.GLOBALS.ITEM_CONSUMABLE),
                 Set: getItemsByType(window.GLOBALS.ITEM_SET),
-                KeyItems: Object.keys(window.KEYITEMS),
-                Boon: Object.keys(window.BOONS),
-                StatusEffect: Object.keys(window.SEFFECTS),
-                CombatEffect: Object.keys(window.CEFFECTS),
-                Powers: Object.keys(window.POWERS),
-                Perks: Object.keys(window.PERKS).filter(key => key !== 'default'),
-                Items: [],
+                KeyItems: getThingFromWindow('KEYITEMS'),
+                Boon: getThingFromWindow('BOONS'),
+                StatusEffect: getThingFromWindow('SEFFECTS'),
+                CombatEffect: getThingFromWindow('CEFFECTS'),
+                Powers: getThingFromWindow('POWERS').filter(v => v.name !== 'Unnamed'),
+                Perks: getThingFromWindow('PERKS'),
+                Items: items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0], desc: getDesc(tuple[1]) })).filter(v => v.name !== 'Unnamed'),
             });
 
             // Pregnancy flags

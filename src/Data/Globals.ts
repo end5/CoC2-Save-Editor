@@ -120,4 +120,9 @@ export const globals: Record<keyof typeof globalKeys, GlobalOptions> = {
             globalKeys.Set
         )
     },
+export interface GenericInfo {
+    name: string;
+    value: string | number;
+    desc?: string;
+}
 };

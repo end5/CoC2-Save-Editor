@@ -3,6 +3,7 @@ export interface State {
     fileReader?: FileReader;
     fileObj?: any;
     editObj?: any;
+    activeChar?: string;
 }
 
 export const state: State = {};

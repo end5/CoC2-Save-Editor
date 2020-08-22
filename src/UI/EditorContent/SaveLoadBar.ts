@@ -1,20 +1,19 @@
-import { State } from "./Data/State";
-import { charDefaults } from "./GameData/CharDefaults";
+import { State } from "../../Data/State";
+import { charDefaults } from "../../GameData/CharDefaults";
 import 'file-saver';
-import '../external/FileSaver.js';
+import '../../../external/FileSaver.js';
 
-export function loadSaveLoadBar(content: HTMLElement, state: State, button: HTMLElement) {
+export function displaySaveLoadBar(state: State, afterLoad: () => void) {
     const background = document.createElement('div');
-    background.className = 'content light';
     background.id = 'save-load-bar';
 
     const loadButton = document.createElement('button');
     loadButton.textContent = 'Load';
-    loadButton.className = 'tab dark';
+    loadButton.className = 'tab';
 
     const saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
-    saveButton.className = 'tab dark';
+    saveButton.className = 'tab';
 
     const saveInput = document.createElement('input');
     saveInput.type = 'text';
@@ -23,10 +22,9 @@ export function loadSaveLoadBar(content: HTMLElement, state: State, button: HTML
     else
         saveInput.disabled = true;
 
+    background.appendChild(saveInput);
     background.appendChild(loadButton);
     background.appendChild(saveButton);
-    background.appendChild(saveInput);
-    content.appendChild(background);
 
     saveButton.addEventListener('click', () => {
         if (state.fileReader && state.file) {
@@ -61,12 +59,14 @@ export function loadSaveLoadBar(content: HTMLElement, state: State, button: HTML
                     saveInput.placeholder = filename;
                     saveInput.value = filename;
                     saveInput.disabled = false;
-                    button.click();
+                    afterLoad();
                 });
             }
         });
         input.click();
     });
+
+    return background;
 }
 
 function handleFiles(file: File, state: State, onSuccess: (filename: string) => void) {

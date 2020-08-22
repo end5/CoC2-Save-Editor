@@ -1,4 +1,5 @@
-export type EventFunc<T> = (element: T) => () => void;
+
+export type EventFunc<T> = (this: T, ev: Event) => any;
 
 export function createTextInput(initialValue: string, className: string, changeFunc: EventFunc<HTMLInputElement>) {
     const textAreaEl = document.createElement('input');
@@ -6,7 +7,7 @@ export function createTextInput(initialValue: string, className: string, changeF
     textAreaEl.className = className;
     textAreaEl.value = initialValue;
     if (changeFunc)
-        textAreaEl.addEventListener('change', changeFunc(textAreaEl));
+        textAreaEl.addEventListener('input', changeFunc);
     return textAreaEl;
 }
 
@@ -16,14 +17,13 @@ export function createCheckBox(checked: boolean, className: string, changeFunc: 
     checkBoxEl.checked = checked;
     checkBoxEl.type = 'checkbox';
     if (changeFunc)
-        checkBoxEl.addEventListener('change', changeFunc(checkBoxEl));
+        checkBoxEl.addEventListener('change', changeFunc);
     return checkBoxEl;
 }
 
-export function createFilterBar() {
-    const el = document.createElement('input');
-    el.className = 'filter-bar';
-    el.type = 'text';
-    el.placeholder = 'Filter...';
-    return el;
+export function createCheckBoxEl() {
+    const checkBoxEl = document.createElement('input');
+    checkBoxEl.checked = false;
+    checkBoxEl.type = 'checkbox';
+    return checkBoxEl;
 }

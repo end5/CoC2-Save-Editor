@@ -1,10 +1,10 @@
 import { state } from "./Data/State";
-import { diffChar } from "./SaveLoadBar";
+import { diffChar } from "./UI/EditorContent/SaveLoadBar";
 import { charDefaults } from "./GameData/CharDefaults";
 
 if (window) {
     const editor: any = (window as any).editor = {};
     editor.state = state;
-    editor.diffChar = (name: keyof typeof charDefaults) => diffChar(charDefaults[name], state.editObj.chars[name]);
+    editor.diffChar = (key: keyof typeof charDefaults) => diffChar(charDefaults[key], state.editObj.chars[key]);
     editor.charDefaults = charDefaults;
 }
