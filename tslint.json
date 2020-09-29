@@ -19,6 +19,7 @@
         "array-type": false,
         "object-literal-sort-keys": false,
         "no-console": false,
+        "space-before-function-paren": false,
         "variable-name": [
             true,
             "ban-keywords",

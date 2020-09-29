@@ -1,4 +1,4 @@
-import { displayEditor } from "./Editor";
+import { SaveLoadContent } from "./SaveLoad";
 
 export function displayDisclaimer(editorVersion: string, gameVersion: string, lastBreakingVersion: string) {
     const disclaimer = document.createElement("div");
@@ -14,8 +14,9 @@ export function displayDisclaimer(editorVersion: string, gameVersion: string, la
         while (document.body.lastChild)
             document.body.removeChild(document.body.lastChild);
 
-        const editor = displayEditor();
-        document.body.appendChild(editor.element);
+        const asdf = new SaveLoadContent();
+        // const editor = displayEditor();
+        document.body.appendChild(asdf.html.element);
     });
 
     return disclaimer;

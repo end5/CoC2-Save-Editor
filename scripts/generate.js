@@ -58,13 +58,13 @@ const fs = require('fs');
             const items = Object.keys(window.ITEMS).map(key => [key, new window.ITEMS[key]()]);
             function getItemsByType(type) {
                 return items.filter(tuple => tuple[1].type === type)
-                    .map(tuple => ({ name: getName(tuple[1]), value: tuple[0], desc: getDesc(tuple[1]) }))
+                    .map(tuple => ({ name: getName(tuple[1]), value: tuple[0] }))
             }
 
             function getThingFromWindow(name) {
                 return Object.keys(window[name]).map(key => {
                     const thing = new window[name][key](pc);
-                    return { name: getName(thing), value: key, desc: getDesc(thing) }
+                    return { name: getName(thing), value: key }
                 });
             }
 
@@ -81,6 +81,7 @@ const fs = require('fs');
                 SkinType: getGlobalsByPrefix('SKIN_TYPE_'),
                 NippleType: getGlobalsByPrefix('NIPPLE_TYPE_'),
                 HairType: getGlobalsByPrefix('HAIR_TYPE_'),
+                Cup: window.GLOBALS.CUP.map((v, i) => ({ name: v, value: i })),
                 Weapons: getItemsByType(window.GLOBALS.ITEM_PRIMARY),
                 ArmorSet: getItemsByType(window.GLOBALS.ITEM_ARMORSET),
                 ItemHead: getItemsByType(window.GLOBALS.ITEM_HEAD),
@@ -179,9 +180,9 @@ const fs = require('fs');
     const format = str => prettier.format(str, { parser: 'babel', tabWidth: 4 });
 
     console.log('Writing data');
-    fs.writeFileSync('src/GameData/GlobalKeys.ts', format('export const globalKeys = ' + obj.globals + ';\n'));
+    fs.writeFileSync('src/GameData/GlobalKeys.ts', format('export const globalKeys = ' + obj.globals + ' as const;\n'));
     fs.writeFileSync('src/GameData/CharDefaults.ts', format('export const charDefaults = ' + obj.charDefaults + ';\n'));
-    fs.writeFileSync('src/GameData/Flags.ts', format('export const Flags = ' + JSON.stringify(list) + ';\n'));
+    fs.writeFileSync('src/GameData/Flags.ts', format('export const Flags = ' + JSON.stringify(list) + 'as const;\n'));
     console.log('Finished');
 
     await browser.close();

@@ -1,54 +1,193 @@
-import { createFilterBar } from "../../Display/FilterBar";
-import { StringField } from "../../Display/Fields";
 import { Flags } from "../../GameData/Flags";
-import { State } from "../../Data/State";
+import { FieldHTML, Field, createTextInput } from "../../Display/HTMLGenerics";
+import { FlagType, FlagNames } from "../../Data/GameSave";
+import { FilterBarHTML, FilterBar } from "../../Display/Fields/FilterBar";
+import { disable, enable } from "../../Display/UIActions";
 
-export function displayFlagContent(state: State) {
-    const flagFields: Record<string, StringField> = {};
+// export class FlagContentHTML implements FieldHTML<HTMLDivElement> {
+//     public readonly element: HTMLDivElement;
+//     public readonly filterBar: FilterBarHTML;
+//     public readonly flagListEl: HTMLUListElement;
 
-    const element = document.createElement('div');
-    element.className = 'content';
+//     public constructor() {
+//         this.element = document.createElement('div');
+//         this.element.className = 'content boxed';
 
-    const filterBar = createFilterBar(flagFields);
-    element.appendChild(filterBar);
+//         this.filterBar = new FilterBarHTML();
+//         this.element.appendChild(this.filterBar.element);
 
-    const flagListEl = document.createElement('ul');
-    flagListEl.className = 'flags';
+//         this.flagListEl = document.createElement('ul');
+//         this.flagListEl.className = 'flags';
 
-    for (const flag of Flags) {
-        const field = new StringField(flag,
-            () => convertValue(state.editObj?.flags[flag]),
-            (value) => {
-                if (state.editObj && state.editObj.flags)
-                    if (value === '' || value === undefined)
-                        delete state.editObj.flags[flag];
-                    else
-                        state.editObj.flags[flag] = convertValue(value);
-            }
-        );
-        flagListEl.appendChild(field.element);
-        flagFields[flag] = field;
+//         this.element.appendChild(this.flagListEl);
+//     }
+// }
+
+// export class FlagContent implements Field {
+//     private fields: { key: string, field: StringField }[] = [];
+//     private filterBar: FilterBar;
+
+//     public constructor(
+//         getFlag: (key: FlagNames) => FlagType | undefined,
+//         setFlag: (key: FlagNames, value?: FlagType) => void,
+//         public readonly html = new FlagContentHTML()
+//     ) {
+//         for (const flag of Flags) {
+//             const field = new StringField(
+//                 flag,
+//                 () => (getFlag(flag) ?? '') + '',
+//                 (value) => setFlag(flag, toValue(value))
+//             );
+//             this.html.flagListEl.appendChild(field.html.element);
+//             this.fields.push({ key: flag, field });
+//         }
+
+//         const filterList = this.fields.map((entry) => ({ key: entry.key, element: entry.field.html.element }));
+//         this.filterBar = new FilterBar(filterList, this.html.filterBar);
+//     }
+
+//     public enable() {
+//         for (const entry of this.fields)
+//             entry.field.enable();
+//         this.filterBar.enable();
+//     }
+
+//     public disable() {
+//         for (const entry of this.fields)
+//             entry.field.disable();
+//         this.filterBar.disable();
+//     }
+// }
+
+// function toValue(value: string) {
+//     if (typeof value === 'string' && value.toLocaleLowerCase() === 'true')
+//         return true;
+//     else if (typeof value === 'string' && value.toLocaleLowerCase() === 'false')
+//         return false;
+//     else if (!isNaN(+value))
+//         return +value;
+//     else
+//         return value;
+// }
+
+class FlagFieldHTML implements FieldHTML<HTMLTableRowElement> {
+    public readonly element: HTMLTableRowElement;
+    public readonly title: HTMLTableDataCellElement;
+    public readonly input: HTMLInputElement;
+
+    public constructor() {
+        this.element = document.createElement('tr');
+
+        this.title = document.createElement('td');
+        this.element.appendChild(this.title);
+
+        const textCell = document.createElement('td');
+        this.element.appendChild(textCell);
+
+        this.input = createTextInput();
+        textCell.appendChild(this.input);
     }
-
-    element.appendChild(flagListEl);
-
-    const load = () => {
-        for (const flag of Object.keys(state.editObj?.flags)) {
-            if (flagFields[flag] == null) {
-                console.log('Flag not found in editor:', flag);
-                continue;
-            }
-            flagFields[flag].load();
-        }
-    };
-
-    return { element, load };
 }
 
-function convertValue(value: any) {
-    if (value === '' || value === undefined)
-        return '';
-    else if (typeof value === 'string' && value.toLocaleLowerCase() === 'true')
+class FlagField implements Field {
+    public readonly html: FlagFieldHTML;
+
+    public constructor(public readonly key: FlagNames, private readonly getValue: () => string, setValue: (value: string) => void) {
+        this.html = new FlagFieldHTML();
+        this.html.title.textContent = key;
+        this.html.input.addEventListener('change', function () { setValue(this.value); });
+    }
+
+    public enable() {
+        this.html.input.disabled = false;
+        this.html.input.value = this.getValue();
+    }
+
+    public disable() {
+        this.html.input.disabled = true;
+        this.html.input.value = '';
+    }
+}
+
+export class FlagContentHTML implements FieldHTML<HTMLDivElement> {
+    public readonly element: HTMLDivElement;
+    public readonly filterBar: FilterBarHTML;
+    public readonly tableBody: HTMLTableSectionElement;
+
+    public constructor() {
+        this.element = document.createElement('div');
+        this.element.className = 'content boxed';
+
+        this.filterBar = new FilterBarHTML();
+        this.element.appendChild(this.filterBar.element);
+
+        // Power Table
+        const tableEl = document.createElement('table');
+        this.element.appendChild(tableEl);
+
+        // Table Head
+        const tableHead = document.createElement('thead');
+        tableEl.appendChild(tableHead);
+
+        const labelRow = document.createElement('tr');
+        tableHead.appendChild(labelRow);
+
+        const equippedLabel = document.createElement('th');
+        equippedLabel.textContent = 'Name';
+        labelRow.appendChild(equippedLabel);
+
+        const nameLabel = document.createElement('th');
+        nameLabel.textContent = 'Value';
+        labelRow.appendChild(nameLabel);
+        //
+
+        this.tableBody = document.createElement('tbody');
+        tableEl.appendChild(this.tableBody);
+    }
+}
+
+export class FlagContent implements Field {
+    private fields: FlagField[] = [];
+    private filterBar: FilterBar;
+
+    public constructor(
+        getFlag: (key: FlagNames) => FlagType | undefined,
+        setFlag: (key: FlagNames, value?: FlagType) => void,
+        public readonly html = new FlagContentHTML()
+    ) {
+        this.fields = Flags.map((flag) => {
+            const field = new FlagField(
+                flag,
+                () => (getFlag(flag) ?? '') + '',
+                (value) => setFlag(flag, toValue(value))
+            );
+            this.html.tableBody.appendChild(field.html.element);
+            return field;
+        });
+
+        const filterList = this.fields.map((entry) => ({ key: entry.key, element: entry.html.element }));
+        this.filterBar = new FilterBar(filterList, this.html.filterBar);
+    }
+
+    public enable() {
+        enable(this.filterBar.html.element);
+        enable(this.html.tableBody);
+        for (const field of this.fields)
+            field.enable();
+        this.filterBar.enable();
+    }
+
+    public disable() {
+        disable(this.filterBar.html.element);
+        disable(this.html.tableBody);
+        for (const field of this.fields)
+            field.disable();
+        this.filterBar.disable();
+    }
+}
+
+function toValue(value: string) {
+    if (typeof value === 'string' && value.toLocaleLowerCase() === 'true')
         return true;
     else if (typeof value === 'string' && value.toLocaleLowerCase() === 'false')
         return false;

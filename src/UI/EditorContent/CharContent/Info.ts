@@ -1,39 +1,26 @@
-import { StringField, SelectField, NumberField, createCategory } from "../../../Display/Fields";
-import { CharAccessor } from "../../../Data/CharAccessor";
 import { globalKeys } from "../../../GameData/GlobalKeys";
+import { Category } from "../../../Display/Fields/Category";
+import { StringField } from "../../../Display/Fields/String";
+import { SelectField } from "../../../Display/Fields/Select";
+import { NumberField } from "../../../Display/Fields/Number";
+import { Label } from "../../../Display/Fields/Label";
+import { createValueLookup } from "../../../Data/ValueLookup";
+import { CharType } from "../../../Data/CharTypes";
 
-export function displayCharInfo(char: CharAccessor) {
-    const element = document.createElement('div');
-    element.className = 'content wrap';
-
-    const categories = [{
+export function displayCharInfo(getChar: () => CharType) {
+    return new Category([{
         title: 'General',
         list: [
-            new StringField("Name", () => char.get().name, (value) => char.get().name = value),
-            new StringField("Title", () => char.get().title, (value) => char.get().title = value),
-            new SelectField("Taxon", globalKeys.Taxon, () => char.get().taxa, (value) => char.get().taxa = value),
-            new SelectField("Class", globalKeys.Class, () => char.get().class, (value) => char.get().class = value),
-            new SelectField("Background", globalKeys.Background, () => char.get().background, (value) => char.get().background = value),
-            new NumberField("Gender Pref", () => char.get().genderPref, (value) => char.get().genderPref = value),
-            new NumberField("Level", () => char.get().level, (value) => char.get().level = value),
-            new NumberField("Exp", () => char.get().exp, (value) => char.get().exp = value),
-            new NumberField("Orgasms", () => char.get().orgasms, (value) => char.get().orgasms = value),
-            new NumberField("Last Orgasm", () => char.get().lastOrgasm, (value) => char.get().lastOrgasm = value),
+            new Label('Name', new StringField(createValueLookup(getChar, 'name'))),
+            new Label('Title', new StringField(createValueLookup(getChar, 'title'))),
+            new Label('Taxon', new SelectField(globalKeys.Taxon, createValueLookup(getChar, 'taxa'))),
+            new Label('Class', new SelectField(globalKeys.Class, createValueLookup(getChar, 'class'))),
+            new Label('Background', new SelectField(globalKeys.Background, createValueLookup(getChar, 'background'))),
+            new Label('Gender Pref', new NumberField(createValueLookup(getChar, 'genderPref'))),
+            new Label('Level', new NumberField(createValueLookup(getChar, 'level'))),
+            new Label('Exp', new NumberField(createValueLookup(getChar, 'exp'))),
+            new Label('Orgasms', new NumberField(createValueLookup(getChar, 'orgasms'))),
+            new Label('Last Orgasm', new NumberField(createValueLookup(getChar, 'lastOrgasm'))),
         ]
-    }];
-
-    for (const category of categories) {
-        const categoryEl = createCategory(category.title);
-        element.appendChild(categoryEl);
-        for (const field of category.list)
-            categoryEl.appendChild(field.element);
-    }
-
-    const load = () => {
-        for (const category of categories)
-            for (const field of category.list)
-                field.load();
-    };
-
-    return { element, load };
+    }]);
 }

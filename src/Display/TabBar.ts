@@ -1,21 +1,14 @@
-export function createTabButton(text: string) {
-    const button = document.createElement('button');
-    button.textContent = text;
+export type TabButtonElement = ReturnType<typeof createTabButton>;
+export function createTabButton() {
+    const button = document.createElement('a');
     button.className = 'tab';
 
     return button;
 }
 
-export function createTabBar(style: 'vertical' | 'horizontal', buttonTexts: Record<string, string>) {
+export type TabBarElement = ReturnType<typeof createTabBar>;
+export function createTabBar(style: 'vertical' | 'horizontal') {
     const element = document.createElement('div');
     element.className = 'tabs ' + style;
-
-    const buttons = {} as Record<string, HTMLButtonElement>;
-    for (const text of Object.keys(buttonTexts)) {
-        const buttonEl = createTabButton(buttonTexts[text]);
-        element.appendChild(buttonEl);
-        buttons[text] = buttonEl;
-    }
-
-    return { element, buttons };
+    return element;
 }

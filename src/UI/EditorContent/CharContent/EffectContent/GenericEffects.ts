@@ -1,153 +1,187 @@
 import { createCheckBoxEl } from "../../../../Display/Input";
-import { createFilterBar } from "../../../../Display/FilterBar";
-import { GenericInfo } from "../../../../Data/Globals";
-import { NumberField, createFieldLabel } from "../../../../Display/Fields";
-import { EffectType } from "../../../../GameData/CharTypes";
-import { select, deselect } from "../../../../Display/UIActions";
+import { FilterBarHTML, FilterBar } from "../../../../Display/Fields/FilterBar";
+import { GenericInfo } from "../../../../Data/GenericInfo";
+import { EffectType } from "../../../../Data/CharTypes";
+import { select, deselect, enable, disable } from "../../../../Display/UIActions";
+import { FieldHTML, Field } from "../../../../Display/HTMLGenerics";
+import { NumberField, NumberFieldHTML } from "../../../../Display/Fields/Number";
+import { Label } from "../../../../Display/Fields/Label";
+import { ValueLookup } from "../../../../Data/ValueLookup";
+import { MAX_EFFECT_VALUES } from "../../../../Data/Char";
 
-export interface EffectsAccess {
-    get: () => EffectType[];
-    set: (effects: EffectType[]) => void;
-}
+class EffectFieldHTML implements FieldHTML<HTMLTableRowElement> {
+    public readonly element: HTMLTableRowElement;
+    public readonly equip: HTMLInputElement;
+    public readonly title: HTMLTableDataCellElement;
 
-class SelectedFields {
-    public effect?: EffectField;
-}
-
-const MAX_EFFECT_VALUES = 6;
-
-export function displayEffects(effects: EffectsAccess, infoList: GenericInfo[]) {
-    // Values for logic
-    const selected = new SelectedFields();
-    const effectRecord: Record<string, EffectField> = {};
-    const effectValueFields: NumberField[] = [];
-    //
-
-    // Element creation
-    const element = document.createElement('div');
-    element.className = 'effects content';
-
-    // Filter Bar
-    const filterBar = createFilterBar(effectRecord);
-    element.appendChild(filterBar);
-
-    // Effect Table
-    const tableEl = document.createElement('table');
-    element.appendChild(tableEl);
-
-    // Table Head
-    const tableHead = document.createElement('thead');
-    tableEl.appendChild(tableHead);
-
-    const labelRow = document.createElement('tr');
-    tableHead.appendChild(labelRow);
-
-    const equippedLabel = document.createElement('th');
-    equippedLabel.textContent = 'Equipped';
-    labelRow.appendChild(equippedLabel);
-
-    const nameLabel = document.createElement('th');
-    nameLabel.textContent = 'Name';
-    labelRow.appendChild(nameLabel);
-    //
-
-    const tableBody = document.createElement('tbody');
-    tableEl.appendChild(tableBody);
-
-    for (const effectInfo of infoList) {
-        const effectField = new EffectField(effectInfo.name);
-        effectField.element.addEventListener('click', () => {
-            if (selected.effect)
-                deselect(selected.effect.element);
-
-            selected.effect = effectField;
-            select(effectField.element);
-
-            for (const effectValue of effectValueFields)
-                effectValue.load();
-        });
-        effectField.equipCheckbox.addEventListener('click', equipOnClick(effects, effectInfo.name));
-        tableBody.appendChild(effectField.element);
-
-        effectRecord[effectInfo.name] = effectField;
-    }
-
-    // Item Attribute List
-    const effectValuesList = document.createElement('div');
-    effectValuesList.className = 'item-attr';
-    element.appendChild(effectValuesList);
-
-    const getEffectIndex = () => effects.get().findIndex((effect) => effect.key === selected.effect?.key);
-
-    for (let index = 0; index < MAX_EFFECT_VALUES; index++) {
-        // Item Attribute
-        const effectValue = new NumberField('Value ' + (index + 1),
-            () => {
-                const effectIndex = getEffectIndex();
-                if (~effectIndex)
-                    return effects.get()[effectIndex].values[index];
-                else
-                    return undefined;
-            },
-            (value) => {
-                const effectIndex = getEffectIndex();
-                if (~effectIndex)
-                    effects.get()[effectIndex].values[index] = value;
-            });
-        effectValuesList.appendChild(effectValue.element);
-
-        effectValueFields.push(effectValue);
-    }
-
-    const load = () => {
-        // Clear everything
-        for (const key of Object.keys(effectRecord)) {
-            const effectField = effectRecord[key];
-            effectField.unequip();
-        }
-
-        // Set equipped effects
-        for (const effect of effects.get())
-            if (effect && effectRecord[effect.key])
-                effectRecord[effect.key].equipped();
-
-        for (const effectValue of effectValueFields)
-            effectValue.load();
-
-    };
-
-    return { element, load };
-}
-
-class EffectField {
-    public readonly element: HTMLElement;
-    public readonly key: string;
-    public readonly equipCheckbox: HTMLInputElement;
-
-    public constructor(key: string) {
-        this.key = key;
-
+    public constructor() {
         this.element = document.createElement('tr');
 
         const equipCell = document.createElement('td');
         this.element.appendChild(equipCell);
 
-        this.equipCheckbox = createCheckBoxEl();
-        equipCell.appendChild(this.equipCheckbox);
+        this.equip = createCheckBoxEl();
+        equipCell.appendChild(this.equip);
 
-        const titleCell = document.createElement('td');
-        this.element.appendChild(titleCell);
-
-        const title = createFieldLabel(key);
-        titleCell.appendChild(title);
+        this.title = document.createElement('td');
+        this.element.appendChild(this.title);
     }
-
-    public equip() { this.equipCheckbox.checked = true; }
-    public unequip() { this.equipCheckbox.checked = false; }
-    public equipped() { return this.equipCheckbox.checked; }
 }
 
-function equipOnClick(effects: EffectsAccess, key: string) {
+class EffectField implements Field {
+    public readonly html: EffectFieldHTML;
+
+    public constructor(public readonly key: string, private value: ValueLookup<EffectType[]>) {
+        this.html = new EffectFieldHTML();
+        this.html.title.textContent = key;
+    }
+
+    public enable() {
+        this.html.equip.disabled = false;
+        this.html.equip.checked = !!this.value.get().find((effect) => effect?.key === this.key);
+    }
+
+    public disable() {
+        this.html.equip.disabled = true;
+        this.html.equip.checked = false;
+    }
+}
+
+class EffectsFieldHTML implements FieldHTML<HTMLDivElement> {
+    public readonly element: HTMLDivElement;
+    public readonly filterBar: FilterBarHTML;
+    public readonly tableBody: HTMLTableSectionElement;
+    public readonly effectValues: HTMLDivElement;
+    public readonly attrFields: NumberFieldHTML[] = [];
+
+    public constructor() {
+        // Element creation
+        this.element = document.createElement('div');
+        this.element.className = 'effects content boxed';
+
+        // Filter Bar
+        this.filterBar = new FilterBarHTML();
+        this.element.appendChild(this.filterBar.element);
+
+        // Power Table
+        const tableEl = document.createElement('table');
+        this.element.appendChild(tableEl);
+
+        // Table Head
+        const tableHead = document.createElement('thead');
+        tableEl.appendChild(tableHead);
+
+        const labelRow = document.createElement('tr');
+        tableHead.appendChild(labelRow);
+
+        const equippedLabel = document.createElement('th');
+        equippedLabel.textContent = 'Equipped';
+        labelRow.appendChild(equippedLabel);
+
+        const nameLabel = document.createElement('th');
+        nameLabel.textContent = 'Name';
+        labelRow.appendChild(nameLabel);
+        //
+
+        this.tableBody = document.createElement('tbody');
+        tableEl.appendChild(this.tableBody);
+
+        this.effectValues = document.createElement('div');
+        this.effectValues.className = 'item-attr';
+        this.element.appendChild(this.effectValues);
+
+        for (let index = 0; index < MAX_EFFECT_VALUES; index++) {
+            const attr = new NumberFieldHTML();
+            this.attrFields.push(attr);
+            this.effectValues.appendChild(attr.element);
+        }
+    }
+}
+
+export class EffectsField implements Field {
+    public readonly html: EffectsFieldHTML;
+    private effectFields: EffectField[];
+    private attrFields: Label[];
+    private filterBar: FilterBar;
+    private selected?: EffectField;
+
+    public constructor(value: ValueLookup<EffectType[]>, infoList: GenericInfo[]) {
+        this.html = new EffectsFieldHTML();
+
+        this.effectFields = infoList.map((info) => {
+            const effectField = new EffectField(info.name, value);
+            effectField.html.element.addEventListener('click', () => {
+                if (this.selected)
+                    deselect(this.selected.html.element);
+
+                this.selected = effectField;
+                select(effectField.html.element);
+
+                for (const field of this.attrFields)
+                    field.enable();
+            });
+            effectField.html.equip.addEventListener('click', equipOnClick(value, info.name));
+            this.html.tableBody.appendChild(effectField.html.element);
+
+            return effectField;
+        });
+
+        const filterList = this.effectFields.map((entry) => ({ key: entry.key, element: entry.html.element }));
+        this.filterBar = new FilterBar(filterList, this.html.filterBar);
+
+        // Item Attribute List
+
+        const getEffectIndex = () => value.get().findIndex((effect) => effect.key === this.selected?.key);
+
+        this.attrFields = this.html.attrFields.map((html, index) =>
+            new Label('Value ' + (index + 1),
+                new NumberField(
+                    {
+                        get: () => {
+                            const effectIndex = getEffectIndex();
+                            if (~effectIndex)
+                                return value.get()[effectIndex].values[index] ?? 0;
+                            else
+                                return 0;
+                        },
+                        set: (newValue) => {
+                            const effectIndex = getEffectIndex();
+                            if (~effectIndex)
+                                value.get()[effectIndex].values[index] = newValue;
+                        }
+                    },
+                    html
+                )));
+    }
+
+    public enable() {
+        enable(this.filterBar.html.element);
+        enable(this.html.tableBody);
+
+        for (const field of this.effectFields)
+            field.enable();
+
+        this.filterBar.enable();
+
+        for (const field of this.attrFields)
+            field.enable();
+    }
+
+    public disable() {
+        disable(this.filterBar.html.element);
+        disable(this.html.tableBody);
+
+        for (const field of this.effectFields)
+            field.disable();
+
+        this.filterBar.disable();
+
+        for (const field of this.attrFields)
+            field.disable();
+    }
+}
+
+function equipOnClick(effects: ValueLookup<EffectType[]>, key: string) {
     return function (this: HTMLInputElement) {
         const equipped = effects.get();
         const index = equipped.findIndex((value) => value?.key === key);

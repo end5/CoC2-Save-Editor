@@ -1,52 +1,102 @@
-import { createTabBar } from "../../Display/TabBar";
 import { displayCharInfo } from "./CharContent/Info";
-import { toggleSelection, hide, ButtonContentPair, select } from "../../Display/UIActions";
 import { displayCharEffectsContent } from "./CharContent/Effects";
-import { displayCharInventory } from "./CharContent/Inventory";
 import { State } from "../../Data/State";
 import { displayCharStats } from "./CharContent/Stats";
 import { displayCharBodyContent } from "./CharContent/Body";
-import { Component } from "../../Display/Generic";
-import { CharAccessor } from "../../Data/CharAccessor";
+import { TabbedContent } from "../../Display/Fields/TabbedContent";
+import { SelectField, SelectFieldHTML } from "../../Display/Fields/Select";
+import { charDefaults } from "../../GameData/CharDefaults";
+import { spaceAndCapText } from "../../Display/Input";
+import { Field, FieldHTML } from "../../Display/HTMLGenerics";
+import { CharNames } from "../../Data/GameSave";
+import { TabBarElement, createTabBar } from "../../Display/TabBar";
+import { enable, disable } from "../../Display/UIActions";
+import { Inventory } from "./CharContent/Inventory";
 
-export function displayCharContent(state: State) {
-    const charAccessor = new CharAccessor(state);
+export class CharContentHTML implements FieldHTML<HTMLDivElement> {
+    public readonly element: HTMLDivElement;
+    public readonly select: SelectFieldHTML;
+    public readonly tabBar: TabBarElement;
 
-    const element = document.createElement('div');
-    element.className = 'content';
+    public constructor() {
+        this.element = document.createElement('div');
+        this.element.className = 'content char-editor';
 
-    const tabBar = createTabBar('horizontal', { info: 'Info', stats: 'Stats', effects: 'Effects', inv: 'Inventory', body: 'Body' });
-    element.appendChild(tabBar.element);
+        this.select = new SelectFieldHTML();
 
-    const content: Record<string, Component> = {
-        info: displayCharInfo(charAccessor),
-        stats: displayCharStats(charAccessor),
-        effects: displayCharEffectsContent(charAccessor),
-        inv: displayCharInventory(charAccessor),
-        body: displayCharBodyContent(charAccessor),
-    };
+        this.tabBar = createTabBar('horizontal');
 
-    const fieldKeys = Object.keys(tabBar.buttons);
-    const buttonContentPairList: ButtonContentPair[] = fieldKeys.map((key) => ({ button: tabBar.buttons[key], content: content[key].element }));
+        this.element.appendChild(this.select.element);
+        this.element.appendChild(this.tabBar);
+    }
+}
 
-    for (const fieldKey of fieldKeys) {
-        tabBar.buttons[fieldKey].addEventListener('click', () => toggleSelection(tabBar.buttons[fieldKey], buttonContentPairList));
+export class CharContent extends TabbedContent {
+    private selectCharField: SelectField<{ name: string, value: CharNames }>;
 
-        // Hide everything but the first one
-        if (fieldKey !== fieldKeys[0])
-            hide(content[fieldKey].element);
-        else {
-            select(tabBar.buttons[fieldKey]);
-        }
+    public constructor(state: State) {
+        const getChar = () => {
+            if (!state.editObj) throw new Error('Save not loaded');
+            const char = state.editObj.chars[state.activeChar ?? 'pc'];
+            if (!char) throw new Error('Char ' + state.activeChar + ' not found');
+            return char;
+        };
 
-        element.appendChild(content[fieldKey].element);
+        const tabs: {
+            key: string;
+            title: string;
+            content: Field;
+        }[] = [{
+            key: 'info',
+            title: 'Info',
+            content: displayCharInfo(getChar),
+        }, {
+            key: 'stats',
+            title: 'Stats',
+            content: displayCharStats(getChar),
+        }, {
+            key: 'effects',
+            title: 'Effects',
+            content: displayCharEffectsContent(getChar),
+        }, {
+            key: 'inv',
+            title: 'Inventory',
+            content: new Inventory(() => getChar().inventory),
+        }, {
+            key: 'body',
+            title: 'Body',
+            content: displayCharBodyContent(getChar),
+        }];
+
+        const html = new CharContentHTML();
+
+        const charInfo = Object.keys(charDefaults).map((key) => ({ name: spaceAndCapText(key), value: key as CharNames }));
+        const selectCharField = new SelectField(
+            charInfo,
+            {
+                get: () => 'pc',
+                set: (value) => {
+                    state.activeChar = value;
+                    for (const entry of tabs)
+                        entry.content.enable();
+                }
+            },
+            html.select
+        );
+
+        super(tabs, html);
+        this.selectCharField = selectCharField;
     }
 
-    const load = () => {
-        for (const key of fieldKeys) {
-            content[key].load();
-        }
-    };
+    public enable() {
+        super.enable();
+        enable(this.selectCharField.html.element);
+        this.selectCharField.enable();
+    }
 
-    return { element, load };
+    public disable() {
+        super.disable();
+        disable(this.selectCharField.html.element);
+        this.selectCharField.disable();
+    }
 }

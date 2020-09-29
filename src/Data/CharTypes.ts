@@ -55,7 +55,7 @@ export interface CharType {
     statusEffects: EffectType[];
     likes: number[];
     dislikes: number[];
-    boon?: object;
+    boon?: EffectType;
     credits: number;
     weaponPrimary?: ItemType;
     weaponSecondary?: ItemType;
@@ -74,6 +74,7 @@ export interface CharType {
     keyItems: ItemType[];
     set?: ItemType;
     originalRace: string;
+    _race: { key: string } | undefined;
     femininity: number;
     tallness: number;
     tone: number;
@@ -133,6 +134,7 @@ export interface CharType {
     nippleColor: string;
     nipplesPerBreast: number;
     nippleSizeRatio: number;
+    nippleWidthRatio: number;
     nippleType: number;
     breastTags: number[];
     milkType: number;
@@ -187,7 +189,7 @@ export interface CharType {
 
 export interface VaginaType {
     type: number;
-    hymen: false;
+    hymen: boolean;
     clits: number;
     wetnessRaw: number;
     wetnessMod: number;

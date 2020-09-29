@@ -1,146 +1,170 @@
-import { CharAccessor } from "../../../../Data/CharAccessor";
 import { createCheckBoxEl } from "../../../../Display/Input";
-import { createFilterBar } from "../../../../Display/FilterBar";
-import { spaceAndCapText } from "../../../../Display/Generic";
-import { createFieldLabel } from "../../../../Display/Fields";
+import { FilterBarHTML, FilterBar } from "../../../../Display/Fields/FilterBar";
+import { spaceAndCapText } from "../../../../Display/Input";
 import { globalKeys } from "../../../../GameData/GlobalKeys";
+import { FieldHTML, Field } from "../../../../Display/HTMLGenerics";
+import { disable, enable } from "../../../../Display/UIActions";
+import { CharType } from "../../../../Data/CharTypes";
 
-export function displayPowers(char: CharAccessor) {
-    // Values for logic
-    const powerRecords: Record<string, PowerField> = {};
-    //
+class PowerFieldHTML implements FieldHTML<HTMLTableRowElement> {
+    public readonly element: HTMLTableRowElement;
+    public readonly title: HTMLTableDataCellElement;
+    public readonly known: HTMLInputElement;
+    public readonly equip: HTMLInputElement;
 
-    // Element creation
-    const element = document.createElement('div');
-    element.className = 'powers content';
-
-    // Filter Bar
-    const filterBar = createFilterBar(powerRecords);
-    element.appendChild(filterBar);
-
-    // Power Table
-    const tableEl = document.createElement('table');
-    element.appendChild(tableEl);
-
-    // Table Head
-    const tableHead = document.createElement('thead');
-    tableEl.appendChild(tableHead);
-
-    const labelRow = document.createElement('tr');
-    tableHead.appendChild(labelRow);
-
-    const knownLabel = document.createElement('th');
-    knownLabel.textContent = 'Known';
-    labelRow.appendChild(knownLabel);
-
-    const equippedLabel = document.createElement('th');
-    equippedLabel.textContent = 'Equipped';
-    labelRow.appendChild(equippedLabel);
-
-    const nameLabel = document.createElement('th');
-    nameLabel.textContent = 'Name';
-    labelRow.appendChild(nameLabel);
-    //
-
-    const tableBody = document.createElement('tbody');
-    tableEl.appendChild(tableBody);
-
-    for (const powerInfo of globalKeys.Powers) {
-        let name = powerInfo.name;
-        if (powerRecords[name] != null)
-            name = spaceAndCapText(powerInfo.value + '');
-
-        if (powerRecords[name] != null) {
-            console.log('Power name:', powerInfo.name, 'value:', powerInfo.value, 'already exists. Skipping.');
-            continue;
-        }
-
-        const powerField = new PowerField(name);
-        powerField.knownCheckbox.addEventListener('click', knownOnClick(char, name));
-        powerField.equipCheckbox.addEventListener('click', equipOnClick(char, name));
-        tableBody.appendChild(powerField.element);
-
-        powerRecords[name] = powerField;
-    }
-
-    const load = () => {
-        // Clear everything
-        for (const key of Object.keys(powerRecords)) {
-            const powerField = powerRecords[key];
-            powerField.unlearn();
-            powerField.unequip();
-        }
-
-        // Set known powers
-        for (const power of char.get().powers)
-            if (power && powerRecords[power.key])
-                powerRecords[power.key].known();
-
-        // Set equipped powers
-        for (const power of char.get().equippedPowers)
-            if (power && powerRecords[power.key])
-                powerRecords[power.key].equipped();
-
-    };
-
-    return { element, load };
-}
-
-class PowerField {
-    public readonly element: HTMLElement;
-    public readonly key: string;
-    public readonly knownCheckbox: HTMLInputElement;
-    public readonly equipCheckbox: HTMLInputElement;
-
-    public constructor(key: string) {
-        this.key = key;
-
+    public constructor() {
         this.element = document.createElement('tr');
 
         const knownCell = document.createElement('td');
         this.element.appendChild(knownCell);
 
-        this.knownCheckbox = createCheckBoxEl();
-        knownCell.appendChild(this.knownCheckbox);
+        this.known = createCheckBoxEl();
+        knownCell.appendChild(this.known);
 
         const equipCell = document.createElement('td');
         this.element.appendChild(equipCell);
 
-        this.equipCheckbox = createCheckBoxEl();
-        equipCell.appendChild(this.equipCheckbox);
+        this.equip = createCheckBoxEl();
+        equipCell.appendChild(this.equip);
 
-        const titleCell = document.createElement('td');
-        this.element.appendChild(titleCell);
-
-        const title = createFieldLabel(key);
-        titleCell.appendChild(title);
+        this.title = document.createElement('td');
+        this.element.appendChild(this.title);
     }
-
-    public learn() { this.knownCheckbox.checked = true; }
-    public unlearn() { this.knownCheckbox.checked = false; }
-    public known() { return this.knownCheckbox.checked; }
-
-    public equip() { this.equipCheckbox.checked = true; }
-    public unequip() { this.equipCheckbox.checked = false; }
-    public equipped() { return this.equipCheckbox.checked; }
 }
 
-function knownOnClick(char: CharAccessor, key: string) {
+class PowerField implements Field {
+    public readonly html: PowerFieldHTML;
+    public constructor(public readonly key: string, private readonly getChar: () => CharType) {
+        this.html = new PowerFieldHTML();
+        this.html.title.textContent = key;
+    }
+
+    public enable() {
+        this.html.known.disabled = false;
+        this.html.equip.disabled = false;
+        this.html.known.checked = !!this.getChar().powers.find((power) => power?.key === this.key) ?? false;
+        this.html.equip.checked = !!this.getChar().equippedPowers.find((power) => power?.key === this.key) ?? false;
+    }
+
+    public disable() {
+        this.html.known.disabled = true;
+        this.html.equip.disabled = true;
+        this.html.known.checked = false;
+        this.html.equip.checked = false;
+    }
+}
+
+class PowersFieldHTML implements FieldHTML<HTMLDivElement> {
+    public readonly element: HTMLDivElement;
+    public readonly filterBar: FilterBarHTML;
+    public readonly tableBody: HTMLTableSectionElement;
+
+    public constructor() {
+        // Element creation
+        this.element = document.createElement('div');
+        this.element.className = 'powers content boxed';
+
+        // Filter Bar
+        this.filterBar = new FilterBarHTML();
+        this.element.appendChild(this.filterBar.element);
+
+        // Power Table
+        const tableEl = document.createElement('table');
+        this.element.appendChild(tableEl);
+
+        // Table Head
+        const tableHead = document.createElement('thead');
+        tableEl.appendChild(tableHead);
+
+        const labelRow = document.createElement('tr');
+        tableHead.appendChild(labelRow);
+
+        const knownLabel = document.createElement('th');
+        knownLabel.textContent = 'Known';
+        labelRow.appendChild(knownLabel);
+
+        const equippedLabel = document.createElement('th');
+        equippedLabel.textContent = 'Equipped';
+        labelRow.appendChild(equippedLabel);
+
+        const nameLabel = document.createElement('th');
+        nameLabel.textContent = 'Name';
+        labelRow.appendChild(nameLabel);
+        //
+
+        this.tableBody = document.createElement('tbody');
+        tableEl.appendChild(this.tableBody);
+    }
+}
+
+export class PowersField implements Field {
+    public readonly html: PowersFieldHTML;
+    private powerFields: PowerField[] = [];
+    private filterBar: FilterBar;
+
+    public constructor(getChar: () => CharType) {
+        this.html = new PowersFieldHTML();
+
+        const set = new Set();
+        for (const powerInfo of globalKeys.Powers) {
+            let name = powerInfo.name;
+            if (set.has(name))
+                name = spaceAndCapText(powerInfo.value + '');
+
+            if (set.has(name)) {
+                console.log('Power name:', powerInfo.name, 'value:', powerInfo.value, 'already exists. Skipping.');
+                continue;
+            }
+
+            const powerField = new PowerField(name, getChar);
+            powerField.html.known.addEventListener('click', knownOnClick(getChar, name));
+            powerField.html.equip.addEventListener('click', equipOnClick(getChar, name));
+            this.html.tableBody.appendChild(powerField.html.element);
+
+            this.powerFields.push(powerField);
+        }
+
+        const filterList = this.powerFields.map((entry) => ({ key: entry.key, element: entry.html.element }));
+        this.filterBar = new FilterBar(filterList, this.html.filterBar);
+    }
+
+    public enable() {
+        enable(this.filterBar.html.element);
+        enable(this.html.tableBody);
+
+        for (const entry of this.powerFields)
+            entry.enable();
+
+        this.filterBar.enable();
+    }
+
+    public disable() {
+        disable(this.filterBar.html.element);
+        disable(this.html.tableBody);
+
+        for (const entry of this.powerFields)
+            entry.disable();
+
+        this.filterBar.disable();
+    }
+}
+
+function knownOnClick(getChar: () => CharType, key: string) {
     return function (this: HTMLInputElement) {
-        const powers = char.get().powers;
+        const powers = getChar().powers;
         if (this.checked)
             powers.push({ key });
         else {
             const index = powers.findIndex((value) => value?.key === key);
             if (~index)
-                char.get().powers = powers.splice(index, 1);
+                getChar().powers = powers.splice(index, 1);
         }
     };
 }
 
-function equipOnClick(char: CharAccessor, key: string) {
+function equipOnClick(getChar: () => CharType, key: string) {
     return function (this: HTMLInputElement) {
-        const equipped = char.get().equippedPowers;
+        const equipped = getChar().equippedPowers;
         const index = equipped.findIndex((value) => value?.key === key);
         if (this.checked) {
             if (~index)
@@ -154,6 +178,5 @@ function equipOnClick(char: CharAccessor, key: string) {
             if (~index)
                 equipped[index] = undefined;
         }
-
     };
 }

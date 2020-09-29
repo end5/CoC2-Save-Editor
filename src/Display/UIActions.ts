@@ -1,3 +1,4 @@
+import { TabButtonElement } from "./TabBar";
 
 export function isVisible(el: HTMLElement) {
     return !el.classList.contains('collapsed');
@@ -11,9 +12,7 @@ export function show(el: HTMLElement) {
     el.classList.remove('collapsed');
 }
 
-export interface ButtonContentPair { button: HTMLButtonElement; content: HTMLElement; }
-
-export function toggleSelection(button: HTMLButtonElement, list: ButtonContentPair[]) {
+export function toggleSelection(button: TabButtonElement, list: { button: TabButtonElement; content: HTMLElement; }[]) {
     for (const pair of list) {
         if (button === pair.button) {
             select(button);
@@ -27,13 +26,21 @@ export function toggleSelection(button: HTMLButtonElement, list: ButtonContentPa
 }
 
 export function isSelected(element: HTMLElement) {
-    return element.classList.contains('selected');
+    return element.classList.contains('active');
 }
 
 export function select(element: HTMLElement) {
-    element.classList.add('selected');
+    element.classList.add('active');
 }
 
 export function deselect(element: HTMLElement) {
-    element.classList.remove('selected');
+    element.classList.remove('active');
+}
+
+export function enable(element: HTMLElement) {
+    element.classList.remove('disabled');
+}
+
+export function disable(element: HTMLElement) {
+    element.classList.add('disabled');
 }
