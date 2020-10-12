@@ -47,7 +47,7 @@ class ArrayFieldHTML implements FieldHTML<HTMLDivElement> {
         this.element.appendChild(this.removeItemButton);
 
         this.listEl = document.createElement('ul');
-        this.listEl.className = 'multioption-list';
+        this.listEl.className = 'array-list';
         this.element.appendChild(this.listEl);
 
         this.element.appendChild(document.createElement('hr'));
@@ -62,7 +62,7 @@ export class ArrayField<T> implements Field {
     public constructor(
         private name: string,
         private value: ValueLookup<T[]>,
-        private itemConstr: new () => T,
+        private itemConstr: () => T,
         private title: (getObj: () => T) => string,
         fields: (createKeyLookup: <K extends keyof T>(key: K) => ValueLookup<T[K]>) => Field[],
         public readonly html = new ArrayFieldHTML()
@@ -70,7 +70,7 @@ export class ArrayField<T> implements Field {
         this.html.addItemButton.addEventListener('click', () => this.addToValue());
         this.html.removeItemButton.addEventListener('click', () => this.removeFromValue());
 
-        const defaultItem = new itemConstr();
+        const defaultItem = itemConstr();
         this.fields = fields((key) => ({
             get: () => (this.selected ? this.value.get()[this.selected.index] : defaultItem)[key],
             set: (newValue) => {
@@ -86,7 +86,7 @@ export class ArrayField<T> implements Field {
     }
 
     private addToValue() {
-        this.value.get().push(new this.itemConstr());
+        this.value.get().push(this.itemConstr());
 
         this.addArrayItemField();
 
@@ -129,7 +129,7 @@ export class ArrayField<T> implements Field {
             this.html.listEl.removeChild(item.html.element);
 
             // Select one before last item if there is one
-            if (this.itemList.length > 0)
+            if (this.selected === item && this.itemList.length > 0)
                 this.itemList[this.itemList.length - 1].html.radio.click();
         }
     }

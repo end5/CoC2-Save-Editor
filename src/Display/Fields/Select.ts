@@ -13,7 +13,7 @@ export class SelectFieldHTML implements FieldHTML<FieldElement> {
     }
 }
 
-export class SelectField<G extends GenericInfo> implements Field {
+export class SelectField<T, G extends GenericInfo<T> = GenericInfo<T>> implements Field {
     public constructor(
         private infoList: G[],
         private value: NullableValueLookup<G['value']>,

@@ -5,6 +5,8 @@ import { globalKeys } from "../../../../GameData/GlobalKeys";
 import { FieldHTML, Field } from "../../../../Display/HTMLGenerics";
 import { disable, enable } from "../../../../Display/UIActions";
 import { CharType } from "../../../../Data/CharTypes";
+import { MAX_POWER_EQUIP_SLOTS } from "../../../../Data/Char";
+import { ValueLookup } from "../../../../Data/ValueLookup";
 
 class PowerFieldHTML implements FieldHTML<HTMLTableRowElement> {
     public readonly element: HTMLTableRowElement;
@@ -34,16 +36,22 @@ class PowerFieldHTML implements FieldHTML<HTMLTableRowElement> {
 
 class PowerField implements Field {
     public readonly html: PowerFieldHTML;
-    public constructor(public readonly key: string, private readonly getChar: () => CharType) {
+    public constructor(
+        public readonly key: string,
+        text: string,
+        private readonly hasEmptyEquippedSlot: () => boolean,
+        private readonly powersLookup: ValueLookup<CharType['powers']>,
+        private readonly equippedPowersLookup: ValueLookup<CharType['equippedPowers']>
+    ) {
         this.html = new PowerFieldHTML();
-        this.html.title.textContent = key;
+        this.html.title.textContent = text;
     }
 
     public enable() {
         this.html.known.disabled = false;
-        this.html.equip.disabled = false;
-        this.html.known.checked = !!this.getChar().powers.find((power) => power?.key === this.key) ?? false;
-        this.html.equip.checked = !!this.getChar().equippedPowers.find((power) => power?.key === this.key) ?? false;
+        this.html.equip.disabled = !this.html.equip.checked && !this.hasEmptyEquippedSlot();
+        this.html.known.checked = !!this.powersLookup.get().find((power) => power?.key === this.key);
+        this.html.equip.checked = !!this.equippedPowersLookup.get().find((power) => power?.key === this.key);
     }
 
     public disable() {
@@ -102,23 +110,64 @@ export class PowersField implements Field {
     private powerFields: PowerField[] = [];
     private filterBar: FilterBar;
 
-    public constructor(getChar: () => CharType) {
+    public constructor(
+        readonly powersLookup: ValueLookup<CharType['powers']>,
+        private readonly equippedPowersLookup: ValueLookup<CharType['equippedPowers']>
+    ) {
         this.html = new PowersFieldHTML();
 
-        const set = new Set();
-        for (const powerInfo of globalKeys.Powers) {
-            let name = powerInfo.name;
-            if (set.has(name))
-                name = spaceAndCapText(powerInfo.value + '');
+        const hasEmptyEquipSlot = () => indexOfEmptyEquipSlot() < MAX_POWER_EQUIP_SLOTS;
+        const indexOfEmptyEquipSlot = () => {
+            const equipped = this.equippedPowersLookup.get();
+            let nextEmptyIndex = 0;
+            for (; nextEmptyIndex < MAX_POWER_EQUIP_SLOTS; nextEmptyIndex++)
+                if (equipped[nextEmptyIndex] == null)
+                    break;
+            return nextEmptyIndex;
+        };
 
-            if (set.has(name)) {
-                console.log('Power name:', powerInfo.name, 'value:', powerInfo.value, 'already exists. Skipping.');
+        const set = new Set<string>();
+        for (const powerInfo of globalKeys.Powers) {
+            const name = spaceAndCapText(powerInfo.value + '');
+            if (!set.has(name))
+                set.add(name);
+            else {
+                console.log(powerInfo.name, '/', name, 'already exists. Skipping.');
                 continue;
             }
 
-            const powerField = new PowerField(name, getChar);
-            powerField.html.known.addEventListener('click', knownOnClick(getChar, name));
-            powerField.html.equip.addEventListener('click', equipOnClick(getChar, name));
+            const powerField = new PowerField(powerInfo.value, name, hasEmptyEquipSlot, powersLookup, equippedPowersLookup);
+            // powerField.html.known.addEventListener('click', knownOnClick(getChar, powerInfo.value));
+            powerField.html.known.addEventListener('click', () => {
+                const powers = powersLookup.get();
+                if (powerField.html.known.checked)
+                    powers.push({ key: powerInfo.value });
+                else {
+                    const index = powers.findIndex((value) => value?.key === powerInfo.value);
+                    if (~index)
+                        powersLookup.set(powers.splice(index, 1));
+                }
+            });
+
+            // powerField.html.equip.addEventListener('click', equipOnClick(getChar, powerInfo.value));
+            powerField.html.equip.addEventListener('click', () => {
+                const equipped = equippedPowersLookup.get();
+                const index = equipped.findIndex((value) => value?.key === powerInfo.value);
+                if (~index)
+                    equipped[index] = powerField.html.equip.checked ? { key: powerInfo.value } : undefined;
+                else {
+                    const idx = indexOfEmptyEquipSlot();
+                    if (idx < MAX_POWER_EQUIP_SLOTS) {
+                        equipped[idx] = { key: powerInfo.value };
+                    }
+                    else {
+                        powerField.html.equip.checked = false;
+                    }
+                }
+
+                for (const entry of this.powerFields)
+                    entry.enable();
+            });
             this.html.tableBody.appendChild(powerField.html.element);
 
             this.powerFields.push(powerField);
@@ -132,10 +181,10 @@ export class PowersField implements Field {
         enable(this.filterBar.html.element);
         enable(this.html.tableBody);
 
+        this.filterBar.enable();
+
         for (const entry of this.powerFields)
             entry.enable();
-
-        this.filterBar.enable();
     }
 
     public disable() {
@@ -147,36 +196,4 @@ export class PowersField implements Field {
 
         this.filterBar.disable();
     }
-}
-
-function knownOnClick(getChar: () => CharType, key: string) {
-    return function (this: HTMLInputElement) {
-        const powers = getChar().powers;
-        if (this.checked)
-            powers.push({ key });
-        else {
-            const index = powers.findIndex((value) => value?.key === key);
-            if (~index)
-                getChar().powers = powers.splice(index, 1);
-        }
-    };
-}
-
-function equipOnClick(getChar: () => CharType, key: string) {
-    return function (this: HTMLInputElement) {
-        const equipped = getChar().equippedPowers;
-        const index = equipped.findIndex((value) => value?.key === key);
-        if (this.checked) {
-            if (~index)
-                equipped[index] = { key };
-            else
-                for (let emptyIndex = 0; emptyIndex < equipped.length; emptyIndex++)
-                    if (equipped[emptyIndex] == null)
-                        equipped[emptyIndex] = { key };
-        }
-        else {
-            if (~index)
-                equipped[index] = undefined;
-        }
-    };
 }

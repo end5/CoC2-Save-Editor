@@ -7,7 +7,7 @@ import { NumberField } from "../../../../Display/Fields/Number";
 import { Field } from "../../../../Display/HTMLGenerics";
 import { Label } from "../../../../Display/Fields/Label";
 import { createValueLookup } from "../../../../Data/ValueLookup";
-import { Effect, MAX_EFFECT_VALUES } from "../../../../Data/Char";
+import { createEffect, MAX_EFFECT_VALUES } from "../../../../Data/Char";
 
 export function displayBoon(getChar: () => CharType) {
     return new Category([{
@@ -15,7 +15,7 @@ export function displayBoon(getChar: () => CharType) {
         list: [
             new SingleObjectField(
                 createValueLookup(getChar, 'boon'),
-                Effect,
+                createEffect,
                 (createKeyLookup) => {
                     const fields: Field[] = [
                         new Label('Key', new SelectField(globalKeys.Boon, createKeyLookup('key')))

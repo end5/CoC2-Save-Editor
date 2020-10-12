@@ -9,6 +9,8 @@ import { MAX_INVENTORY_SLOTS, MAX_ITEM_ATTRS } from "../../../Data/Char";
 
 const ITEM_GROUPS = { Weapons: 'Weapons', ArmorSet: 'Armors', ItemHead: 'Head', ItemNeck: 'Neck', ItemShoulders: 'Shoulders', ItemHands: 'Hands', ItemWaist: 'Waist', ItemFeet: 'Feet', Rings: 'Rings', TopGarb: 'Top Garb', BottomGarb: 'Bottom Garbs', Offhand: 'Offhand', TFs: 'Transforms', Misc: 'Miscellaneous', Consumable: 'Consumable', Set: 'Sets' };
 
+const ITEM_GROUP_KEYS = Object.keys(ITEM_GROUPS) as Extract<keyof typeof globalKeys, keyof typeof ITEM_GROUPS>[];
+
 class InvAccess {
     public slot = 0;
     public constructor(
@@ -29,6 +31,16 @@ class InvAccess {
             return item.key;
         else
             return undefined;
+    }
+
+    public getItemName() {
+        const key = this.getItemKey();
+        for (const itemType of ITEM_GROUP_KEYS)
+            for (const itemInfo of globalKeys[itemType])
+                if (itemInfo.value === key)
+                    return itemInfo.name;
+
+        return undefined;
     }
 
     public getItemCount() {
@@ -58,9 +70,9 @@ class SlotField implements Field {
     }
 
     public enable() {
-        const key = this.invAccess.getItemKey();
+        const name = this.invAccess.getItemName();
         const count = this.invAccess.getItemCount();
-        this.html.label.textContent = key && count ? key + ' x' + count : 'Empty';
+        this.html.label.textContent = name && count ? name + ' x' + count : 'Empty';
         this.html.radio.disabled = false;
     }
 
@@ -74,6 +86,7 @@ class SlotField implements Field {
 class ItemField implements Field {
     public constructor(
         public readonly key: string,
+        text: string,
         id: string,
         private invAccess: InvAccess,
         onClick: () => void,
@@ -85,7 +98,7 @@ class ItemField implements Field {
         this.html.radio.id = id;
         this.html.radio.addEventListener('click', onClick);
 
-        this.html.label.textContent = key;
+        this.html.label.textContent = text;
         this.html.label.htmlFor = id;
     }
 
@@ -184,7 +197,7 @@ export class Inventory implements Field {
         }
 
         let counter = 0;
-        for (const itemType of Object.keys(ITEM_GROUPS) as Extract<keyof typeof globalKeys, keyof typeof ITEM_GROUPS>[]) {
+        for (const itemType of ITEM_GROUP_KEYS) {
             // Item Group Label
             const itemGroupLabel = document.createElement('h4');
             itemGroupLabel.textContent = ITEM_GROUPS[itemType];
@@ -193,6 +206,7 @@ export class Inventory implements Field {
             for (const itemInfo of globalKeys[itemType]) {
                 // Item Field
                 const itemField = new ItemField(
+                    itemInfo.value,
                     itemInfo.name,
                     'item' + counter,
                     invAccess,

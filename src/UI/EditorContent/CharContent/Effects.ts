@@ -10,7 +10,7 @@ export function displayCharEffectsContent(getChar: () => CharType) {
     return new TabbedContent([{
         key: 'powers',
         title: 'Powers',
-        content: new PowersField(getChar),
+        content: new PowersField(createValueLookup(getChar, 'powers'), createValueLookup(getChar, 'equippedPowers')),
     }, {
         key: 'perks',
         title: 'Perks',

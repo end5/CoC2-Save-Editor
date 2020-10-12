@@ -98,18 +98,18 @@ class EffectsFieldHTML implements FieldHTML<HTMLDivElement> {
     }
 }
 
-export class EffectsField implements Field {
+export class EffectsField<T, G extends GenericInfo<T> = GenericInfo<T>> implements Field {
     public readonly html: EffectsFieldHTML;
-    private effectFields: EffectField[];
+    private effectFields: EffectField[] = [];
     private attrFields: Label[];
     private filterBar: FilterBar;
     private selected?: EffectField;
 
-    public constructor(value: ValueLookup<EffectType[]>, infoList: GenericInfo[]) {
+    public constructor(value: ValueLookup<EffectType[]>, infoList: G[]) {
         this.html = new EffectsFieldHTML();
 
-        this.effectFields = infoList.map((info) => {
-            const effectField = new EffectField(info.name, value);
+        for (const effectInfo of infoList) {
+            const effectField = new EffectField(effectInfo.name, value);
             effectField.html.element.addEventListener('click', () => {
                 if (this.selected)
                     deselect(this.selected.html.element);
@@ -120,11 +120,11 @@ export class EffectsField implements Field {
                 for (const field of this.attrFields)
                     field.enable();
             });
-            effectField.html.equip.addEventListener('click', equipOnClick(value, info.name));
+            effectField.html.equip.addEventListener('click', equipOnClick(value, effectInfo.name));
             this.html.tableBody.appendChild(effectField.html.element);
 
-            return effectField;
-        });
+            this.effectFields.push(effectField);
+        }
 
         const filterList = this.effectFields.map((entry) => ({ key: entry.key, element: entry.html.element }));
         this.filterBar = new FilterBar(filterList, this.html.filterBar);

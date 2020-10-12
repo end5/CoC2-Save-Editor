@@ -27,14 +27,14 @@ export class SingleObjectField<T> implements Field {
 
     public constructor(
         private value: ValueLookup<T | undefined>,
-        private itemConstr: new () => T,
+        itemConstr: () => T,
         // fields: (getKey: <K extends keyof T>(key: K) => T[K] | undefined, setKey: <K extends keyof T>(key: K, value: T[K]) => void) => Field[],
         // fields: (getObj: () => T) => Field[],
         fields: (createKeyLookup: <K extends keyof T>(key: K) => ValueLookup<T[K]>) => Field[],
         public readonly html = new SingleObjectHTML()
     ) {
         this.html.addItemButton.addEventListener('click', () => {
-            this.value.set(new this.itemConstr());
+            this.value.set(itemConstr());
 
             this.enable();
         });
@@ -45,7 +45,7 @@ export class SingleObjectField<T> implements Field {
             this.enable();
         });
 
-        const defaultObj = new itemConstr();
+        const defaultObj = itemConstr();
         this.fields = fields((key) => ({
             get: () => (this.value.get() ?? defaultObj)[key],
             set: (newValue) => (this.value.get() ?? defaultObj)[key] = newValue

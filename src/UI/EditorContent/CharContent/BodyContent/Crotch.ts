@@ -10,7 +10,7 @@ import { SingleObjectField } from "../../../../Display/Fields/SingleObject";
 import { Label } from "../../../../Display/Fields/Label";
 import { CharType } from "../../../../Data/CharTypes";
 import { createValueLookup } from "../../../../Data/ValueLookup";
-import { Cock, Vagina } from "../../../../Data/Char";
+import { createCock, createVagina } from "../../../../Data/Char";
 
 function describeCock(color?: string, length?: number, type?: number) {
     return (color != null ? color.toLocaleLowerCase() + ' ' : '') +
@@ -26,7 +26,7 @@ export function displayCrotchContent(getChar: () => CharType) {
             new ArrayField(
                 'cocks',
                 createValueLookup(getChar, 'cocks'),
-                Cock,
+                createCock,
                 (getObj) => describeCock(getObj()._color, getObj().lengthRaw, getObj().type),
                 (createKeyLookup) => [
                     new Label('Type', new SelectField(globalKeys.BodyType, createKeyLookup('type'))),
@@ -56,7 +56,7 @@ export function displayCrotchContent(getChar: () => CharType) {
         list: [
             new SingleObjectField(
                 createValueLookup(getChar, 'vagina'),
-                Vagina,
+                createVagina,
                 (createKeyLookup) => [
                     new Label('Type', new SelectField(globalKeys.BodyType, createKeyLookup('type'))),
                     new Label('Virgin', new BooleanField(

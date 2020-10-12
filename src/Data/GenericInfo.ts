@@ -1,5 +1,5 @@
-export interface GenericInfo {
+export interface GenericInfo<T> {
     name: string;
-    value: string | number;
+    value: T;
     desc?: string;
 }

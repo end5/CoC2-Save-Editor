@@ -5,7 +5,7 @@ import '../../external/FileSaver.js';
 import { FieldHTML } from "../Display/HTMLGenerics";
 import { GameSave, CharNames, FlagNames } from "../Data/GameSave";
 import { Flags } from "../GameData/Flags";
-import { Char } from "../Data/Char";
+import { createChar } from "../Data/Char";
 
 export class SaveLoadBarHTML implements FieldHTML<HTMLDivElement> {
     public readonly element: HTMLDivElement;
@@ -148,7 +148,7 @@ export function unpackSave(saveObj: GameSave) {
     const charKeys = Object.keys(charDefaults) as CharNames[];
 
     for (const key of charKeys)
-        saveCopy.chars[key] = Object.assign(new Char(), JSON.parse(JSON.stringify(charDefaults[key])), saveCopy.chars[key]);
+        saveCopy.chars[key] = Object.assign(createChar(), JSON.parse(JSON.stringify(charDefaults[key])), saveCopy.chars[key]);
 
     return saveCopy;
 }

@@ -19,17 +19,17 @@ class MultiOptionItemHTML implements FieldHTML<HTMLLIElement> {
     }
 }
 
-class MultiOptionItem<G extends GenericInfo> implements Field {
+class MultiOptionItem<T, G extends GenericInfo<T> = GenericInfo<T>> implements Field {
     public constructor(
-        public readonly name: G['name'],
+        public readonly info: G,
         private getValue: NullableValueLookup<G['value'][]>['get'],
         public readonly html = new MultiOptionItemHTML()
     ) {
-        this.html.title.textContent = name;
+        this.html.title.textContent = info.name;
     }
 
     public enable() {
-        this.html.checkbox.checked = this.getValue()?.includes(this.name) ?? false;
+        this.html.checkbox.checked = this.getValue()?.includes(this.info.value) ?? false;
         this.html.checkbox.disabled = false;
     }
 
@@ -52,8 +52,8 @@ class MultiOptionFieldHTML implements FieldHTML<FieldElement> {
     }
 }
 
-export class MultiOptionField<G extends GenericInfo> implements Field {
-    public readonly list: MultiOptionItem<G>[];
+export class MultiOptionField<T, G extends GenericInfo<T> = GenericInfo<T>> implements Field {
+    public readonly list: MultiOptionItem<T, G>[];
 
     public constructor(
         infoList: G[],
@@ -61,12 +61,12 @@ export class MultiOptionField<G extends GenericInfo> implements Field {
         public readonly html = new MultiOptionFieldHTML()
     ) {
         this.list = infoList.map((info) => {
-            const multiOptionItem = new MultiOptionItem(info.name, value.get);
+            const multiOptionItem = new MultiOptionItem(info, value.get);
             this.html.list.appendChild(multiOptionItem.html.element);
             multiOptionItem.html.checkbox.addEventListener('click', () => {
                 value.set(
                     this.list.filter((item) => item.html.checkbox.checked)
-                        .map((item) => item.name)
+                        .map((item) => item.info.value)
                 );
             });
             return multiOptionItem;

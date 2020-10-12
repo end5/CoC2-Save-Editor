@@ -1,220 +1,231 @@
-import { CharType, VaginaType, EffectType, PowerType, ItemType, BreastRowType, CockType } from "./CharTypes";
+import { CharType, VaginaType, EffectType, BreastRowType, CockType } from "./CharTypes";
 import { globalKeys } from "../GameData/GlobalKeys";
 
 export const MAX_INVENTORY_SLOTS = 20;
 export const MAX_ITEM_ATTRS = 6;
 export const MAX_EFFECT_VALUES = 6;
+export const MAX_POWER_EQUIP_SLOTS = 5;
 
-export class Char implements CharType {
-    public name: string = '';
-    public cName: string = '';
-    public soloCombatPrefix: string = '';
-    public taxa: number = 0;
-    public class: number = 0;
-    public background: number = 0;
-    public genderPref: number = 0;
-    public isPlural: boolean = false;
-    public partyLeader: boolean = false;
-    public level: number = 0;
-    public exp: number = 0;
-    public canGainExp: boolean = false;
-    public compTags: [] = [];
-    public actionPoints: number = 0;
-    public ultimateUsed: number = 0;
-    public hitPoints: number = 0;
-    public hitPointsMaxMod: number = 0;
-    public resolvePoints: number = 0;
-    public resolveMaxMod: number = 0;
-    public threatMod: number = 0;
-    public strengthAlloc: number = 0;
-    public strengthMod: number = 0;
-    public toughnessAlloc: number = 0;
-    public toughnessMod: number = 0;
-    public agilityAlloc: number = 0;
-    public agilityMod: number = 0;
-    public cunningAlloc: number = 0;
-    public cunningMod: number = 0;
-    public willpowerAlloc: number = 0;
-    public willpowerMod: number = 0;
-    public presenceAlloc: number = 0;
-    public presenceMod: number = 0;
-    public libidoMod: number = 0;
-    public corruptionMod: number = 0;
-    public isLustImmune: boolean = false;
-    public isDisarmImmune: boolean = false;
-    public penetratingResist: number = 0;
-    public crushingResist: number = 0;
-    public holyResist: number = 0;
-    public blightResist: number = 0;
-    public acidResist: number = 0;
-    public fireResist: number = 0;
-    public frostResist: number = 0;
-    public stormResist: number = 0;
-    public teaseResist: number = 0;
-    public drugResist: number = 0;
-    public pheromoneResist: number = 0;
-    public fatigueResist: number = 0;
-    public mindResist: number = 0;
-    public perks: EffectType[] = [];
-    public powers: (PowerType | undefined)[] = [];
-    public equippedPowers: [(PowerType | undefined)?, (PowerType | undefined)?, (PowerType | undefined)?, (PowerType | undefined)?, (PowerType | undefined)?] = [];
-    public combatEffects: EffectType[] = [];
-    public statusEffects: EffectType[] = [];
-    public likes: number[] = [];
-    public dislikes: number[] = [];
-    public boon?: EffectType | undefined;
-    public credits: number = 0;
-    public weaponPrimary?: ItemType | undefined;
-    public weaponSecondary?: ItemType | undefined;
-    public head?: ItemType | undefined;
-    public neck?: ItemType | undefined;
-    public shoulders?: ItemType | undefined;
-    public armorSet?: ItemType | undefined;
-    public hands?: ItemType | undefined;
-    public waist?: ItemType | undefined;
-    public feet?: ItemType | undefined;
-    public ring1?: ItemType | undefined;
-    public ring2?: ItemType | undefined;
-    public topGarment?: ItemType | undefined;
-    public bottomGarment?: ItemType | undefined;
-    public inventory: ItemType[] = [];
-    public keyItems: ItemType[] = [];
-    public set?: ItemType | undefined;
-    public originalRace: string = '';
-    public _race: { key: string } | undefined;
-    public femininity: number = 0;
-    public tallness: number = 0;
-    public tone: number = 0;
-    public thickness: number = 0;
-    public hipRatingRaw: number = 0;
-    public hipRatingMod: number = 0;
-    public buttRatingRaw: number = 0;
-    public buttRatingMod: number = 0;
-    public bellyRatingRaw: number = 0;
-    public bellyRatingMod: number = 0;
-    public lipMod: number = 0;
-    public hairColor: string = '';
-    public skinColor: string = '';
-    public furColor: string = '';
-    public scaleColor: string = '';
-    public lipColor: string = '';
-    public hairLength: number = 0;
-    public hairStyle: string = '';
-    public hairType: number = 0;
-    public hairTags: number[] = [];
-    public horns: number = 0;
-    public hornType: number = 0;
-    public hornLength: number = 0;
-    public wingType: number = 0;
-    public wingCount: number = 0;
-    public skinType: number = 0;
-    public skinTags: number[] = [];
-    public tailType: number = 0;
-    public numTails: number = 0;
-    public tailTags: number[] = [];
-    public armType: number = 0;
-    public armTags: number[] = [];
-    public legCount: number = 0;
-    public legType: number = 0;
-    public legTags: number[] = [];
-    public tongueType: number = 0;
-    public tongueTags: number[] = [];
-    public faceType: number = 0;
-    public faceTags: number[] = [];
-    public earType: number = 0;
-    public earTags: number[] = [];
-    public earLength: number = 0;
-    public eyeType: number = 0;
-    public eyeTags: number[] = [];
-    public eyeColor: string = '';
-    public orgasms: number = 0;
-    public lastOrgasm: number = 0;
-    public lastMilked: number = 0;
-    public exhibRaw: number = 0;
-    public isVirgin: boolean = false;
-    public vaginalVirgin: boolean = false;
-    public cockVirgin: boolean = false;
-    public analVirgin: boolean = false;
-    public pregnancySpeedRaw: number = 0;
-    public pregnancySpeedMod: number = 0;
-    public breastRows: BreastRowType[] = [];
-    public nippleColor: string = '';
-    public nipplesPerBreast: number = 0;
-    public nippleSizeRatio: number = 0;
-    public nippleWidthRatio: number = 0;
-    public nippleType: number = 0;
-    public breastTags: number[] = [];
-    public milkType: number = 0;
-    public milkMultiplierRaw: number = 0;
-    public milkStorageMultiplierRaw: number = 0;
-    public milkFullnessRaw: number = 0;
-    public milkRateRaw: number = 0;
-    public _balls: number = 0;
-    public ballTags: number[] = [];
-    public ballEfficiency: number = 0;
-    public ballSizeRaw: number = 0;
-    public ballSizeMod: number = 0;
-    public ballFullness: number = 0;
-    public cocks: CockType[] = [];
-    public feracityRaw: number = 0;
-    public feracityMod: number = 0;
-    public fertilityMod: number = 0;
-    public virilityMod: number = 0;
-    public vagina?: VaginaType | undefined;
-    public clitLength: number = 0;
-    public girlCumType: number = 0;
-    public cumType: number = 0;
-    public cumMultiplierRaw: number = 0;
-    public cumMultiplierMod: number = 0;
-    public ass: VaginaType = new Vagina();
-    public reagents: { 1: number; 2: number; 3: number; 4: number; 5: number; 6: number; 7: number; 8: number; 9: number; 10: number; 11: number; 12: number; 13: number; } = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, };
-    public defaultCockIdx: number = 0;
-    public lastRingSlotEquipped: number = 0;
-    public lastRechargeEquipped: number = 0;
-    public title: string = '';
-    public wyldMark: number = 0;
-    public drinks: [] = [];
-    public customImage?: object | undefined;
-    public pendingLoot: [] = [];
-    public sensed: [] = [];
-    public storage: [] = [];
+export function createChar(): CharType {
+    return {
+        name: '',
+        cName: '',
+        soloCombatPrefix: '',
+        taxa: 0,
+        class: 0,
+        background: 0,
+        genderPref: 0,
+        isPlural: false,
+        partyLeader: false,
+        level: 0,
+        exp: 0,
+        canGainExp: false,
+        compTags: [],
+        actionPoints: 0,
+        ultimateUsed: 0,
+        hitPoints: 0,
+        hitPointsMaxMod: 0,
+        resolvePoints: 0,
+        resolveMaxMod: 0,
+        threatMod: 0,
+        strengthAlloc: 0,
+        strengthMod: 0,
+        toughnessAlloc: 0,
+        toughnessMod: 0,
+        agilityAlloc: 0,
+        agilityMod: 0,
+        cunningAlloc: 0,
+        cunningMod: 0,
+        willpowerAlloc: 0,
+        willpowerMod: 0,
+        presenceAlloc: 0,
+        presenceMod: 0,
+        libidoMod: 0,
+        corruptionMod: 0,
+        isLustImmune: false,
+        isDisarmImmune: false,
+        penetratingResist: 0,
+        crushingResist: 0,
+        holyResist: 0,
+        blightResist: 0,
+        acidResist: 0,
+        fireResist: 0,
+        frostResist: 0,
+        stormResist: 0,
+        teaseResist: 0,
+        drugResist: 0,
+        pheromoneResist: 0,
+        fatigueResist: 0,
+        mindResist: 0,
+        perks: [],
+        powers: [],
+        equippedPowers: [],
+        combatEffects: [],
+        statusEffects: [],
+        likes: [],
+        dislikes: [],
+        boon: undefined,
+        credits: 0,
+        weaponPrimary: undefined,
+        weaponSecondary: undefined,
+        head: undefined,
+        neck: undefined,
+        shoulders: undefined,
+        armorSet: undefined,
+        hands: undefined,
+        waist: undefined,
+        feet: undefined,
+        ring1: undefined,
+        ring2: undefined,
+        topGarment: undefined,
+        bottomGarment: undefined,
+        inventory: [],
+        keyItems: [],
+        set: undefined,
+        originalRace: '',
+        _race: undefined,
+        femininity: 0,
+        tallness: 0,
+        tone: 0,
+        thickness: 0,
+        hipRatingRaw: 0,
+        hipRatingMod: 0,
+        buttRatingRaw: 0,
+        buttRatingMod: 0,
+        bellyRatingRaw: 0,
+        bellyRatingMod: 0,
+        lipMod: 0,
+        hairColor: '',
+        skinColor: '',
+        furColor: '',
+        scaleColor: '',
+        lipColor: '',
+        hairLength: 0,
+        hairStyle: '',
+        hairType: 0,
+        hairTags: [],
+        horns: 0,
+        hornType: 0,
+        hornLength: 0,
+        wingType: 0,
+        wingCount: 0,
+        skinType: 0,
+        skinTags: [],
+        tailType: 0,
+        numTails: 0,
+        tailTags: [],
+        armType: 0,
+        armTags: [],
+        legCount: 0,
+        legType: 0,
+        legTags: [],
+        tongueType: 0,
+        tongueTags: [],
+        faceType: 0,
+        faceTags: [],
+        earType: 0,
+        earTags: [],
+        earLength: 0,
+        eyeType: 0,
+        eyeTags: [],
+        eyeColor: '',
+        orgasms: 0,
+        lastOrgasm: 0,
+        lastMilked: 0,
+        exhibRaw: 0,
+        isVirgin: false,
+        vaginalVirgin: false,
+        cockVirgin: false,
+        analVirgin: false,
+        pregnancySpeedRaw: 0,
+        pregnancySpeedMod: 0,
+        breastRows: [],
+        nippleColor: '',
+        nipplesPerBreast: 0,
+        nippleSizeRatio: 0,
+        nippleWidthRatio: 0,
+        nippleType: 0,
+        breastTags: [],
+        milkType: 0,
+        milkMultiplierRaw: 0,
+        milkStorageMultiplierRaw: 0,
+        milkFullnessRaw: 0,
+        milkRateRaw: 0,
+        _balls: 0,
+        ballTags: [],
+        ballEfficiency: 0,
+        ballSizeRaw: 0,
+        ballSizeMod: 0,
+        ballFullness: 0,
+        cocks: [],
+        feracityRaw: 0,
+        feracityMod: 0,
+        fertilityMod: 0,
+        virilityMod: 0,
+        vagina: undefined,
+        clitLength: 0,
+        girlCumType: 0,
+        cumType: 0,
+        cumMultiplierRaw: 0,
+        cumMultiplierMod: 0,
+        ass: createVagina(),
+        reagents: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, },
+        defaultCockIdx: 0,
+        lastRingSlotEquipped: 0,
+        lastRechargeEquipped: 0,
+        title: '',
+        wyldMark: 0,
+        drinks: [],
+        customImage: undefined,
+        pendingLoot: [],
+        sensed: [],
+        storage: [],
+    };
 }
 
-export class Cock implements CockType {
-    public type = globalKeys.BodyType[2].value; // Human
-    public virgin = true;
-    public tags = [];
-    public lengthRaw = 10;
-    public lengthMod = 0;
-    public thicknessRatioRaw = 1;
-    public thicknessRatioMod = 1;
-    public flaccidRatio = 0;
-    public _knotRatio = 0;
-    public pierced = 0;
-    public _color = 'pink';
+export function createCock(): CockType {
+    return {
+        type: globalKeys.BodyType[2].value, // Human
+        virgin: true,
+        tags: [],
+        lengthRaw: 10,
+        lengthMod: 0,
+        thicknessRatioRaw: 1,
+        thicknessRatioMod: 1,
+        flaccidRatio: 0,
+        _knotRatio: 0,
+        pierced: 0,
+        _color: 'pink',
+    };
 }
 
-export class Vagina implements VaginaType {
-    public type = globalKeys.BodyType[2].value; // Human
-    public hymen = true;
-    public tags = [];
-    public clits = 0;
-    public _color = 'pink';
-    public wetnessRaw = 10;
-    public wetnessMod = 0;
-    public loosenessRaw = 1;
-    public loosenessMod = 1;
-    public bonusCapacity = 0;
-    public stretchCounter = 0;
+export function createVagina(): VaginaType {
+    return {
+        type: globalKeys.BodyType[2].value, // Human
+        hymen: true,
+        tags: [],
+        clits: 0,
+        _color: 'pink',
+        wetnessRaw: 10,
+        wetnessMod: 0,
+        loosenessRaw: 1,
+        loosenessMod: 1,
+        bonusCapacity: 0,
+        stretchCounter: 0,
+    };
 }
 
-export class Effect implements EffectType {
-    public key = globalKeys.Boon[0].value;
-    public values = [0, 0, 0, 0, 0, 0] as EffectType['values'];
+export function createEffect(): EffectType {
+    return {
+        key: globalKeys.Boon[0].value,
+        values: [0, 0, 0, 0, 0, 0] as EffectType['values'],
+    };
 }
 
-export class BreastRow implements BreastRowType {
-    public breasts = 2;
-    public sizeRaw = 2;
-    public sizeMod = 0;
+export function createBreastRow(): BreastRowType {
+    return {
+        breasts: 2,
+        sizeRaw: 2,
+        sizeMod: 0,
+    };
 }

@@ -8,7 +8,7 @@ import { StringField } from "../../../../Display/Fields/String";
 import { Label } from "../../../../Display/Fields/Label";
 import { createValueLookup } from "../../../../Data/ValueLookup";
 import { CharType } from "../../../../Data/CharTypes";
-import { BreastRow } from "../../../../Data/Char";
+import { createBreastRow } from "../../../../Data/Char";
 
 function describeBreastRow(count?: number, size?: number) {
     return (count != null ? count + ' ' : 'Unknown Amount of ') +
@@ -30,7 +30,7 @@ export function displayChestContent(getChar: () => CharType) {
             new ArrayField(
                 'breasts',
                 createValueLookup(getChar, 'breastRows'),
-                BreastRow,
+                createBreastRow,
                 (getObj) => describeBreastRow(getObj().breasts, getObj().sizeRaw),
                 (createKeyLookup) => [
                     new Label('Amount Per Row', new NumberField(createKeyLookup('breasts'))),

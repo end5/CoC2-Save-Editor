@@ -20,7 +20,8 @@ export class CharContentHTML implements FieldHTML<HTMLDivElement> {
 
     public constructor() {
         this.element = document.createElement('div');
-        this.element.className = 'content char-editor';
+        this.element.id = 'char-editor';
+        this.element.className = 'content';
 
         this.select = new SelectFieldHTML();
 
@@ -32,7 +33,8 @@ export class CharContentHTML implements FieldHTML<HTMLDivElement> {
 }
 
 export class CharContent extends TabbedContent {
-    private selectCharField: SelectField<{ name: string, value: CharNames }>;
+    // private selectCharField: SelectField<{ name: string, value: CharNames }>;
+    private selectCharField: SelectField<CharNames>;
 
     public constructor(state: State) {
         const getChar = () => {
@@ -74,7 +76,7 @@ export class CharContent extends TabbedContent {
         const selectCharField = new SelectField(
             charInfo,
             {
-                get: () => 'pc',
+                get: () => state.activeChar ?? (state.activeChar = 'pc'),
                 set: (value) => {
                     state.activeChar = value;
                     for (const entry of tabs)
