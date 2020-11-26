@@ -21,6 +21,6 @@ const tail = `
 
 </html>`;
 
-const css = fs.readFileSync('main.css', 'utf-8');
+const css = fs.readFileSync('external/sakura-vader.css', 'utf-8') + fs.readFileSync('main.css', 'utf-8');
 const script = fs.readFileSync('bundled.js', 'utf-8');
 fs.writeFileSync('CoC2SaveEditor.html', head + css + mid + script + tail, 'utf-8');
