@@ -1,4 +1,4 @@
-import { createField, FieldHTML, Field, createTextInput, FieldElement, TextInputElement } from "../HTMLGenerics";
+import { createField, FieldHTML, createTextInput, FieldElement, TextInputElement, FieldWithValue } from "../HTMLGenerics";
 import { NullableValueLookup } from "../../Data/ValueLookup";
 
 export class NumberFieldHTML implements FieldHTML<FieldElement> {
@@ -12,9 +12,9 @@ export class NumberFieldHTML implements FieldHTML<FieldElement> {
     }
 }
 
-export class NumberField implements Field {
+export class NumberField implements FieldWithValue<NullableValueLookup<number>> {
     public constructor(
-        private value: NullableValueLookup<number>,
+        public readonly value: NullableValueLookup<number>,
         public readonly html = new NumberFieldHTML()
     ) {
         this.html.input.addEventListener('change', function () { value.set(!isNaN(+this.value) ? +this.value : 0); });

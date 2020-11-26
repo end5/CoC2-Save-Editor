@@ -12,6 +12,10 @@ td {
     word-break: break-all;
 }
 
+td>label {
+    display: inline;
+}
+
 li>label {
     display: inline;
 }
@@ -126,6 +130,23 @@ h4 {
 .item-attr {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 4px;
+    padding: 4px;
+}
+
+.effects {
+    grid-template-columns: 1fr 1fr;
+}
+
+.effects>.table-scroll {
+    grid-row: 2/3;
+    grid-column: 1/1;
+}
+
+.effects>.item-attr {
+    grid-row: 1/3;
+    grid-column: 2/2;
+    grid-template-columns: 1fr;
 }
 
 .field {
@@ -135,6 +156,10 @@ h4 {
 .disabled, input:disabled, select:disabled, input:disabled+label {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.table-scroll {
+    overflow: auto;
 }
 
 /* Important */

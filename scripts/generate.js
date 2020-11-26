@@ -8,7 +8,8 @@ const fs = require('fs');
 
     let contents;
     page.on('response', async (response) => {
-        if (response.url().includes('manifest')) {
+        const url = response.url();
+        if (url.includes('main') && url.endsWith('.js')) {
             contents = await response.text();
         }
     });
@@ -56,9 +57,13 @@ const fs = require('fs');
             }
 
             const items = Object.keys(window.ITEMS).map(key => [key, new window.ITEMS[key]()]);
-            function getItemsByType(type) {
+            function getItemsByType(type, attr) {
+                if (!attr)
                 return items.filter(tuple => tuple[1].type === type)
                     .map(tuple => ({ name: getName(tuple[1]), value: tuple[0] }))
+                else
+                    return items.filter(tuple => tuple[1].type === type)
+                        .map(tuple => ({ name: getName(tuple[1]), value: tuple[0], attr: attr }))
             }
 
             function getThingFromWindow(name) {
@@ -73,7 +78,7 @@ const fs = require('fs');
                 Taxon: getGlobalsByPrefix('TAXA_'),
                 Class: getGlobalsByPrefix('CLASS_'),
                 Background: getGlobalsByPrefix('BG_'),
-                Affinity: window.GLOBALS.AFFINITY.map((v, i) => ({ name: v, value: i })),
+                // Affinity: window.GLOBALS.AFFINITY.map((v, i) => ({ name: v, value: i })),
                 TFType: Object.keys(window.GLOBALS.TF_TYPE_PARTS).map(key => ({ name: window.GLOBALS.TF_TYPE_PARTS[key], value: +key })),
                 BodyType: getGlobalsByPrefix('BODY_TYPE_'),
                 BodyTag: getGlobalsByPrefix('BODY_TAG_'),
@@ -94,7 +99,7 @@ const fs = require('fs');
                 TopGarb: getItemsByType(window.GLOBALS.ITEM_TOPGARB),
                 BottomGarb: getItemsByType(window.GLOBALS.ITEM_BOTGARB),
                 Offhand: getItemsByType(window.GLOBALS.ITEM_OFFHAND),
-                TFs: getItemsByType(window.GLOBALS.ITEM_TF),
+                TFs: getItemsByType(window.GLOBALS.ITEM_TF, { 1: { text: "TF Type", type: "select", group: "TFType"}}),
                 Misc: getItemsByType(window.GLOBALS.ITEM_MISC),
                 Consumable: getItemsByType(window.GLOBALS.ITEM_CONSUMABLE),
                 Set: getItemsByType(window.GLOBALS.ITEM_SET),
@@ -104,7 +109,8 @@ const fs = require('fs');
                 CombatEffect: getThingFromWindow('CEFFECTS'),
                 Powers: getThingFromWindow('POWERS').filter(v => v.name !== 'Unnamed'),
                 Perks: getThingFromWindow('PERKS'),
-                Items: items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0], desc: getDesc(tuple[1]) })).filter(v => v.name !== 'Unnamed'),
+                // Items: items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0], desc: getDesc(tuple[1]) })).filter(v => v.name !== 'Unnamed'),
+                // Items: items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0] })).filter(v => v.name !== 'Unnamed'),
             });
 
             // Pregnancy flags
@@ -178,11 +184,12 @@ const fs = require('fs');
     console.log('Flags acquired');
 
     const format = str => prettier.format(str, { parser: 'babel', tabWidth: 4 });
+    const asConst = str => str.slice(0, str.length - 2) + ' as const' + str.slice(str.length - 2);
 
     console.log('Writing data');
-    fs.writeFileSync('src/GameData/GlobalKeys.ts', format('export const globalKeys = ' + obj.globals + ' as const;\n'));
-    fs.writeFileSync('src/GameData/CharDefaults.ts', format('export const charDefaults = ' + obj.charDefaults + ';\n'));
-    fs.writeFileSync('src/GameData/Flags.ts', format('export const Flags = ' + JSON.stringify(list) + 'as const;\n'));
+    fs.writeFileSync('src/GameData/GlobalKeys.ts', asConst(format('export const globalKeys = ' + obj.globals)));
+    fs.writeFileSync('src/GameData/CharDefaults.ts', format('export const charDefaults = ' + obj.charDefaults));
+    fs.writeFileSync('src/GameData/Flags.ts', asConst(format('export const Flags = ' + JSON.stringify(list))));
     console.log('Finished');
 
     await browser.close();

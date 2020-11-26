@@ -1,4 +1,4 @@
-import { createField, FieldHTML, Field, createCheckBox, FieldElement, CheckBoxElement } from "../HTMLGenerics";
+import { createField, FieldHTML, createCheckBox, FieldElement, CheckBoxElement, FieldWithValue } from "../HTMLGenerics";
 import { NullableValueLookup } from "../../Data/ValueLookup";
 
 class BooleanFieldHTML implements FieldHTML<FieldElement> {
@@ -12,9 +12,9 @@ class BooleanFieldHTML implements FieldHTML<FieldElement> {
     }
 }
 
-export class BooleanField implements Field {
+export class BooleanField implements FieldWithValue<NullableValueLookup<boolean>> {
     public constructor(
-        private value: NullableValueLookup<boolean>,
+        public readonly value: NullableValueLookup<boolean>,
         public readonly html = new BooleanFieldHTML()
     ) {
         this.html.input.addEventListener('change', function () { value.set(this.checked); });

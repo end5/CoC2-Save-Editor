@@ -1,10 +1,65 @@
+import { globalKeys } from "../GameData/GlobalKeys";
+
+export type RaceTypes = typeof globalKeys.Race[number]['value'];
+export type TaxonTypes = typeof globalKeys.Taxon[number]['value'];
+export type ClassTypes = typeof globalKeys.Class[number]['value'];
+export type BackgroundTypes = typeof globalKeys.Background[number]['value'];
+export type TFTypes = typeof globalKeys.TFType[number]['value'];
+export type BodyTypes = typeof globalKeys.BodyType[number]['value'];
+export type BodyTags = typeof globalKeys.BodyTag[number]['value'];
+export type FluidTypes = typeof globalKeys.FluidType[number]['value'];
+export type SkinTypes = typeof globalKeys.SkinType[number]['value'];
+export type NippleTypes = typeof globalKeys.NippleType[number]['value'];
+export type HairTypes = typeof globalKeys.HairType[number]['value'];
+
+export type WeaponsKeys = typeof globalKeys.Weapons[number]['value'];
+export type OffhandKeys = typeof globalKeys.Offhand[number]['value'];
+export type ItemHeadKeys = typeof globalKeys.ItemHead[number]['value'];
+export type ItemNeckKeys = typeof globalKeys.ItemNeck[number]['value'];
+export type ItemShouldersKeys = typeof globalKeys.ItemShoulders[number]['value'];
+export type ArmorSetKeys = typeof globalKeys.ArmorSet[number]['value'];
+export type ItemHandsKeys = typeof globalKeys.ItemHands[number]['value'];
+export type ItemWaistKeys = typeof globalKeys.ItemWaist[number]['value'];
+export type ItemFeetKeys = typeof globalKeys.ItemFeet[number]['value'];
+export type RingKeys = typeof globalKeys.Rings[number]['value'];
+export type TopGarbKeys = typeof globalKeys.TopGarb[number]['value'];
+export type BottomGarbKeys = typeof globalKeys.BottomGarb[number]['value'];
+export type TFKeys = typeof globalKeys.TFs[number]['value'];
+export type MiscKeys = typeof globalKeys.Misc[number]['value'];
+export type ConsumableKeys = typeof globalKeys.Consumable[number]['value'];
+export type SetKeys = typeof globalKeys.Set[number]['value'];
+export type ItemKeys = WeaponsKeys |
+    OffhandKeys |
+    ItemHeadKeys |
+    ItemNeckKeys |
+    ItemShouldersKeys |
+    ArmorSetKeys |
+    ItemHandsKeys |
+    ItemWaistKeys |
+    ItemFeetKeys |
+    RingKeys |
+    TopGarbKeys |
+    BottomGarbKeys |
+    TFKeys |
+    MiscKeys |
+    ConsumableKeys |
+    SetKeys;
+
+export type KeyItemKeys = typeof globalKeys.KeyItems[number]['value'];
+
+export type BoonKeys = typeof globalKeys.Boon[number]['value'];
+export type StatusEffectKeys = typeof globalKeys.StatusEffect[number]['value'];
+export type CombatEffectKeys = typeof globalKeys.CombatEffect[number]['value'];
+export type PowerKeys = typeof globalKeys.Powers[number]['value'];
+export type PerkKeys = typeof globalKeys.Perks[number]['value'];
+
 export interface CharType {
     name: string;
     cName: string;
     soloCombatPrefix: string;
-    taxa: number;
-    class: number;
-    background: number;
+    taxa: TaxonTypes;
+    class: ClassTypes;
+    background: BackgroundTypes;
     genderPref: number;
     isPlural: boolean;
     partyLeader: boolean;
@@ -48,33 +103,33 @@ export interface CharType {
     pheromoneResist: number;
     fatigueResist: number;
     mindResist: number;
-    perks: EffectType[];
+    perks: EffectType<PerkKeys>[];
     powers: (PowerType | undefined)[];
     equippedPowers: [PowerType?, PowerType?, PowerType?, PowerType?, PowerType?];
-    combatEffects: EffectType[];
-    statusEffects: EffectType[];
+    combatEffects: EffectType<CombatEffectKeys>[];
+    statusEffects: EffectType<StatusEffectKeys>[];
     likes: number[];
     dislikes: number[];
-    boon?: EffectType;
+    boon?: EffectType<BoonKeys>;
     credits: number;
-    weaponPrimary?: ItemType;
-    weaponSecondary?: ItemType;
-    head?: ItemType;
-    neck?: ItemType;
-    shoulders?: ItemType;
-    armorSet?: ItemType;
-    hands?: ItemType;
-    waist?: ItemType;
-    feet?: ItemType;
-    ring1?: ItemType;
-    ring2?: ItemType;
-    topGarment?: ItemType;
-    bottomGarment?: ItemType;
-    inventory: ItemType[];
-    keyItems: ItemType[];
-    set?: ItemType;
+    weaponPrimary?: ItemType<WeaponsKeys>;
+    weaponSecondary?: ItemType<OffhandKeys>;
+    head?: ItemType<ItemHeadKeys>;
+    neck?: ItemType<ItemNeckKeys>;
+    shoulders?: ItemType<ItemShouldersKeys>;
+    armorSet?: ItemType<ArmorSetKeys>;
+    hands?: ItemType<ItemHandsKeys>;
+    waist?: ItemType<ItemWaistKeys>;
+    feet?: ItemType<ItemFeetKeys>;
+    ring1?: ItemType<RingKeys>;
+    ring2?: ItemType<RingKeys>;
+    topGarment?: ItemType<TopGarbKeys>;
+    bottomGarment?: ItemType<BottomGarbKeys>;
+    inventory: ItemType<ItemKeys>[];
+    keyItems: ItemType<KeyItemKeys>[];
+    set?: ItemType<SetKeys>;
     originalRace: string;
-    _race: { key: string } | undefined;
+    _race: { key: RaceTypes } | undefined;
     femininity: number;
     tallness: number;
     tone: number;
@@ -93,32 +148,32 @@ export interface CharType {
     lipColor: string;
     hairLength: number;
     hairStyle: string;
-    hairType: number;
-    hairTags: number[];
+    hairType: HairTypes;
+    hairTags: BodyTags[];
     horns: number;
-    hornType: number;
+    hornType: BodyTypes;
     hornLength: number;
-    wingType: number;
+    wingType: BodyTypes;
     wingCount: number;
-    skinType: number;
-    skinTags: number[];
-    tailType: number;
+    skinType: SkinTypes;
+    skinTags: BodyTags[];
+    tailType: BodyTypes;
     numTails: number;
-    tailTags: number[];
-    armType: number;
-    armTags: number[];
+    tailTags: BodyTags[];
+    armType: BodyTypes;
+    armTags: BodyTags[];
     legCount: number;
-    legType: number;
-    legTags: number[];
-    tongueType: number;
-    tongueTags: number[];
-    faceType: number;
-    faceTags: number[];
-    earType: number;
-    earTags: number[];
+    legType: BodyTypes;
+    legTags: BodyTags[];
+    tongueType: BodyTypes;
+    tongueTags: BodyTags[];
+    faceType: BodyTypes;
+    faceTags: BodyTags[];
+    earType: BodyTypes;
+    earTags: BodyTags[];
     earLength: number;
-    eyeType: number;
-    eyeTags: number[];
+    eyeType: BodyTypes;
+    eyeTags: BodyTags[];
     eyeColor: string;
     orgasms: number;
     lastOrgasm: number;
@@ -135,15 +190,15 @@ export interface CharType {
     nipplesPerBreast: number;
     nippleSizeRatio: number;
     nippleWidthRatio: number;
-    nippleType: number;
-    breastTags: number[];
-    milkType: number;
+    nippleType: NippleTypes;
+    breastTags: BodyTags[];
+    milkType: FluidTypes;
     milkMultiplierRaw: number;
     milkStorageMultiplierRaw: number;
     milkFullnessRaw: number;
     milkRateRaw: number;
     _balls: number;
-    ballTags: number[];
+    ballTags: BodyTags[];
     ballEfficiency: number;
     ballSizeRaw: number;
     ballSizeMod: number;
@@ -155,8 +210,8 @@ export interface CharType {
     virilityMod: number;
     vagina?: VaginaType;
     clitLength: number;
-    girlCumType: number;
-    cumType: number;
+    girlCumType: FluidTypes;
+    cumType: FluidTypes;
     cumMultiplierRaw: number;
     cumMultiplierMod: number;
     ass: VaginaType;
@@ -188,7 +243,7 @@ export interface CharType {
 }
 
 export interface VaginaType {
-    type: number;
+    type: BodyTypes;
     hymen: boolean;
     clits: number;
     wetnessRaw: number;
@@ -197,14 +252,14 @@ export interface VaginaType {
     loosenessMod: number;
     bonusCapacity: number;
     stretchCounter: number;
-    tags: number[];
+    tags: BodyTags[];
     _color: string;
 }
 
 export interface CockType {
-    type: number;
+    type: BodyTypes;
     virgin: boolean;
-    tags: number[];
+    tags: BodyTags[];
     lengthRaw: number;
     lengthMod: number;
     thicknessRatioRaw: number;
@@ -221,16 +276,16 @@ export interface BreastRowType {
     sizeMod: number;
 }
 
-export interface ItemType {
-    key: string;
+export interface ItemType<Key extends string> {
+    key: Key;
     args: [number?, number?, number?, number?, number?, number?];
 }
 
-export interface EffectType {
-    key: string;
+export interface EffectType<Key extends string> {
+    key: Key;
     values: [number?, number?, number?, number?, number?, number?];
 }
 
 export interface PowerType {
-    key: string;
+    key: PowerKeys;
 }

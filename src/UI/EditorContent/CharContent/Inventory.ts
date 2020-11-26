@@ -1,11 +1,13 @@
-import { ItemType } from "../../../Data/CharTypes";
+import { ItemType, ItemKeys } from "../../../Data/CharTypes";
 import { globalKeys } from "../../../GameData/GlobalKeys";
-import { FieldHTML, Field } from "../../../Display/HTMLGenerics";
+import { FieldHTML, Field, FieldWithValue } from "../../../Display/HTMLGenerics";
 import { FilterBarHTML, FilterBar } from "../../../Display/Fields/FilterBar";
 import { NumberField } from "../../../Display/Fields/Number";
 import { RadioFieldHTML } from "../../../Display/Fields/Radio";
 import { Label } from "../../../Display/Fields/Label";
 import { MAX_INVENTORY_SLOTS, MAX_ITEM_ATTRS } from "../../../Data/Char";
+import { NullableValueLookup } from "../../../Data/ValueLookup";
+import { SelectField } from "../../../Display/Fields/Select";
 
 const ITEM_GROUPS = { Weapons: 'Weapons', ArmorSet: 'Armors', ItemHead: 'Head', ItemNeck: 'Neck', ItemShoulders: 'Shoulders', ItemHands: 'Hands', ItemWaist: 'Waist', ItemFeet: 'Feet', Rings: 'Rings', TopGarb: 'Top Garb', BottomGarb: 'Bottom Garbs', Offhand: 'Offhand', TFs: 'Transforms', Misc: 'Miscellaneous', Consumable: 'Consumable', Set: 'Sets' };
 
@@ -14,14 +16,14 @@ const ITEM_GROUP_KEYS = Object.keys(ITEM_GROUPS) as Extract<keyof typeof globalK
 class InvAccess {
     public slot = 0;
     public constructor(
-        private getInv: () => ItemType[]
+        private getInv: () => ItemType<ItemKeys>[]
     ) { }
 
     public getItem() {
         return this.getInv()[this.slot];
     }
 
-    public setItem(item: ItemType) {
+    public setItem(item: ItemType<ItemKeys>) {
         this.getInv()[this.slot] = item;
     }
 
@@ -33,12 +35,12 @@ class InvAccess {
             return undefined;
     }
 
-    public getItemName() {
+    public getItemInfo() {
         const key = this.getItemKey();
         for (const itemType of ITEM_GROUP_KEYS)
             for (const itemInfo of globalKeys[itemType])
                 if (itemInfo.value === key)
-                    return itemInfo.name;
+                    return itemInfo;
 
         return undefined;
     }
@@ -70,7 +72,7 @@ class SlotField implements Field {
     }
 
     public enable() {
-        const name = this.invAccess.getItemName();
+        const name = this.invAccess.getItemInfo()?.name;
         const count = this.invAccess.getItemCount();
         this.html.label.textContent = name && count ? name + ' x' + count : 'Empty';
         this.html.radio.disabled = false;
@@ -85,7 +87,7 @@ class SlotField implements Field {
 
 class ItemField implements Field {
     public constructor(
-        public readonly key: string,
+        public readonly key: ItemKeys,
         text: string,
         id: string,
         private invAccess: InvAccess,
@@ -113,6 +115,45 @@ class ItemField implements Field {
     }
 }
 
+class ItemAttrLabel extends Label<FieldWithValue<NullableValueLookup<number>>> {
+    public constructor(
+        private index: number,
+        private invAccess: InvAccess,
+        field: FieldWithValue<NullableValueLookup<number>>
+    ) {
+        super('Value ' + (index + 1), field);
+    }
+
+    private replaceCurrentField(newField: FieldWithValue<NullableValueLookup<number>>) {
+        this.html.element.insertBefore(newField.html.element, this.field.html.element);
+        this.html.element.removeChild(this.field.html.element);
+        this.field = newField;
+    }
+
+    public enable() {
+        if (this.index === 0)
+            this.html.label.textContent = 'Amount';
+        else {
+            const info = this.invAccess.getItemInfo();
+            if (info && 'attr' in info && this.index in info.attr) {
+                const attrInfo = info.attr[this.index as keyof typeof info.attr];
+                this.html.label.textContent = attrInfo.text;
+
+                if (attrInfo.type === 'select' && !(this.field instanceof SelectField))
+                    this.replaceCurrentField(new SelectField<number>(globalKeys[attrInfo.group], this.field.value));
+            }
+            else {
+                this.html.label.textContent = 'Value ' + (this.index + 1);
+                if (!(this.field instanceof NumberField)) {
+                    this.replaceCurrentField(new NumberField(this.field.value));
+                }
+            }
+        }
+
+        super.enable();
+    }
+}
+
 export class InventoryHTML implements FieldHTML<HTMLDivElement> {
     public readonly element: HTMLDivElement;
     public readonly slotList: HTMLUListElement;
@@ -124,7 +165,7 @@ export class InventoryHTML implements FieldHTML<HTMLDivElement> {
     public constructor() {
         this.element = document.createElement('div');
         this.element.id = 'inv';
-        this.element.className = 'content wrap';
+        this.element.className = 'content boxed wrap';
 
         this.slotList = document.createElement('ul');
         this.slotList.className = 'inv-list';
@@ -157,10 +198,10 @@ export class Inventory implements Field {
 
     private slotFields: SlotField[] = [];
     private itemFields: ItemField[] = [];
-    private itemAttrFields: Label[] = [];
+    private itemAttrFields: ItemAttrLabel[] = [];
 
     public constructor(
-        getInv: () => ItemType[],
+        getInv: () => ItemType<ItemKeys>[],
         public readonly html = new InventoryHTML()
     ) {
         const invAccess = new InvAccess(getInv);
@@ -202,6 +243,7 @@ export class Inventory implements Field {
             const itemGroupLabel = document.createElement('h4');
             itemGroupLabel.textContent = ITEM_GROUPS[itemType];
             this.html.itemList.appendChild(itemGroupLabel);
+            this.html.itemList.appendChild(document.createElement('hr'));
 
             for (const itemInfo of globalKeys[itemType]) {
                 // Item Field
@@ -237,8 +279,9 @@ export class Inventory implements Field {
 
         for (let index = 0; index < MAX_ITEM_ATTRS; index++) {
             // Item Attribute
-            const name = index === 0 ? 'Amount' : 'Value' + (index + 1);
-            const itemAttr = new Label(name,
+            const itemAttr = new ItemAttrLabel(
+                index,
+                invAccess,
                 new NumberField({
                     get: () => invAccess.getItem()?.args?.[index] ?? 0,
                     set: (value) => {
@@ -249,7 +292,8 @@ export class Inventory implements Field {
                         // Refresh slot text
                         this.selectedSlot?.enable();
                     }
-                }));
+                })
+            );
 
             this.html.itemAttrList.appendChild(itemAttr.html.element);
             this.itemAttrFields.push(itemAttr);

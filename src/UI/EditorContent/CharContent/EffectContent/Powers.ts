@@ -5,7 +5,7 @@ import { globalKeys } from "../../../../GameData/GlobalKeys";
 import { FieldHTML, Field } from "../../../../Display/HTMLGenerics";
 import { disable, enable } from "../../../../Display/UIActions";
 import { CharType } from "../../../../Data/CharTypes";
-import { MAX_POWER_EQUIP_SLOTS } from "../../../../Data/Char";
+import { MAX_POWER_EQUIP_SLOTS, createPower } from "../../../../Data/Char";
 import { ValueLookup } from "../../../../Data/ValueLookup";
 
 class PowerFieldHTML implements FieldHTML<HTMLTableRowElement> {
@@ -66,19 +66,25 @@ class PowersFieldHTML implements FieldHTML<HTMLDivElement> {
     public readonly element: HTMLDivElement;
     public readonly filterBar: FilterBarHTML;
     public readonly tableBody: HTMLTableSectionElement;
+    public readonly equipped: HTMLUListElement;
 
     public constructor() {
         // Element creation
         this.element = document.createElement('div');
         this.element.className = 'powers content boxed';
 
+        this.equipped = document.createElement('ul');
+
         // Filter Bar
         this.filterBar = new FilterBarHTML();
         this.element.appendChild(this.filterBar.element);
 
-        // Power Table
+        const tableScroll = document.createElement('div');
+        tableScroll.className = 'table-scroll';
+        this.element.appendChild(tableScroll);
+
         const tableEl = document.createElement('table');
-        this.element.appendChild(tableEl);
+        tableScroll.appendChild(tableEl);
 
         // Table Head
         const tableHead = document.createElement('thead');
@@ -137,32 +143,34 @@ export class PowersField implements Field {
             }
 
             const powerField = new PowerField(powerInfo.value, name, hasEmptyEquipSlot, powersLookup, equippedPowersLookup);
-            // powerField.html.known.addEventListener('click', knownOnClick(getChar, powerInfo.value));
-            powerField.html.known.addEventListener('click', () => {
+
+            powerField.html.known.addEventListener('click', function () {
                 const powers = powersLookup.get();
-                if (powerField.html.known.checked)
-                    powers.push({ key: powerInfo.value });
-                else {
-                    const index = powers.findIndex((value) => value?.key === powerInfo.value);
-                    if (~index)
-                        powersLookup.set(powers.splice(index, 1));
-                }
+                const index = powers.findIndex((value) => value?.key === powerInfo.value);
+                if (this.checked && !~index)
+                    powers.push(createPower(powerInfo.value));
+                else if (!this.checked && ~index)
+                    powers.splice(index, 1);
             });
 
-            // powerField.html.equip.addEventListener('click', equipOnClick(getChar, powerInfo.value));
             powerField.html.equip.addEventListener('click', () => {
                 const equipped = equippedPowersLookup.get();
                 const index = equipped.findIndex((value) => value?.key === powerInfo.value);
-                if (~index)
-                    equipped[index] = powerField.html.equip.checked ? { key: powerInfo.value } : undefined;
+                const checked = powerField.html.equip.checked;
+
+                if (checked) {
+                    if (~index) {
+                        equipped[index] = createPower(powerInfo.value);
+                    }
                 else {
                     const idx = indexOfEmptyEquipSlot();
                     if (idx < MAX_POWER_EQUIP_SLOTS) {
-                        equipped[idx] = { key: powerInfo.value };
+                            equipped[idx] = createPower(powerInfo.value);
                     }
-                    else {
-                        powerField.html.equip.checked = false;
                     }
+                }
+                else {
+                    equipped[index] = undefined;
                 }
 
                 for (const entry of this.powerFields)

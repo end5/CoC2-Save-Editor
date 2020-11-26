@@ -1,4 +1,4 @@
-import { FieldHTML, Field } from "../HTMLGenerics";
+import { FieldHTML, Field, FieldWithValue } from "../HTMLGenerics";
 import { ValueLookup } from "../../Data/ValueLookup";
 
 class SingleObjectHTML implements FieldHTML<HTMLDivElement> {
@@ -22,11 +22,11 @@ class SingleObjectHTML implements FieldHTML<HTMLDivElement> {
     }
 }
 
-export class SingleObjectField<T> implements Field {
+export class SingleObjectField<T> implements FieldWithValue<ValueLookup<T | undefined>> {
     public readonly fields: Field[];
 
     public constructor(
-        private value: ValueLookup<T | undefined>,
+        public readonly value: ValueLookup<T | undefined>,
         itemConstr: () => T,
         // fields: (getKey: <K extends keyof T>(key: K) => T[K] | undefined, setKey: <K extends keyof T>(key: K, value: T[K]) => void) => Field[],
         // fields: (getObj: () => T) => Field[],

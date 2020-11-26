@@ -1,5 +1,5 @@
 
-import { createField, FieldHTML, Field, createCheckBox, FieldElement } from "../HTMLGenerics";
+import { createField, FieldHTML, Field, createCheckBox, FieldElement, FieldWithValue } from "../HTMLGenerics";
 import { NullableValueLookup } from "../../Data/ValueLookup";
 import { GenericInfo } from "../../Data/GenericInfo";
 
@@ -52,12 +52,12 @@ class MultiOptionFieldHTML implements FieldHTML<FieldElement> {
     }
 }
 
-export class MultiOptionField<T, G extends GenericInfo<T> = GenericInfo<T>> implements Field {
+export class MultiOptionField<T, G extends GenericInfo<T> = GenericInfo<T>> implements FieldWithValue<NullableValueLookup<G['value'][]>> {
     public readonly list: MultiOptionItem<T, G>[];
 
     public constructor(
-        infoList: G[],
-        value: NullableValueLookup<G['value'][]>,
+        infoList: readonly G[],
+        public readonly value: NullableValueLookup<G['value'][]>,
         public readonly html = new MultiOptionFieldHTML()
     ) {
         this.list = infoList.map((info) => {

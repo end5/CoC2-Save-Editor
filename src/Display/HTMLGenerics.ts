@@ -8,6 +8,10 @@ export interface Field {
     disable(): void;
 }
 
+export interface FieldWithValue<T> extends Field {
+    readonly value: T;
+}
+
 export type FieldElement = ReturnType<typeof createField>;
 export function createField() {
     const field = document.createElement('div');

@@ -15,7 +15,7 @@ export function displayBoon(getChar: () => CharType) {
         list: [
             new SingleObjectField(
                 createValueLookup(getChar, 'boon'),
-                createEffect,
+                () => createEffect(globalKeys.Boon[0].value),
                 (createKeyLookup) => {
                     const fields: Field[] = [
                         new Label('Key', new SelectField(globalKeys.Boon, createKeyLookup('key')))

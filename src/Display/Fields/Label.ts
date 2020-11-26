@@ -12,10 +12,10 @@ export class LabelHTML implements FieldHTML<FieldElement> {
     }
 }
 
-export class Label implements Field {
+export class Label<T extends Field> implements Field {
     public constructor(
         title: string,
-        public readonly field: Field,
+        public field: T,
         public readonly html = new LabelHTML()
     ) {
         this.html.label.textContent = title;

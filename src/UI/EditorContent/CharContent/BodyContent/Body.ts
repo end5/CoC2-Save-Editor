@@ -15,7 +15,7 @@ export function displayBodyContent(getChar: () => CharType) {
         title: 'General',
         list: [
             new Label('Race', new SelectField(globalKeys.Race, {
-                get: () => getChar()._race?.key ?? '',
+                get: () => getChar()._race?.key,
                 set: (value) => getChar()._race = { key: value }
             })),
             new Label('Original Race', new StringField(createValueLookup(getChar, 'originalRace'))),
@@ -42,7 +42,7 @@ export function displayBodyContent(getChar: () => CharType) {
     }, {
         title: 'Arms',
         list: [
-            new Label('Type', new SelectField(globalKeys.SkinType, createValueLookup(getChar, 'armType'))),
+            new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'armType'))),
             new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'armTags'))),
         ]
     }, {
@@ -60,14 +60,14 @@ export function displayBodyContent(getChar: () => CharType) {
     }, {
         title: 'Tails',
         list: [
-            new Label('Type', new SelectField(globalKeys.SkinType, createValueLookup(getChar, 'tailType'))),
+            new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'tailType'))),
             new Label('Amount', new NumberField(createValueLookup(getChar, 'numTails'))),
             new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'tailTags'))),
         ]
     }, {
         title: 'Butt',
         list: [
-            new Label('Type', new SelectField(globalKeys.SkinType, createValueLookup(getButt, 'type'))),
+            new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getButt, 'type'))),
             new Label('Virgin', new BooleanField({
                 get: () => getChar().analVirgin,
                 set: (value) => {
@@ -87,7 +87,7 @@ export function displayBodyContent(getChar: () => CharType) {
     }, {
         title: 'Legs',
         list: [
-            new Label('Type', new SelectField(globalKeys.SkinType, createValueLookup(getChar, 'legType'))),
+            new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'legType'))),
             new Label('Amount', new NumberField(createValueLookup(getChar, 'legCount'))),
             new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'legTags'))),
         ]

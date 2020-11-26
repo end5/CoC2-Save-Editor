@@ -1,4 +1,4 @@
-import { CharType, VaginaType, EffectType, BreastRowType, CockType } from "./CharTypes";
+import { CharType, VaginaType, EffectType, BreastRowType, CockType, PowerType } from "./CharTypes";
 import { globalKeys } from "../GameData/GlobalKeys";
 
 export const MAX_INVENTORY_SLOTS = 20;
@@ -11,7 +11,7 @@ export function createChar(): CharType {
         name: '',
         cName: '',
         soloCombatPrefix: '',
-        taxa: 0,
+        taxa: 1,
         class: 0,
         background: 0,
         genderPref: 0,
@@ -215,17 +215,21 @@ export function createVagina(): VaginaType {
     };
 }
 
-export function createEffect(): EffectType {
-    return {
-        key: globalKeys.Boon[0].value,
-        values: [0, 0, 0, 0, 0, 0] as EffectType['values'],
-    };
-}
-
 export function createBreastRow(): BreastRowType {
     return {
         breasts: 2,
         sizeRaw: 2,
         sizeMod: 0,
     };
+}
+
+export function createEffect<K extends string>(key: K): EffectType<K> {
+    return {
+        key,
+        values: [0, 0, 0, 0, 0, 0] as EffectType<K>['values'],
+    };
+}
+
+export function createPower(key: typeof globalKeys.Powers[number]['value']): PowerType {
+    return { key };
 }

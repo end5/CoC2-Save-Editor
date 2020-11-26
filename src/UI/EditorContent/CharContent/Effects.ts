@@ -14,15 +14,15 @@ export function displayCharEffectsContent(getChar: () => CharType) {
     }, {
         key: 'perks',
         title: 'Perks',
-        content: new EffectsField(createValueLookup(getChar, 'perks'), globalKeys.Perks),
+        content: new EffectsField('perks', globalKeys.Perks, createValueLookup(getChar, 'perks')),
     }, {
         key: 'statusEffects',
         title: 'Status',
-        content: new EffectsField(createValueLookup(getChar, 'statusEffects'), globalKeys.StatusEffect),
+        content: new EffectsField('status', globalKeys.StatusEffect, createValueLookup(getChar, 'statusEffects')),
     }, {
         key: 'combatEffects',
         title: 'Combat',
-        content: new EffectsField(createValueLookup(getChar, 'combatEffects'), globalKeys.CombatEffect),
+        content: new EffectsField('combat', globalKeys.CombatEffect, createValueLookup(getChar, 'combatEffects')),
     }, {
         key: 'boon',
         title: 'Boon',

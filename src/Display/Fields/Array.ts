@@ -1,4 +1,4 @@
-import { FieldHTML, Field } from "../HTMLGenerics";
+import { FieldHTML, Field, FieldWithValue } from "../HTMLGenerics";
 import { RadioFieldHTML } from "./Radio";
 import { ValueLookup } from "../../Data/ValueLookup";
 
@@ -54,14 +54,14 @@ class ArrayFieldHTML implements FieldHTML<HTMLDivElement> {
     }
 }
 
-export class ArrayField<T> implements Field {
+export class ArrayField<T> implements FieldWithValue<ValueLookup<T[]>> {
     private itemList: ArrayFieldItem[] = [];
     private selected?: ArrayFieldItem;
     private fields: Field[];
 
     public constructor(
         private name: string,
-        private value: ValueLookup<T[]>,
+        public readonly value: ValueLookup<T[]>,
         private itemConstr: () => T,
         private title: (getObj: () => T) => string,
         fields: (createKeyLookup: <K extends keyof T>(key: K) => ValueLookup<T[K]>) => Field[],

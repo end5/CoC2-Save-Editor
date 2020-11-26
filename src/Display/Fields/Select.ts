@@ -1,4 +1,4 @@
-import { createField, FieldHTML, Field, FieldElement } from "../HTMLGenerics";
+import { createField, FieldHTML, FieldElement, FieldWithValue } from "../HTMLGenerics";
 import { GenericInfo } from "../../Data/GenericInfo";
 import { NullableValueLookup } from "../../Data/ValueLookup";
 
@@ -13,10 +13,10 @@ export class SelectFieldHTML implements FieldHTML<FieldElement> {
     }
 }
 
-export class SelectField<T, G extends GenericInfo<T> = GenericInfo<T>> implements Field {
+export class SelectField<T, G extends GenericInfo<T> = GenericInfo<T>> implements FieldWithValue<NullableValueLookup<G['value']>> {
     public constructor(
-        private infoList: G[],
-        private value: NullableValueLookup<G['value']>,
+        private infoList: readonly G[],
+        public readonly value: NullableValueLookup<G['value']>,
         public readonly html = new SelectFieldHTML()
     ) {
         for (const info of infoList) {

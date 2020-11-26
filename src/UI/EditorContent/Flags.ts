@@ -121,9 +121,12 @@ export class FlagContentHTML implements FieldHTML<HTMLDivElement> {
         this.filterBar = new FilterBarHTML();
         this.element.appendChild(this.filterBar.element);
 
-        // Power Table
+        const tableScroll = document.createElement('div');
+        tableScroll.className = 'table-scroll';
+        this.element.appendChild(tableScroll);
+
         const tableEl = document.createElement('table');
-        this.element.appendChild(tableEl);
+        tableScroll.appendChild(tableEl);
 
         // Table Head
         const tableHead = document.createElement('thead');

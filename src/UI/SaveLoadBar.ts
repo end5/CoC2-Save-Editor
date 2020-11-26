@@ -147,6 +147,7 @@ export function unpackSave(saveObj: GameSave) {
     const saveCopy = JSON.parse(JSON.stringify(saveObj)) as GameSave;
     const charKeys = Object.keys(charDefaults) as CharNames[];
 
+    // This is unsafe. No values are being verified they are correct.
     for (const key of charKeys)
         saveCopy.chars[key] = Object.assign(createChar(), JSON.parse(JSON.stringify(charDefaults[key])), saveCopy.chars[key]);
 
