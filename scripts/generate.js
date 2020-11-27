@@ -19,122 +19,190 @@ const fs = require('fs');
         await page.goto('https://www.fenoxo.com/play/CoC2/release/', { timeout: 0 });
         console.log('Loaded');
     }
-    catch (err) { console.log(err); }
+    catch (err) {
+        console.log(err);
+        await browser.close();
+        return;
+    }
 
     let obj;
     try {
         console.log('Getting data from game');
         obj = await page.evaluate(() => {
-            const returnObj = {};
-            function getGlobalsByPrefix(prefix) {
-                return Object.keys(window.GLOBALS)
-                    .filter(key => key.startsWith(prefix))
-                    .sort(key => window.GLOBALS[key])
-                    .map(key => ({
-                        name: key.slice(prefix.length)
-                            .split('_')
-                            .map(str => str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()).join(' '),
-                        value: window.GLOBALS[key]
-                    }));
+            let log = '';
+            function start(msg) { log += msg + '\n' }
+
+            try {
+                function getGlobalsByPrefix(prefix) {
+                    return Object.keys(window.GLOBALS)
+                        .filter(key => key.startsWith(prefix))
+                        .sort(key => window.GLOBALS[key])
+                        .map(key => ({
+                            name: key.slice(prefix.length)
+                                .split('_')
+                                .map(str => str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()).join(' '),
+                            value: window.GLOBALS[key]
+                        }));
+                }
+
+                function space(str) {
+                    return str.replace(/([A-Z])/g, ' $1').trim();
+                }
+
+                function getName(obj) {
+                    return getMemberValue(obj, ['name', '_name']).replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+                }
+
+                function getDesc(obj) {
+                    return getMemberValue(obj, ['desc', 'description', '_desc', '_description']);
+                }
+
+                function getMemberValue(obj, keys) {
+                    for (const key of keys)
+                        if (key in obj)
+                            return typeof obj[key] === 'function' ? obj[key]() : obj[key];
+                }
+
+                start('Getting items');
+                const items = Object.keys(window.ITEMS).map(key => [key, new window.ITEMS[key]()]);
+                function getItemsByType(type, attr) {
+                    if (!attr)
+                        return items.filter(tuple => tuple[1].type === type)
+                            .map(tuple => ({ name: getName(tuple[1]), value: tuple[0] }))
+                    else
+                        return items.filter(tuple => tuple[1].type === type)
+                            .map(tuple => ({ name: getName(tuple[1]), value: tuple[0], attr: attr }))
+                }
+
+                function getThingFromWindow(name, ...args) {
+                    return Object.keys(window[name]).map(key => {
+                        const thing = new window[name][key](...args);
+                        return { name: getName(thing), value: key }
+                    });
+                }
+
+                start('Generating globals');
+                let globalsObj;
+                {
+                    start('Generating Race');
+                    const Race = Object.keys(window.RACES).map(v => ({ name: v, value: v }));
+                    start('Generating Taxon');
+                    const Taxon = getGlobalsByPrefix('TAXA_');
+                    start('Generating Class');
+                    const Class = getGlobalsByPrefix('CLASS_');
+                    start('Generating Background');
+                    const Background = getGlobalsByPrefix('BG_');
+                    // start('Generating Affinity');
+                    // const Affinity = window.GLOBALS.AFFINITY.map((v, i) => ({ name: v, value: i }));
+                    start('Generating TFType');
+                    const TFType = Object.keys(window.GLOBALS.TF_TYPE_PARTS).map(key => ({ name: window.GLOBALS.TF_TYPE_PARTS[key], value: +key }));
+                    start('Generating BodyType');
+                    const BodyType = getGlobalsByPrefix('BODY_TYPE_');
+                    start('Generating BodyTag');
+                    const BodyTag = getGlobalsByPrefix('BODY_TAG_');
+                    start('Generating FluidType');
+                    const FluidType = getGlobalsByPrefix('FLUID_TYPE_');
+                    start('Generating SkinType');
+                    const SkinType = getGlobalsByPrefix('SKIN_TYPE_');
+                    start('Generating NippleType');
+                    const NippleType = getGlobalsByPrefix('NIPPLE_TYPE_');
+                    start('Generating HairType');
+                    const HairType = getGlobalsByPrefix('HAIR_TYPE_');
+                    start('Generating Cup');
+                    const Cup = window.GLOBALS.CUP.map((v, i) => ({ name: v, value: i }));
+                    start('Generating Weapons');
+                    const Weapons = getItemsByType(window.GLOBALS.ITEM_PRIMARY);
+                    start('Generating ArmorSet');
+                    const ArmorSet = getItemsByType(window.GLOBALS.ITEM_ARMORSET);
+                    start('Generating ItemHead');
+                    const ItemHead = getItemsByType(window.GLOBALS.ITEM_HEAD);
+                    start('Generating ItemNeck');
+                    const ItemNeck = getItemsByType(window.GLOBALS.ITEM_NECK);
+                    start('Generating ItemShoulders');
+                    const ItemShoulders = getItemsByType(window.GLOBALS.ITEM_SHOULDERS);
+                    start('Generating ItemHands');
+                    const ItemHands = getItemsByType(window.GLOBALS.ITEM_HANDS);
+                    start('Generating ItemWaist');
+                    const ItemWaist = getItemsByType(window.GLOBALS.ITEM_WAIST);
+                    start('Generating ItemFeet');
+                    const ItemFeet = getItemsByType(window.GLOBALS.ITEM_FEET);
+                    start('Generating Rings');
+                    const Rings = getItemsByType(window.GLOBALS.ITEM_RING);
+                    start('Generating TopGarb');
+                    const TopGarb = getItemsByType(window.GLOBALS.ITEM_TOPGARB);
+                    start('Generating BottomGarb');
+                    const BottomGarb = getItemsByType(window.GLOBALS.ITEM_BOTGARB);
+                    start('Generating Offhand');
+                    const Offhand = getItemsByType(window.GLOBALS.ITEM_OFFHAND);
+                    start('Generating TFs');
+                    const TFs = getItemsByType(window.GLOBALS.ITEM_TF, { 1: { text: "TF Type", type: "select", group: "TFType" } });
+                    start('Generating Misc');
+                    const Misc = getItemsByType(window.GLOBALS.ITEM_MISC);
+                    start('Generating Consumable');
+                    const Consumable = getItemsByType(window.GLOBALS.ITEM_CONSUMABLE);
+                    start('Generating Set');
+                    const Set = getItemsByType(window.GLOBALS.ITEM_SET);
+                    start('Generating KeyItems');
+                    const KeyItems = getThingFromWindow('KEYITEMS');
+                    start('Generating Boon');
+                    const Boon = getThingFromWindow('BOONS', pc);
+                    start('Generating StatusEffect');
+                    const StatusEffect = getThingFromWindow('SEFFECTS', pc);
+                    start('Generating CombatEffect');
+                    const CombatEffect = getThingFromWindow('CEFFECTS', pc);
+                    start('Generating Powers');
+                    const Powers = getThingFromWindow('POWERS', pc).filter(v => v.name !== 'Unnamed');
+                    start('Generating Perks');
+                    const Perks = getThingFromWindow('PERKS', pc);
+                    // start('Generating Items');
+                    // const Items = items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0], desc: getDesc(tuple[1]) })).filter(v => v.name !== 'Unnamed');
+                    // const Items = items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0] })).filter(v => v.name !== 'Unnamed');
+
+                    globalsObj = { Race, Taxon, Class, Background, TFType, BodyType, BodyTag, FluidType, SkinType, NippleType, HairType, Cup, Weapons, ArmorSet, ItemHead, ItemNeck, ItemShoulders, ItemHands, ItemWaist, ItemFeet, Rings, TopGarb, BottomGarb, Offhand, TFs, Misc, Consumable, Set, KeyItems, Boon, StatusEffect, CombatEffect, Powers, Perks, };
+                }
+
+                start('Generating globals string');
+                const globals = JSON.stringify(globalsObj);
+
+                // Pregnancy flags
+                start('Generating pregnancy flag keys');
+                const pregFlagKeys = Object.keys(window.GLOBALS)
+                    .filter(key => key.startsWith('PREG_'))
+                    .map(key => window.GLOBALS[key])
+                    .filter(key => key)
+                    .sort(key => window.GLOBALS[key]);
+
+                // Command for serializing important chars
+                start('Generating character defaults');
+                const charDefaults = JSON.stringify(Object.keys(window.CHARS)
+                    .filter(name => name !== 'champ')
+                    .reduce((obj, name) => {
+                        obj[name] = (new window.CHARS[name].constructor()).serialize();
+                        return obj;
+                    }, {})
+                );
+
+                return { globals, pregFlagKeys, charDefaults, log };
             }
-
-            function space(str) {
-                return str.replace(/([A-Z])/g, ' $1').trim();
+            catch (err) {
+                return { log, err: err + '' };
             }
-
-            function getName(obj) {
-                return getMemberValue(obj, ['name', '_name']).replace(/(^\w|\s\w)/g, m => m.toUpperCase());
-            }
-
-            function getDesc(obj) {
-                return getMemberValue(obj, ['desc', 'description', '_desc', '_description']);
-            }
-
-            function getMemberValue(obj, keys) {
-                for (const key of keys)
-                    if (key in obj)
-                        return typeof obj[key] === 'function' ? obj[key]() : obj[key];
-            }
-
-            const items = Object.keys(window.ITEMS).map(key => [key, new window.ITEMS[key]()]);
-            function getItemsByType(type, attr) {
-                if (!attr)
-                return items.filter(tuple => tuple[1].type === type)
-                    .map(tuple => ({ name: getName(tuple[1]), value: tuple[0] }))
-                else
-                    return items.filter(tuple => tuple[1].type === type)
-                        .map(tuple => ({ name: getName(tuple[1]), value: tuple[0], attr: attr }))
-            }
-
-            function getThingFromWindow(name) {
-                return Object.keys(window[name]).map(key => {
-                    const thing = new window[name][key](pc);
-                    return { name: getName(thing), value: key }
-                });
-            }
-
-            returnObj.globals = JSON.stringify({
-                Race: Object.keys(window.RACES).map(v => ({ name: v, value: v })),
-                Taxon: getGlobalsByPrefix('TAXA_'),
-                Class: getGlobalsByPrefix('CLASS_'),
-                Background: getGlobalsByPrefix('BG_'),
-                // Affinity: window.GLOBALS.AFFINITY.map((v, i) => ({ name: v, value: i })),
-                TFType: Object.keys(window.GLOBALS.TF_TYPE_PARTS).map(key => ({ name: window.GLOBALS.TF_TYPE_PARTS[key], value: +key })),
-                BodyType: getGlobalsByPrefix('BODY_TYPE_'),
-                BodyTag: getGlobalsByPrefix('BODY_TAG_'),
-                FluidType: getGlobalsByPrefix('FLUID_TYPE_'),
-                SkinType: getGlobalsByPrefix('SKIN_TYPE_'),
-                NippleType: getGlobalsByPrefix('NIPPLE_TYPE_'),
-                HairType: getGlobalsByPrefix('HAIR_TYPE_'),
-                Cup: window.GLOBALS.CUP.map((v, i) => ({ name: v, value: i })),
-                Weapons: getItemsByType(window.GLOBALS.ITEM_PRIMARY),
-                ArmorSet: getItemsByType(window.GLOBALS.ITEM_ARMORSET),
-                ItemHead: getItemsByType(window.GLOBALS.ITEM_HEAD),
-                ItemNeck: getItemsByType(window.GLOBALS.ITEM_NECK),
-                ItemShoulders: getItemsByType(window.GLOBALS.ITEM_SHOULDERS),
-                ItemHands: getItemsByType(window.GLOBALS.ITEM_HANDS),
-                ItemWaist: getItemsByType(window.GLOBALS.ITEM_WAIST),
-                ItemFeet: getItemsByType(window.GLOBALS.ITEM_FEET),
-                Rings: getItemsByType(window.GLOBALS.ITEM_RING),
-                TopGarb: getItemsByType(window.GLOBALS.ITEM_TOPGARB),
-                BottomGarb: getItemsByType(window.GLOBALS.ITEM_BOTGARB),
-                Offhand: getItemsByType(window.GLOBALS.ITEM_OFFHAND),
-                TFs: getItemsByType(window.GLOBALS.ITEM_TF, { 1: { text: "TF Type", type: "select", group: "TFType"}}),
-                Misc: getItemsByType(window.GLOBALS.ITEM_MISC),
-                Consumable: getItemsByType(window.GLOBALS.ITEM_CONSUMABLE),
-                Set: getItemsByType(window.GLOBALS.ITEM_SET),
-                KeyItems: getThingFromWindow('KEYITEMS'),
-                Boon: getThingFromWindow('BOONS'),
-                StatusEffect: getThingFromWindow('SEFFECTS'),
-                CombatEffect: getThingFromWindow('CEFFECTS'),
-                Powers: getThingFromWindow('POWERS').filter(v => v.name !== 'Unnamed'),
-                Perks: getThingFromWindow('PERKS'),
-                // Items: items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0], desc: getDesc(tuple[1]) })).filter(v => v.name !== 'Unnamed'),
-                // Items: items.map(tuple => ({ name: getName(tuple[1]), value: tuple[0] })).filter(v => v.name !== 'Unnamed'),
-            });
-
-            // Pregnancy flags
-            returnObj.pregFlagKeys = Object.keys(window.GLOBALS)
-                .filter(key => key.startsWith('PREG_'))
-                .map(key => window.GLOBALS[key])
-                .filter(key => key)
-                .sort(key => window.GLOBALS[key])
-
-            // Command for serializing important chars
-            returnObj.charDefaults = JSON.stringify(Object.keys(window.CHARS)
-                .filter(name => name !== 'champ')
-                .reduce((obj, name) => {
-                    obj[name] = (new window.CHARS[name].constructor()).serialize();
-                    return obj;
-                }, {})
-            );
-
-            return returnObj;
-
         });
         console.log('Data acquired');
     }
-    catch (err) { console.log(err); }
+    catch (err) {
+        console.log(err);
+        await browser.close();
+        return;
+    }
+
+    console.log(obj.log);
+
+    if (obj.err) {
+        console.log('Error:' + obj.err + '');
+        await browser.close();
+        return;
+    }
 
     console.log('Getting flags');
 
@@ -194,3 +262,14 @@ const fs = require('fs');
 
     await browser.close();
 })();
+
+// const fs = require('fs');
+// const prettier = require('prettier');
+
+// const asConst = str => str.slice(0, str.length - 2) + ' as const' + str.slice(str.length - 2);
+// const format = (str) => prettier.format(str, { parser: 'babel', tabWidth: 4 })
+
+// const text = fs.readFileSync('scripts/main.js').toString();
+// const newText = format(text);
+
+// fs.writeFileSync('scripts/main2.js', newText);
