@@ -76,6 +76,8 @@ export function displayBodyContent(getChar: () => CharType) {
                 }
             })),
             new Label('Color', new StringField(createValueLookup(getButt, '_color'))),
+            new Label('Rating Raw', new NumberField(createValueLookup(getChar, 'buttRatingRaw'))),
+            new Label('Rating Mod', new NumberField(createValueLookup(getChar, 'buttRatingMod'))),
             new Label('Wetness Raw', new NumberField(createValueLookup(getButt, 'wetnessRaw'))),
             new Label('Wetness Mod', new NumberField(createValueLookup(getButt, 'wetnessMod'))),
             new Label('Looseness Raw', new NumberField(createValueLookup(getButt, 'loosenessRaw'))),
