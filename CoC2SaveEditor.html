@@ -10744,6 +10744,7 @@ h4 {
                     new Label('Exp', new NumberField(createValueLookup(getChar, 'exp'))),
                     new Label('Orgasms', new NumberField(createValueLookup(getChar, 'orgasms'))),
                     new Label('Last Orgasm', new NumberField(createValueLookup(getChar, 'lastOrgasm'))),
+                    new Label('Electrum', new NumberField(createValueLookup(getChar, 'credits'))),
                 ]
             }]);
     }
@@ -10829,39 +10830,6 @@ h4 {
             this.html.equip.checked = false;
         }
     }
-    // class EquippedFieldHTML implements FieldHTML<HTMLLIElement> {
-    //     public readonly element: HTMLLIElement;
-    //     public readonly checkbox: HTMLInputElement;
-    //     public readonly label: HTMLLabelElement;
-    //     public constructor() {
-    //         this.element = document.createElement('li');
-    //         this.checkbox = document.createElement('input');
-    //         this.checkbox.type = 'checkbox';
-    //         this.label = document.createElement('label');
-    //         this.element.appendChild(this.checkbox);
-    //         this.element.appendChild(this.label);
-    //     }
-    // }
-    // class EquippedField implements Field {
-    //     public constructor(
-    //         text: string,
-    //         id: string,
-    //         public readonly html = new EquippedFieldHTML()
-    //     ) {
-    //         this.html.element.className = 'equipped-power';
-    //         this.html.checkbox.id = id;
-    //         this.html.label.textContent = text;
-    //         this.html.label.htmlFor = id;
-    //     }
-    //     public enable() {
-    //         this.html.checkbox.checked = true;
-    //         this.html.checkbox.disabled = false;
-    //     }
-    //     public disable() {
-    //         this.html.checkbox.disabled = true;
-    //         this.html.checkbox.checked = false;
-    //     }
-    // }
     class PowersFieldHTML {
         constructor() {
             // Element creation
@@ -11834,29 +11802,29 @@ h4 {
             this.getInv = getInv;
             this.slot = 0;
         }
-        getItem() {
-            return this.getInv()[this.slot];
+        getItem(index) {
+            return this.getInv()[index !== null && index !== void 0 ? index : this.slot];
         }
         setItem(item) {
             this.getInv()[this.slot] = item;
         }
-        getItemKey() {
-            const item = this.getItem();
+        getItemKey(index) {
+            const item = this.getItem(index);
             if (item && 'key' in item && typeof item.key === 'string')
                 return item.key;
             else
                 return undefined;
         }
-        getItemInfo() {
-            const key = this.getItemKey();
+        getItemInfo(index) {
+            const key = this.getItemKey(index);
             for (const itemType of ITEM_GROUP_KEYS)
                 for (const itemInfo of globalKeys[itemType])
                     if (itemInfo.value === key)
                         return itemInfo;
             return undefined;
         }
-        getItemCount() {
-            const item = this.getItem();
+        getItemCount(index) {
+            const item = this.getItem(index);
             if (item && 'args' in item && Array.isArray(item.args) && typeof item.args[0] === 'number')
                 return item.args[0];
             else
@@ -11864,20 +11832,21 @@ h4 {
         }
     }
     class SlotField {
-        constructor(id, invAccess, onClick, html = new RadioFieldHTML()) {
+        constructor(index, invAccess, onClick, html = new RadioFieldHTML()) {
+            this.index = index;
             this.invAccess = invAccess;
             this.html = html;
             this.html.element.className = 'inv-slot';
             this.html.radio.name = 'slot-field';
-            this.html.radio.id = id;
+            this.html.radio.id = 'slot' + index;
             this.html.radio.addEventListener('click', onClick);
             this.html.label.textContent = 'Empty';
-            this.html.label.htmlFor = id;
+            this.html.label.htmlFor = 'slot' + index;
         }
         enable() {
             var _a;
-            const name = (_a = this.invAccess.getItemInfo()) === null || _a === void 0 ? void 0 : _a.name;
-            const count = this.invAccess.getItemCount();
+            const name = (_a = this.invAccess.getItemInfo(this.index)) === null || _a === void 0 ? void 0 : _a.name;
+            const count = this.invAccess.getItemCount(this.index);
             this.html.label.textContent = name && count ? name + ' x' + count : 'Empty';
             this.html.radio.disabled = false;
         }
@@ -11970,7 +11939,7 @@ h4 {
             const invAccess = new InvAccess(getInv);
             // Inventory Slots
             for (let index = 0; index < MAX_INVENTORY_SLOTS; index++) {
-                const slot = new SlotField('slot' + index, invAccess, () => {
+                const slot = new SlotField(index, invAccess, () => {
                     invAccess.slot = index;
                     this.selectedSlot = slot;
                     const itemMatch = this.itemFields.find((field) => invAccess.getItemKey() === field.key);
@@ -12328,7 +12297,7 @@ h4 {
         return disclaimer;
     }
 
-    const editorVersion = "40";
+    const editorVersion = "41";
     const gameVersion = "0.3.24";
     const lastBreakingVersion = "40";
     document.addEventListener("DOMContentLoaded", () => {
