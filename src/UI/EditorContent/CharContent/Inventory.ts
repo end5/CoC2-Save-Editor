@@ -136,7 +136,7 @@ class ItemAttrLabel extends Label<FieldWithValue<NullableValueLookup<number>>> {
         else {
             const info = this.invAccess.getItemInfo();
             if (info && 'attr' in info && this.index in info.attr) {
-                const attrInfo = info.attr[this.index as keyof typeof info.attr];
+                const attrInfo = info.attr[(this.index + '') as keyof typeof info.attr];
                 this.html.label.textContent = attrInfo.text;
 
                 if (attrInfo.type === 'select' && !(this.field instanceof SelectField))

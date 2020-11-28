@@ -133,8 +133,8 @@ function handleFiles(file: File, state: State, onSuccess: (filename: string) => 
 function validateSave(saveObj: Partial<GameSave>): asserts saveObj is GameSave {
     if (!saveObj) throw new Error('Missing save object');
     if (!saveObj.chars) throw new Error('Missing chars');
-    for (const key of Object.keys(charDefaults))
-        if (!(key in saveObj.chars)) throw new Error('Missing char ' + key);
+    // for (const key of Object.keys(charDefaults))
+    //     if (!(key in saveObj.chars)) throw new Error('Missing char ' + key);
 
     if (!saveObj.flags) throw new Error('Missing flags');
 
