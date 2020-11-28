@@ -11669,6 +11669,8 @@ h4 {
                         }
                     })),
                     new Label('Color', new StringField(createValueLookup(getButt, '_color'))),
+                    new Label('Rating Raw', new NumberField(createValueLookup(getChar, 'buttRatingRaw'))),
+                    new Label('Rating Mod', new NumberField(createValueLookup(getChar, 'buttRatingMod'))),
                     new Label('Wetness Raw', new NumberField(createValueLookup(getButt, 'wetnessRaw'))),
                     new Label('Wetness Mod', new NumberField(createValueLookup(getButt, 'wetnessMod'))),
                     new Label('Looseness Raw', new NumberField(createValueLookup(getButt, 'loosenessRaw'))),
@@ -12297,7 +12299,7 @@ h4 {
         return disclaimer;
     }
 
-    const editorVersion = "41";
+    const editorVersion = "42";
     const gameVersion = "0.3.24";
     const lastBreakingVersion = "40";
     document.addEventListener("DOMContentLoaded", () => {
