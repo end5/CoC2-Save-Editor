@@ -19,24 +19,24 @@ class InvAccess {
         private getInv: () => ItemType<ItemKeys>[]
     ) { }
 
-    public getItem() {
-        return this.getInv()[this.slot];
+    public getItem(index?: number) {
+        return this.getInv()[index ?? this.slot];
     }
 
     public setItem(item: ItemType<ItemKeys>) {
         this.getInv()[this.slot] = item;
     }
 
-    public getItemKey() {
-        const item = this.getItem();
+    public getItemKey(index?: number) {
+        const item = this.getItem(index);
         if (item && 'key' in item && typeof item.key === 'string')
             return item.key;
         else
             return undefined;
     }
 
-    public getItemInfo() {
-        const key = this.getItemKey();
+    public getItemInfo(index?: number) {
+        const key = this.getItemKey(index);
         for (const itemType of ITEM_GROUP_KEYS)
             for (const itemInfo of globalKeys[itemType])
                 if (itemInfo.value === key)
@@ -45,8 +45,8 @@ class InvAccess {
         return undefined;
     }
 
-    public getItemCount() {
-        const item = this.getItem();
+    public getItemCount(index?: number) {
+        const item = this.getItem(index);
         if (item && 'args' in item && Array.isArray(item.args) && typeof item.args[0] === 'number')
             return item.args[0];
         else
@@ -56,7 +56,7 @@ class InvAccess {
 
 class SlotField implements Field {
     public constructor(
-        id: string,
+        public readonly index: number,
         private invAccess: InvAccess,
         onClick: () => void,
         public readonly html = new RadioFieldHTML()
@@ -64,16 +64,16 @@ class SlotField implements Field {
         this.html.element.className = 'inv-slot';
 
         this.html.radio.name = 'slot-field';
-        this.html.radio.id = id;
+        this.html.radio.id = 'slot' + index;
         this.html.radio.addEventListener('click', onClick);
 
         this.html.label.textContent = 'Empty';
-        this.html.label.htmlFor = id;
+        this.html.label.htmlFor = 'slot' + index;
     }
 
     public enable() {
-        const name = this.invAccess.getItemInfo()?.name;
-        const count = this.invAccess.getItemCount();
+        const name = this.invAccess.getItemInfo(this.index)?.name;
+        const count = this.invAccess.getItemCount(this.index);
         this.html.label.textContent = name && count ? name + ' x' + count : 'Empty';
         this.html.radio.disabled = false;
     }
@@ -208,7 +208,7 @@ export class Inventory implements Field {
         // Inventory Slots
         for (let index = 0; index < MAX_INVENTORY_SLOTS; index++) {
             const slot = new SlotField(
-                'slot' + index,
+                index,
                 invAccess,
                 () => {
                     invAccess.slot = index;

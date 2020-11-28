@@ -21,6 +21,7 @@ export function displayCharInfo(getChar: () => CharType) {
             new Label('Exp', new NumberField(createValueLookup(getChar, 'exp'))),
             new Label('Orgasms', new NumberField(createValueLookup(getChar, 'orgasms'))),
             new Label('Last Orgasm', new NumberField(createValueLookup(getChar, 'lastOrgasm'))),
+            new Label('Electrum', new NumberField(createValueLookup(getChar, 'credits'))),
         ]
     }]);
 }
