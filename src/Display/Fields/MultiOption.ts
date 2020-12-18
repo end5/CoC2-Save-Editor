@@ -1,7 +1,7 @@
 
 import { createField, FieldHTML, Field, createCheckBox, FieldElement, FieldWithValue } from "../HTMLGenerics";
 import { NullableValueLookup } from "../../Data/ValueLookup";
-import { GenericInfo } from "../../Data/GenericInfo";
+import { GenericInfo, sortGenericInfo } from "../../Data/GenericInfo";
 
 class MultiOptionItemHTML implements FieldHTML<HTMLLIElement> {
     public readonly element: HTMLLIElement;
@@ -60,7 +60,7 @@ export class MultiOptionField<T, G extends GenericInfo<T> = GenericInfo<T>> impl
         public readonly value: NullableValueLookup<G['value'][]>,
         public readonly html = new MultiOptionFieldHTML()
     ) {
-        this.list = infoList.map((info) => {
+        this.list = sortGenericInfo(infoList).map((info) => {
             const multiOptionItem = new MultiOptionItem(info, value.get);
             this.html.list.appendChild(multiOptionItem.html.element);
             multiOptionItem.html.checkbox.addEventListener('click', () => {

@@ -1,12 +1,12 @@
 import { createCheckBoxEl } from "../../../../Display/Input";
 import { FilterBarHTML, FilterBar } from "../../../../Display/Fields/FilterBar";
-import { spaceAndCapText } from "../../../../Display/Input";
 import { globalKeys } from "../../../../GameData/GlobalKeys";
 import { FieldHTML, Field } from "../../../../Display/HTMLGenerics";
 import { disable, enable } from "../../../../Display/UIActions";
 import { CharType } from "../../../../Data/CharTypes";
 import { MAX_POWER_EQUIP_SLOTS, createPower } from "../../../../Data/Char";
 import { ValueLookup } from "../../../../Data/ValueLookup";
+import { sortGenericInfo } from "../../../../Data/GenericInfo";
 
 class PowerFieldHTML implements FieldHTML<HTMLTableRowElement> {
     public readonly element: HTMLTableRowElement;
@@ -132,17 +132,10 @@ export class PowersField implements Field {
             return nextEmptyIndex;
         };
 
-        const set = new Set<string>();
-        for (const powerInfo of globalKeys.Powers) {
-            const name = spaceAndCapText(powerInfo.value + '');
-            if (!set.has(name))
-                set.add(name);
-            else {
-                console.log(powerInfo.name, '/', name, 'already exists. Skipping.');
-                continue;
-            }
+        const sortedPowerInfo = sortGenericInfo(globalKeys.Powers);
 
-            const powerField = new PowerField(powerInfo.value, name, hasEmptyEquipSlot, powersLookup, equippedPowersLookup);
+        for (const powerInfo of sortedPowerInfo) {
+            const powerField = new PowerField(powerInfo.value, powerInfo.name, hasEmptyEquipSlot, powersLookup, equippedPowersLookup);
 
             powerField.html.known.addEventListener('click', function () {
                 const powers = powersLookup.get();
@@ -162,11 +155,11 @@ export class PowersField implements Field {
                     if (~index) {
                         equipped[index] = createPower(powerInfo.value);
                     }
-                else {
-                    const idx = indexOfEmptyEquipSlot();
-                    if (idx < MAX_POWER_EQUIP_SLOTS) {
+                    else {
+                        const idx = indexOfEmptyEquipSlot();
+                        if (idx < MAX_POWER_EQUIP_SLOTS) {
                             equipped[idx] = createPower(powerInfo.value);
-                    }
+                        }
                     }
                 }
                 else {

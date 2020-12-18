@@ -98,8 +98,8 @@ export function displayCrotchContent(getChar: () => CharType) {
     }, {
         title: 'Cum',
         list: [
-            new Label('Girl Type', new SelectField(globalKeys.FluidType, createValueLookup(getChar, 'girlCumType'))),
-            new Label('Type', new SelectField(globalKeys.FluidType, createValueLookup(getChar, 'cumType'))),
+            new Label('Vagina Type', new SelectField(globalKeys.FluidType, createValueLookup(getChar, 'girlCumType'))),
+            new Label('Cock Type', new SelectField(globalKeys.FluidType, createValueLookup(getChar, 'cumType'))),
             new Label('Multipier Raw', new NumberField(createValueLookup(getChar, 'cumMultiplierRaw'))),
             new Label('Multipier Mod', new NumberField(createValueLookup(getChar, 'cumMultiplierMod'))),
         ]

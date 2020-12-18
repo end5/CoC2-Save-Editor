@@ -1,6 +1,6 @@
 import { createCheckBoxEl } from "../../../../Display/Input";
 import { FilterBarHTML, FilterBar } from "../../../../Display/Fields/FilterBar";
-import { GenericInfo } from "../../../../Data/GenericInfo";
+import { GenericInfo, sortGenericInfo } from "../../../../Data/GenericInfo";
 import { EffectType } from "../../../../Data/CharTypes";
 import { enable, disable } from "../../../../Display/UIActions";
 import { FieldHTML, Field } from "../../../../Display/HTMLGenerics";
@@ -136,7 +136,8 @@ export class EffectsField<K extends string, G extends GenericInfo<K> = GenericIn
     public constructor(name: string, infoList: readonly G[], effectsLookup: ValueLookup<EffectType<K>[]>) {
         this.html = new EffectsFieldHTML();
 
-        for (const effectInfo of infoList) {
+        const sortedInfoList = sortGenericInfo(infoList);
+        for (const effectInfo of sortedInfoList) {
             const effectField = new EffectField(effectInfo.value, effectInfo.name, effectsLookup);
 
             effectField.html.equip.addEventListener('click', () => {

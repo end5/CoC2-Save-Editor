@@ -1,5 +1,5 @@
 import { createField, FieldHTML, FieldElement, FieldWithValue } from "../HTMLGenerics";
-import { GenericInfo } from "../../Data/GenericInfo";
+import { GenericInfo, sortGenericInfo } from "../../Data/GenericInfo";
 import { NullableValueLookup } from "../../Data/ValueLookup";
 
 export class SelectFieldHTML implements FieldHTML<FieldElement> {
@@ -19,7 +19,8 @@ export class SelectField<T, G extends GenericInfo<T> = GenericInfo<T>> implement
         public readonly value: NullableValueLookup<G['value']>,
         public readonly html = new SelectFieldHTML()
     ) {
-        for (const info of infoList) {
+        const sortedInfoList = sortGenericInfo(infoList);
+        for (const info of sortedInfoList) {
             const option = document.createElement('option');
             // An HTMLOptionElement.value can only be string
             // The info.name is used as the ".value" for the option elements

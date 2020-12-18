@@ -8,6 +8,7 @@ import { Label } from "../../../Display/Fields/Label";
 import { MAX_INVENTORY_SLOTS, MAX_ITEM_ATTRS } from "../../../Data/Char";
 import { NullableValueLookup } from "../../../Data/ValueLookup";
 import { SelectField } from "../../../Display/Fields/Select";
+import { sortGenericInfo } from "../../../Data/GenericInfo";
 
 const ITEM_GROUPS = { Weapons: 'Weapons', ArmorSet: 'Armors', ItemHead: 'Head', ItemNeck: 'Neck', ItemShoulders: 'Shoulders', ItemHands: 'Hands', ItemWaist: 'Waist', ItemFeet: 'Feet', Rings: 'Rings', TopGarb: 'Top Garb', BottomGarb: 'Bottom Garbs', Offhand: 'Offhand', TFs: 'Transforms', Misc: 'Miscellaneous', Consumable: 'Consumable', Set: 'Sets' };
 
@@ -245,7 +246,8 @@ export class Inventory implements Field {
             this.html.itemList.appendChild(itemGroupLabel);
             this.html.itemList.appendChild(document.createElement('hr'));
 
-            for (const itemInfo of globalKeys[itemType]) {
+            const sortedItemInfo = sortGenericInfo(globalKeys[itemType] as readonly typeof globalKeys[typeof ITEM_GROUP_KEYS[number]][number][]);
+            for (const itemInfo of sortedItemInfo) {
                 // Item Field
                 const itemField = new ItemField(
                     itemInfo.value,

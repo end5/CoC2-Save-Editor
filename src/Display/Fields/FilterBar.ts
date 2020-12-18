@@ -27,7 +27,7 @@ export class FilterBar implements Field {
             const filterText = this.value.toLocaleLowerCase();
 
             for (const entry of fields) {
-                if (!filterText || entry.key.toLocaleLowerCase().startsWith(filterText))
+                if (!filterText || entry.key.toLocaleLowerCase().includes(filterText))
                     show(entry.element);
                 else
                     hide(entry.element);
