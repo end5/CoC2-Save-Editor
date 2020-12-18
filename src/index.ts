@@ -1,8 +1,8 @@
 import "./Window";
 import { displayDisclaimer } from "./UI/Disclaimer";
 
-const editorVersion = "42";
-const gameVersion = "0.3.24";
+const editorVersion = "43";
+const gameVersion = "0.3.27";
 const lastBreakingVersion = "40";
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -45,17 +45,13 @@ const fs = require('fs');
                         }));
                 }
 
-                function space(str) {
-                    return str.replace(/([A-Z])/g, ' $1').trim();
-                }
-
                 function getName(obj) {
                     return getMemberValue(obj, ['name', '_name']).replace(/(^\w|\s\w)/g, m => m.toUpperCase());
                 }
 
-                function getDesc(obj) {
-                    return getMemberValue(obj, ['desc', 'description', '_desc', '_description']);
-                }
+                // function getDesc(obj) {
+                //     return getMemberValue(obj, ['desc', 'description', '_desc', '_description']);
+                // }
 
                 function getMemberValue(obj, keys) {
                     for (const key of keys)
@@ -66,19 +62,59 @@ const fs = require('fs');
                 start('Getting items');
                 const items = Object.keys(window.ITEMS).map(key => [key, new window.ITEMS[key]()]);
                 function getItemsByType(type, attr) {
+                    const filtered = items.filter(tuple => tuple[1].type === type);
                     if (!attr)
-                        return items.filter(tuple => tuple[1].type === type)
-                            .map(tuple => ({ name: getName(tuple[1]), value: tuple[0] }))
+                        return processArr(filtered.map(tuple => ({ name: getName(tuple[1]), value: tuple[0] })));
                     else
-                        return items.filter(tuple => tuple[1].type === type)
-                            .map(tuple => ({ name: getName(tuple[1]), value: tuple[0], attr: attr }))
+                        return processArr(filtered.map(tuple => ({ name: getName(tuple[1]), value: tuple[0], attr })));
+                }
+
+                function processArr(arr) {
+                    fixMissingNames(arr);
+                    renameDups(arr);
+                    fixNamesForDisplay(arr);
+                    return arr;
+                }
+
+                function fixMissingNames(arr) {
+                    for (let index = 0; index < arr.length; index++) {
+                        const info = arr[index];
+                        if (!info.name) info.name = info.value;
+                    }
+                }
+
+                function compareNameValue(name, value) {
+                    return name.toLowerCase().replace(/ /g, '').trim() === value.toLowerCase().replace(' ', '').trim();
+                }
+
+                function renameDups(arr) {
+                    for (let index = 0; index < arr.length; index++) {
+                        const info = arr[index];
+                        const dups = arr.filter(item => item.name === info.name);
+                        if (dups.length > 1) {
+                            let base = dups.find(item => compareNameValue(item.name, item.value));
+                
+                            for (let dupIndex = 0; dupIndex < dups.length; dupIndex++) {
+                                const dupInfo = dups[dupIndex];
+                                if (!base || (base && base !== dupInfo))
+                                    dupInfo.name = dupInfo.value;
+                            }
+                        }
+                    }
+                }
+
+                function fixNamesForDisplay(arr) {
+                    for (let index = 0; index < arr.length; index++) {
+                        const info = arr[index];
+                        info.name = info.name[0].toLocaleUpperCase() + info.name.slice(1).replace(/([a-z])([A-Z])/g, '$1 $2').trim();
+                    }
                 }
 
                 function getThingFromWindow(name, ...args) {
-                    return Object.keys(window[name]).map(key => {
+                    return processArr(Object.keys(window[name]).map(key => {
                         const thing = new window[name][key](...args);
-                        return { name: getName(thing), value: key }
-                    });
+                        return { name: getName(thing) || key, value: key }
+                    }));
                 }
 
                 start('Generating globals');
