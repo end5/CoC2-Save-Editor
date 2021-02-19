@@ -378,7 +378,8 @@ export const globalKeys = {
         { name: "Helm Of Heroes", value: "HelmOfHeroes" },
         { name: "Horned Helm", value: "HornedHelm" },
         { name: "Hoplon Helm", value: "HoplonHelm" },
-        { name: "Kabuto", value: "Kabuto" }
+        { name: "Kabuto", value: "Kabuto" },
+        { name: "Everblossom Hood", value: "EverblossomHood" }
     ],
     ItemNeck: [
         { name: "Ward Amulet", value: "WardAmulet" },
@@ -686,7 +687,8 @@ export const globalKeys = {
         { name: "Pristine Wood", value: "PristineWood" },
         { name: "Broken Metal Parts", value: "MetalParts" },
         { name: "Sturdy Stone", value: "SturdyStone" },
-        { name: "Mysterious Note", value: "MysteriousNote" }
+        { name: "Mysterious Note", value: "MysteriousNote" },
+        { name: "Lyric", value: "Lyric" }
     ],
     Consumable: [
         { name: "Effigy Seed", value: "EffigySeed" },
@@ -712,6 +714,7 @@ export const globalKeys = {
         { name: "Kaelirra's Tears", value: "KaelirrasTears" },
         { name: "Razorcup Nectar", value: "RazorcupNectar" },
         { name: "Ley-crystal Grenade", value: "LeyCrystalGrenade" },
+        { name: "Frozen Kobold", value: "FrozenKobold" },
         { name: "Wyldsap", value: "Wyldsap" },
         { name: "Tome Of Disarm", value: "TomeOfDisarm" },
         { name: "Hornet Honey", value: "HornetHoney" },
@@ -901,6 +904,7 @@ export const globalKeys = {
         { name: "Winterstem", value: "Winterstem" },
         { name: "Ancestral Aegis", value: "AncestralAegis" },
         { name: "Eternal Light", value: "EternalLight" },
+        { name: "Everblossom Hood", value: "EverblossomHood" },
         { name: "Holy Ward", value: "HolyWard" },
         { name: "Counterspelled", value: "Counterspelled" },
         { name: "Banished", value: "Banished" },
@@ -1001,6 +1005,7 @@ export const globalKeys = {
         { name: "Winterstem", value: "Winterstem" },
         { name: "Kaelirra's Tears", value: "KaelirrasTears" },
         { name: "Ley Crystal Grenade", value: "LeyCrystalGrenade" },
+        { name: "Throw Lyric", value: "LyricThrow" },
         { name: "Wyldsap", value: "Wyldsap" },
         { name: "Hornet Honey", value: "HornetHoney" },
         { name: "Hornet Venom", value: "HornetVenom" },
@@ -1175,6 +1180,8 @@ export const globalKeys = {
         { name: "Summon Sporeling", value: "SummonSporeling" },
         { name: "Summon Valkyrie", value: "SummonValkyrie" },
         { name: "Summon Bull", value: "SummonBull" },
+        { name: "Summon Flame Dancer", value: "SummonFlameDancer" },
+        { name: "Summon Flame Knight", value: "SummonFlameKnight" },
         { name: "Normal Attack", value: "NormalAttack" },
         { name: "Rend", value: "Rend" },
         { name: "Fading Strike", value: "FadingStrike" },
