@@ -299,6 +299,7 @@ export const globalKeys = {
         { name: "Sanctified Gladius", value: "SanctifiedGladius" },
         { name: "Spiraled Staff", value: "SpiraledStaff" },
         { name: "Spiraled Blade", value: "SpiraledBlade" },
+        { name: "Salamander Spellblade", value: "SalamanderSpellblade" },
         { name: "Birch Staff", value: "BirchStaff" },
         { name: "Whitewood Bow", value: "WhitewoodBow" },
         { name: "Belharan Claymore", value: "BelharanClaymore" },
@@ -339,6 +340,7 @@ export const globalKeys = {
         { name: "Leather Coat", value: "LeatherCoat" },
         { name: "Passion Priestess Garb", value: "PassionPriestessGarb" },
         { name: "Gifted Witch Garb", value: "GiftedWitchGarb" },
+        { name: "Hexblade Leathers", value: "HexbladeLeathers" },
         { name: "Aronas Warhides", value: "AronasWarhides" },
         { name: "Warhides", value: "Warhides" },
         { name: "Loincloth And Guards", value: "LoinclothAndGuards" },
@@ -443,7 +445,8 @@ export const globalKeys = {
         { name: "Mare's Ring", value: "MaresRing" },
         { name: "Hornet Ring", value: "HornetRing" },
         { name: "Lucky Strike", value: "LuckyStrike" },
-        { name: "Charm", value: "Charm" }
+        { name: "Charm", value: "Charm" },
+        { name: "Kaneituuhou", value: "Kaneituuhou" }
     ],
     TopGarb: [
         { name: "Lacey Bra", value: "LaceyBra" },
@@ -738,6 +741,7 @@ export const globalKeys = {
     Set: [
         { name: "Passion Priestess Garb", value: "PassionSet" },
         { name: "Witch Gear", value: "WitchGearSet" },
+        { name: "Hexblade Leathers", value: "HexbladeLeatherSet" },
         { name: "Loin Set", value: "LoinSet" },
         { name: "Female Loin Set", value: "FemaleLoinSet" },
         { name: "Winter Knight Set", value: "WinterKnightSet" },
@@ -1036,6 +1040,7 @@ export const globalKeys = {
         { name: "Banshee Wail", value: "BansheeWail" },
         { name: "Resplendent Aria", value: "ResplendentAria" },
         { name: "Take Cover", value: "TakeCover" },
+        { name: "Prestidigitation", value: "Prestidigitation" },
         { name: "Punch", value: "Punch" },
         { name: "Butt Stomp", value: "ButtStomp" },
         { name: "Aerial Drop", value: "AerialDrop" },
@@ -1195,6 +1200,7 @@ export const globalKeys = {
         { name: "Wyvern Ignition", value: "WyvernIgnition" },
         { name: "Shell Cracker", value: "ShellCracker" },
         { name: "Shadow Strike", value: "ShadowStrike" },
+        { name: "Precise Thrust", value: "PreciseThrust" },
         { name: "Mark For Death", value: "MarkForDeath" },
         { name: "Prime Target", value: "PrimeTarget" },
         { name: "Giant's Reach", value: "GiantsReach" },
