@@ -13040,9 +13040,16 @@ h4 {
             sizeMod: 0,
         };
     }
+    function createPerk(key) {
+        return {
+            key,
+            values: [0, 0, 0, 0, 0, 0],
+        };
+    }
     function createEffect(key) {
         return {
             key,
+            duration: null,
             values: [0, 0, 0, 0, 0, 0],
         };
     }
@@ -13744,6 +13751,23 @@ h4 {
             this.filterBar = new FilterBar(filterList, this.html.filterBar);
             // Item Attribute List
             const getSelectedEffectIndex = () => effectsLookup.get().findIndex((effect) => { var _a; return effect.key === ((_a = this.selected) === null || _a === void 0 ? void 0 : _a.key); });
+            const durationField = new Label('Duration', new NumberField({
+                get: () => {
+                    var _a;
+                    const effectIndex = getSelectedEffectIndex();
+                    if (~effectIndex)
+                        return (_a = effectsLookup.get()[effectIndex].duration) !== null && _a !== void 0 ? _a : 0;
+                    else
+                        return 0;
+                },
+                set: (newValue) => {
+                    const effectIndex = getSelectedEffectIndex();
+                    if (~effectIndex)
+                        effectsLookup.get()[effectIndex].duration = newValue;
+                }
+            }));
+            this.attrFields.push(durationField);
+            this.html.attrs.appendChild(durationField.html.element);
             for (let index = 0; index < MAX_EFFECT_VALUES; index++) {
                 const attrField = new Label('Value ' + (index + 1), new NumberField({
                     get: () => {
@@ -13843,6 +13867,11 @@ h4 {
                         const fields = [
                             new Label('Key', new SelectField(globalKeys.Boon, createKeyLookup('key')))
                         ];
+                        const duration = createKeyLookup('duration');
+                        fields.push(new Label('Duration', new NumberField({
+                            get: () => { var _a; return (_a = duration.get()) !== null && _a !== void 0 ? _a : 0; },
+                            set: (value) => duration.set(value)
+                        })));
                         const values = createKeyLookup('values');
                         for (let index = 0; index < MAX_EFFECT_VALUES; index++)
                             fields.push(new Label('Value ' + (index + 1), new NumberField({
@@ -13905,6 +13934,166 @@ h4 {
         }
     }
 
+    class PerkFieldHTML {
+        constructor() {
+            this.element = document.createElement('tr');
+            const equipCell = document.createElement('td');
+            this.element.appendChild(equipCell);
+            this.equip = createCheckBoxEl();
+            equipCell.appendChild(this.equip);
+            const tableCell = document.createElement('td');
+            this.element.appendChild(tableCell);
+            this.radio = document.createElement('input');
+            this.radio.type = 'radio';
+            this.title = document.createElement('label');
+            tableCell.appendChild(this.radio);
+            tableCell.appendChild(this.title);
+        }
+    }
+    class PerkField {
+        constructor(key, text, perksLookup) {
+            this.key = key;
+            this.perksLookup = perksLookup;
+            this.html = new PerkFieldHTML();
+            this.html.title.textContent = text;
+            this.html.radio.id = key + '-' + text;
+            this.html.title.htmlFor = this.html.radio.id;
+        }
+        enable() {
+            this.html.equip.disabled = false;
+            this.html.equip.checked = !!this.perksLookup.get().find((perk) => (perk === null || perk === void 0 ? void 0 : perk.key) === this.key);
+            this.html.radio.disabled = !this.html.equip.checked;
+        }
+        disable() {
+            this.html.equip.disabled = true;
+            this.html.equip.checked = false;
+            this.html.radio.disabled = true;
+        }
+    }
+    class PerksFieldHTML {
+        constructor() {
+            // Element creation
+            this.element = document.createElement('div');
+            this.element.className = 'effects content boxed';
+            // Filter Bar
+            this.filterBar = new FilterBarHTML();
+            this.element.appendChild(this.filterBar.element);
+            const tableScroll = document.createElement('div');
+            tableScroll.className = 'table-scroll';
+            this.element.appendChild(tableScroll);
+            const tableEl = document.createElement('table');
+            tableScroll.appendChild(tableEl);
+            // Table Head
+            const tableHead = document.createElement('thead');
+            tableEl.appendChild(tableHead);
+            const labelRow = document.createElement('tr');
+            tableHead.appendChild(labelRow);
+            const activeLabel = document.createElement('th');
+            activeLabel.textContent = 'Active';
+            labelRow.appendChild(activeLabel);
+            const nameLabel = document.createElement('th');
+            nameLabel.textContent = 'Name';
+            labelRow.appendChild(nameLabel);
+            //
+            this.tableBody = document.createElement('tbody');
+            tableEl.appendChild(this.tableBody);
+            this.attrs = document.createElement('div');
+            this.attrs.className = 'item-attr';
+            this.element.appendChild(this.attrs);
+        }
+    }
+    // class PerkAttrLabel extends Label<FieldWithValue<NullableValueLookup<number>>> {
+    //     public constructor(
+    //         private index: number,
+    //         field: FieldWithValue<NullableValueLookup<number>>
+    //     ) {
+    //         super('Value ' + (index + 1), field);
+    //     }
+    //     public enable() {
+    //         this.html.label.textContent = 'Value ' + (this.index + 1);
+    //         super.enable();
+    //     }
+    // }
+    class PerksField {
+        constructor(name, infoList, perksLookup) {
+            this.perkFields = [];
+            this.attrFields = [];
+            this.html = new PerksFieldHTML();
+            const sortedInfoList = sortGenericInfo(infoList);
+            for (const perkInfo of sortedInfoList) {
+                const perkField = new PerkField(perkInfo.value, perkInfo.name, perksLookup);
+                perkField.html.equip.addEventListener('click', () => {
+                    const perks = perksLookup.get();
+                    const index = perks.findIndex((value) => (value === null || value === void 0 ? void 0 : value.key) === perkInfo.value);
+                    const checked = perkField.html.equip.checked;
+                    if (checked) {
+                        if (!~index)
+                            perks.push(createPerk(perkInfo.value));
+                        perkField.html.radio.disabled = false;
+                        perkField.html.radio.click();
+                    }
+                    else {
+                        if (~index)
+                            perks.splice(index, 1);
+                        if (this.selected === perkField)
+                            this.selected = undefined;
+                        perkField.html.radio.disabled = true;
+                        perkField.html.radio.checked = false;
+                    }
+                });
+                perkField.html.radio.name = name;
+                perkField.html.radio.addEventListener('click', () => {
+                    this.selected = perkField;
+                    for (const field of this.attrFields)
+                        field.enable();
+                });
+                this.html.tableBody.appendChild(perkField.html.element);
+                this.perkFields.push(perkField);
+            }
+            const filterList = this.perkFields.map((entry) => ({ key: entry.key, element: entry.html.element }));
+            this.filterBar = new FilterBar(filterList, this.html.filterBar);
+            // Item Attribute List
+            const getSelectedPerkIndex = () => perksLookup.get().findIndex((perk) => { var _a; return perk.key === ((_a = this.selected) === null || _a === void 0 ? void 0 : _a.key); });
+            for (let index = 0; index < MAX_EFFECT_VALUES; index++) {
+                const attrField = new Label('Value ' + (index + 1), new NumberField({
+                    get: () => {
+                        var _a;
+                        const perkIndex = getSelectedPerkIndex();
+                        if (~perkIndex)
+                            return (_a = perksLookup.get()[perkIndex].values[index]) !== null && _a !== void 0 ? _a : 0;
+                        else
+                            return 0;
+                    },
+                    set: (newValue) => {
+                        const perkIndex = getSelectedPerkIndex();
+                        if (~perkIndex)
+                            perksLookup.get()[perkIndex].values[index] = newValue;
+                    }
+                }));
+                this.attrFields.push(attrField);
+                this.html.attrs.appendChild(attrField.html.element);
+            }
+        }
+        enable() {
+            enable(this.filterBar.html.element);
+            enable(this.html.tableBody);
+            for (const field of this.perkFields)
+                field.enable();
+            this.filterBar.enable();
+            for (const field of this.attrFields)
+                field.enable();
+        }
+        disable() {
+            disable(this.filterBar.html.element);
+            disable(this.html.tableBody);
+            for (const field of this.perkFields)
+                field.disable();
+            this.filterBar.disable();
+            for (const field of this.attrFields)
+                field.disable();
+        }
+    }
+
     function displayCharEffectsContent(getChar) {
         return new TabbedContent([{
                 key: 'powers',
@@ -13913,7 +14102,7 @@ h4 {
             }, {
                 key: 'perks',
                 title: 'Perks',
-                content: new EffectsField('perks', globalKeys.Perks, createValueLookup(getChar, 'perks')),
+                content: new PerksField('perks', globalKeys.Perks, createValueLookup(getChar, 'perks')),
             }, {
                 key: 'statusEffects',
                 title: 'Status',
@@ -14986,9 +15175,9 @@ h4 {
         return disclaimer;
     }
 
-    const editorVersion = "47";
+    const editorVersion = "48";
     const gameVersion = "0.3.45";
-    const lastBreakingVersion = "40";
+    const lastBreakingVersion = "48";
     document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(displayDisclaimer(editorVersion, gameVersion, lastBreakingVersion));
     });
