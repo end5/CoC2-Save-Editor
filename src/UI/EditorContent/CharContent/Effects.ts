@@ -5,6 +5,7 @@ import { displayBoon } from "./EffectContent/Boon";
 import { TabbedContent } from "../../../Display/Fields/TabbedContent";
 import { createValueLookup } from "../../../Data/ValueLookup";
 import { CharType } from "../../../Data/CharTypes";
+import { PerksField } from "./EffectContent/Perks";
 
 export function displayCharEffectsContent(getChar: () => CharType) {
     return new TabbedContent([{
@@ -14,7 +15,7 @@ export function displayCharEffectsContent(getChar: () => CharType) {
     }, {
         key: 'perks',
         title: 'Perks',
-        content: new EffectsField('perks', globalKeys.Perks, createValueLookup(getChar, 'perks')),
+        content: new PerksField('perks', globalKeys.Perks, createValueLookup(getChar, 'perks')),
     }, {
         key: 'statusEffects',
         title: 'Status',

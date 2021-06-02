@@ -21,8 +21,15 @@ export function displayBoon(getChar: () => CharType) {
                         new Label('Key', new SelectField(globalKeys.Boon, createKeyLookup('key')))
                     ];
 
-                    const values = createKeyLookup('values');
+                    const duration = createKeyLookup('duration');
+                    fields.push(
+                        new Label('Duration',
+                            new NumberField({
+                                get: () => duration.get() ?? 0,
+                                set: (value) => duration.set(value)
+                            })));
 
+                    const values = createKeyLookup('values');
                     for (let index = 0; index < MAX_EFFECT_VALUES; index++)
                         fields.push(
                             new Label('Value ' + (index + 1),

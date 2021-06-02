@@ -1,4 +1,4 @@
-import { CharType, VaginaType, EffectType, BreastRowType, CockType, PowerType } from "./CharTypes";
+import { CharType, VaginaType, EffectType, BreastRowType, CockType, PowerType, PerkType } from "./CharTypes";
 import { globalKeys } from "../GameData/GlobalKeys";
 
 export const MAX_INVENTORY_SLOTS = 20;
@@ -223,9 +223,17 @@ export function createBreastRow(): BreastRowType {
     };
 }
 
+export function createPerk<K extends string>(key: K): PerkType<K> {
+    return {
+        key,
+        values: [0, 0, 0, 0, 0, 0] as PerkType<K>['values'],
+    };
+}
+
 export function createEffect<K extends string>(key: K): EffectType<K> {
     return {
         key,
+        duration: null,
         values: [0, 0, 0, 0, 0, 0] as EffectType<K>['values'],
     };
 }

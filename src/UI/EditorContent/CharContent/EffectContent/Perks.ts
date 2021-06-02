@@ -1,15 +1,15 @@
 import { createCheckBoxEl } from "../../../../Display/Input";
 import { FilterBarHTML, FilterBar } from "../../../../Display/Fields/FilterBar";
 import { GenericInfo, sortGenericInfo } from "../../../../Data/GenericInfo";
-import { EffectType } from "../../../../Data/CharTypes";
+import { PerkType } from "../../../../Data/CharTypes";
 import { enable, disable } from "../../../../Display/UIActions";
 import { FieldHTML, Field } from "../../../../Display/HTMLGenerics";
 import { NumberField } from "../../../../Display/Fields/Number";
 import { Label } from "../../../../Display/Fields/Label";
 import { ValueLookup } from "../../../../Data/ValueLookup";
-import { MAX_EFFECT_VALUES, createEffect } from "../../../../Data/Char";
+import { MAX_EFFECT_VALUES, createPerk } from "../../../../Data/Char";
 
-class EffectFieldHTML implements FieldHTML<HTMLTableRowElement> {
+class PerkFieldHTML implements FieldHTML<HTMLTableRowElement> {
     public readonly element: HTMLTableRowElement;
     public readonly equip: HTMLInputElement;
     public readonly radio: HTMLInputElement;
@@ -36,15 +36,15 @@ class EffectFieldHTML implements FieldHTML<HTMLTableRowElement> {
     }
 }
 
-class EffectField<K extends string> implements Field {
-    public readonly html: EffectFieldHTML;
+class PerkField<K extends string> implements Field {
+    public readonly html: PerkFieldHTML;
 
     public constructor(
         public readonly key: string,
         text: string,
-        private effectsLookup: ValueLookup<EffectType<K>[]>
+        private perksLookup: ValueLookup<PerkType<K>[]>
     ) {
-        this.html = new EffectFieldHTML();
+        this.html = new PerkFieldHTML();
         this.html.title.textContent = text;
         this.html.radio.id = key + '-' + text;
         this.html.title.htmlFor = this.html.radio.id;
@@ -52,7 +52,7 @@ class EffectField<K extends string> implements Field {
 
     public enable() {
         this.html.equip.disabled = false;
-        this.html.equip.checked = !!this.effectsLookup.get().find((effect) => effect?.key === this.key);
+        this.html.equip.checked = !!this.perksLookup.get().find((perk) => perk?.key === this.key);
         this.html.radio.disabled = !this.html.equip.checked;
     }
 
@@ -63,7 +63,7 @@ class EffectField<K extends string> implements Field {
     }
 }
 
-class EffectsFieldHTML implements FieldHTML<HTMLDivElement> {
+class PerksFieldHTML implements FieldHTML<HTMLDivElement> {
     public readonly element: HTMLDivElement;
     public readonly filterBar: FilterBarHTML;
     public readonly tableBody: HTMLTableSectionElement;
@@ -110,7 +110,7 @@ class EffectsFieldHTML implements FieldHTML<HTMLDivElement> {
     }
 }
 
-// class EffectAttrLabel extends Label<FieldWithValue<NullableValueLookup<number>>> {
+// class PerkAttrLabel extends Label<FieldWithValue<NullableValueLookup<number>>> {
 //     public constructor(
 //         private index: number,
 //         field: FieldWithValue<NullableValueLookup<number>>
@@ -126,98 +126,78 @@ class EffectsFieldHTML implements FieldHTML<HTMLDivElement> {
 //     }
 // }
 
-export class EffectsField<K extends string, G extends GenericInfo<K> = GenericInfo<K>> implements Field {
-    public readonly html: EffectsFieldHTML;
-    private effectFields: EffectField<K>[] = [];
+export class PerksField<K extends string, G extends GenericInfo<K> = GenericInfo<K>> implements Field {
+    public readonly html: PerksFieldHTML;
+    private perkFields: PerkField<K>[] = [];
     private attrFields: Label<NumberField>[] = [];
     private filterBar: FilterBar;
-    private selected?: EffectField<K>;
+    private selected?: PerkField<K>;
 
-    public constructor(name: string, infoList: readonly G[], effectsLookup: ValueLookup<EffectType<K>[]>) {
-        this.html = new EffectsFieldHTML();
+    public constructor(name: string, infoList: readonly G[], perksLookup: ValueLookup<PerkType<K>[]>) {
+        this.html = new PerksFieldHTML();
 
         const sortedInfoList = sortGenericInfo(infoList);
-        for (const effectInfo of sortedInfoList) {
-            const effectField = new EffectField(effectInfo.value, effectInfo.name, effectsLookup);
+        for (const perkInfo of sortedInfoList) {
+            const perkField = new PerkField(perkInfo.value, perkInfo.name, perksLookup);
 
-            effectField.html.equip.addEventListener('click', () => {
-                const effects = effectsLookup.get();
-                const index = effects.findIndex((value) => value?.key === effectInfo.value);
-                const checked = effectField.html.equip.checked;
+            perkField.html.equip.addEventListener('click', () => {
+                const perks = perksLookup.get();
+                const index = perks.findIndex((value) => value?.key === perkInfo.value);
+                const checked = perkField.html.equip.checked;
 
                 if (checked) {
                     if (!~index)
-                        effects.push(createEffect(effectInfo.value));
+                        perks.push(createPerk(perkInfo.value));
 
-                    effectField.html.radio.disabled = false;
-                    effectField.html.radio.click();
+                    perkField.html.radio.disabled = false;
+                    perkField.html.radio.click();
                 }
                 else {
                     if (~index)
-                        effects.splice(index, 1);
+                        perks.splice(index, 1);
 
-                    if (this.selected === effectField)
+                    if (this.selected === perkField)
                         this.selected = undefined;
-                    effectField.html.radio.disabled = true;
-                    effectField.html.radio.checked = false;
+                    perkField.html.radio.disabled = true;
+                    perkField.html.radio.checked = false;
                 }
             });
 
-            effectField.html.radio.name = name;
-            effectField.html.radio.addEventListener('click', () => {
-                this.selected = effectField;
+            perkField.html.radio.name = name;
+            perkField.html.radio.addEventListener('click', () => {
+                this.selected = perkField;
 
                 for (const field of this.attrFields)
                     field.enable();
             });
 
-            this.html.tableBody.appendChild(effectField.html.element);
+            this.html.tableBody.appendChild(perkField.html.element);
 
-            this.effectFields.push(effectField);
+            this.perkFields.push(perkField);
         }
 
-        const filterList = this.effectFields.map((entry) => ({ key: entry.key, element: entry.html.element }));
+        const filterList = this.perkFields.map((entry) => ({ key: entry.key, element: entry.html.element }));
         this.filterBar = new FilterBar(filterList, this.html.filterBar);
 
         // Item Attribute List
 
-        const getSelectedEffectIndex = () => effectsLookup.get().findIndex((effect) => effect.key === this.selected?.key);
-
-        const durationField = new Label('Duration',
-            new NumberField(
-                {
-                    get: () => {
-                        const effectIndex = getSelectedEffectIndex();
-                        if (~effectIndex)
-                            return effectsLookup.get()[effectIndex].duration ?? 0;
-                        else
-                            return 0;
-                    },
-                    set: (newValue) => {
-                        const effectIndex = getSelectedEffectIndex();
-                        if (~effectIndex)
-                            effectsLookup.get()[effectIndex].duration = newValue;
-                    }
-                }
-            ));
-        this.attrFields.push(durationField);
-        this.html.attrs.appendChild(durationField.html.element);
+        const getSelectedPerkIndex = () => perksLookup.get().findIndex((perk) => perk.key === this.selected?.key);
 
         for (let index = 0; index < MAX_EFFECT_VALUES; index++) {
             const attrField = new Label('Value ' + (index + 1),
                 new NumberField(
                     {
                         get: () => {
-                            const effectIndex = getSelectedEffectIndex();
-                            if (~effectIndex)
-                                return effectsLookup.get()[effectIndex].values[index] ?? 0;
+                            const perkIndex = getSelectedPerkIndex();
+                            if (~perkIndex)
+                                return perksLookup.get()[perkIndex].values[index] ?? 0;
                             else
                                 return 0;
                         },
                         set: (newValue) => {
-                            const effectIndex = getSelectedEffectIndex();
-                            if (~effectIndex)
-                                effectsLookup.get()[effectIndex].values[index] = newValue;
+                            const perkIndex = getSelectedPerkIndex();
+                            if (~perkIndex)
+                                perksLookup.get()[perkIndex].values[index] = newValue;
                         }
                     }
                 ));
@@ -230,7 +210,7 @@ export class EffectsField<K extends string, G extends GenericInfo<K> = GenericIn
         enable(this.filterBar.html.element);
         enable(this.html.tableBody);
 
-        for (const field of this.effectFields)
+        for (const field of this.perkFields)
             field.enable();
 
         this.filterBar.enable();
@@ -243,7 +223,7 @@ export class EffectsField<K extends string, G extends GenericInfo<K> = GenericIn
         disable(this.filterBar.html.element);
         disable(this.html.tableBody);
 
-        for (const field of this.effectFields)
+        for (const field of this.perkFields)
             field.disable();
 
         this.filterBar.disable();

@@ -103,7 +103,7 @@ export interface CharType {
     pheromoneResist: number;
     fatigueResist: number;
     mindResist: number;
-    perks: EffectType<PerkKeys>[];
+    perks: PerkType<PerkKeys>[];
     powers: (PowerType | undefined)[];
     equippedPowers: [PowerType?, PowerType?, PowerType?, PowerType?, PowerType?];
     combatEffects: EffectType<CombatEffectKeys>[];
@@ -281,8 +281,14 @@ export interface ItemType<Key extends string> {
     args: [number?, number?, number?, number?, number?, number?];
 }
 
+export interface PerkType<Key extends string> {
+    key: Key;
+    values: [number?, number?, number?, number?, number?, number?];
+}
+
 export interface EffectType<Key extends string> {
     key: Key;
+    duration: number | null;
     values: [number?, number?, number?, number?, number?, number?];
 }
 
