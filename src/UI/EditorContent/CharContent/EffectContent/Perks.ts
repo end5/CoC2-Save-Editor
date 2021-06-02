@@ -46,7 +46,8 @@ class PerkField<K extends string> implements Field {
     ) {
         this.html = new PerkFieldHTML();
         this.html.title.textContent = text;
-        this.html.radio.id = key + '-' + text;
+        // Ids cannot have spaces in them
+        this.html.radio.id = key + '-' + text.split(' ').join('_') + '-perk';
         this.html.title.htmlFor = this.html.radio.id;
     }
 

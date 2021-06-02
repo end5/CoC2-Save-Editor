@@ -8,6 +8,7 @@ import { NumberField } from "../../../../Display/Fields/Number";
 import { Label } from "../../../../Display/Fields/Label";
 import { ValueLookup } from "../../../../Data/ValueLookup";
 import { MAX_EFFECT_VALUES, createEffect } from "../../../../Data/Char";
+import { NumberOrNullField } from "../../../../Display/Fields/NumberOrNull";
 
 class EffectFieldHTML implements FieldHTML<HTMLTableRowElement> {
     public readonly element: HTMLTableRowElement;
@@ -46,7 +47,8 @@ class EffectField<K extends string> implements Field {
     ) {
         this.html = new EffectFieldHTML();
         this.html.title.textContent = text;
-        this.html.radio.id = key + '-' + text;
+        // Ids cannot have spaces in them
+        this.html.radio.id = key + '-' + text.split(' ').join('_') + '-effect';
         this.html.title.htmlFor = this.html.radio.id;
     }
 
@@ -129,7 +131,7 @@ class EffectsFieldHTML implements FieldHTML<HTMLDivElement> {
 export class EffectsField<K extends string, G extends GenericInfo<K> = GenericInfo<K>> implements Field {
     public readonly html: EffectsFieldHTML;
     private effectFields: EffectField<K>[] = [];
-    private attrFields: Label<NumberField>[] = [];
+    private attrFields: Label<NumberField | NumberOrNullField>[] = [];
     private filterBar: FilterBar;
     private selected?: EffectField<K>;
 
@@ -184,12 +186,12 @@ export class EffectsField<K extends string, G extends GenericInfo<K> = GenericIn
         const getSelectedEffectIndex = () => effectsLookup.get().findIndex((effect) => effect.key === this.selected?.key);
 
         const durationField = new Label('Duration',
-            new NumberField(
+            new NumberOrNullField(
                 {
                     get: () => {
                         const effectIndex = getSelectedEffectIndex();
                         if (~effectIndex)
-                            return effectsLookup.get()[effectIndex].duration ?? 0;
+                            return effectsLookup.get()[effectIndex].duration;
                         else
                             return 0;
                     },

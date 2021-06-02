@@ -8,6 +8,7 @@ import { Field } from "../../../../Display/HTMLGenerics";
 import { Label } from "../../../../Display/Fields/Label";
 import { createValueLookup } from "../../../../Data/ValueLookup";
 import { createEffect, MAX_EFFECT_VALUES } from "../../../../Data/Char";
+import { NumberOrNullField } from "../../../../Display/Fields/NumberOrNull";
 
 export function displayBoon(getChar: () => CharType) {
     return new Category([{
@@ -24,8 +25,8 @@ export function displayBoon(getChar: () => CharType) {
                     const duration = createKeyLookup('duration');
                     fields.push(
                         new Label('Duration',
-                            new NumberField({
-                                get: () => duration.get() ?? 0,
+                            new NumberOrNullField({
+                                get: () => duration.get(),
                                 set: (value) => duration.set(value)
                             })));
 
