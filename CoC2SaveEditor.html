@@ -13631,6 +13631,30 @@ h4 {
         }
     }
 
+    class NumberOrNullFieldHTML {
+        constructor() {
+            this.element = createField();
+            this.input = createTextInput();
+            this.element.appendChild(this.input);
+        }
+    }
+    class NumberOrNullField {
+        constructor(value, html = new NumberOrNullFieldHTML()) {
+            this.value = value;
+            this.html = html;
+            this.html.input.addEventListener('change', function () { value.set(this.value === 'null' ? null : !isNaN(+this.value) ? +this.value : 0); });
+        }
+        enable() {
+            const value = this.value.get();
+            this.html.input.value = value === null ? 'null' : value && !isNaN(value) ? value + '' : '0';
+            this.html.input.disabled = false;
+        }
+        disable() {
+            this.html.input.disabled = true;
+            this.html.input.value = '';
+        }
+    }
+
     class EffectFieldHTML {
         constructor() {
             this.element = document.createElement('tr');
@@ -13653,7 +13677,8 @@ h4 {
             this.effectsLookup = effectsLookup;
             this.html = new EffectFieldHTML();
             this.html.title.textContent = text;
-            this.html.radio.id = key + '-' + text;
+            // Ids cannot have spaces in them
+            this.html.radio.id = key + '-' + text.split(' ').join('_') + '-effect';
             this.html.title.htmlFor = this.html.radio.id;
         }
         enable() {
@@ -13751,12 +13776,11 @@ h4 {
             this.filterBar = new FilterBar(filterList, this.html.filterBar);
             // Item Attribute List
             const getSelectedEffectIndex = () => effectsLookup.get().findIndex((effect) => { var _a; return effect.key === ((_a = this.selected) === null || _a === void 0 ? void 0 : _a.key); });
-            const durationField = new Label('Duration', new NumberField({
+            const durationField = new Label('Duration', new NumberOrNullField({
                 get: () => {
-                    var _a;
                     const effectIndex = getSelectedEffectIndex();
                     if (~effectIndex)
-                        return (_a = effectsLookup.get()[effectIndex].duration) !== null && _a !== void 0 ? _a : 0;
+                        return effectsLookup.get()[effectIndex].duration;
                     else
                         return 0;
                 },
@@ -13868,8 +13892,8 @@ h4 {
                             new Label('Key', new SelectField(globalKeys.Boon, createKeyLookup('key')))
                         ];
                         const duration = createKeyLookup('duration');
-                        fields.push(new Label('Duration', new NumberField({
-                            get: () => { var _a; return (_a = duration.get()) !== null && _a !== void 0 ? _a : 0; },
+                        fields.push(new Label('Duration', new NumberOrNullField({
+                            get: () => duration.get(),
                             set: (value) => duration.set(value)
                         })));
                         const values = createKeyLookup('values');
@@ -13956,7 +13980,8 @@ h4 {
             this.perksLookup = perksLookup;
             this.html = new PerkFieldHTML();
             this.html.title.textContent = text;
-            this.html.radio.id = key + '-' + text;
+            // Ids cannot have spaces in them
+            this.html.radio.id = key + '-' + text.split(' ').join('_') + '-perk';
             this.html.title.htmlFor = this.html.radio.id;
         }
         enable() {
@@ -15175,9 +15200,9 @@ h4 {
         return disclaimer;
     }
 
-    const editorVersion = "48";
+    const editorVersion = "49";
     const gameVersion = "0.3.45";
-    const lastBreakingVersion = "48";
+    const lastBreakingVersion = "49";
     document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(displayDisclaimer(editorVersion, gameVersion, lastBreakingVersion));
     });
