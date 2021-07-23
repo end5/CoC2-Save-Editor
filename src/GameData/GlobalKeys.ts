@@ -9,6 +9,7 @@ export const globalKeys = {
         { name: "Minotaur", value: "Minotaur" },
         { name: "Cowgirl", value: "Cowgirl" },
         { name: "Taeleer", value: "Taeleer" },
+        { name: "Bearfolk", value: "Bearfolk" },
         { name: "Sheepfolk", value: "Sheepfolk" },
         { name: "Foxmorph", value: "Foxmorph" },
         { name: "Kitsune", value: "Kitsune" },
@@ -22,6 +23,9 @@ export const globalKeys = {
         { name: "Marefolk", value: "Marefolk" },
         { name: "Spiderfolk", value: "Spiderfolk" },
         { name: "Leothran", value: "Leothran" },
+        { name: "Deerfolk", value: "Deerfolk" },
+        { name: "Catmorph", value: "Catmorph" },
+        { name: "Siorcanna", value: "Siorcanna" },
         { name: "Centaur", value: "Centaur" }
     ],
     Taxon: [
@@ -112,7 +116,10 @@ export const globalKeys = {
         { name: "Humanmasked", value: 34 },
         { name: "Leothran", value: 36 },
         { name: "Plant", value: 37 },
-        { name: "Bushel", value: 38 }
+        { name: "Bushel", value: 38 },
+        { name: "Ursine", value: 39 },
+        { name: "Cervine", value: 40 },
+        { name: "Catmorph", value: 41 }
     ],
     BodyTag: [
         { name: "Internal", value: 0 },
@@ -375,7 +382,8 @@ export const globalKeys = {
             name: "Blackened Bronze Chestpiece",
             value: "BlackenedBronzeChestpiece"
         },
-        { name: "Pretty Pink Corset", value: "PrettyPinkCorset" }
+        { name: "Pretty Pink Corset", value: "PrettyPinkCorset" },
+        { name: "Dream-Plate", value: "DreamPlate" }
     ],
     ItemHead: [
         { name: "Witch's Hat", value: "WitchsHat" },
@@ -386,7 +394,8 @@ export const globalKeys = {
         { name: "Hoplon Helm", value: "HoplonHelm" },
         { name: "Kabuto", value: "Kabuto" },
         { name: "Everblossom Hood", value: "EverblossomHood" },
-        { name: "Silver Mask", value: "SilverMask" }
+        { name: "Silver Mask", value: "SilverMask" },
+        { name: "Lureling's Eye", value: "LurelingsEye" }
     ],
     ItemNeck: [
         { name: "Ward Amulet", value: "WardAmulet" },
@@ -418,7 +427,8 @@ export const globalKeys = {
         { name: "Silver Bracelet", value: "SilverBracelets" },
         { name: "Arm-length Leather Gloves", value: "ArmLeatherGloves" },
         { name: "Royal Gloves", value: "RoyalGloves" },
-        { name: "Scaredy Cat Gloves", value: "CatGloves" }
+        { name: "Scaredy Cat Gloves", value: "CatGloves" },
+        { name: "Gloves Of Giant Strength", value: "GiantsGloves" }
     ],
     ItemWaist: [
         { name: "Potion Belt", value: "PotionBelt" },
@@ -690,6 +700,26 @@ export const globalKeys = {
             name: "Ice Rose",
             value: "IceRose",
             attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Ursus Bulb",
+            value: "UrsusBulb",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Wild Chicory",
+            value: "WildChicory",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Catnip Tea",
+            value: "CatnipTea",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Siorc Bulbs",
+            value: "SiorcBulb",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
         }
     ],
     Misc: [
@@ -707,6 +737,9 @@ export const globalKeys = {
         { name: "Hair Growth Potion", value: "HairGrowthPotion" },
         { name: "Beard Growth Potion", value: "BeardGrowthPotion" },
         { name: "Get Good Facial-Scrub", value: "FacialScrub" },
+        { name: "Ashenstone", value: "Ashenstone" },
+        { name: "Emberstone", value: "Emberstone" },
+        { name: "Blazingstone", value: "Blazingstone" },
         { name: "Lyric", value: "Lyric" }
     ],
     Consumable: [
@@ -811,7 +844,8 @@ export const globalKeys = {
         { name: "Dire Wolf Corpse", value: "DireWolfCorpse" },
         { name: "Summoning Book", value: "SummoningBook" },
         { name: "Ghostlight Piercing", value: "GhostlightPiercing" },
-        { name: "Lactic Studs", value: "LacticStuds" }
+        { name: "Lactic Studs", value: "LacticStuds" },
+        { name: "Ornate Lantern", value: "Lantern" }
     ],
     Boon: [
         { name: "Velun's Blessing", value: "VelunsBlessing" },
@@ -1121,11 +1155,13 @@ export const globalKeys = {
         { name: "Jen Execute", value: "JenExecute" },
         { name: "Jen Thunder Strike", value: "JenThunderStrike" },
         { name: "Warg Claw", value: "WargClaw" },
+        { name: "Mule Kick", value: "MuleKick" },
         { name: "Warg Trample", value: "WargTrample" },
         { name: "Bleeding Bite", value: "BleedingBite" },
         { name: "Spear Thrust", value: "SpearThrust" },
         { name: "Vaush Attack", value: "VaushAttack" },
         { name: "Healing Thurible", value: "HealingThurible" },
+        { name: "Healing Howl", value: "HealingHowl" },
         { name: "Apprentice Attack", value: "ApprenticeAttack" },
         { name: "Slime Glomp", value: "SlimeGlomp" },
         { name: "Matiha Fireball", value: "MatihaFireball" },
@@ -1219,6 +1255,8 @@ export const globalKeys = {
         { name: "Summon Bull", value: "SummonBull" },
         { name: "Summon Flame Dancer", value: "SummonFlameDancer" },
         { name: "Summon Flame Knight", value: "SummonFlameKnight" },
+        { name: "Split Self", value: "SplitSelf" },
+        { name: "Lureling's Song", value: "LurelingSong" },
         { name: "Normal Attack", value: "NormalAttack" },
         { name: "Rend", value: "Rend" },
         { name: "Fading Strike", value: "FadingStrike" },
@@ -1281,7 +1319,8 @@ export const globalKeys = {
         { name: "Eviscerate", value: "Eviscerate" },
         { name: "Pc Eviscerate", value: "pcEviscerate" },
         { name: "Eagle Eye", value: "EagleEye" },
-        { name: "Frostfire Shot", value: "FrostfireShot" }
+        { name: "Frostfire Shot", value: "FrostfireShot" },
+        { name: "Ground Pound", value: "GroundPound" }
     ],
     Perks: [
         { name: "Twist The Knife", value: "TwistTheKnife" },
@@ -1304,6 +1343,7 @@ export const globalKeys = {
         { name: "Dance Of The Dunes", value: "DanceOfDunes" },
         { name: "War Paint", value: "WarPaint" },
         { name: "Rending Strike", value: "RendingStrike" },
+        { name: "Overbearing", value: "Overbearing" },
         { name: "Frenzy", value: "Frenzy" },
         { name: "Eye Of The Storm", value: "EyeOfTheStorm" },
         { name: "Journeyman Summoner", value: "JourneymanSummoner" },
