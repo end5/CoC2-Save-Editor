@@ -1,9 +1,9 @@
 import "./Window";
 import { displayDisclaimer } from "./UI/Disclaimer";
 
-const editorVersion = "51";
-const gameVersion = "0.4.14";
-const lastBreakingVersion = "49";
+const editorVersion = "52";
+const gameVersion = "0.4.23";
+const lastBreakingVersion = "52";
 
 document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(displayDisclaimer(editorVersion, gameVersion, lastBreakingVersion));

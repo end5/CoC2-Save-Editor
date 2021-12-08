@@ -22,7 +22,10 @@ export function displayBodyContent(getChar: () => CharType) {
             new Label('Femininity', new NumberField(createValueLookup(getChar, 'femininity'))),
             new Label('Height', new NumberField(createValueLookup(getChar, 'tallness'))),
             new Label('Tone', new NumberField(createValueLookup(getChar, 'tone'))),
-            new Label('Thickness', new NumberField(createValueLookup(getChar, 'thickness'))),
+            new Label('Thickness', new NumberField({
+                get: () => getChar().thickness == null ? getChar().thickness : getChar()._thickness,
+                set: (value) => getChar().thickness == null ? getChar().thickness = value : getChar()._thickness = value,        
+            })),
         ]
     }, {
         title: 'Skin',
@@ -48,13 +51,19 @@ export function displayBodyContent(getChar: () => CharType) {
     }, {
         title: 'Belly',
         list: [
-            new Label('Size Raw', new NumberField(createValueLookup(getChar, 'bellyRatingRaw'))),
+            new Label('Size Raw', new NumberField({
+                get: () => getChar().bellyRatingRaw == null ? getChar().bellyRatingRaw : getChar()._bellyRatingRaw,
+                set: (value) => getChar().bellyRatingRaw == null ? getChar().bellyRatingRaw = value : getChar()._bellyRatingRaw = value,        
+            })),
             new Label('Size Mod', new NumberField(createValueLookup(getChar, 'bellyRatingMod'))),
         ]
     }, {
         title: 'Hips',
         list: [
-            new Label('Size Raw', new NumberField(createValueLookup(getChar, 'hipRatingRaw'))),
+            new Label('Size Raw', new NumberField({
+                get: () => getChar().hipRatingRaw == null ? getChar().hipRatingRaw : getChar()._hipRatingRaw,
+                set: (value) => getChar().hipRatingRaw == null ? getChar().hipRatingRaw = value : getChar()._hipRatingRaw = value,        
+            })),
             new Label('Size Mod', new NumberField(createValueLookup(getChar, 'hipRatingMod'))),
         ]
     }, {
@@ -76,7 +85,10 @@ export function displayBodyContent(getChar: () => CharType) {
                 }
             })),
             new Label('Color', new StringField(createValueLookup(getButt, '_color'))),
-            new Label('Size Raw', new NumberField(createValueLookup(getChar, 'buttRatingRaw'))),
+            new Label('Size Raw', new NumberField({
+                get: () => getChar().buttRatingRaw == null ? getChar().buttRatingRaw : getChar()._buttRatingRaw,
+                set: (value) => getChar().buttRatingRaw == null ? getChar().buttRatingRaw = value : getChar()._buttRatingRaw = value,        
+            })),
             new Label('Size Mod', new NumberField(createValueLookup(getChar, 'buttRatingMod'))),
             new Label('Wetness Raw', new NumberField(createValueLookup(getButt, 'wetnessRaw'))),
             new Label('Wetness Mod', new NumberField(createValueLookup(getButt, 'wetnessMod'))),

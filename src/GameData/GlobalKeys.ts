@@ -28,6 +28,8 @@ export const globalKeys = {
         { name: "Catmorph", value: "Catmorph" },
         { name: "Siorcanna", value: "Siorcanna" },
         { name: "Plantfolk", value: "Plantfolk" },
+        { name: "Vesparan", value: "Vesparan" },
+        { name: "Demonmorph", value: "Demonmorph" },
         { name: "Centaur", value: "Centaur" }
     ],
     Taxon: [
@@ -122,7 +124,8 @@ export const globalKeys = {
         { name: "Ursine", value: 39 },
         { name: "Cervine", value: 40 },
         { name: "Catmorph", value: 41 },
-        { name: "Lizard", value: 42 }
+        { name: "Lizard", value: 42 },
+        { name: "Hornet", value: 43 }
     ],
     BodyTag: [
         { name: "Internal", value: 0 },
@@ -174,7 +177,11 @@ export const globalKeys = {
         { name: "Wooly", value: 46 },
         { name: "Ignan", value: 47 },
         { name: "Antennae", value: 48 },
-        { name: "Curly", value: 49 }
+        { name: "Curly", value: 49 },
+        { name: "Bushel", value: 50 },
+        { name: "Short", value: 51 },
+        { name: "Hipped", value: 52 },
+        { name: "Flushed", value: 53 }
     ],
     FluidType: [
         { name: "None", value: -1 },
@@ -482,7 +489,8 @@ export const globalKeys = {
         { name: "Linen Tunic", value: "LinenTunic" },
         { name: "Black Seaweave Bra", value: "BlackSeaweaveBra" },
         { name: "Pink Seaweave Bra", value: "PinkSeaweaveBra" },
-        { name: "Latex Bra", value: "LatexBra" }
+        { name: "Latex Bra", value: "LatexBra" },
+        { name: "Cowprint Bra", value: "CowprintBra" }
     ],
     BottomGarb: [
         { name: "Plain Underwear", value: "PlainUnderwear" },
@@ -494,7 +502,8 @@ export const globalKeys = {
         { name: "Slutty Seaweave Panties", value: "SluttySeaweavePanties" },
         { name: "Pink Seaweave Thong", value: "PinkSeaweaveThong" },
         { name: "Latex Panties", value: "LatexPanties" },
-        { name: "Latex Shorts", value: "LatexShorts" }
+        { name: "Latex Shorts", value: "LatexShorts" },
+        { name: "Cowprint Panties", value: "CowprintPanties" }
     ],
     Offhand: [
         { name: "Hoplon Shield", value: "HoplonShield" },
@@ -755,6 +764,31 @@ export const globalKeys = {
             name: "Twisted Reed",
             value: "TwistedReed",
             attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Hornet Sting",
+            value: "HornetSting",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Succubus Milk",
+            value: "SuccubusMilk",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Incubus Cum",
+            value: "IncubusCum",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Tainted Clover",
+            value: "TaintedClover",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Ashen Leaf",
+            value: "AshenLeaf",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
         }
     ],
     Misc: [
@@ -893,11 +927,15 @@ export const globalKeys = {
         { name: "Velun's Blessing", value: "VelunsBlessing" },
         { name: "Fountain's Bounty", value: "FountainsBounty" },
         { name: "Honey Mead", value: "HoneyMead" },
+        { name: "Taurus Mead", value: "TaurusMead" },
         { name: "Spiced Wine", value: "SpicedWine" },
+        { name: "Infused Milk", value: "InfusedMilk" },
         { name: "Rye Beer", value: "RyeBeer" },
         { name: "Apple Cider", value: "AppleCider" },
+        { name: "Minoan Sherry", value: "MinoanSherry" },
         { name: "Monastery Ale", value: "MonasteryAle" },
         { name: "Winterberry Wine", value: "WinterberryWine" },
+        { name: "Dragon's Ale", value: "DragonsAle" },
         { name: "Bento Box", value: "BentoBox" },
         { name: "Lover's Dry", value: "LoversDry" },
         { name: "Pale Ale", value: "PaleAle" },
@@ -1029,7 +1067,8 @@ export const globalKeys = {
         { name: "Bark Skin", value: "BarkSkin" },
         { name: "Distracted", value: "Distracted" },
         { name: "Fairy Ring", value: "FairyRing" },
-        { name: "Blur", value: "Blur" }
+        { name: "Blur", value: "Blur" },
+        { name: "Baffled", value: "Baffled" }
     ],
     Powers: [
         { name: "Base Tease", value: "BaseTease" },
@@ -1083,6 +1122,7 @@ export const globalKeys = {
         { name: "Lay On Hands", value: "LayOnHands" },
         { name: "Great Heal", value: "GreatHeal" },
         { name: "Group Heal", value: "GroupHeal" },
+        { name: "Cleansing Bell", value: "CleansingBell" },
         { name: "Guidance", value: "Guidance" },
         { name: "Command Pheromones", value: "CommandPheromones" },
         { name: "Warlord's Cry", value: "WarlordsCry" },
@@ -1236,6 +1276,7 @@ export const globalKeys = {
         { name: "Wintery Bellow", value: "WinteryBellow" },
         { name: "Shadow Magic", value: "ShadowMagic" },
         { name: "Charm Spell", value: "CharmSpell" },
+        { name: "Hypnotic Words", value: "HypnoticWords" },
         { name: "Sun Of Jassira", value: "SunOfJassira" },
         { name: "Fire Bolt", value: "FireBolt" },
         { name: "Pollen Spray", value: "PollenSpray" },
@@ -1279,9 +1320,12 @@ export const globalKeys = {
         { name: "Primal Scar", value: "PrimalScar" },
         { name: "Psychic Blast", value: "PsychicBlast" },
         { name: "Dischord", value: "Dischord" },
+        { name: "Dischordant", value: "Dischordant" },
         { name: "Grand Finale", value: "GrandFinale" },
         { name: "Flare", value: "Flare" },
         { name: "Jade Flame", value: "JadeFlame" },
+        { name: "Baffle", value: "Baffle" },
+        { name: "Frequency Adherence", value: "FrequencyAdherence" },
         { name: "Summon Flame Spirit", value: "SummonFlameSpirit" },
         { name: "Summon Golem", value: "SummonStoneElemental" },
         { name: "Summon Effigy", value: "SummonEffigy" },
@@ -1365,7 +1409,8 @@ export const globalKeys = {
         { name: "Pc Eviscerate", value: "pcEviscerate" },
         { name: "Eagle Eye", value: "EagleEye" },
         { name: "Frostfire Shot", value: "FrostfireShot" },
-        { name: "Ground Pound", value: "GroundPound" }
+        { name: "Ground Pound", value: "GroundPound" },
+        { name: "Echoing Assault", value: "EchoingAssault" }
     ],
     Perks: [
         { name: "Twist The Knife", value: "TwistTheKnife" },
@@ -1437,6 +1482,9 @@ export const globalKeys = {
         { name: "Sex Goddess", value: "SexGoddess" },
         { name: "Corrupted Breeder", value: "CorruptedBreeder" },
         { name: "Corrupted Stud", value: "CorruptedStud" },
+        { name: "Mega Milk", value: "MegaMilk" },
+        { name: "Lubricated Pussy", value: "LubedPussy" },
+        { name: "Nuts Half Full", value: "NutsHalfFull" },
         { name: "Soulbound", value: "Soulbound" },
         { name: "Champion's Resolve", value: "ChampionsResolve" }
     ]
