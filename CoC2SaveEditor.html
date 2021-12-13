@@ -15680,6 +15680,34 @@ h4 {
                 });
                 input.click();
             });
+            document.body.addEventListener("dragenter", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+            document.body.addEventListener("dragleave", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+            document.body.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+            document.body.addEventListener("drop", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (!e.dataTransfer || !e.dataTransfer.files || e.dataTransfer.files.length === 0) {
+                    alert("Error in file loading");
+                }
+                else {
+                    this.html.saveInput.placeholder = e.dataTransfer.files[0].name;
+                    handleFiles(e.dataTransfer.files[0], state, (filename) => {
+                        this.html.saveInput.placeholder = filename;
+                        this.html.saveInput.value = filename;
+                        this.html.saveInput.disabled = false;
+                        onSuccess();
+                    });
+                }
+            });
         }
     }
     function handleFiles(file, state, onSuccess, onFailed) {
@@ -15738,15 +15766,59 @@ h4 {
         const charKeys = Object.keys(charDefaults);
         // This is unsafe. No values are being verified they are correct.
         for (const key of charKeys)
-            saveCopy.chars[key] = Object.assign(createChar(), JSON.parse(JSON.stringify(charDefaults[key])), saveCopy.chars[key]);
+            saveCopy.chars[key] = unpackChar(key, charDefaults[key], saveCopy.chars[key]);
         return saveCopy;
     }
     function packSave(saveObj) {
         const saveCopy = JSON.parse(JSON.stringify(saveObj));
         const charKeys = Object.keys(charDefaults);
-        for (const charKey of charKeys)
-            saveCopy.chars[charKey] = diffChar(charDefaults[charKey], saveCopy.chars[charKey]);
+        for (const key of charKeys)
+            saveCopy.chars[key] = packChar(key, charDefaults[key], saveCopy.chars[key]);
         return saveCopy;
+    }
+    function unpackChar(key, charDefault, charType) {
+        let char = Object.assign(createChar(), JSON.parse(JSON.stringify(charDefault)), charType);
+        if (key == 'cait') {
+            if ('_thickness' in char) {
+                char.thickness = char._thickness;
+                delete char['_thickness'];
+            }
+            if ('_hipRatingRaw' in char) {
+                char.hipRatingRaw = char._hipRatingRaw;
+                delete char['_hipRatingRaw'];
+            }
+            if ('_buttRatingRaw' in char) {
+                char.buttRatingRaw = char._buttRatingRaw;
+                delete char['_buttRatingRaw'];
+            }
+            if ('_bellyRatingRaw' in char) {
+                char.bellyRatingRaw = char._bellyRatingRaw;
+                delete char['_bellyRatingRaw'];
+            }
+        }
+        return char;
+    }
+    function packChar(key, charDefault, charType) {
+        let char = diffChar(charDefault, charType);
+        if (key == 'cait') {
+            if ('thickness' in char) {
+                char._thickness = char.thickness;
+                delete char['thickness'];
+            }
+            if ('hipRatingRaw' in char) {
+                char._hipRatingRaw = char.hipRatingRaw;
+                delete char['hipRatingRaw'];
+            }
+            if ('buttRatingRaw' in char) {
+                char._buttRatingRaw = char.buttRatingRaw;
+                delete char['buttRatingRaw'];
+            }
+            if ('bellyRatingRaw' in char) {
+                char._bellyRatingRaw = char.bellyRatingRaw;
+                delete char['bellyRatingRaw'];
+            }
+        }
+        return char;
     }
     function diffChar(packed, expanded) {
         return Object.keys(expanded)
@@ -15761,6 +15833,8 @@ h4 {
         const editor = window.editor = {};
         editor.state = state;
         editor.diffChar = (key) => diffChar(charDefaults[key], state.editObj.chars[key]);
+        editor.packChar = (key) => packChar(key, charDefaults[key], state.editObj.chars[key]);
+        editor.unpackChar = (key) => unpackChar(key, charDefaults[key], state.editObj.chars[key]);
         editor.charDefaults = charDefaults;
     }
 
@@ -17073,10 +17147,7 @@ h4 {
                     new Label('Femininity', new NumberField(createValueLookup(getChar, 'femininity'))),
                     new Label('Height', new NumberField(createValueLookup(getChar, 'tallness'))),
                     new Label('Tone', new NumberField(createValueLookup(getChar, 'tone'))),
-                    new Label('Thickness', new NumberField({
-                        get: () => getChar().thickness != null ? getChar().thickness : getChar()._thickness,
-                        set: (value) => getChar().thickness != null ? getChar().thickness = value : getChar()._thickness = value,
-                    })),
+                    new Label('Thickness', new NumberField(createValueLookup(getChar, 'thickness'))),
                 ]
             }, {
                 title: 'Skin',
@@ -17102,19 +17173,13 @@ h4 {
             }, {
                 title: 'Belly',
                 list: [
-                    new Label('Size Raw', new NumberField({
-                        get: () => getChar().bellyRatingRaw != null ? getChar().bellyRatingRaw : getChar()._bellyRatingRaw,
-                        set: (value) => getChar().bellyRatingRaw != null ? getChar().bellyRatingRaw = value : getChar()._bellyRatingRaw = value,
-                    })),
+                    new Label('Size Raw', new NumberField(createValueLookup(getChar, 'bellyRatingRaw'))),
                     new Label('Size Mod', new NumberField(createValueLookup(getChar, 'bellyRatingMod'))),
                 ]
             }, {
                 title: 'Hips',
                 list: [
-                    new Label('Size Raw', new NumberField({
-                        get: () => getChar().hipRatingRaw != null ? getChar().hipRatingRaw : getChar()._hipRatingRaw,
-                        set: (value) => getChar().hipRatingRaw != null ? getChar().hipRatingRaw = value : getChar()._hipRatingRaw = value,
-                    })),
+                    new Label('Size Raw', new NumberField(createValueLookup(getChar, 'hipRatingRaw'))),
                     new Label('Size Mod', new NumberField(createValueLookup(getChar, 'hipRatingMod'))),
                 ]
             }, {
@@ -17136,10 +17201,7 @@ h4 {
                         }
                     })),
                     new Label('Color', new StringField(createValueLookup(getButt, '_color'))),
-                    new Label('Size Raw', new NumberField({
-                        get: () => getChar().buttRatingRaw != null ? getChar().buttRatingRaw : getChar()._buttRatingRaw,
-                        set: (value) => getChar().buttRatingRaw != null ? getChar().buttRatingRaw = value : getChar()._buttRatingRaw = value,
-                    })),
+                    new Label('Size Raw', new NumberField(createValueLookup(getChar, 'buttRatingRaw'))),
                     new Label('Size Mod', new NumberField(createValueLookup(getChar, 'buttRatingMod'))),
                     new Label('Wetness Raw', new NumberField(createValueLookup(getButt, 'wetnessRaw'))),
                     new Label('Wetness Mod', new NumberField(createValueLookup(getButt, 'wetnessMod'))),
@@ -17770,9 +17832,9 @@ h4 {
         return disclaimer;
     }
 
-    const editorVersion = "53";
+    const editorVersion = "54";
     const gameVersion = "0.4.23";
-    const lastBreakingVersion = "53";
+    const lastBreakingVersion = "54";
     document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(displayDisclaimer(editorVersion, gameVersion, lastBreakingVersion));
     });
