@@ -6,6 +6,7 @@ import { FieldHTML } from "../Display/HTMLGenerics";
 import { GameSave, CharNames, FlagNames } from "../Data/GameSave";
 import { Flags } from "../GameData/Flags";
 import { createChar } from "../Data/Char";
+import { CharType } from "../Data/CharTypes";
 
 export class SaveLoadBarHTML implements FieldHTML<HTMLDivElement> {
     public readonly element: HTMLDivElement;
@@ -83,6 +84,39 @@ export class SaveLoadBar {
             });
             input.click();
         });
+
+        document.body.addEventListener("dragenter", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        document.body.addEventListener("dragleave", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        document.body.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        document.body.addEventListener("drop", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!e.dataTransfer || !e.dataTransfer.files || e.dataTransfer.files.length === 0) {
+                alert("Error in file loading");
+            }
+            else {
+                this.html.saveInput.placeholder = e.dataTransfer.files[0].name;
+                handleFiles(e.dataTransfer.files[0], state, (filename) => {
+                    this.html.saveInput.placeholder = filename;
+                    this.html.saveInput.value = filename;
+                    this.html.saveInput.disabled = false;
+                    onSuccess();
+                }, () => {
+
+                });
+            }
+        });
+
     }
 }
 
@@ -149,19 +183,41 @@ export function unpackSave(saveObj: GameSave) {
 
     // This is unsafe. No values are being verified they are correct.
     for (const key of charKeys)
-        saveCopy.chars[key] = Object.assign(createChar(), JSON.parse(JSON.stringify(charDefaults[key])), saveCopy.chars[key]);
+        saveCopy.chars[key] = unpackChar(key, charDefaults[key], saveCopy.chars[key]);
 
     return saveCopy;
 }
 
 export function packSave(saveObj: GameSave) {
-    const saveCopy: GameSave = JSON.parse(JSON.stringify(saveObj));
+    const saveCopy = JSON.parse(JSON.stringify(saveObj)) as GameSave;
     const charKeys = Object.keys(charDefaults) as CharNames[];
 
-    for (const charKey of charKeys)
-        saveCopy.chars[charKey] = diffChar(charDefaults[charKey], saveCopy.chars[charKey]);
+    for (const key of charKeys)
+        saveCopy.chars[key] = packChar(key, charDefaults[key], saveCopy.chars[key]);
 
     return saveCopy;
+}
+
+export function unpackChar<K extends keyof typeof charDefaults>(key: K, charDefault: typeof charDefaults[K], charType: CharType) {
+    let char = Object.assign(createChar(), JSON.parse(JSON.stringify(charDefault)), charType);
+    if (key == 'cait') {
+        if ('_thickness' in char) { char.thickness = char._thickness; delete char['_thickness']; }
+        if ('_hipRatingRaw' in char) { char.hipRatingRaw = char._hipRatingRaw; delete char['_hipRatingRaw']; }
+        if ('_buttRatingRaw' in char) { char.buttRatingRaw = char._buttRatingRaw; delete char['_buttRatingRaw']; }
+        if ('_bellyRatingRaw' in char) { char.bellyRatingRaw = char._bellyRatingRaw; delete char['_bellyRatingRaw']; }
+    }
+    return char;
+}
+
+export function packChar<K extends keyof typeof charDefaults>(key: K, charDefault: typeof charDefaults[K], charType: CharType) {
+    let char: any = diffChar(charDefault, charType);
+    if (key == 'cait') {
+        if ('thickness' in char) { char._thickness = char.thickness; delete char['thickness']; }
+        if ('hipRatingRaw' in char) { char._hipRatingRaw = char.hipRatingRaw; delete char['hipRatingRaw']; }
+        if ('buttRatingRaw' in char) { char._buttRatingRaw = char.buttRatingRaw; delete char['buttRatingRaw']; }
+        if ('bellyRatingRaw' in char) { char._bellyRatingRaw = char.bellyRatingRaw; delete char['bellyRatingRaw']; }
+    }
+    return char;
 }
 
 export function diffChar<A extends Record<string, any>, B extends Record<string, any>>(packed: A, expanded: B): B {
