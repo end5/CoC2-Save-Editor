@@ -6,11 +6,13 @@ const fs = require('fs');
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    let contents;
+    let urls = [];
+    let contents = [];
     page.on('response', async (response) => {
         const url = response.url();
-        if (url.includes('main') && url.endsWith('.js')) {
-            contents = await response.text();
+        if (url.endsWith('.js')) {
+            urls.push(url);
+            contents.push(await response.text());
         }
     });
 
@@ -24,6 +26,8 @@ const fs = require('fs');
         await browser.close();
         return;
     }
+
+    console.log('urls', urls);
 
     let obj;
     try {
@@ -93,7 +97,7 @@ const fs = require('fs');
                         const dups = arr.filter(item => item.name === info.name);
                         if (dups.length > 1) {
                             let base = dups.find(item => compareNameValue(item.name, item.value));
-                
+
                             for (let dupIndex = 0; dupIndex < dups.length; dupIndex++) {
                                 const dupInfo = dups[dupIndex];
                                 if (!base || (base && base !== dupInfo))
@@ -243,17 +247,20 @@ const fs = require('fs');
     console.log('Getting flags');
 
     var list = [];
-    var matches = contents.match(/flags\.[\w_]+/g);
-    if (matches && matches.length > 0) {
-        list = list.concat(matches.map((value) => value.substr(6)));
-    }
-    var matches = contents.match(/flags\[['"][\w_]+['"]\]/g);
-    if (matches && matches.length > 0) {
-        list = list.concat(matches.map((value) => value.substr(7, value.length - 2)));
-    }
-    var matches = contents.match(/incFlags\('[\w_]+/g);
-    if (matches && matches.length > 0) {
-        list = list.concat(matches.map((value) => value.substr(10)));
+    for (var index = 0; index < contents.length; ++index) {
+        var content = contents[index];
+        var matches = content.match(/flags\.[\w_]+/g);
+        if (matches && matches.length > 0) {
+            list = list.concat(matches.map((value) => value.substr(6)));
+        }
+        var matches = content.match(/flags\[['"][\w_]+['"]\]/g);
+        if (matches && matches.length > 0) {
+            list = list.concat(matches.map((value) => value.substr(7, value.length - 2)));
+        }
+        var matches = content.match(/incFlags\('[\w_]+/g);
+        if (matches && matches.length > 0) {
+            list = list.concat(matches.map((value) => value.substr(10)));
+        }
     }
 
     const expandedPregFlags = [];
