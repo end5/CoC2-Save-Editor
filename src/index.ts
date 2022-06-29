@@ -1,7 +1,7 @@
 import "./Window";
 import { displayDisclaimer } from "./UI/Disclaimer";
 
-const editorVersion = "57";
+const editorVersion = "58";
 const gameVersion = "0.5.2";
 const lastBreakingVersion = "54";
 

@@ -215,6 +215,7 @@ export interface CharType {
     cumMultiplierRaw: number;
     cumMultiplierMod: number;
     ass: VaginaType;
+    cosmetics: [string, string, string, string, string, string, string, string, string, string, string];
     reagents: {
         "1": number,
         "2": number,

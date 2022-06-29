@@ -11,6 +11,7 @@ import { CharType } from "../../../../Data/CharTypes";
 
 export function displayBodyContent(getChar: () => CharType) {
     const getButt = () => getChar().ass;
+    const getCosmetics = () => getChar().cosmetics;
     return new Category([{
         title: 'General',
         list: [
@@ -44,6 +45,7 @@ export function displayBodyContent(getChar: () => CharType) {
         list: [
             new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'armType'))),
             new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'armTags'))),
+            new Label('Nail Polish', new StringField(createValueLookup(getCosmetics, 2))),
         ]
     }, {
         title: 'Belly',
@@ -92,6 +94,18 @@ export function displayBodyContent(getChar: () => CharType) {
             new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'legType'))),
             new Label('Amount', new NumberField(createValueLookup(getChar, 'legCount'))),
             new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'legTags'))),
+        ]
+    }, {
+        title: 'Tattoos',
+        list: [
+            new Label('Ass', new StringField(createValueLookup(getCosmetics, 3))),
+            new Label('Back', new StringField(createValueLookup(getCosmetics, 4))),
+            new Label('Chest', new StringField(createValueLookup(getCosmetics, 5))),
+            new Label('Collar', new StringField(createValueLookup(getCosmetics, 6))),
+            new Label('Leg', new StringField(createValueLookup(getCosmetics, 7))),
+            new Label('Shoulder', new StringField(createValueLookup(getCosmetics, 8))),
+            new Label('Sleeve', new StringField(createValueLookup(getCosmetics, 9))),
+            new Label('Womb', new StringField(createValueLookup(getCosmetics, 10))),
         ]
     }]);
 }
