@@ -20077,6 +20077,7 @@ h4 {
             cumMultiplierRaw: 0,
             cumMultiplierMod: 0,
             ass: createVagina(),
+            cosmetics: ['', '', '', '', '', '', '', '', '', '', ''],
             reagents: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, },
             defaultCockIdx: 0,
             lastRingSlotEquipped: 0,
@@ -21412,6 +21413,7 @@ h4 {
     }
 
     function displayHeadContent(getChar) {
+        const getCosmetics = () => getChar().cosmetics;
         return new Category([{
                 title: 'Horns',
                 list: [
@@ -21446,12 +21448,14 @@ h4 {
                     new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'eyeType'))),
                     new Label('Color', new StringField(createValueLookup(getChar, 'eyeColor'))),
                     new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'eyeTags'))),
+                    new Label('Eyeshadow', new StringField(createValueLookup(getCosmetics, 1))),
                 ]
             }, {
                 title: 'Lips',
                 list: [
                     new Label('Size Mod', new NumberField(createValueLookup(getChar, 'lipMod'))),
-                    new Label('Color', new StringField(createValueLookup(getChar, 'lipColor')))
+                    new Label('Color', new StringField(createValueLookup(getChar, 'lipColor'))),
+                    new Label('Lipstick', new StringField(createValueLookup(getCosmetics, 0))),
                 ]
             }, {
                 title: 'Tongue',
@@ -21665,6 +21669,7 @@ h4 {
 
     function displayBodyContent(getChar) {
         const getButt = () => getChar().ass;
+        const getCosmetics = () => getChar().cosmetics;
         return new Category([{
                 title: 'General',
                 list: [
@@ -21698,6 +21703,7 @@ h4 {
                 list: [
                     new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'armType'))),
                     new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'armTags'))),
+                    new Label('Nail Polish', new StringField(createValueLookup(getCosmetics, 2))),
                 ]
             }, {
                 title: 'Belly',
@@ -21746,6 +21752,18 @@ h4 {
                     new Label('Type', new SelectField(globalKeys.BodyType, createValueLookup(getChar, 'legType'))),
                     new Label('Amount', new NumberField(createValueLookup(getChar, 'legCount'))),
                     new Label('Tags', new MultiOptionField(globalKeys.BodyTag, createValueLookup(getChar, 'legTags'))),
+                ]
+            }, {
+                title: 'Tattoos',
+                list: [
+                    new Label('Ass', new StringField(createValueLookup(getCosmetics, 3))),
+                    new Label('Back', new StringField(createValueLookup(getCosmetics, 4))),
+                    new Label('Chest', new StringField(createValueLookup(getCosmetics, 5))),
+                    new Label('Collar', new StringField(createValueLookup(getCosmetics, 6))),
+                    new Label('Leg', new StringField(createValueLookup(getCosmetics, 7))),
+                    new Label('Shoulder', new StringField(createValueLookup(getCosmetics, 8))),
+                    new Label('Sleeve', new StringField(createValueLookup(getCosmetics, 9))),
+                    new Label('Womb', new StringField(createValueLookup(getCosmetics, 10))),
                 ]
             }]);
     }
@@ -22361,7 +22379,7 @@ h4 {
         return disclaimer;
     }
 
-    const editorVersion = "57";
+    const editorVersion = "58";
     const gameVersion = "0.5.2";
     const lastBreakingVersion = "54";
     document.addEventListener("DOMContentLoaded", () => {
