@@ -25,6 +25,7 @@ export const globalKeys = {
         { name: "Pexighast", value: "Pexighast" },
         { name: "Plantfolk", value: "Plantfolk" },
         { name: "Salamander", value: "Salamander" },
+        { name: "Saurian", value: "Saurian" },
         { name: "Sheepfolk", value: "Sheepfolk" },
         { name: "Siorcanna", value: "Siorcanna" },
         { name: "Spiderfolk", value: "Spiderfolk" },
@@ -125,7 +126,8 @@ export const globalKeys = {
         { name: "Cervine", value: 40 },
         { name: "Catmorph", value: 41 },
         { name: "Lizard", value: 42 },
-        { name: "Hornet", value: 43 }
+        { name: "Hornet", value: 43 },
+        { name: "Repmorph", value: 44 }
     ],
     BodyTag: [
         { name: "Internal", value: 0 },
@@ -399,6 +401,7 @@ export const globalKeys = {
         { name: "Sigil-bound Jerkin", value: "SigilBoundJerkin" },
         { name: "Lamellar Armour", value: "LamellarArmour" },
         { name: "Ex-cultist Coat", value: "CultistCoat" },
+        { name: "Heartland Mail", value: "HeartlandMail" },
         { name: "Noble Yukata", value: "NobleYukata" },
         { name: "Cultist Robes", value: "CultistRobes" },
         { name: "Royal Leathers", value: "RoyalLeathers" },
@@ -440,7 +443,8 @@ export const globalKeys = {
         { name: "Caster's Hood", value: "CasterHood" },
         { name: "Crested Helm", value: "CrestedHelm" },
         { name: "Bronze Petasos", value: "BronzePetasos" },
-        { name: "Patrician Mask", value: "PatricianMask" }
+        { name: "Patrician Mask", value: "PatricianMask" },
+        { name: "Titanic Hat", value: "TitanicHat" }
     ],
     ItemNeck: [
         { name: "Ward Amulet", value: "WardAmulet" },
@@ -832,6 +836,11 @@ export const globalKeys = {
             name: "Ashen Leaf",
             value: "AshenLeaf",
             attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Odd-Looking Salve",
+            value: "OddSalve",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
         }
     ],
     Misc: [
@@ -855,6 +864,7 @@ export const globalKeys = {
         { name: "Weapons Crate", value: "WeaponsCrate" },
         { name: "Frozen Kobold", value: "FrozenKobold" },
         { name: "Warm Plume", value: "WarmPlume" },
+        { name: "Gold Coin", value: "GoldCoin" },
         { name: "Lyric", value: "Lyric" }
     ],
     Consumable: [
@@ -926,6 +936,7 @@ export const globalKeys = {
         { name: "Pyromancer's Cloth", value: "PyromancersCloth" },
         { name: "Summoner's Gear", value: "SummonerSet" },
         { name: "Ex-cultist Armor", value: "ExcultistSet" },
+        { name: "Hopknight Set", value: "HopknightSet" },
         { name: "Outrider's Gear", value: "OutriderSet" },
         { name: "Knight Set", value: "KnightSet" },
         { name: "Onmyodo", value: "Onmyodo" },
@@ -971,6 +982,7 @@ export const globalKeys = {
         { name: "Promise Ring", value: "PromiseRing" },
         { name: "Proposal Flower", value: "ProposalFlower" },
         { name: "Purple Dye", value: "PurpleDye" },
+        { name: "Quin's Heavy Armor", value: "QuinsHeavyArmor" },
         { name: "Ragnild's New Clothes", value: "RagsDress" },
         { name: "Rampart Key", value: "RampartKey" },
         { name: "Rusty Cauldron", value: "RustyCauldron" },
@@ -1075,6 +1087,7 @@ export const globalKeys = {
         { name: "Baffled", value: "Baffled" },
         { name: "Banished", value: "Banished" },
         { name: "Bark Skin", value: "BarkSkin" },
+        { name: "Battle Blessing", value: "BattleBlessing" },
         { name: "Blade Block", value: "BladeBlock" },
         { name: "Bleeding", value: "Bleeding" },
         { name: "Blessed", value: "Blessed" },
@@ -1138,6 +1151,7 @@ export const globalKeys = {
         { name: "Sweet Protector", value: "SweetProtector" },
         { name: "Tainted Bulwark", value: "TaintedBulwark" },
         { name: "Terrified", value: "Terrified" },
+        { name: "Threat Manifest", value: "ThreatManifest" },
         { name: "Unbreakable", value: "Unbreakable" },
         { name: "Vanguard", value: "Vanguard" },
         { name: "War Hymn", value: "WarHymn" },
@@ -1244,6 +1258,7 @@ export const globalKeys = {
         { name: "Remedy", value: "Remedy" },
         { name: "Resplendent Aria", value: "ResplendentAria" },
         { name: "Revive", value: "Revive" },
+        { name: "Revive Enemy", value: "ReviveEnemy" },
         { name: "Rhythmic Focus", value: "RhythmicFocus" },
         { name: "Shell", value: "Shell" },
         { name: "Shield Of Light", value: "ShieldOfLight" },
@@ -1260,6 +1275,7 @@ export const globalKeys = {
         { name: "Tainted Bulwark", value: "TaintedBulwark" },
         { name: "Take Cover", value: "TakeCover" },
         { name: "Tentacle Shield", value: "TentacleShield" },
+        { name: "Threat Manifest", value: "ThreatManifest" },
         { name: "Tranquility", value: "Tranquility" },
         { name: "Unbreakable", value: "Unbreakable" },
         { name: "Vanguard", value: "Vanguard" },
@@ -1286,6 +1302,7 @@ export const globalKeys = {
         { name: "Exertion", value: "Exertion" },
         { name: "Garrote", value: "Garrote" },
         { name: "Grapple", value: "Grapple" },
+        { name: "Heated Defense", value: "HeatedDefense" },
         { name: "Influence", value: "Influence" },
         { name: "Lightning Fist", value: "LightningFist" },
         { name: "Net Throw", value: "NetThrow" },
@@ -1348,6 +1365,7 @@ export const globalKeys = {
         { name: "Spear Thrust", value: "SpearThrust" },
         { name: "Tentacle Lash", value: "TentacleLash" },
         { name: "Tentacle Slap", value: "TentacleSlap" },
+        { name: "Tentacle Strike", value: "TentacleStrike" },
         { name: "Unintentional Tease", value: "UnintentionalTease" },
         { name: "Unitaur Shatter", value: "UnitaurShatter" },
         { name: "Vaush Attack", value: "VaushAttack" },
@@ -1361,6 +1379,7 @@ export const globalKeys = {
         { name: "Baffle", value: "Baffle" },
         { name: "Banish", value: "BanishSummon" },
         { name: "Banishment", value: "Banishment" },
+        { name: "Battle Blessing", value: "BattleBlessing" },
         { name: "Blight Orb", value: "BlightOrb" },
         { name: "Blue Flame Blade", value: "BlueFlameBlade" },
         { name: "Calamitous Seal", value: "CalamitousSeal" },
@@ -1438,6 +1457,7 @@ export const globalKeys = {
         { name: "Summon Sporeling", value: "SummonSporeling" },
         { name: "Summon Golem", value: "SummonStoneElemental" },
         { name: "Summon Talsenne", value: "SummonTalsenne" },
+        { name: "Summon Tentacle", value: "SummonTentacle" },
         { name: "Summon Valkyrie", value: "SummonValkyrie" },
         { name: "Summon Wisp", value: "SummonWisp" },
         { name: "Summon Wolf Spirit", value: "SummonWolfSpirit" },
@@ -1569,8 +1589,11 @@ export const globalKeys = {
         { name: "Bubble Butt", value: "BubbleButt" },
         { name: "Buxom", value: "Buxom" },
         { name: "Chastity", value: "Chastity" },
+        { name: "Corrupted Alpha", value: "CorruptedAlpha" },
+        { name: "Corrupted Alpha Matriarch", value: "CorruptedAlphaMatriarch" },
         { name: "Corrupted Breeder", value: "CorruptedBreeder" },
         { name: "Corrupted Libido", value: "CorruptedLibido" },
+        { name: "Corrupted Matriarch", value: "CorruptedMatriarch" },
         { name: "Corrupted Stud", value: "CorruptedStud" },
         { name: "Cum Cascades", value: "CumCascades" },
         { name: "Fertility+", value: "FertilityPlus" },
