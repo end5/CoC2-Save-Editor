@@ -1,5 +1,7 @@
 export const globalKeys = {
     Race: [
+        { name: "Anubian", value: "Anubian" },
+        { name: "Batfolk", value: "Batfolk" },
         { name: "Bearfolk", value: "Bearfolk" },
         { name: "Catfolk", value: "Catfolk" },
         { name: "Catmorph", value: "Catmorph" },
@@ -25,6 +27,7 @@ export const globalKeys = {
         { name: "Pexighast", value: "Pexighast" },
         { name: "Plantfolk", value: "Plantfolk" },
         { name: "Salamander", value: "Salamander" },
+        { name: "Satyr", value: "Satyr" },
         { name: "Saurian", value: "Saurian" },
         { name: "Sheepfolk", value: "Sheepfolk" },
         { name: "Siorcanna", value: "Siorcanna" },
@@ -127,7 +130,9 @@ export const globalKeys = {
         { name: "Catmorph", value: 41 },
         { name: "Lizard", value: 42 },
         { name: "Hornet", value: 43 },
-        { name: "Repmorph", value: 44 }
+        { name: "Repmorph", value: 44 },
+        { name: "Anubian", value: 45 },
+        { name: "Bat", value: 46 }
     ],
     BodyTag: [
         { name: "Internal", value: 0 },
@@ -172,7 +177,7 @@ export const globalKeys = {
         { name: "Pumped", value: 39 },
         { name: "Slightly Pumped", value: 40 },
         { name: "Spiked", value: 41 },
-        { name: "Magicock", value: 42 },
+        { name: "Magic", value: 42 },
         { name: "Arctic", value: 43 },
         { name: "Maned", value: 44 },
         { name: "Floppy", value: 45 },
@@ -284,6 +289,7 @@ export const globalKeys = {
     ],
     Weapons: [
         { name: "Walking Staff", value: "CaitsStaff" },
+        { name: "Enchantress's Staff", value: "EnchantressStaff" },
         { name: "Gnarled Staff", value: "GnarledStaff" },
         { name: "Aronas Mastbreaker", value: "AronasMastbreaker" },
         { name: "Gittern", value: "Gittern" },
@@ -297,6 +303,7 @@ export const globalKeys = {
         { name: "Spear", value: "Spear" },
         { name: "Trident", value: "Trident" },
         { name: "Skypiercer", value: "Skypiercer" },
+        { name: "Sunspear", value: "Sunspear" },
         { name: "Pike", value: "Pike" },
         { name: "Poleaxe", value: "Poleaxe" },
         { name: "Battleaxe", value: "Battleaxe" },
@@ -426,7 +433,9 @@ export const globalKeys = {
         { name: "Tiran Nun's Habit", value: "TiranNunHabit" },
         { name: "Tiran Paladin Chestplate", value: "TiranPaladinChestplate" },
         { name: "Flamewing Garb", value: "FlamewingGarb" },
-        { name: "Conqueror's Breastplate", value: "ConquerorBreastplate" }
+        { name: "Witch's Dress", value: "WitchDress" },
+        { name: "Conqueror's Breastplate", value: "ConquerorBreastplate" },
+        { name: "Giant's Breastplate", value: "GiantPlate" }
     ],
     ItemHead: [
         { name: "Witch's Hat", value: "WitchsHat" },
@@ -841,6 +850,26 @@ export const globalKeys = {
             name: "Odd-Looking Salve",
             value: "OddSalve",
             attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Jackal-Eared Fig",
+            value: "JackalFig",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Bregd’stemn",
+            value: "BregdStemn",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Ampela Grapes",
+            value: "AmpelaGrapes",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
+        },
+        {
+            name: "Echo Date",
+            value: "EchoDate",
+            attr: { "1": { text: "TF Type", type: "select", group: "TFType" } }
         }
     ],
     Misc: [
@@ -918,6 +947,7 @@ export const globalKeys = {
         { name: "Tome Of Lay On Hands", value: "TomeOfLayOnHands" },
         { name: "Tome Of Jade Flame", value: "TomeOfJadeFlame" },
         { name: "Tome Of Power Wave", value: "TomeOfPowerWave" },
+        { name: "Tome Of Mind Blast", value: "TomeOfMindBlast" },
         { name: "Pink Draught", value: "PinkDraught" },
         { name: "Hornet Venom", value: "HornetVenom" },
         { name: "Lingering Ember", value: "LingeringEmber" }
@@ -942,6 +972,7 @@ export const globalKeys = {
         { name: "Onmyodo", value: "Onmyodo" },
         { name: "Kitsune-Bi", value: "KitsuneBi" },
         { name: "Kami-no-Michi", value: "KamiNoMichi" },
+        { name: "Kanso", value: "Kanso" },
         { name: "Queenly Raiment", value: "QueenlyRaiment" },
         { name: "Warhides", value: "WarhidesSet" },
         { name: "Berserker", value: "BerserkerSet" },
@@ -949,7 +980,8 @@ export const globalKeys = {
         { name: "Spirit Totem", value: "SpiritTotemSet" },
         { name: "Hive Knight Set", value: "HiveKnightSet" },
         { name: "Honey Maiden's Dress", value: "HoneyMaidensDress" },
-        { name: "Flamewing", value: "Flamewing" }
+        { name: "Flamewing", value: "Flamewing" },
+        { name: "Enchantress Set", value: "EnchantressSet" }
     ],
     KeyItems: [
         { name: "Alchemist Kit", value: "AlchemistKit" },
@@ -959,6 +991,7 @@ export const globalKeys = {
         { name: "Buttplug", value: "Buttplug" },
         { name: "Circlet Of Sunlight", value: "CircletOfSunlight" },
         { name: "Cock Scepter", value: "CockScepter" },
+        { name: "Crackling Sac", value: "CracklingSac" },
         { name: "Old Dented Pot", value: "DentedPot" },
         { name: "Dildo", value: "Dildo" },
         { name: "Dire Wolf Corpse", value: "DireWolfCorpse" },
@@ -968,6 +1001,9 @@ export const globalKeys = {
         { name: "Ghostlight Piercing", value: "GhostlightPiercing" },
         { name: "Honey Core", value: "HoneyCore" },
         { name: "Honey Key", value: "HoneyKey" },
+        { name: "Battle-scarred Hook-dagger", value: "HookDagger" },
+        { name: "Horn Of Tides", value: "HornOfTides" },
+        { name: "Crate Of Ice Wine", value: "IceWineCrate" },
         { name: "Jade Teardrop", value: "JadeTeardrop" },
         { name: "Jaelyn's Lethicite Shard", value: "JaelynLethiciteShard" },
         { name: "Jael'yn's Cock Ring", value: "JaelynsCockRing" },
@@ -992,6 +1028,7 @@ export const globalKeys = {
         { name: "Tarnished Kettle", value: "TarnishedKettle" },
         { name: "Unassembled Crib", value: "UnassembledCrib" },
         { name: "Venom Key", value: "VenomKey" },
+        { name: "Vivs Lethicite Shard", value: "VivsLethiciteShard" },
         { name: "Waystone Charm", value: "WaystoneCharm" }
     ],
     Boon: [
@@ -1097,6 +1134,7 @@ export const globalKeys = {
         { name: "Bolstered", value: "Bolstered" },
         { name: "Brazenberry Ale", value: "BrazenberryAle" },
         { name: "Burning", value: "Burning" },
+        { name: "Celestial Form", value: "CelestialForm" },
         { name: "Conjurer's Concoction", value: "ConjurersConcoction" },
         { name: "Counterspelled", value: "Counterspelled" },
         { name: "Covered", value: "Covered" },
@@ -1115,11 +1153,14 @@ export const globalKeys = {
         { name: "Flametongue", value: "Flametongue" },
         { name: "Floral Aegis", value: "FloralAegis" },
         { name: "Focused", value: "Focused" },
+        { name: "Fortified", value: "Fortified" },
         { name: "Frigid", value: "Frigid" },
+        { name: "Guldring Healing", value: "GuldringHealing" },
         { name: "Heal Shield", value: "HealShield" },
         { name: "Heat Mirage", value: "HeatMirage" },
         { name: "Heightened Senses", value: "HeightenedSenses" },
         { name: "Holy Ward", value: "HolyWard" },
+        { name: "Hyped Up!", value: "HypedUp" },
         { name: "Immolation", value: "Immolation" },
         { name: "Inspired", value: "Inspired" },
         { name: "Karmic Retribution", value: "KarmicRetribution" },
@@ -1130,6 +1171,7 @@ export const globalKeys = {
         { name: "Poisoned", value: "Poisoned" },
         { name: "Prone", value: "Prone" },
         { name: "Protected", value: "Protected" },
+        { name: "Reactive Ward", value: "ReactiveWard" },
         { name: "Resistance", value: "Resistance" },
         { name: "Restrained", value: "Restrained" },
         { name: "Rhythmic Focus", value: "RhythmicFocus" },
@@ -1153,7 +1195,9 @@ export const globalKeys = {
         { name: "Terrified", value: "Terrified" },
         { name: "Threat Manifest", value: "ThreatManifest" },
         { name: "Unbreakable", value: "Unbreakable" },
+        { name: "Unfocused", value: "Unfocused" },
         { name: "Vanguard", value: "Vanguard" },
+        { name: "Vigor Aurora", value: "VigorAurora" },
         { name: "War Hymn", value: "WarHymn" },
         { name: "Warlord's Cry", value: "WarlordsCry" },
         { name: "Weapon Buff", value: "WeaponBuff" },
@@ -1181,7 +1225,9 @@ export const globalKeys = {
         { name: "Wyvern Venom", value: "WyvernVenom" },
         { name: "Acid Flask", value: "AcidFlask" },
         { name: "Ancestral Aegis", value: "AncestralAegis" },
+        { name: "Arcanist's Blessing", value: "ArcanistsBlessing" },
         { name: "Aura Of Desire", value: "AuraOfDesire" },
+        { name: "Aurora Of Vigor", value: "AuroraOfVigor" },
         { name: "Banshee Wail", value: "BansheeWail" },
         { name: "Bark Skin", value: "BarkSkin" },
         { name: "Berserkergang", value: "Berserkergang" },
@@ -1193,6 +1239,7 @@ export const globalKeys = {
         { name: "Brazenberry Ale", value: "BrazenberryAle" },
         { name: "Calm Mind", value: "CalmMind" },
         { name: "Cauterize", value: "Cauterize" },
+        { name: "Celestial Form", value: "CelestialForm" },
         { name: "Charge Weapon", value: "ChargeWeapon" },
         { name: "Cleansing Bell", value: "CleansingBell" },
         { name: "Command Pheromones", value: "CommandPheromones" },
@@ -1205,6 +1252,7 @@ export const globalKeys = {
         { name: "Devotion", value: "Devotion" },
         { name: "Duelist's Stance", value: "DuelistsStance" },
         { name: "Earthward", value: "Earthward" },
+        { name: "Elemental Fury", value: "ElementalFury" },
         { name: "Enraging Challenge", value: "EnragingChallenge" },
         { name: "Equanimity", value: "Equanimity" },
         { name: "Equilibrium", value: "Equilibrium" },
@@ -1229,6 +1277,7 @@ export const globalKeys = {
         { name: "Holy Ward", value: "HolyWard" },
         { name: "Hornet Honey", value: "HornetHoney" },
         { name: "Hornet Venom", value: "HornetVenom" },
+        { name: "Hype Up", value: "HypeUp" },
         { name: "Infernal Bond", value: "InfernalBond" },
         { name: "Inspiration", value: "Inspiration" },
         { name: "Intuition", value: "Intuition" },
@@ -1392,6 +1441,7 @@ export const globalKeys = {
         { name: "Devious Ruse", value: "DeviousRuse" },
         { name: "Dischord", value: "Dischord" },
         { name: "Dischordant", value: "Dischordant" },
+        { name: "Distract", value: "Distract" },
         { name: "Dragon's Breath", value: "DragonsBreath" },
         { name: "Entropic Fortune", value: "EntropicFortune" },
         { name: "Entropic Winds", value: "EntropicWinds" },
@@ -1400,6 +1450,7 @@ export const globalKeys = {
         { name: "Firewyrms", value: "Firewyrms" },
         { name: "Flare", value: "Flare" },
         { name: "Flash Fire", value: "FlashFire" },
+        { name: "Fortify", value: "Fortify" },
         { name: "Foxfire", value: "Foxfire" },
         { name: "Freeze Solid", value: "FreezeSolid" },
         { name: "Frequency Adherence", value: "FrequencyAdherence" },
@@ -1418,17 +1469,22 @@ export const globalKeys = {
         { name: "Lustful Images", value: "LustfulImages" },
         { name: "Magic Missile", value: "MagicMissile" },
         { name: "Mass Drain", value: "MassDrain" },
+        { name: "Mind Blast", value: "MindBlast" },
         { name: "Nullify", value: "Nullify" },
         { name: "Pollen Spray", value: "PollenSpray" },
         { name: "Primal Scar", value: "PrimalScar" },
+        { name: "Psionic Infiltration", value: "PsionicInfiltration" },
         { name: "Psychic Blast", value: "PsychicBlast" },
         { name: "Psyshock", value: "Psyshock" },
         { name: "Ray Of Frost", value: "RayOfFrost" },
+        { name: "Reactive Ward", value: "ReactiveWard" },
+        { name: "Sanctify", value: "Sanctify" },
         { name: "Shadow Magic", value: "ShadowMagic" },
         { name: "Shatter", value: "Shatter" },
         { name: "Solar Cannon", value: "SolarCannon" },
         { name: "Soul Arrow", value: "SoulArrow" },
         { name: "Sun Of Jassira", value: "SunOfJassira" },
+        { name: "Thunder Scream", value: "ThunderScream" },
         { name: "Trick", value: "Trick" },
         { name: "Vile Miasma", value: "VileMiasma" },
         { name: "Vitality Reap", value: "VitalityReap" },
@@ -1446,6 +1502,7 @@ export const globalKeys = {
         { name: "Spew Elf", value: "SpewElf" },
         { name: "Split Self", value: "SplitSelf" },
         { name: "Summon Bull", value: "SummonBull" },
+        { name: "Summon Corrupt Tentacle", value: "SummonCorruptTentacle" },
         { name: "Summon Effigy", value: "SummonEffigy" },
         { name: "Summon Flame Dancer", value: "SummonFlameDancer" },
         { name: "Summon Flame Knight", value: "SummonFlameKnight" },
@@ -1485,6 +1542,7 @@ export const globalKeys = {
         { name: "Trick Shot", value: "TrickShot" },
         { name: "Shatterstrike", value: "Shatterstrike" },
         { name: "Wyvern Sting", value: "WyvernSting" },
+        { name: "Sunstrike", value: "Sunstrike" },
         { name: "Sun Arrow", value: "SunArrow" },
         { name: "Crowd Control", value: "CrowdControl" },
         { name: "Stick And Move", value: "StickAndMove" },
@@ -1528,7 +1586,8 @@ export const globalKeys = {
         { name: "Frostfire Shot", value: "FrostfireShot" },
         { name: "Ground Pound", value: "GroundPound" },
         { name: "Echoing Assault", value: "EchoingAssault" },
-        { name: "Iceburst Arrow", value: "IceburstArrow" }
+        { name: "Iceburst Arrow", value: "IceburstArrow" },
+        { name: "Flamebrand", value: "Flamebrand" }
     ],
     Perks: [
         { name: "Arcane Attunement", value: "ArcaneAttunement" },
@@ -1545,6 +1604,7 @@ export const globalKeys = {
         { name: "Dance Of The Dunes", value: "DanceOfDunes" },
         { name: "Embers", value: "Embers" },
         { name: "Escape Artist", value: "EscapeArtist" },
+        { name: "Expert Enchanting", value: "ExpertEnchanting" },
         { name: "Eye Of The Storm", value: "EyeOfTheStorm" },
         { name: "Filthy Tease", value: "FilthyTease" },
         { name: "Focused Will", value: "FocusedWill" },
@@ -1571,6 +1631,7 @@ export const globalKeys = {
         { name: "Twist The Knife", value: "TwistTheKnife" },
         { name: "Veteran", value: "Veteran" },
         { name: "War Paint", value: "WarPaint" },
+        { name: "Approaching Storm", value: "ApproachingStorm" },
         { name: "Archmage", value: "Archmage" },
         { name: "Arousing Aura", value: "ArousingAura" },
         { name: "Font Of Will", value: "FontOfWill" },
