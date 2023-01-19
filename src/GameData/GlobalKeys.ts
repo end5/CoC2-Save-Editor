@@ -370,7 +370,10 @@ export const globalKeys = {
         { name: "Conjured Flame", value: "ConjuredFlame" },
         { name: "Bone Seax", value: "BoneSeax" },
         { name: "Corrupted Dawnsword", value: "CorruptedDawnsword" },
-        { name: "Dawnsword", value: "Dawnsword" }
+        { name: "Dawnsword", value: "Dawnsword" },
+        { name: "Wraithslayer's Dreamblade", value: "WraithslayerDreamblade" },
+        { name: "Caranbrot", value: "Caranbrot" },
+        { name: "Wing Of Asira", value: "AsiraWing" }
     ],
     ArmorSet: [
         { name: "Comfortable Clothes", value: "ComfortableClothes" },
@@ -406,7 +409,7 @@ export const globalKeys = {
         { name: "Outrider's Leathers", value: "OutridersLeathers" },
         { name: "Princess Dress", value: "PrincessDress" },
         { name: "Sigil-bound Jerkin", value: "SigilBoundJerkin" },
-        { name: "Lamellar Armour", value: "LamellarArmour" },
+        { name: "Lamellar Armor", value: "LamellarArmour" },
         { name: "Ex-cultist Coat", value: "CultistCoat" },
         { name: "Heartland Mail", value: "HeartlandMail" },
         { name: "Noble Yukata", value: "NobleYukata" },
@@ -435,7 +438,9 @@ export const globalKeys = {
         { name: "Flamewing Garb", value: "FlamewingGarb" },
         { name: "Witch's Dress", value: "WitchDress" },
         { name: "Conqueror's Breastplate", value: "ConquerorBreastplate" },
-        { name: "Giant's Breastplate", value: "GiantPlate" }
+        { name: "Giant's Breastplate", value: "GiantPlate" },
+        { name: "Panoply Of The Holy City", value: "HolyCityPanoply" },
+        { name: "Izkanti Dress", value: "IzkantiDress" }
     ],
     ItemHead: [
         { name: "Witch's Hat", value: "WitchsHat" },
@@ -988,6 +993,7 @@ export const globalKeys = {
         { name: "Basket Of Javelins", value: "BasketOfJavelins" },
         { name: "Berwyn's Panties", value: "BerwynsPanties" },
         { name: "Blue Gemstone Stud", value: "BlueGemstoneStud" },
+        { name: "Broken Sword Shard", value: "BrokenSwordShard" },
         { name: "Buttplug", value: "Buttplug" },
         { name: "Circlet Of Sunlight", value: "CircletOfSunlight" },
         { name: "Cock Scepter", value: "CockScepter" },
@@ -1099,6 +1105,7 @@ export const globalKeys = {
         { name: "Overburdened", value: "Overburdened" },
         { name: "Prayer Of Warding", value: "PrayerOfWarding" },
         { name: "Ranger's Quarry", value: "RangersQuarry" },
+        { name: "Reality Bleed", value: "RealityBleed" },
         { name: "Relaxed", value: "Relaxed" },
         { name: "Rut", value: "Rut" },
         { name: "Sex Scent", value: "SexScent" },
@@ -1118,6 +1125,7 @@ export const globalKeys = {
         { name: "Well Fed", value: "WellFed" }
     ],
     CombatEffect: [
+        { name: "Actualized", value: "Actualized" },
         { name: "Ancestor's Judgement", value: "AncestorsJudgement" },
         { name: "Ancestral Aegis", value: "AncestralAegis" },
         { name: "Aroused", value: "Aroused" },
@@ -1155,6 +1163,8 @@ export const globalKeys = {
         { name: "Focused", value: "Focused" },
         { name: "Fortified", value: "Fortified" },
         { name: "Frigid", value: "Frigid" },
+        { name: "Goddess' Blessing", value: "GoddessBlessing" },
+        { name: "Goddess' Interdiction", value: "GoddessInterdiction" },
         { name: "Guldring Healing", value: "GuldringHealing" },
         { name: "Heal Shield", value: "HealShield" },
         { name: "Heat Mirage", value: "HeatMirage" },
@@ -1250,6 +1260,7 @@ export const globalKeys = {
         { name: "Deflection", value: "Deflection" },
         { name: "Detonate", value: "Detonate" },
         { name: "Devotion", value: "Devotion" },
+        { name: "Divine Excision", value: "DivineExcision" },
         { name: "Duelist's Stance", value: "DuelistsStance" },
         { name: "Earthward", value: "Earthward" },
         { name: "Elemental Fury", value: "ElementalFury" },
@@ -1502,6 +1513,7 @@ export const globalKeys = {
         { name: "Spew Elf", value: "SpewElf" },
         { name: "Split Self", value: "SplitSelf" },
         { name: "Summon Bull", value: "SummonBull" },
+        { name: "Summon Cassidy", value: "SummonCassidy" },
         { name: "Summon Corrupt Tentacle", value: "SummonCorruptTentacle" },
         { name: "Summon Effigy", value: "SummonEffigy" },
         { name: "Summon Flame Dancer", value: "SummonFlameDancer" },
