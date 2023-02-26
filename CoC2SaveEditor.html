@@ -23556,7 +23556,15 @@ h4 {
                 throw new Error('File read result not a string');
             }
             try {
-                saveObj = JSON.parse(state.fileReader.result);
+                let saveData;
+                let saveDataRaw = JSON.parse(state.fileReader.result);
+                if (saveDataRaw.data) {
+                    saveData = JSON.parse(saveDataRaw.data);
+                }
+                else {
+                    saveData = saveDataRaw;
+                }
+                saveObj = saveData;
             }
             catch (err) {
                 alert("Error parsing file");
