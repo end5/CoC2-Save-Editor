@@ -12,13 +12,13 @@ export function displayEditorContent(state: State) {
         key: 'flags',
         title: 'Flags',
         content: new FlagContent(
-            (key) => state.editObj?.flags[key],
+            (key) => state.editObj?.data.flags[key],
             (key, value) => {
                 if (state.editObj)
                     if (!value)
-                        delete state.editObj.flags[key];
+                        delete state.editObj.data.flags[key];
                     else
-                        state.editObj.flags[key] = value;
+                        state.editObj.data.flags[key] = value;
             }),
     }]);
 }

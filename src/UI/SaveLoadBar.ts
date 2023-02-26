@@ -3,7 +3,7 @@ import { charDefaults } from "../GameData/CharDefaults";
 import 'file-saver';
 import '../../external/FileSaver.js';
 import { FieldHTML } from "../Display/HTMLGenerics";
-import { GameSave, CharNames, FlagNames } from "../Data/GameSave";
+import { GameSaveRaw, CharNames, FlagNames, GameSaveData, GameSaveState } from "../Data/GameSave";
 import { Flags } from "../GameData/Flags";
 import { createChar } from "../Data/Char";
 import { CharType } from "../Data/CharTypes";
@@ -145,15 +145,12 @@ function handleFiles(file: File, state: State, onSuccess: (filename: string) => 
         }
 
         try {
-            validateSave(saveObj);
+            state.editObj = unpackSave(saveObj);
         }
         catch (err) {
             alert('Loading save failed - ' + err);
             throw err;
         }
-
-        state.fileObj = saveObj;
-        state.editObj = unpackSave(saveObj);
 
         alert("Load Complete");
         onSuccess(file.name);
@@ -164,67 +161,96 @@ function handleFiles(file: File, state: State, onSuccess: (filename: string) => 
     });
 }
 
-function validateSave(saveObj: Partial<GameSave>): asserts saveObj is GameSave {
+function createSaveState(saveObj: GameSaveRaw): GameSaveState {
+    if ('data' in saveObj) {
+        const data = JSON.parse(saveObj.data) as GameSaveData;
+        return { version: '0.5.33', raw: saveObj, data };
+    }
+    else {
+        const data = JSON.parse(JSON.stringify(saveObj)) as GameSaveData;
+        return { version: '0.5.29', raw: saveObj, data };
+    }
+}
+
+export function unpackSave(saveObj?: GameSaveRaw) {
     if (!saveObj) throw new Error('Missing save object');
-    if (!saveObj.chars) throw new Error('Missing chars');
+
+    const saveCopy = JSON.parse(JSON.stringify(saveObj)) as GameSaveRaw;
+    const saveState = createSaveState(saveCopy);
+
+    if (!saveState.data.chars) throw new Error('Missing chars');
     // for (const key of Object.keys(charDefaults))
     //     if (!(key in saveObj.chars)) throw new Error('Missing char ' + key);
 
-    if (!saveObj.flags) throw new Error('Missing flags');
+    if (!saveState.data.flags) throw new Error('Missing flags');
 
-    for (const key of Object.keys(saveObj.flags) as FlagNames[])
+    for (const key of Object.keys(saveState.data.flags) as FlagNames[])
         if (!Flags.includes(key))
             console.log('Missing flag ' + key);
-}
-
-export function unpackSave(saveObj: GameSave) {
-    const saveCopy = JSON.parse(JSON.stringify(saveObj)) as GameSave;
-    const charKeys = Object.keys(charDefaults) as CharNames[];
 
     // This is unsafe. No values are being verified they are correct.
+    const charKeys = Object.keys(charDefaults) as CharNames[];
     for (const key of charKeys)
-        saveCopy.chars[key] = unpackChar(key, charDefaults[key], saveCopy.chars[key]);
+        saveState.data.chars[key] = unpackChar(key, charDefaults[key], saveState.data.chars[key]);
 
-    return saveCopy;
+    return saveState;
 }
 
-export function packSave(saveObj: GameSave) {
-    const saveCopy = JSON.parse(JSON.stringify(saveObj)) as GameSave;
+export function packSave(saveState: GameSaveState) {
+    let saveDataCopy = JSON.parse(JSON.stringify(saveState.data)) as GameSaveData;
+
     const charKeys = Object.keys(charDefaults) as CharNames[];
-
     for (const key of charKeys)
-        saveCopy.chars[key] = packChar(key, charDefaults[key], saveCopy.chars[key]);
+        saveDataCopy.chars[key] = packChar(key, charDefaults[key], saveDataCopy.chars[key]);
 
-    return saveCopy;
+    let saveRaw: GameSaveRaw;
+    if (saveState.version == '0.5.33') {
+        saveRaw = JSON.parse(JSON.stringify(saveState.raw)) as typeof saveState.raw;
+        saveRaw.data = JSON.stringify(saveDataCopy);
+    }
+    else {
+        saveRaw = saveDataCopy;
+    }
+
+    return saveRaw;
 }
 
 export function unpackChar<K extends keyof typeof charDefaults>(key: K, charDefault: typeof charDefaults[K], charType: CharType) {
     let char = Object.assign(createChar(), JSON.parse(JSON.stringify(charDefault)), charType);
+    if ('_hairColor' in char) char.hairColor = char._hairColor;
     if (key == 'cait') {
-        if ('_thickness' in char) { char.thickness = char._thickness; delete char['_thickness']; }
-        if ('_hipRatingRaw' in char) { char.hipRatingRaw = char._hipRatingRaw; delete char['_hipRatingRaw']; }
-        if ('_buttRatingRaw' in char) { char.buttRatingRaw = char._buttRatingRaw; delete char['_buttRatingRaw']; }
-        if ('_bellyRatingRaw' in char) { char.bellyRatingRaw = char._bellyRatingRaw; delete char['_bellyRatingRaw']; }
+        if ('_thickness' in char) char.thickness = char._thickness;
+        if ('_hipRatingRaw' in char) char.hipRatingRaw = char._hipRatingRaw;
+        if ('_buttRatingRaw' in char) char.buttRatingRaw = char._buttRatingRaw;
+        if ('_bellyRatingRaw' in char) char.bellyRatingRaw = char._bellyRatingRaw;
     }
     return char;
 }
 
 export function packChar<K extends keyof typeof charDefaults>(key: K, charDefault: typeof charDefaults[K], charType: CharType) {
-    let char: any = diffChar(charDefault, charType);
     if (key == 'cait') {
-        if ('thickness' in char) { char._thickness = char.thickness; delete char['thickness']; }
-        if ('hipRatingRaw' in char) { char._hipRatingRaw = char.hipRatingRaw; delete char['hipRatingRaw']; }
-        if ('buttRatingRaw' in char) { char._buttRatingRaw = char.buttRatingRaw; delete char['buttRatingRaw']; }
-        if ('bellyRatingRaw' in char) { char._bellyRatingRaw = char.bellyRatingRaw; delete char['bellyRatingRaw']; }
+        (charType as any)._thickness = charType.thickness;
+        (charType as any)._hipRatingRaw = charType.hipRatingRaw;
+        (charType as any)._buttRatingRaw = charType.buttRatingRaw;
+        (charType as any)._bellyRatingRaw = charType.bellyRatingRaw;
     }
-    return char;
+    (charType as any)._hairColor = charType.hairColor;
+
+    return diffChar(charDefault, charType);
 }
 
 export function diffChar<A extends Record<string, any>, B extends Record<string, any>>(packed: A, expanded: B): B {
-    return Object.keys(expanded)
-        .filter((key) => JSON.stringify(packed[key]) !== JSON.stringify(expanded[key]))
-        .reduce((copyObj, key) => {
+    let copyObj: any = {};
+    for (let key of Object.keys(expanded)) {
+        if (key in packed && JSON.stringify(packed[key]) !== JSON.stringify(expanded[key]))
             copyObj[key] = expanded[key];
-            return copyObj;
-        }, {} as any);
+    }
+    return copyObj;
+
+    // return Object.keys(expanded)
+    //     .filter((key) => JSON.stringify(packed[key]) !== JSON.stringify(expanded[key]))
+    //     .reduce((copyObj, key) => {
+    //         copyObj[key] = expanded[key];
+    //         return copyObj;
+    //     }, {} as any);
 }

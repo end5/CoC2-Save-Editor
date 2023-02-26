@@ -39,7 +39,7 @@ export class CharContent extends TabbedContent {
     public constructor(state: State) {
         const getChar = () => {
             if (!state.editObj) throw new Error('Save not loaded');
-            const char = state.editObj.chars[state.activeChar ?? 'pc'];
+            const char = state.editObj.data.chars[state.activeChar ?? 'pc'];
             if (!char) throw new Error('Char ' + state.activeChar + ' not found');
             return char;
         };

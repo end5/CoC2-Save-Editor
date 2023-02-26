@@ -1,10 +1,9 @@
-import { GameSave, CharNames } from "./GameSave";
+import { CharNames, GameSaveState } from "./GameSave";
 
 export interface State {
     file?: File;
     fileReader?: FileReader;
-    fileObj?: GameSave;
-    editObj?: GameSave;
+    editObj?: GameSaveState;
     activeChar?: CharNames;
 }
 

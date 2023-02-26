@@ -6,8 +6,8 @@ import { CharNames } from "./Data/GameSave";
 if (window) {
     const editor: any = (window as any).editor = {};
     editor.state = state;
-    editor.diffChar = (key: CharNames) => diffChar(charDefaults[key], state.editObj!.chars[key]);
-    editor.packChar = (key: CharNames) => packChar(key, charDefaults[key], state.editObj!.chars[key]);
-    editor.unpackChar = (key: CharNames) => unpackChar(key, charDefaults[key], state.editObj!.chars[key]);
+    editor.diffChar = (key: CharNames) => diffChar(charDefaults[key], state.editObj!.data.chars[key]);
+    editor.packChar = (key: CharNames) => packChar(key, charDefaults[key], state.editObj!.data.chars[key]);
+    editor.unpackChar = (key: CharNames) => unpackChar(key, charDefaults[key], state.editObj!.data.chars[key]);
     editor.charDefaults = charDefaults;
 }

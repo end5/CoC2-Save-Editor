@@ -229,7 +229,8 @@ export interface CharType {
         "10": number,
         "11": number,
         "12": number,
-        "13": number
+        "13": number,
+        "14": number
     };
     defaultCockIdx: number;
     lastRingSlotEquipped: number;

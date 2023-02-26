@@ -81,7 +81,8 @@ export const globalKeys = {
         { name: "Butt", value: 10 },
         { name: "Pussy", value: 11 },
         { name: "Cum", value: 12 },
-        { name: "Feracity", value: 13 }
+        { name: "Feracity", value: 13 },
+        { name: "Wings", value: 14 }
     ],
     BodyType: [
         { name: "None", value: -1 },
@@ -440,7 +441,8 @@ export const globalKeys = {
         { name: "Conqueror's Breastplate", value: "ConquerorBreastplate" },
         { name: "Giant's Breastplate", value: "GiantPlate" },
         { name: "Panoply Of The Holy City", value: "HolyCityPanoply" },
-        { name: "Izkanti Dress", value: "IzkantiDress" }
+        { name: "Izkanti Dress", value: "IzkantiDress" },
+        { name: "Regal Kimono", value: "RegalKimono" }
     ],
     ItemHead: [
         { name: "Witch's Hat", value: "WitchsHat" },
