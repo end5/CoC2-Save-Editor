@@ -383,7 +383,8 @@ export const globalKeys = {
         { name: "Club", value: "Club" },
         { name: "Light Hammer", value: "LightHammer" },
         { name: "Greatclub", value: "Greatclub" },
-        { name: "Cloudforger", value: "Cloudforger" }
+        { name: "Cloudforger", value: "Cloudforger" },
+        { name: "Silverthorn Bow", value: "SilverthornBow" }
     ],
     ArmorSet: [
         { name: "Comfortable Clothes", value: "ComfortableClothes" },
@@ -417,6 +418,7 @@ export const globalKeys = {
         { name: "Summoner's Robes", value: "SummonersRobes" },
         { name: "Witch's Corset", value: "WitchsCorset" },
         { name: "Outrider's Leathers", value: "OutridersLeathers" },
+        { name: "Druidic Leathers", value: "DruidicLeathers" },
         { name: "Princess Dress", value: "PrincessDress" },
         { name: "Sigil-bound Jerkin", value: "SigilBoundJerkin" },
         { name: "Berserker's Pelt", value: "BerserkersPelt" },
@@ -507,6 +509,7 @@ export const globalKeys = {
         { name: "Gauntlets", value: "Gauntlets" },
         { name: "Arm Guards", value: "ArmGuards" },
         { name: "Silver Bracelet", value: "SilverBracelets" },
+        { name: "Golden Carrot", value: "GoldenCarrot" },
         { name: "Arm-length Leather Gloves", value: "ArmLeatherGloves" },
         { name: "Royal Gloves", value: "RoyalGloves" },
         { name: "Scaredy Cat Gloves", value: "CatGloves" },
@@ -536,7 +539,8 @@ export const globalKeys = {
         { name: "Iron Clogs", value: "IronClogs" },
         { name: "Kunoichi Footwear", value: "KunoichiFootwear" },
         { name: "Latex Boots", value: "LatexBoots" },
-        { name: "Tabi Boots", value: "Tabi" }
+        { name: "Tabi Boots", value: "Tabi" },
+        { name: "Weedwalkers", value: "Weedwalkers" }
     ],
     Rings: [
         { name: "Wizard Ring", value: "WizardRing" },
@@ -551,7 +555,8 @@ export const globalKeys = {
         { name: "Earthen Chain", value: "EarthenChain" },
         { name: "Ring Of Fortune", value: "FortuneRing" },
         { name: "Guldring", value: "Guldring" },
-        { name: "Ring Of Fate", value: "RingOfFate" }
+        { name: "Ring Of Fate", value: "RingOfFate" },
+        { name: "Lucky Coin", value: "LuckyCoin" }
     ],
     TopGarb: [
         { name: "Lacy Bra", value: "LacyBra" },
@@ -955,6 +960,7 @@ export const globalKeys = {
         { name: "Lustful Liquor", value: "LustfulLiquor" },
         { name: "Ice Wine", value: "IceWine" },
         { name: "Tome Of Arc Cannon", value: "TomeOfArcCannon" },
+        { name: "Tome Of Holy Shock", value: "TomeOfHolyShock" },
         { name: "Tome Of Kiaijutsu", value: "TomeOfKiaijutsu" },
         { name: "Tome Of Carnal Hex", value: "TomeOfCarnalHex" },
         { name: "Tome Of Counterspell", value: "TomeOfCounterspell" },
@@ -1003,6 +1009,7 @@ export const globalKeys = {
         { name: "Kami-no-Michi", value: "KamiNoMichi" },
         { name: "Kanso", value: "Kanso" },
         { name: "Queenly Raiment", value: "QueenlyRaiment" },
+        { name: "Wyldkin", value: "Wyldkin" },
         { name: "Warhides", value: "WarhidesSet" },
         { name: "Berserker", value: "BerserkerSet" },
         { name: "Chieftain's Bronze", value: "ChieftainBronzeSet" },
@@ -1015,6 +1022,7 @@ export const globalKeys = {
     ],
     KeyItems: [
         { name: "Alchemist Kit", value: "AlchemistKit" },
+        { name: "Amalgam Outfits", value: "AmalgamOutfits" },
         { name: "Basket Of Javelins", value: "BasketOfJavelins" },
         { name: "Berwyn's Panties", value: "BerwynsPanties" },
         { name: "Blue Gemstone Stud", value: "BlueGemstoneStud" },
@@ -1179,8 +1187,10 @@ export const globalKeys = {
         { name: "Command Of Fire", value: "CommandOfFire" },
         { name: "Conjurer's Concoction", value: "ConjurersConcoction" },
         { name: "Cornered Beast", value: "CorneredBeast" },
+        { name: "Corrupted Blood", value: "CorruptedBlood" },
         { name: "Counterspelled", value: "Counterspelled" },
         { name: "Covered", value: "Covered" },
+        { name: "Crackling Shield", value: "CracklingShield" },
         { name: "Curse Of Misfortune", value: "CurseOfMisfortune" },
         { name: "Defending", value: "Defending" },
         { name: "Disarmed", value: "Disarmed" },
@@ -1294,7 +1304,10 @@ export const globalKeys = {
         { name: "Command Pheromones", value: "CommandPheromones" },
         { name: "Conjurer's Concoction", value: "ConjurersConcoction" },
         { name: "Control Pheromones", value: "ControlPheromones" },
+        { name: "Corrupted Blood", value: "CorruptedBlood" },
         { name: "Counterspell", value: "Counterspell" },
+        { name: "Cover Ally", value: "CoverAlly" },
+        { name: "Crackling Shield", value: "CracklingShield" },
         { name: "Defend", value: "Defend" },
         { name: "Deflection", value: "Deflection" },
         { name: "Detonate", value: "Detonate" },
@@ -1415,6 +1428,7 @@ export const globalKeys = {
         { name: "Rush", value: "Rush" },
         { name: "Shield Bash", value: "ShieldBash" },
         { name: "Shield Drive", value: "ShieldDrive" },
+        { name: "Spore Spew", value: "SporeSpew" },
         { name: "Stompy", value: "Stompy" },
         { name: "Stormrage", value: "Stormrage" },
         { name: "Tackle", value: "Tackle" },
@@ -1525,6 +1539,7 @@ export const globalKeys = {
         { name: "Lustful Images", value: "LustfulImages" },
         { name: "Magic Missile", value: "MagicMissile" },
         { name: "Mass Drain", value: "MassDrain" },
+        { name: "Miasma", value: "Miasma" },
         { name: "Mind Blast", value: "MindBlast" },
         { name: "Nullify", value: "Nullify" },
         { name: "Pollen Spray", value: "PollenSpray" },
@@ -1542,6 +1557,7 @@ export const globalKeys = {
         { name: "Soul Arrow", value: "SoulArrow" },
         { name: "Sun Of Jassira", value: "SunOfJassira" },
         { name: "Thunder Scream", value: "ThunderScream" },
+        { name: "Toxic Shock", value: "ToxicShock" },
         { name: "Trick", value: "Trick" },
         { name: "Vile Miasma", value: "VileMiasma" },
         { name: "Vitality Reap", value: "VitalityReap" },
