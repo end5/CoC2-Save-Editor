@@ -45,7 +45,8 @@ export type ItemKeys = WeaponsKeys |
     ConsumableKeys |
     SetKeys;
 
-export type KeyItemKeys = typeof globalKeys.KeyItems[number]['value'];
+export type KeyItems = typeof globalKeys.KeyItems[number];
+export type KeyItemKeys = KeyItems['value'];
 
 export type BoonKeys = typeof globalKeys.Boon[number]['value'];
 export type StatusEffectKeys = typeof globalKeys.StatusEffect[number]['value'];
@@ -126,7 +127,7 @@ export interface CharType {
     topGarment?: ItemType<TopGarbKeys>;
     bottomGarment?: ItemType<BottomGarbKeys>;
     inventory: ItemType<ItemKeys>[];
-    keyItems: ItemType<KeyItemKeys>[];
+    keyItems: KeyItem[];
     set?: ItemType<SetKeys>;
     originalRace: string;
     _race: { key: RaceTypes } | undefined;
@@ -296,4 +297,9 @@ export interface EffectType<Key extends string> {
 
 export interface PowerType {
     key: PowerKeys;
+}
+
+export interface KeyItem {
+    key: KeyItemKeys;
+    state: number;
 }

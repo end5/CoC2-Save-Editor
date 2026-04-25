@@ -12,6 +12,7 @@ import { CharNames } from "../../Data/GameSave";
 import { TabBarElement, createTabBar } from "../../Display/TabBar";
 import { enable, disable } from "../../Display/UIActions";
 import { Inventory } from "./CharContent/Inventory";
+import { KeyItemsField } from "./CharContent/KeyItems";
 
 export class CharContentHTML implements FieldHTML<HTMLDivElement> {
     public readonly element: HTMLDivElement;
@@ -64,6 +65,13 @@ export class CharContent extends TabbedContent {
             key: 'inv',
             title: 'Inventory',
             content: new Inventory(() => getChar().inventory),
+        }, {
+            key: 'keyitems',
+            title: 'Key Items',
+            content: new KeyItemsField({
+                get: () => getChar().keyItems,
+                set: v => getChar().keyItems = v
+            }),
         }, {
             key: 'body',
             title: 'Body',

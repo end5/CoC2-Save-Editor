@@ -1,4 +1,4 @@
-import { CharType, VaginaType, EffectType, BreastRowType, CockType, PowerType, PerkType } from "./CharTypes";
+import { CharType, VaginaType, EffectType, BreastRowType, CockType, PowerType, PerkType, KeyItem } from "./CharTypes";
 import { globalKeys } from "../GameData/GlobalKeys";
 
 export const MAX_INVENTORY_SLOTS = 20;
@@ -241,4 +241,8 @@ export function createEffect<K extends string>(key: K): EffectType<K> {
 
 export function createPower(key: typeof globalKeys.Powers[number]['value']): PowerType {
     return { key };
+}
+
+export function createKeyItem(key: typeof globalKeys.KeyItems[number]['value']): KeyItem {
+    return { key, state: 0 };
 }
